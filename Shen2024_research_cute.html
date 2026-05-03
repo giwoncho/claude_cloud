@@ -104,6 +104,44 @@
   .qa-q { background: #ffe6f0; border: 2px solid #ffb3d4; }
   .qa-a { background: #e6f0ff; border: 2px solid #91b8e0; }
 
+  /* === Deep Dive (--detail=deep) === */
+  details.deep-dive { margin: 14px 0; background: #fafbff; border: 2px solid #e0e6f5;
+    border-radius: 14px; padding: 14px 18px; transition: background 0.2s; }
+  details.deep-dive[open] { background: linear-gradient(180deg,#fff,#fafbff);
+    border-color: #b89ce0; box-shadow: 0 4px 12px rgba(100,130,200,0.08); }
+  details.deep-dive summary { cursor: pointer; font-size: 14px; font-weight: 600;
+    color: #5a4fcf; padding: 4px 0; user-select: none; list-style: none;
+    display: flex; align-items: center; gap: 8px; }
+  details.deep-dive summary::-webkit-details-marker { display: none; }
+  details.deep-dive summary::before { content: '▶'; display: inline-block;
+    transition: transform 0.2s; color: #d63384; font-size: 11px; }
+  details.deep-dive[open] summary::before { transform: rotate(90deg); }
+  details.deep-dive .body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5; }
+  details.deep-dive .body h4 { color: #5a4fcf; font-size: 13px; margin: 14px 0 8px;
+    display: flex; align-items: center; gap: 6px; font-weight: 700; }
+  details.deep-dive .body h4:first-child { margin-top: 0; }
+  .narrative { font-size: 13.5px; line-height: 1.75; color: #444; margin: 6px 0 12px; }
+  .narrative strong { color: #5a4fcf; }
+  .numbers-strip { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 14px; }
+  .number-chip { background: linear-gradient(135deg,#ffe6f0,#fff5e6);
+    border: 2px solid #ffb3d4; border-radius: 12px; padding: 8px 14px;
+    font-size: 12px; min-width: 80px; text-align: center; }
+  .number-chip strong { display: block; color: #d63384; font-size: 17px;
+    font-weight: bold; line-height: 1.2; }
+  .number-chip .unit { color: #888; font-size: 11px; display: block; margin-top: 2px; }
+  .number-chip.blue { background: linear-gradient(135deg,#e6f0ff,#fff); border-color: #91b8e0; }
+  .number-chip.blue strong { color: #5b9bd5; }
+  .number-chip.green { background: linear-gradient(135deg,#e8f5e9,#fff); border-color: #a5d6a7; }
+  .number-chip.green strong { color: #2e8b57; }
+  .number-chip.purple { background: linear-gradient(135deg,#f0e6ff,#fff); border-color: #b89ce0; }
+  .number-chip.purple strong { color: #5a4fcf; }
+  .paper-quote { background: #fff5e6; border-left: 4px solid #d63384;
+    padding: 12px 16px 12px 20px; margin: 10px 0 14px; font-style: italic;
+    font-size: 13px; color: #6c3a52; border-radius: 0 12px 12px 0; line-height: 1.65; }
+  .paper-quote .src { display: block; margin-top: 8px; font-size: 11px;
+    font-style: normal; color: #999; text-align: right; }
+
   .omics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 14px; }
   .omics-chip { background: linear-gradient(135deg,#fff,#fef6f9); border: 2px solid #ffb3d4;
     border-radius: 12px; padding: 12px 8px; text-align: center; font-size: 12px; }
@@ -741,6 +779,161 @@
       <span class="lang-kr">소수의 분자(약 6.6%)는 깔끔하게 직선으로 누적·감소한다 — 진짜 "시계처럼" 흐르는 노화 표지자들. 하지만 그 외 대다수는 봉우리·골짜기를 그리며 변한다.</span>
       <span class="lang-en">A minority (~6.6%) accumulate or decline cleanly along a straight line — the "clock-like" aging markers. But the bulk of the molecular landscape changes in peaks and valleys.</span>
     </div>
+  </div>
+
+  <div class="panel">
+    <h2>📔
+      <span class="lang-kr">결과 자세히 — 펼쳐서 읽기</span>
+      <span class="lang-en">Results in Depth — expand to read</span>
+    </h2>
+    <p class="narrative" style="margin-bottom:18px;">
+      <span class="lang-kr">위 카드는 한눈 요약. 아래는 각 발견에 대한 <strong>실제 수치 · 어떻게 측정했나 · 논문 직접 인용 · 왜 중요한가</strong>를 펼쳐서 보는 모드. 보고 싶은 항목만 ▶을 탭하세요.</span>
+      <span class="lang-en">The cards above are at-a-glance. Below, each finding expands into <strong>actual numbers · how it was measured · a direct paper quote · why it matters</strong>. Tap ▶ on whichever you want to drill into.</span>
+    </p>
+
+    <!-- Finding 1: 81% nonlinear (default open) -->
+    <details class="deep-dive" open>
+      <summary>
+        <span class="lang-kr">① 분자의 81%는 비선형으로 변한다 — 자세히</span>
+        <span class="lang-en">① 81% of molecules change nonlinearly — read in detail</span>
+      </summary>
+      <div class="body">
+
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>81.03%</strong>
+            <span class="unit"><span class="lang-kr">비선형</span><span class="lang-en">nonlinear</span></span>
+          </div>
+          <div class="number-chip green">
+            <strong>6.6%</strong>
+            <span class="unit"><span class="lang-kr">직선형</span><span class="lang-en">linear</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>108</strong>
+            <span class="unit"><span class="lang-kr">참가자</span><span class="lang-en">participants</span></span>
+          </div>
+          <div class="number-chip purple">
+            <strong>10</strong>
+            <span class="unit"><span class="lang-kr">오믹스 layer</span><span class="lang-en">omics layers</span></span>
+          </div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how it was compared</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">저자들은 4가지 샘플(혈액·대변·피부·구강 면봉)에서 10가지 오믹스 데이터를 반복 채취해, 분자 하나하나에 대해 두 가지 모델을 동시에 적합시켰다. <strong>(a) 직선 모델</strong> — 시간이 지남에 따라 일정한 비율로 변한다 / <strong>(b) 비선형(스플라인) 모델</strong> — 어떤 시점에 변화가 더 크고 작다. 어느 모델이 그 분자의 시간 궤적을 더 잘 설명하는지 통계적으로 비교.</span>
+          <span class="lang-en">For each molecule, the team fit two competing models on the longitudinal data: <strong>(a)</strong> a linear model assuming constant change per year, and <strong>(b)</strong> a nonlinear spline model that allows change to accelerate or stall at different ages. They then asked, statistically, which model better describes the trajectory.</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"노화 분자 표지자에서 일관된 비선형 패턴이 관찰되었으며, 약 44세와 60세의 두 시기에 상당한 dysregulation이 집중되었다."</span>
+          <span class="lang-en">"…consistent nonlinear patterns in molecular markers of aging, with substantial dysregulation occurring at two major periods occurring at approximately 44 years and 60 years."</span>
+          <span class="src">— <span class="lang-kr">Shen et al. 2024, Abstract</span><span class="lang-en">Shen et al. 2024, Abstract</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가 (쉽게)</span><span class="lang-en">Why it matters (in plain language)</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">"노화 = 매년 똑같이 한 칸씩 늙는다"는 직관이 분자 수준에서는 <strong>맞지 않는다</strong>는 것. 시계처럼 똑딱이는 분자는 6.6%뿐이고, 80% 이상은 어떤 나이에 더 빨리, 어떤 나이엔 천천히 움직인다. 이는 노화 연구에서 "혈액 한 방울만 보면 나이 알 수 있다" 식의 단일 시계 모델을 재고하게 만든다. 그리고 변화가 몰리는 나이대를 알면 그 시기에 맞춘 개입(운동·식이·약물 임상시험 시점 결정)이 가능해짐.</span>
+          <span class="lang-en">The folk model — "you age one tick per year" — doesn't hold at the molecular level. Only ~7% of molecules behave like a steady clock; over 80% speed up or slow down at specific ages. This challenges the idea of a single "biological clock" and opens the door to <strong>age-targeted interventions</strong>: if molecular change is concentrated at certain ages, interventions might be most powerful when timed to those windows.</span>
+        </p>
+
+      </div>
+    </details>
+
+    <!-- Finding 2: Wave 1 at ~44 -->
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">② 1차 파도(~44세) — 심혈관·지질·알코올 대사가 흔들린다</span>
+        <span class="lang-en">② Wave 1 (~44 yr) — cardiovascular, lipid &amp; alcohol metabolism wobble</span>
+      </summary>
+      <div class="body">
+
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>~44 yr</strong>
+            <span class="unit"><span class="lang-kr">변화 봉우리</span><span class="lang-en">crest age</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>3+</strong>
+            <span class="unit"><span class="lang-kr">주요 경로</span><span class="lang-en">major pathways</span></span>
+          </div>
+        </div>
+        <p class="narrative" style="font-size:12px;color:#888;margin-top:-4px;">
+          <span class="lang-kr">(이 파도에서 변하는 분자의 정확한 개수는 본문 fig 참조 — 본 schematic은 abstract 기반.)</span>
+          <span class="lang-en">(Exact counts of wave-1 molecules require the figures in the full paper — this schematic is built from the abstract-level summary.)</span>
+        </p>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how it was compared</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">DE-SWAN(Differential Expression Sliding Window ANalysis)을 이용해 나이를 따라 창(window)을 미끄러뜨리며, 각 나이대에서 "직전 대비 유의하게 변화한 분자"의 수를 카운트. 그 카운트가 봉우리(peak)를 그리는 나이가 변화 집중 시점. 이렇게 찾은 1차 봉우리는 <strong>~44세</strong>. 이 봉우리에서 변하는 분자들을 KEGG·Reactome 같은 pathway database에 매핑한 결과, <strong>심혈관 질환 관련 경로 · 지질(lipid) 대사 · 알코올 대사 · 카페인 대사</strong>가 두드러지게 enriched.</span>
+          <span class="lang-en">Using DE-SWAN — a sliding-window analysis along chronological age — the team counted, in each age bin, how many molecules had significantly shifted compared to the surrounding window. The count peaks at <strong>~44 yr</strong>. Pathway enrichment on the wave-1 molecules pulls up <strong>cardiovascular disease, lipid metabolism, alcohol metabolism, and caffeine metabolism</strong> as the standout signals.</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"…40세 무렵 transition에서 심혈관 질환, 지질·알코올 대사 변화가 두드러진다."</span>
+          <span class="lang-en">"…cardiovascular disease, lipid and alcohol metabolism changes [feature in] the 40-year transition."</span>
+          <span class="src">— <span class="lang-kr">Shen et al. 2024, Discussion</span><span class="lang-en">Shen et al. 2024, Discussion</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가 (쉽게)</span><span class="lang-en">Why it matters (in plain language)</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">40대 중반에 흔히 사람들이 보고하는 변화 — "전엔 술 한 잔에 끄떡없었는데 이젠 다음날 죽을 것 같다", "갑자기 콜레스테롤이 올라갔다", "체중이 같은데 허리가 굵어진다" — 이게 단순한 기분이나 우연이 아니라 분자 수준에서 실제로 잡힌다는 뜻. 이 시기에 심혈관·지질 검사를 시작하라는 임상 권고는 이미 있었지만, 이 논문은 <strong>왜 하필 그 나이인지에 대한 분자 근거</strong>를 제공한다.</span>
+          <span class="lang-en">The classic "mid-40s shifts" people report — alcohol hits harder, cholesterol creeps up, body composition changes — show up as real molecular signal, not just lifestyle noise. Clinical guidelines already nudge cardiovascular and lipid screening to start in this decade; this paper supplies the <strong>molecular reason</strong> for that age cutoff and validates it from below.</span>
+        </p>
+
+      </div>
+    </details>
+
+    <!-- Finding 3: Wave 2 at ~60 -->
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">③ 2차 파도(~60세) — 면역·당대사·신장이 광범위하게 재배선</span>
+        <span class="lang-en">③ Wave 2 (~60 yr) — immune, carbohydrate &amp; kidney systems rewire</span>
+      </summary>
+      <div class="body">
+
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>~60 yr</strong>
+            <span class="unit"><span class="lang-kr">변화 봉우리</span><span class="lang-en">crest age</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>BUN ↑</strong>
+            <span class="unit"><span class="lang-kr">신장 표지자</span><span class="lang-en">kidney marker</span></span>
+          </div>
+          <div class="number-chip green">
+            <strong>Glucose ↑</strong>
+            <span class="unit"><span class="lang-kr">당대사</span><span class="lang-en">glucose</span></span>
+          </div>
+          <div class="number-chip purple">
+            <strong>Phe ↑</strong>
+            <span class="unit"><span class="lang-kr">phenylalanine</span><span class="lang-en">phenylalanine</span></span>
+          </div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how it was compared</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">동일한 DE-SWAN 절차에서 두 번째 봉우리가 <strong>~60세</strong>에 등장. 이 봉우리에서 변하는 분자들을 묶으면 <strong>면역 조절</strong>(사이토카인·면역세포 신호 분자)과 <strong>탄수화물 대사</strong>(인슐린·당 처리 관련 단백체/대사체)가 가장 강하게 enriched. 또한 임상 검사상 <strong>혈중요소질소(BUN)</strong>와 <strong>혈당</strong>이 이 시기에 비선형으로 상승하고, <strong>phenylalanine</strong>(필수 아미노산)이 60세 이후에 비선형으로 증가. 동시에 1차 파도에서 봤던 심혈관 신호가 다시 강해진다 — 즉 "이전 파도가 가라앉았다가 새 색깔로 재발".</span>
+          <span class="lang-en">The DE-SWAN procedure flags a second peak at <strong>~60 yr</strong>. Pathway enrichment on the wave-2 molecules highlights <strong>immune regulation</strong> (cytokines, immune-cell signaling) and <strong>carbohydrate metabolism</strong> (insulin- and glucose-handling proteins/metabolites). Clinical-lab markers including <strong>blood urea nitrogen (BUN)</strong> and <strong>glucose</strong> rise nonlinearly here, and <strong>phenylalanine</strong> shows a nonlinear increase after 60. Cardiovascular signals also re-intensify — the first wave doesn't quietly fade, it returns wearing a different cellular costume.</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"60세 transition에서 면역 조절과 탄수화물 대사가 변화하며, 약 60세 이후 phenylalanine 대사가 비선형으로 증가한다."</span>
+          <span class="lang-en">"…immune regulation and carbohydrate metabolism … shifted during the 60-year transition", with phenylalanine metabolism showing "nonlinear increase after age 60."</span>
+          <span class="src">— <span class="lang-kr">Shen et al. 2024, paraphrased from Results</span><span class="lang-en">Shen et al. 2024, paraphrased from Results</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가 (쉽게)</span><span class="lang-en">Why it matters (in plain language)</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">60세 부근에서 일어나는 일들 — 감염에 약해지고, 백신 반응이 둔해지고, 혈당 조절이 흔들리고, 신장 기능 검사 수치가 슬슬 나빠지는 것 — 이 모두가 같은 시기에 분자 수준에서 한꺼번에 일어나는 현상이라는 뜻. 임상에서 <strong>"고령자"</strong>라고 부르기 시작하는 경계가 분자적으로도 진짜 경계라는 것. 이 시기의 면역 노화(immunosenescence)와 대사 노화는 같은 거대 사건의 두 얼굴일 가능성이 있고, 각각을 따로 치는 약보다 둘을 동시에 건드리는 개입이 더 효율적일 수 있음을 시사.</span>
+          <span class="lang-en">The familiar "around 60" cluster — weakened response to infection and vaccines, glucose control fraying, creeping renal-function changes — turns out to be co-temporal at the molecular level, not coincidental. The clinical boundary where we start calling someone "older" appears to be a real molecular boundary too. This hints that immunosenescence and metabolic aging may be two faces of one event, and that an intervention hitting both could outperform single-axis approaches.</span>
+        </p>
+
+      </div>
+    </details>
+
   </div>
 
 </div>
