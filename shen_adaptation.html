@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Shen 2024 → G11BM — Senescence-axis DE-SWAN</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 980px; margin: 0 auto; }
+  header { background: white; padding: 28px; border-radius: 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 10px; line-height: 1.4; }
+  header .subtitle { color: #6c757d; font-size: 14px; line-height: 1.5; }
+  header .emoji { font-size: 32px; margin-bottom: 8px; }
+  header .badge { display: inline-block; margin-top: 10px; padding: 4px 14px;
+    background: linear-gradient(135deg,#ffd6e7,#fff5e6); border: 2px solid #ffb3d4;
+    border-radius: 14px; font-size: 12px; font-weight: bold; color: #d63384; }
+
+  .panel { background: white; border-radius: 20px; padding: 26px; margin-bottom: 22px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); }
+  .panel h2 { font-size: 18px; color: #5a4fcf; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 14px; color: #5a4fcf; margin: 14px 0 8px; }
+  .panel p { font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+  .panel ul { padding-left: 20px; font-size: 14px; line-height: 1.75; }
+  .panel li { margin-bottom: 6px; }
+  .panel strong { color: #5a4fcf; }
+
+  .bubble { background: #fff5e6; padding: 14px 18px; border-radius: 16px;
+    border: 2px solid #ffd591; font-size: 14px; margin: 12px 0; line-height: 1.65; }
+  .bubble.pink { background: #ffe6f0; border-color: #ffb3d4; }
+  .bubble.blue { background: #e6f0ff; border-color: #91b8e0; }
+  .bubble.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .bubble.purple { background: #f0e6ff; border-color: #b89ce0; }
+  .bubble.orange { background: #fff0e0; border-color: #ffb380; }
+
+  pre { background: #2d2640; color: #f8f5ff; padding: 16px 18px;
+    border-radius: 14px; font-size: 12px; line-height: 1.6; overflow-x: auto;
+    margin: 12px 0; }
+  code { font-family: 'JetBrains Mono', Menlo, Consolas, monospace; }
+  p code, li code { background: #f0e6ff; color: #5a4fcf; padding: 2px 6px;
+    border-radius: 6px; font-size: 13px; }
+
+  .arrow-flow { display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin: 18px 0; flex-wrap: wrap; }
+  .flow-step { flex: 1; min-width: 130px; background: linear-gradient(180deg,#fff,#fef6f9);
+    border: 2px solid #ffb3d4; border-radius: 14px; padding: 12px 10px;
+    text-align: center; font-size: 12px; }
+  .flow-step .ico { font-size: 22px; display: block; margin-bottom: 4px; }
+  .flow-step strong { color: #d63384; font-size: 13px; }
+  .flow-arrow { color: #d63384; font-size: 22px; font-weight: bold; }
+
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .compare-card { padding: 18px; border-radius: 14px; }
+  .compare-card.shen { background: linear-gradient(180deg,#fff,#fff5e6);
+    border: 2px solid #ffd591; }
+  .compare-card.us { background: linear-gradient(180deg,#fff,#f0e6ff);
+    border: 2px solid #b89ce0; }
+  .compare-card h3 { margin-top: 0; }
+  .compare-card ul { padding-left: 18px; font-size: 13px; line-height: 1.7; }
+
+  .scenarios { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 12px; }
+  .scenario { padding: 16px 18px; border-radius: 14px; border-left: 5px solid; }
+  .scenario.win { background: #e7f3e4; border-left-color: #2e8b57; }
+  .scenario.meh { background: #fdf0e6; border-left-color: #ed7d31; }
+  .scenario.flat { background: #f5f5f5; border-left-color: #888; }
+  .scenario h4 { font-size: 14px; margin-bottom: 6px; }
+  .scenario.win h4 { color: #1b5e20; }
+  .scenario.meh h4 { color: #b85f25; }
+  .scenario.flat h4 { color: #555; }
+  .scenario p { font-size: 13px; margin: 0; }
+
+  details.code-toggle { margin: 12px 0; background: #fafbff;
+    border: 2px solid #e0e6f5; border-radius: 14px; padding: 12px 16px; }
+  details.code-toggle summary { cursor: pointer; font-weight: 600;
+    color: #5a4fcf; font-size: 14px; list-style: none; user-select: none; }
+  details.code-toggle summary::-webkit-details-marker { display: none; }
+  details.code-toggle summary::before { content: '▶ '; color: #d63384; font-size: 11px; }
+  details.code-toggle[open] summary::before { content: '▼ '; }
+  details.code-toggle pre { margin-top: 12px; }
+
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; line-height: 1.7; }
+  footer a { color: #d63384; text-decoration: none; }
+
+  @media (max-width: 700px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .arrow-flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <div class="emoji">🌊 → 🔬 → 🧬</div>
+  <h1>Shen 2024 → G11BM<br>Senescence-axis DE-SWAN</h1>
+  <div class="subtitle">
+    Shen의 "나이별 비선형 변화" 아이디어를<br>
+    내 scRNA-seq의 <strong>SenePy senescence score 축</strong>으로 옮기기
+  </div>
+  <div class="badge">🧪 prototype · adapt to G11BM data</div>
+</header>
+
+<div class="panel">
+  <h2>💡 핵심 아이디어 (한 그림)</h2>
+  <p>
+    Shen은 사람을 <strong>나이</strong>로 정렬해놓고, 어떤 나이에 분자 변화가 몰리는지 봤어요.
+    봉우리(crest) = 그 나이에서 분자 패턴이 갑자기 재편된다는 뜻.
+  </p>
+
+  <div class="arrow-flow">
+    <div class="flow-step">
+      <span class="ico">🧓</span>
+      <strong>나이 25→75세</strong><br>
+      <span style="color:#666;">사람 정렬</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <span class="ico">📊</span>
+      <strong>DE-SWAN</strong><br>
+      <span style="color:#666;">슬라이딩 윈도우</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <span class="ico">🌊🌊</span>
+      <strong>봉우리 @44, 60</strong><br>
+      <span style="color:#666;">tipping points</span>
+    </div>
+  </div>
+
+  <div class="bubble pink">
+    <strong>이 prototype의 변환:</strong> "나이" 자리에 <strong>SenePy senescence score</strong>를 넣자.
+    "어느 score를 넘어서면 세포 상태가 갑자기 재편되는가" — 즉 <strong>biological senescence threshold</strong>를 찾는다.
+  </div>
+
+  <div class="arrow-flow">
+    <div class="flow-step" style="border-color:#5a4fcf;background:linear-gradient(180deg,#fff,#f0e6ff);">
+      <span class="ico">🔬</span>
+      <strong style="color:#5a4fcf;">세포의 sp_best score</strong><br>
+      <span style="color:#666;">세포 정렬</span>
+    </div>
+    <div class="flow-arrow" style="color:#5a4fcf;">→</div>
+    <div class="flow-step" style="border-color:#5a4fcf;background:linear-gradient(180deg,#fff,#f0e6ff);">
+      <span class="ico">📊</span>
+      <strong style="color:#5a4fcf;">DE-SWAN</strong><br>
+      <span style="color:#666;">동일 알고리즘</span>
+    </div>
+    <div class="flow-arrow" style="color:#5a4fcf;">→</div>
+    <div class="flow-step" style="border-color:#5a4fcf;background:linear-gradient(180deg,#fff,#f0e6ff);">
+      <span class="ico">⚡</span>
+      <strong style="color:#5a4fcf;">senescence threshold</strong><br>
+      <span style="color:#666;">DQ가 흔드는 지점?</span>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>🆚 Shen vs G11BM — 정확히 무엇이 같고 무엇이 다른가</h2>
+  <div class="compare-grid">
+    <div class="compare-card shen">
+      <h3>🧓 Shen 2024 (원본)</h3>
+      <ul>
+        <li><strong>축:</strong> 시간(나이) 25→75세</li>
+        <li><strong>샘플 단위:</strong> 사람 108명</li>
+        <li><strong>측정:</strong> 4 sample × 10 omics multi-modal</li>
+        <li><strong>결과:</strong> 봉우리 @44, @60 (전신 노화 transition)</li>
+        <li><strong>코드:</strong> R, <code>tidymass</code>+<code>DEswan</code></li>
+      </ul>
+    </div>
+    <div class="compare-card us">
+      <h3>🐭 본 prototype (G11BM 어댑테이션)</h3>
+      <ul>
+        <li><strong>축:</strong> SenePy <code>sp_best</code> 점수</li>
+        <li><strong>샘플 단위:</strong> 세포 (→ score-bin pseudobulk로 묶음)</li>
+        <li><strong>측정:</strong> scRNA-seq 단일 모달리티</li>
+        <li><strong>결과 기대:</strong> 어떤 score를 넘으면 세포가 "tip"하는지</li>
+        <li><strong>코드:</strong> Python (R 환경 불필요), 본인 scanpy stack과 호환</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bubble blue" style="margin-top:18px;">
+    <strong>왜 score를 axis로?</strong> 본인 데이터는 시간점이 없어요 (V1~V4, D1~D4는 replicate).
+    DE-SWAN은 ≥3개 순서가 있는 점이 필요한데, 세포마다 SenePy score가 연속적으로 분포하니
+    이게 자연스러운 "유사 시간축"이 됨. 노화 진행도가 아니라 senescence 진행도를 본다고 생각하면 됨.
+  </div>
+</div>
+
+<div class="panel">
+  <h2>⚠️ Circularity — 가장 중요한 문제</h2>
+  <p>
+    SenePy score는 <strong>유전자 발현으로부터</strong> 계산됨.
+    그러니 "score와 함께 변하는 유전자"를 찾는 건 <strong>tautology</strong>가 될 위험.
+    score를 정의하는 유전자가 score와 1:1 대응하는 건 당연한 거니까.
+  </p>
+
+  <h3>🛡️ 안전장치 3겹</h3>
+  <ul>
+    <li><strong>① 자동 제외:</strong> 정규 SenMayo gene list (Saul 2022) — 모듈 안에 박혀 있음</li>
+    <li><strong>② 사용자 제외:</strong> <code>extra_genes_to_drop</code>으로 본인 SenePy hub gene 추가 입력 가능</li>
+    <li><strong>③ Data-driven 제외:</strong> <code>|Spearman(expr, score)| &gt; 0.7</code>인 유전자 자동 제거 (default threshold)</li>
+  </ul>
+
+  <div class="bubble orange">
+    <strong>실전 팁:</strong> <code>top_genes</code> 컬럼을 봤을 때 익숙한 senescence marker가
+    꼭대기에 너무 많이 보이면 누출(leakage)을 의심하고 threshold를 0.5로 내리거나
+    <code>extra_genes_to_drop</code>에 본인 hub list를 추가하세요.
+  </div>
+</div>
+
+<div class="panel">
+  <h2>▶️ 어떻게 돌리나 (3분 퀵스타트)</h2>
+
+  <h3>1. 환경 활성화</h3>
+  <pre><code># 본인이 bm_final_analysis.py 돌릴 때 쓰는 conda env로
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate &lt;your_scanpy_env&gt;
+cd /hpc/home/gc237/work/claude_cloud/shen_adaptation</code></pre>
+
+  <h3>2. 첫 시도 — Monocytes (셀 가장 많아 통계 안정)</h3>
+  <pre><code>python run_demo.py --celltype Monocytes --condition Veh
+python run_demo.py --celltype Monocytes --condition DQ</code></pre>
+
+  <h3>3. 결과 확인</h3>
+  <pre><code>./output/Monocytes_Veh/
+├── crest_Monocytes_Veh.png      ← 헤드라인 그림 (봉우리)
+├── deswan_Monocytes_Veh.csv     ← 윈도우별 n_significant + top genes
+└── per_gene_peaks_Monocytes_Veh.csv  ← 유전자별 peak score</code></pre>
+
+  <details class="code-toggle">
+    <summary>📜 senescence_deswan.py 핵심 함수 미리보기 (클릭해서 펼치기)</summary>
+<pre><code>def deswan_window(pb, bin_score, window_center, bucket_size, alpha=0.05):
+    """At one window center, split bins at within-window median into
+    low/high, run Welch t-test per gene, BH-correct, count q&lt;alpha."""
+    lo = window_center - bucket_size/2
+    hi = window_center + bucket_size/2
+    in_win = (bin_score &gt;= lo) &amp; (bin_score &lt;= hi)
+    sub = pb[in_win]
+    sub_score = bin_score[in_win]
+    median = np.median(sub_score)
+    low  = sub[sub_score &lt;  median]
+    high = sub[sub_score &gt;= median]
+    t, p = stats.ttest_ind(high, low, axis=0, equal_var=False)
+    _, q, _, _ = multipletests(p, method="fdr_bh")
+    return int((q &lt; alpha).sum())</code></pre>
+  </details>
+</div>
+
+<div class="panel">
+  <h2>🎯 결과를 어떻게 읽나 — 4가지 시나리오</h2>
+  <div class="scenarios">
+    <div class="scenario win">
+      <h4>🥇 시나리오 A: Veh에서 sharp crest, DQ에서 평탄해짐</h4>
+      <p>가장 큰 win. DQ가 senescence commitment threshold를 무너뜨린다는
+      직접 증거. 그 crest의 top genes를 GSEA → 어떤 pathway가 "tip"되는지.
+      G11BM 논문의 새 mechanistic axis가 됨.</p>
+    </div>
+    <div class="scenario win">
+      <h4>🥈 시나리오 B: 두 condition 모두 crest, 위치는 다름</h4>
+      <p>DQ가 threshold를 미루거나 (rightward shift) 당김 (leftward).
+      Score 정량값으로 "DQ가 senescence를 평균 X점 만큼 늦춘다" 식 보고 가능.</p>
+    </div>
+    <div class="scenario meh">
+      <h4>🤷 시나리오 C: 여러 작은 crest, 하나의 큰 봉우리 없음</h4>
+      <p>Senescence가 "단계적"으로 일어남. 단일 threshold가 아니라 sequence.
+      덜 임팩트 있지만 여전히 publish 가능 — staged senescence 모델.</p>
+    </div>
+    <div class="scenario flat">
+      <h4>📉 시나리오 D: 평평한 선, crest 없음</h4>
+      <p>SenePy score는 연속 gradient고 내부 threshold가 없다는 뜻. Shen의
+      "44/60 봉우리"같은 게 senescence axis에선 없다는 negative result.
+      이것도 발견 — 적어도 monocytes에선 그렇다고 보고 가능.</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>📁 파일 구조</h2>
+  <pre><code>/hpc/home/gc237/work/claude_cloud/shen_adaptation/
+├── senescence_deswan.py    ← 모듈 (~250줄, numpy+scipy+matplotlib)
+├── run_demo.py             ← 본인 데이터 plug-in 예시
+└── README.md               ← 더 자세한 설명 (이 페이지의 텍스트 버전)</code></pre>
+  <p style="font-size:13px;color:#666;margin-top:12px;">
+    파일은 본인 <code>code_for_G11BM</code>에 <strong>건드리지 않고 별도 폴더</strong>에 있어요.
+    잘 작동하면 본인이 직접 import 해서 main pipeline에 붙이면 됨.
+  </p>
+</div>
+
+<div class="panel">
+  <h2>🚀 다음 단계 (결과가 좋으면)</h2>
+  <ul>
+    <li><strong>① Pathway enrichment per crest:</strong> 본인 <code>gsea_percelltype_aging.py</code>의
+    GSEA 파이프라인에 crest 유전자 리스트를 직접 입력. <code>peak_score</code>를 ranking metric으로.</li>
+    <li><strong>② Cross-celltype comparison:</strong> 모든 cell type에서 crest 위치를 비교.
+    "공통 threshold가 있는가, 아니면 cell-type-specific인가?"</li>
+    <li><strong>③ Veh vs DQ delta:</strong> 같은 cell type에서 Veh와 DQ crest의
+    위치/높이 차이. 이게 본인 senolytic 논문의 새 figure가 될 수 있음.</li>
+    <li><strong>④ Stretch — pseudotime axis:</strong> SenePy score 대신
+    HSPC → myeloid 분화 pseudotime을 axis로 써서 같은 분석.
+    "분화 자체에 tipping point가 있는가?"</li>
+  </ul>
+</div>
+
+<div class="panel">
+  <h2>📚 References</h2>
+  <ul>
+    <li>Shen X, Wang C, Zhou X, et al. <strong>Nonlinear dynamics of multi-omics profiles during human aging.</strong> <em>Nature Aging</em> 4:1619–1634 (2024). DOI: 10.1038/s43587-024-00692-2</li>
+    <li>Lehallier B, Gate D, et al. <strong>Undulating changes in human plasma proteome profiles across the lifespan.</strong> <em>Nat Med</em> 25:1843–1850 (2019). [DE-SWAN 원본]</li>
+    <li>Saul D, Kosinsky RL, et al. <strong>A new gene set identifies senescent cells and predicts senescence-associated pathways across tissues.</strong> <em>Nat Commun</em> 13:4827 (2022). [SenMayo]</li>
+    <li>Shen Lab GitHub: <a href="https://github.com/jaspershen-lab/ipop_aging" target="_blank">jaspershen-lab/ipop_aging</a> (R, original)</li>
+    <li>DEswan R package: <a href="https://github.com/lehallib/DEswan" target="_blank">lehallib/DEswan</a></li>
+  </ul>
+</div>
+
+<footer>
+  <strong>Senescence-axis DE-SWAN prototype</strong> for the G11BM project<br>
+  <a href="https://github.com/giwoncho/claude_cloud/tree/main/shen_adaptation" target="_blank">📂 GitHub source</a> ·
+  <a href="index.html">← back to catalog</a>
+</footer>
+
+</div>
+
+</body>
+</html>
