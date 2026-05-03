@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Shen et al. 2024 — Nonlinear Aging Waves (cute · research)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', 'Comic Sans MS', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: white; padding: 28px; border-radius: 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; position: relative; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 10px; line-height: 1.4; }
+  header .subtitle { color: #6c757d; font-size: 14px; }
+  header .citation { color: #999; font-size: 12px; margin-top: 4px; font-style: italic; }
+  header .emoji { font-size: 32px; margin-bottom: 8px; }
+  header .type-badge { display: inline-block; margin-top: 10px; padding: 4px 14px;
+    background: linear-gradient(135deg,#ffd6e7,#fff5e6); border: 2px solid #ffb3d4;
+    border-radius: 14px; font-size: 12px; font-weight: bold; color: #d63384; }
+
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-bottom: 24px; background: white; padding: 10px; border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(100,130,200,0.1); }
+  .tab-btn { border: 2px solid transparent; background: #fef6f9; padding: 14px 16px;
+    border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 14px;
+    font-weight: 600; color: #888; transition: all 0.25s; display: flex;
+    flex-direction: column; align-items: center; gap: 4px; }
+  .tab-btn .tab-emoji { font-size: 22px; }
+  .tab-btn:hover { background: #fff0f5; color: #5a4fcf; transform: translateY(-2px); }
+  .tab-btn.active { background: linear-gradient(135deg,#ffd6e7 0%,#fff5e6 100%);
+    color: #d63384; border-color: #ffb3d4;
+    box-shadow: 0 4px 12px rgba(255,150,200,0.3); }
+
+  .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+  .panel { background: white; border-radius: 20px; padding: 28px; margin-bottom: 24px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); border: 2px solid #fff; }
+  .panel h2 { font-size: 19px; color: #5a4fcf; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 15px; color: #5a4fcf; margin: 16px 0 8px; }
+
+  .scene { display: block; margin: 12px auto; max-width: 100%; }
+  .bubble { background: #fff5e6; padding: 14px 18px; border-radius: 16px;
+    border: 2px solid #ffd591; font-size: 14px; margin: 12px 0; line-height: 1.6; }
+  .bubble.pink { background: #ffe6f0; border-color: #ffb3d4; }
+  .bubble.blue { background: #e6f0ff; border-color: #91b8e0; }
+  .bubble.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .bubble.purple { background: #f0e6ff; border-color: #b89ce0; }
+  .bubble.orange { background: #fff0e0; border-color: #ffb380; }
+
+  .outcomes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 20px; }
+  .outcome-card { border-radius: 18px; padding: 20px; text-align: center;
+    border: 3px solid; background: white; transition: transform 0.2s; }
+  .outcome-card:hover { transform: translateY(-4px); }
+  .outcome-card.pink { border-color: #d63384; background: linear-gradient(180deg,#fff,#ffe6f0); }
+  .outcome-card.blue { border-color: #5b9bd5; background: linear-gradient(180deg,#fff,#e9f1fa); }
+  .outcome-card.orange { border-color: #ed7d31; background: linear-gradient(180deg,#fff,#fdf0e6); }
+  .outcome-card.green { border-color: #2e8b57; background: linear-gradient(180deg,#fff,#e7f3e4); }
+  .outcome-card.purple { border-color: #5a4fcf; background: linear-gradient(180deg,#fff,#f0e6ff); }
+  .outcome-card.gray { border-color: #888; background: linear-gradient(180deg,#fff,#f5f5f5); }
+  .outcome-card .icon { font-size: 42px; margin-bottom: 8px; }
+  .outcome-card h3 { font-size: 15px; margin-bottom: 6px; color: #3a4252; }
+  .outcome-card .source-tag { display: inline-block; font-size: 11px; padding: 3px 10px;
+    border-radius: 10px; margin-bottom: 10px; font-weight: bold; color: white; }
+  .outcome-card.pink .source-tag { background: #d63384; }
+  .outcome-card.blue .source-tag { background: #5b9bd5; }
+  .outcome-card.orange .source-tag { background: #ed7d31; }
+  .outcome-card.green .source-tag { background: #2e8b57; }
+  .outcome-card.purple .source-tag { background: #5a4fcf; }
+  .outcome-card ul { list-style: none; text-align: left; font-size: 13px; line-height: 1.7; }
+  .outcome-card li { padding: 3px 0; }
+
+  .summary-banner { background: linear-gradient(135deg,#ffd591 0%,#ffb3d4 50%,#91b8e0 100%);
+    padding: 24px; border-radius: 20px; text-align: center; color: white;
+    font-size: 16px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.15); margin-top: 20px; line-height: 1.6; }
+
+  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .method-card { border-radius: 16px; padding: 18px; background: #fafbff; border: 2px solid #e0e6f5; }
+  .method-card h4 { color: #5a4fcf; font-size: 14px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px; }
+  .method-card p, .method-card ul { font-size: 13px; color: #555; line-height: 1.6; }
+  .method-card ul { padding-left: 18px; margin-top: 6px; }
+
+  .discussion-list { list-style: none; padding: 0; }
+  .discussion-item { background: #fafbff; border-left: 5px solid #5a4fcf;
+    padding: 16px 20px; border-radius: 8px; margin-bottom: 12px; }
+  .discussion-item.limitation { border-left-color: #ed7d31; background: #fdf0e6; }
+  .discussion-item.future { border-left-color: #6aaa64; background: #e7f3e4; }
+  .discussion-item h4 { font-size: 14px; margin-bottom: 6px; color: #5a4fcf; }
+  .discussion-item.limitation h4 { color: #b85f25; }
+  .discussion-item.future h4 { color: #4a7c47; }
+  .discussion-item p { font-size: 13px; color: #555; line-height: 1.6; }
+
+  .qa-flow { background: linear-gradient(135deg,#fff5e6 0%,#ffe6f0 100%);
+    padding: 20px; border-radius: 16px; margin-top: 12px; }
+  .qa-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; }
+  .qa-q, .qa-a { padding: 12px 16px; border-radius: 14px; font-size: 13px; flex: 1; min-width: 200px; line-height: 1.6; }
+  .qa-q { background: #ffe6f0; border: 2px solid #ffb3d4; }
+  .qa-a { background: #e6f0ff; border: 2px solid #91b8e0; }
+
+  .omics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 14px; }
+  .omics-chip { background: linear-gradient(135deg,#fff,#fef6f9); border: 2px solid #ffb3d4;
+    border-radius: 12px; padding: 12px 8px; text-align: center; font-size: 12px; }
+  .omics-chip .ico { font-size: 24px; display: block; margin-bottom: 4px; }
+  .omics-chip strong { color: #5a4fcf; font-size: 12px; }
+
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; line-height: 1.7; }
+  footer a { color: #d63384; text-decoration: none; }
+
+  .lang-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 100;
+    background: white; border: 2px solid #ffb3d4; border-radius: 24px;
+    padding: 8px 16px; cursor: pointer; font-family: inherit; font-size: 13px;
+    font-weight: 600; color: #d63384; box-shadow: 0 4px 12px rgba(255,150,200,0.25);
+    transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .lang-toggle:hover { transform: scale(1.05); background: #fff0f5; }
+  .lang-toggle .flag { font-size: 16px; }
+
+  body.lang-kr .lang-en, body.lang-en .lang-kr { display: none !important; }
+  body.lang-kr svg .lang-en, body.lang-en svg .lang-kr { display: none !important; }
+
+  @media (max-width: 800px) {
+    .outcomes, .method-grid { grid-template-columns: 1fr; }
+    .omics-grid { grid-template-columns: repeat(2, 1fr); }
+    .tabs { grid-template-columns: 1fr 1fr; }
+    .lang-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body class="lang-kr">
+
+<button class="lang-toggle" onclick="toggleLang()">
+  <span class="flag lang-kr">🇰🇷</span><span class="lang-kr">한국어 → EN</span>
+  <span class="flag lang-en">🇺🇸</span><span class="lang-en">English → KR</span>
+</button>
+
+<div class="container">
+
+<header>
+  <div class="emoji">🌊 📈 🧬 ⏳</div>
+  <h1>
+    <span class="lang-kr">사람 노화는 직선이 아니다 — 44세와 60세, 두 번의 분자 도약</span>
+    <span class="lang-en">Aging Is Not Linear — Two Molecular Tipping Points at 44 and 60</span>
+  </h1>
+  <div class="subtitle">
+    <span class="lang-kr">Shen, Wang, Zhou et al. — Snyder Lab (Stanford 의대 유전학과)</span>
+    <span class="lang-en">Shen, Wang, Zhou et al. — Snyder Lab (Stanford School of Medicine, Genetics)</span>
+  </div>
+  <div class="citation">Nature Aging 4(11):1619–1634, 2024 · DOI: 10.1038/s43587-024-00692-2 · PMID: 39143318</div>
+  <div class="type-badge">
+    <span class="lang-kr">🧪 원저 연구 (Longitudinal Multi-Omics)</span>
+    <span class="lang-en">🧪 Original Research (Longitudinal Multi-Omics)</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="t1">
+    <span class="tab-emoji">📖</span>
+    <span class="lang-kr">서론</span><span class="lang-en">Introduction</span>
+  </button>
+  <button class="tab-btn" data-tab="t2">
+    <span class="tab-emoji">🔬</span>
+    <span class="lang-kr">방법</span><span class="lang-en">Methods</span>
+  </button>
+  <button class="tab-btn" data-tab="t3">
+    <span class="tab-emoji">💡</span>
+    <span class="lang-kr">결과</span><span class="lang-en">Results</span>
+  </button>
+  <button class="tab-btn" data-tab="t4">
+    <span class="tab-emoji">💭</span>
+    <span class="lang-kr">고찰</span><span class="lang-en">Discussion</span>
+  </button>
+</div>
+
+<!-- ============ TAB 1: INTRO ============ -->
+<div class="tab-content active" id="t1">
+
+  <div class="panel">
+    <h2>🤔
+      <span class="lang-kr">노화는 천천히 일정하게 진행될까?</span>
+      <span class="lang-en">Does aging progress slowly and uniformly?</span>
+    </h2>
+
+    <svg class="scene" viewBox="0 0 720 230" width="100%" height="230">
+      <!-- Linear assumption (top, faded) -->
+      <text class="lang-kr" x="20" y="30" font-size="13" font-weight="bold" fill="#888">기존 가정: 일정한 노화 📉</text>
+      <text class="lang-en" x="20" y="30" font-size="13" font-weight="bold" fill="#888">Old assumption: gradual aging 📉</text>
+      <line x1="20" y1="60" x2="700" y2="60" stroke="#bbb" stroke-width="2" stroke-dasharray="6,4"/>
+      <line x1="20" y1="60" x2="700" y2="100" stroke="#888" stroke-width="3"/>
+      <text x="710" y="105" font-size="11" fill="#888">— linear</text>
+
+      <!-- Reality (bottom, vivid) -->
+      <text class="lang-kr" x="20" y="135" font-size="13" font-weight="bold" fill="#d63384">실제로는: 두 번의 큰 도약 🌊🌊</text>
+      <text class="lang-en" x="20" y="135" font-size="13" font-weight="bold" fill="#d63384">Reality: two big waves 🌊🌊</text>
+      <line x1="20" y1="170" x2="700" y2="170" stroke="#5a4fcf" stroke-width="2"/>
+      <!-- Wavy nonlinear curve -->
+      <path d="M 20,170 L 200,165 Q 280,160 320,90 T 420,160 Q 480,165 520,100 T 620,160 L 700,155"
+            fill="none" stroke="#d63384" stroke-width="3.5"/>
+      <!-- Wave 1 marker -->
+      <circle cx="320" cy="90" r="9" fill="#ffd591" stroke="#d63384" stroke-width="2.5"/>
+      <text x="320" y="78" text-anchor="middle" font-size="11" font-weight="bold" fill="#d63384">~44</text>
+      <!-- Wave 2 marker -->
+      <circle cx="520" cy="100" r="9" fill="#ffd591" stroke="#d63384" stroke-width="2.5"/>
+      <text x="520" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#d63384">~60</text>
+      <!-- Age axis -->
+      <text x="20" y="195" font-size="11" fill="#666">25y</text>
+      <text x="360" y="195" font-size="11" fill="#666" text-anchor="middle">age</text>
+      <text class="lang-kr" x="360" y="210" font-size="11" fill="#666" text-anchor="middle">(나이)</text>
+      <text class="lang-en" x="360" y="210" font-size="11" fill="#666" text-anchor="middle">(years)</text>
+      <text x="700" y="195" font-size="11" fill="#666" text-anchor="end">75y</text>
+    </svg>
+
+    <div class="bubble pink">
+      <span class="lang-kr"><strong>핵심 의문:</strong> 노화는 시간에 비례해 부드럽게 진행되는 줄 알았다. 그런데 심혈관 질환·암·치매 같은 노화성 질환의 발생률은 어떤 나이대에 갑자기 가팔라진다. 분자 수준에서도 이런 "도약"이 보일까?</span>
+      <span class="lang-en"><strong>The puzzle:</strong> we long assumed aging is a smooth, gradual drift. Yet incidence rates of cardiovascular disease, cancer, and dementia rise <em>nonlinearly</em> with age. Are there matching molecular tipping points hiding in the omics?</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>🧭
+      <span class="lang-kr">이 논문의 목표</span>
+      <span class="lang-en">What this study set out to do</span>
+    </h2>
+
+    <div class="qa-flow">
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q1.</strong>
+          <span class="lang-kr"> 분자(단백질·대사체·전사체·미생물 등)는 나이에 따라 정말 직선적으로 변할까?</span>
+          <span class="lang-en"> Do molecules (proteins, metabolites, transcripts, microbes …) really change linearly with age?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr"> 대부분은 비선형(nonlinear). 직선으로 잘 맞는 건 일부에 불과.</span>
+          <span class="lang-en"> Most don't — the majority show nonlinear trajectories; only a minority are truly linear.</span>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q2.</strong>
+          <span class="lang-kr"> 만약 비선형이라면, "변화가 몰리는 시기"가 있을까?</span>
+          <span class="lang-en"> If nonlinear, are there age windows where change is concentrated?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr"> 있다 — <strong>40대 중반(~44세)</strong>과 <strong>60세 무렵</strong>, 두 번의 큰 파도.</span>
+          <span class="lang-en"> Yes — two big waves: <strong>mid-40s (~44 yr)</strong> and <strong>around 60 yr</strong>.</span>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q3.</strong>
+          <span class="lang-kr"> 두 파도는 같은 분자를 건드릴까, 다른 분자를 건드릴까?</span>
+          <span class="lang-en"> Do the two waves disturb the same molecules, or different ones?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr"> 다른 경로. 44세는 심혈관·지질·알코올 대사, 60세는 면역·탄수화물 대사·신장 기능 위주.</span>
+          <span class="lang-en"> Different pathways — wave 1 hits cardiovascular, lipid &amp; alcohol metabolism; wave 2 hits immune regulation, carbohydrate metabolism, and kidney function.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ TAB 2: METHODS ============ -->
+<div class="tab-content" id="t2">
+
+  <div class="panel">
+    <h2>👥
+      <span class="lang-kr">코호트 — 누구를, 얼마나 오래 추적했나</span>
+      <span class="lang-en">The cohort — who and for how long</span>
+    </h2>
+
+    <!-- Participant SVG: row of 12 stick figures representing the cohort -->
+    <svg class="scene" viewBox="0 0 720 150" width="100%" height="150">
+      <text class="lang-kr" x="20" y="22" font-size="13" font-weight="bold" fill="#5a4fcf">캘리포니아 거주 성인 108명 — 25세 ~ 75세</text>
+      <text class="lang-en" x="20" y="22" font-size="13" font-weight="bold" fill="#5a4fcf">108 California-resident adults · ages 25 – 75</text>
+
+      <!-- Generate 12 stick figures across the row, varying colors to suggest age range -->
+      <g id="people">
+        <!-- Person template at translate(x, 90) -->
+        <g transform="translate(50,90)">
+          <circle cx="0" cy="-22" r="9" fill="#ffd6e7" stroke="#d63384" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#ffd6e7" stroke="#d63384" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#d63384" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#d63384" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#d63384" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#d63384" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(105,90)">
+          <circle cx="0" cy="-22" r="9" fill="#ffd6e7" stroke="#d63384" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#ffd6e7" stroke="#d63384" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#d63384" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#d63384" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#d63384" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#d63384" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(160,90)">
+          <circle cx="0" cy="-22" r="9" fill="#fff5e6" stroke="#cc8800" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#fff5e6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#cc8800" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#cc8800" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(215,90)">
+          <circle cx="0" cy="-22" r="9" fill="#fff5e6" stroke="#cc8800" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#fff5e6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#cc8800" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#cc8800" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(270,90)">
+          <circle cx="0" cy="-22" r="9" fill="#fff5e6" stroke="#cc8800" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#fff5e6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#cc8800" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#cc8800" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#cc8800" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(325,90)">
+          <circle cx="0" cy="-22" r="9" fill="#cce5ff" stroke="#5b9bd5" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#cce5ff" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#5b9bd5" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(380,90)">
+          <circle cx="0" cy="-22" r="9" fill="#cce5ff" stroke="#5b9bd5" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#cce5ff" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#5b9bd5" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(435,90)">
+          <circle cx="0" cy="-22" r="9" fill="#cce5ff" stroke="#5b9bd5" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#cce5ff" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#5b9bd5" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#5b9bd5" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(490,90)">
+          <circle cx="0" cy="-22" r="9" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#5a4fcf" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(545,90)">
+          <circle cx="0" cy="-22" r="9" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#5a4fcf" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#5a4fcf" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(600,90)">
+          <circle cx="0" cy="-22" r="9" fill="#e8f5e9" stroke="#2e8b57" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#e8f5e9" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#2e8b57" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+        <g transform="translate(655,90)">
+          <circle cx="0" cy="-22" r="9" fill="#e8f5e9" stroke="#2e8b57" stroke-width="2"/>
+          <rect x="-7" y="-12" width="14" height="20" rx="4" fill="#e8f5e9" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="-7" y1="-6" x2="-13" y2="6" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="7" y1="-6" x2="13" y2="6" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="-3" y1="8" x2="-5" y2="20" stroke="#2e8b57" stroke-width="2"/>
+          <line x1="3" y1="8" x2="5" y2="20" stroke="#2e8b57" stroke-width="2"/>
+          <circle cx="-3" cy="-22" r="1" fill="#3a4252"/>
+          <circle cx="3" cy="-22" r="1" fill="#3a4252"/>
+        </g>
+      </g>
+
+      <text x="50" y="135" font-size="10" fill="#888" text-anchor="middle">25y</text>
+      <text x="710" y="135" font-size="10" fill="#888" text-anchor="end">75y</text>
+      <text class="lang-kr" x="360" y="135" font-size="11" fill="#5a4fcf" text-anchor="middle" font-weight="bold">… 다양한 연령대 ↑</text>
+      <text class="lang-en" x="360" y="135" font-size="11" fill="#5a4fcf" text-anchor="middle" font-weight="bold">… spanning the age range ↑</text>
+    </svg>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <h4>📅
+          <span class="lang-kr">추적 기간</span>
+          <span class="lang-en">Follow-up duration</span>
+        </h4>
+        <p>
+          <span class="lang-kr">중앙값 <strong>1.7년</strong>, 최장 <strong>6.8년</strong>. 같은 사람을 반복 채취 → 한 사람 안에서의 변화를 직접 측정.</span>
+          <span class="lang-en">Median <strong>1.7 yr</strong>, max <strong>6.8 yr</strong>. Repeated sampling per person — within-individual trajectories, not just snapshots.</span>
+        </p>
+      </div>
+      <div class="method-card">
+        <h4>📍
+          <span class="lang-kr">위치 / 인구</span>
+          <span class="lang-en">Setting / population</span>
+        </h4>
+        <p>
+          <span class="lang-kr">미국 캘리포니아 거주 성인. 자가 보고상 비교적 건강한 community-dwelling 표본.</span>
+          <span class="lang-en">California-resident adults; self-reported relatively healthy community-dwellers (not a disease cohort).</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>🧪
+      <span class="lang-kr">샘플 4종 × 오믹스 10종 — 분자를 통째로 본다</span>
+      <span class="lang-en">4 sample types × 10 omics — molecules in full panorama</span>
+    </h2>
+
+    <h3>
+      <span class="lang-kr">① 채취한 4가지 샘플</span>
+      <span class="lang-en">① Four sample types collected</span>
+    </h3>
+    <div class="omics-grid" style="grid-template-columns: repeat(4,1fr);">
+      <div class="omics-chip">
+        <span class="ico">🩸</span>
+        <strong><span class="lang-kr">혈액</span><span class="lang-en">Blood</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">💩</span>
+        <strong><span class="lang-kr">대변</span><span class="lang-en">Stool</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🤲</span>
+        <strong><span class="lang-kr">피부 면봉</span><span class="lang-en">Skin swab</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">👄</span>
+        <strong><span class="lang-kr">구강 면봉</span><span class="lang-en">Oral swab</span></strong>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 22px;">
+      <span class="lang-kr">② 측정한 10가지 오믹스</span>
+      <span class="lang-en">② Ten omics layers profiled</span>
+    </h3>
+    <div class="omics-grid">
+      <div class="omics-chip">
+        <span class="ico">🧬</span>
+        <strong><span class="lang-kr">전사체</span><span class="lang-en">Transcriptome</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🧪</span>
+        <strong><span class="lang-kr">단백체</span><span class="lang-en">Proteome</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">⚗️</span>
+        <strong><span class="lang-kr">대사체</span><span class="lang-en">Metabolome</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🫧</span>
+        <strong><span class="lang-kr">지질체</span><span class="lang-en">Lipidome</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">📡</span>
+        <strong><span class="lang-kr">사이토카인</span><span class="lang-en">Cytokines</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🩺</span>
+        <strong><span class="lang-kr">임상검사</span><span class="lang-en">Clinical labs</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🦠</span>
+        <strong><span class="lang-kr">장 미생물</span><span class="lang-en">Gut microbiome</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🦠</span>
+        <strong><span class="lang-kr">구강 미생물</span><span class="lang-en">Oral microbiome</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🦠</span>
+        <strong><span class="lang-kr">피부 미생물</span><span class="lang-en">Skin microbiome</span></strong>
+      </div>
+      <div class="omics-chip">
+        <span class="ico">🦠</span>
+        <strong><span class="lang-kr">코 미생물</span><span class="lang-en">Nasal microbiome</span></strong>
+      </div>
+    </div>
+
+    <div class="bubble blue" style="margin-top: 18px;">
+      <span class="lang-kr"><strong>총 데이터 규모:</strong> 수천만 개의 분자 측정값. Snyder 랩의 "Personal Omics Profiling" 전통을 인구 규모로 확장한 셈.</span>
+      <span class="lang-en"><strong>Scale:</strong> tens of millions of individual molecular measurements — the Snyder lab's "Personal Omics Profiling" approach scaled to a population cohort.</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>📐
+      <span class="lang-kr">분석 — 직선이냐 곡선이냐 가르기</span>
+      <span class="lang-en">Analysis — telling lines from waves</span>
+    </h2>
+    <div class="method-grid">
+      <div class="method-card">
+        <h4>📈
+          <span class="lang-kr">직선 vs 비선형 모델 비교</span>
+          <span class="lang-en">Linear vs nonlinear model comparison</span>
+        </h4>
+        <p>
+          <span class="lang-kr">각 분자에 직선과 비선형(스플라인) 모델을 모두 적합시켜, 어느 쪽이 데이터를 더 잘 설명하는지 본다.</span>
+          <span class="lang-en">For each molecule, fit both a linear and a nonlinear (spline-based) model and compare which describes the trajectory better.</span>
+        </p>
+      </div>
+      <div class="method-card">
+        <h4>🪟
+          <span class="lang-kr">DE-SWAN — 슬라이딩 윈도우</span>
+          <span class="lang-en">DE-SWAN — sliding window analysis</span>
+        </h4>
+        <p>
+          <span class="lang-kr">나이를 따라 창(window)을 미끄러뜨리며 "이 시기에 갑자기 변하는 분자"의 개수를 센다 → 변화 봉우리(=파도)가 어느 나이에 있는지 보임.</span>
+          <span class="lang-en">Slide a window across age and count molecules undergoing significant change in each window — peaks of change reveal where the "waves" sit.</span>
+        </p>
+      </div>
+      <div class="method-card">
+        <h4>🔗
+          <span class="lang-kr">경로(Pathway) 분석</span>
+          <span class="lang-en">Pathway enrichment</span>
+        </h4>
+        <p>
+          <span class="lang-kr">각 파도에서 변하는 분자들을 KEGG·Reactome 같은 경로 DB에 매핑 → 어떤 생물학이 흔들리는지 파악.</span>
+          <span class="lang-en">Map wave-associated molecules to KEGG / Reactome pathways to identify which biological systems are shifting at each tipping point.</span>
+        </p>
+      </div>
+      <div class="method-card">
+        <h4>🧮
+          <span class="lang-kr">개인 내 변동 보정</span>
+          <span class="lang-en">Within-person modeling</span>
+        </h4>
+        <p>
+          <span class="lang-kr">동일 인물의 반복측정을 활용한 mixed-effect 구조로, 개인차와 노화 효과를 분리.</span>
+          <span class="lang-en">Mixed-effects models leverage repeated samples per person to separate age effects from inter-individual variability.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ TAB 3: RESULTS ============ -->
+<div class="tab-content" id="t3">
+
+  <div class="panel">
+    <h2>🌊
+      <span class="lang-kr">시그니처 발견 — 변화의 두 봉우리</span>
+      <span class="lang-en">The signature finding — two peaks of change</span>
+    </h2>
+
+    <!-- BIG SIGNATURE SVG: the two-wave dysregulation curve -->
+    <svg class="scene" viewBox="0 0 760 380" width="100%" height="380" style="background:linear-gradient(180deg,#fff,#fef6f9);border-radius:14px;border:2px dashed #ffb3d4;">
+      <!-- Title -->
+      <text class="lang-kr" x="380" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#d63384">나이에 따라 "유의하게 변하는 분자 수"</text>
+      <text class="lang-en" x="380" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#d63384">Number of significantly changing molecules across age</text>
+
+      <!-- Y axis -->
+      <line x1="80" y1="60" x2="80" y2="320" stroke="#888" stroke-width="2"/>
+      <text class="lang-kr" x="40" y="190" font-size="11" fill="#666" transform="rotate(-90,40,190)" text-anchor="middle">변화 분자 수</text>
+      <text class="lang-en" x="40" y="190" font-size="11" fill="#666" transform="rotate(-90,40,190)" text-anchor="middle"># changing</text>
+
+      <!-- X axis -->
+      <line x1="80" y1="320" x2="720" y2="320" stroke="#888" stroke-width="2"/>
+      <!-- Age tick marks -->
+      <line x1="80" y1="320" x2="80" y2="326" stroke="#888"/>
+      <text x="80" y="345" text-anchor="middle" font-size="11" fill="#666">25</text>
+      <line x1="208" y1="320" x2="208" y2="326" stroke="#888"/>
+      <text x="208" y="345" text-anchor="middle" font-size="11" fill="#666">35</text>
+      <line x1="336" y1="320" x2="336" y2="326" stroke="#888"/>
+      <text x="336" y="345" text-anchor="middle" font-size="11" fill="#666" font-weight="bold" fill-opacity="1">44</text>
+      <line x1="464" y1="320" x2="464" y2="326" stroke="#888"/>
+      <text x="464" y="345" text-anchor="middle" font-size="11" fill="#666">55</text>
+      <line x1="528" y1="320" x2="528" y2="326" stroke="#888"/>
+      <text x="528" y="345" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">60</text>
+      <line x1="720" y1="320" x2="720" y2="326" stroke="#888"/>
+      <text x="720" y="345" text-anchor="middle" font-size="11" fill="#666">75</text>
+      <text class="lang-kr" x="400" y="365" font-size="12" fill="#666" text-anchor="middle">나이 (세)</text>
+      <text class="lang-en" x="400" y="365" font-size="12" fill="#666" text-anchor="middle">Age (years)</text>
+
+      <!-- Two-peak curve. Baseline ~280, peaks at x=336 (age 44, y=100) and x=528 (age 60, y=80) -->
+      <path d="M 80,300
+               Q 150,295 208,290
+               Q 270,285 290,260
+               Q 320,180 336,100
+               Q 360,180 400,250
+               Q 440,295 470,275
+               Q 500,200 528,80
+               Q 560,180 600,260
+               Q 660,290 720,300"
+            fill="url(#waveGrad)" fill-opacity="0.5" stroke="#d63384" stroke-width="3.5"/>
+
+      <defs>
+        <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd6e7"/>
+          <stop offset="100%" stop-color="#fff5e6"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Wave 1 callout (44 yr) -->
+      <circle cx="336" cy="100" r="11" fill="#ffd591" stroke="#d63384" stroke-width="3"/>
+      <text x="336" y="104" text-anchor="middle" font-size="11" font-weight="bold" fill="#d63384">!</text>
+      <line x1="336" y1="89" x2="336" y2="65" stroke="#d63384" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <rect x="265" y="42" width="142" height="22" rx="11" fill="#ffe6f0" stroke="#d63384" stroke-width="2"/>
+      <text class="lang-kr" x="336" y="58" text-anchor="middle" font-size="12" font-weight="bold" fill="#d63384">🌊 1차 파도 · ~44세</text>
+      <text class="lang-en" x="336" y="58" text-anchor="middle" font-size="12" font-weight="bold" fill="#d63384">🌊 Wave 1 · ~44 yr</text>
+
+      <!-- Wave 2 callout (60 yr) -->
+      <circle cx="528" cy="80" r="11" fill="#ffd591" stroke="#5a4fcf" stroke-width="3"/>
+      <text x="528" y="84" text-anchor="middle" font-size="11" font-weight="bold" fill="#5a4fcf">!</text>
+      <line x1="528" y1="69" x2="528" y2="55" stroke="#5a4fcf" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <rect x="455" y="32" width="146" height="22" rx="11" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+      <text class="lang-kr" x="528" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#5a4fcf">🌊 2차 파도 · ~60세</text>
+      <text class="lang-en" x="528" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#5a4fcf">🌊 Wave 2 · ~60 yr</text>
+
+      <!-- Quiet zones annotation -->
+      <text class="lang-kr" x="150" y="280" font-size="11" fill="#888">조용한 시기</text>
+      <text class="lang-en" x="150" y="280" font-size="11" fill="#888">quiet zone</text>
+      <text class="lang-kr" x="660" y="285" font-size="11" fill="#888">상대적 안정</text>
+      <text class="lang-en" x="660" y="285" font-size="11" fill="#888">relative plateau</text>
+    </svg>
+
+    <div class="bubble pink">
+      <span class="lang-kr"><strong>한 줄 요약:</strong> 분자의 ~81%가 비선형으로 변하고, 변화는 나이를 따라 균일하지 않고 <strong>40대 중반(44세)</strong>과 <strong>60세 부근</strong>에 두 개의 큰 봉우리(=파도)로 몰린다.</span>
+      <span class="lang-en"><strong>One-line summary:</strong> ~81% of molecules change <em>nonlinearly</em>, and the change clusters into two age-windows — a peak around <strong>44 yr</strong> and another around <strong>60 yr</strong> — instead of accumulating evenly.</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>🔍
+      <span class="lang-kr">두 파도는 다른 생물학을 흔든다</span>
+      <span class="lang-en">The two waves disturb different biology</span>
+    </h2>
+
+    <div class="outcomes" style="grid-template-columns: 1fr 1fr;">
+      <div class="outcome-card pink">
+        <div class="icon">🌊</div>
+        <span class="source-tag">
+          <span class="lang-kr">1차 파도 · ~44세</span>
+          <span class="lang-en">Wave 1 · ~44 yr</span>
+        </span>
+        <h3>
+          <span class="lang-kr">대사 · 심혈관 · 피부 중심</span>
+          <span class="lang-en">Metabolism · cardiovascular · skin</span>
+        </h3>
+        <ul>
+          <li>❤️ <span class="lang-kr">심혈관 질환 관련 분자 변화</span><span class="lang-en">Cardiovascular disease-linked molecules</span></li>
+          <li>🧈 <span class="lang-kr">지질(lipid) 대사 재편</span><span class="lang-en">Lipid metabolism remodeling</span></li>
+          <li>🍷 <span class="lang-kr">알코올 대사 능력 감소</span><span class="lang-en">Decline in alcohol metabolism</span></li>
+          <li>☕ <span class="lang-kr">카페인 대사 변화</span><span class="lang-en">Shift in caffeine metabolism</span></li>
+          <li>👵 <span class="lang-kr">피부·근육 노화 신호 시작</span><span class="lang-en">Onset of skin / muscle aging signals</span></li>
+        </ul>
+      </div>
+      <div class="outcome-card purple">
+        <div class="icon">🌊🌊</div>
+        <span class="source-tag">
+          <span class="lang-kr">2차 파도 · ~60세</span>
+          <span class="lang-en">Wave 2 · ~60 yr</span>
+        </span>
+        <h3>
+          <span class="lang-kr">면역 · 당대사 · 신장 중심</span>
+          <span class="lang-en">Immune · carbohydrate · kidney</span>
+        </h3>
+        <ul>
+          <li>🛡️ <span class="lang-kr">면역 조절 광범위 재배선</span><span class="lang-en">Broad immune-regulatory rewiring</span></li>
+          <li>🍞 <span class="lang-kr">탄수화물·인슐린 대사 변화</span><span class="lang-en">Carbohydrate &amp; insulin metabolism shift</span></li>
+          <li>🫘 <span class="lang-kr">신장 기능 관련 분자 이상</span><span class="lang-en">Kidney-function-linked molecule changes</span></li>
+          <li>❤️ <span class="lang-kr">심혈관 신호도 다시 강화</span><span class="lang-en">Cardiovascular signals re-intensify</span></li>
+          <li>🦠 <span class="lang-kr">미생물 군집 큰 폭의 변동</span><span class="lang-en">Major microbiome community shifts</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bubble purple" style="margin-top: 22px;">
+      <span class="lang-kr"><strong>의미:</strong> "노화"를 하나의 균질한 과정으로 묶는 게 아니라, 적어도 두 개의 서로 다른 생물학적 사건이 다른 나이에 일어난다고 봐야 한다. 44세에 흔들리는 시스템과 60세에 흔들리는 시스템이 다르다.</span>
+      <span class="lang-en"><strong>What this means:</strong> "aging" should not be treated as a single homogeneous process. At least two distinct biological events strike at different ages, perturbing different systems — the body that wobbles at 44 is not the same one that wobbles at 60.</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>📊
+      <span class="lang-kr">참고 — 직선으로 변하는 분자도 있다</span>
+      <span class="lang-en">Side note — some molecules <em>do</em> change linearly</span>
+    </h2>
+
+    <svg class="scene" viewBox="0 0 720 160" width="100%" height="160">
+      <!-- Linear rising example -->
+      <text class="lang-kr" x="180" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e8b57">직선형 (소수)</text>
+      <text class="lang-en" x="180" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e8b57">Linear (minority)</text>
+      <line x1="40" y1="130" x2="320" y2="130" stroke="#888" stroke-width="2"/>
+      <line x1="40" y1="130" x2="40" y2="40" stroke="#888" stroke-width="2"/>
+      <line x1="40" y1="120" x2="320" y2="50" stroke="#2e8b57" stroke-width="3"/>
+      <text class="lang-kr" x="180" y="150" text-anchor="middle" font-size="11" fill="#666">예: 일부 노화 표지자</text>
+      <text class="lang-en" x="180" y="150" text-anchor="middle" font-size="11" fill="#666">e.g. some senescence markers</text>
+
+      <!-- Nonlinear two-wave example -->
+      <text class="lang-kr" x="540" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#d63384">비선형 (대다수)</text>
+      <text class="lang-en" x="540" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#d63384">Nonlinear (majority)</text>
+      <line x1="400" y1="130" x2="700" y2="130" stroke="#888" stroke-width="2"/>
+      <line x1="400" y1="130" x2="400" y2="40" stroke="#888" stroke-width="2"/>
+      <path d="M 400,120 L 470,115 Q 510,110 525,55 T 580,110 Q 615,118 640,55 T 700,110"
+            fill="none" stroke="#d63384" stroke-width="3"/>
+      <text class="lang-kr" x="540" y="150" text-anchor="middle" font-size="11" fill="#666">예: 단백체·대사체 다수</text>
+      <text class="lang-en" x="540" y="150" text-anchor="middle" font-size="11" fill="#666">e.g. most proteome/metabolome</text>
+    </svg>
+
+    <div class="bubble green">
+      <span class="lang-kr">소수의 분자(약 6.6%)는 깔끔하게 직선으로 누적·감소한다 — 진짜 "시계처럼" 흐르는 노화 표지자들. 하지만 그 외 대다수는 봉우리·골짜기를 그리며 변한다.</span>
+      <span class="lang-en">A minority (~6.6%) accumulate or decline cleanly along a straight line — the "clock-like" aging markers. But the bulk of the molecular landscape changes in peaks and valleys.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ TAB 4: DISCUSSION ============ -->
+<div class="tab-content" id="t4">
+
+  <div class="panel">
+    <h2>🔄
+      <span class="lang-kr">패러다임 전환 — 직선에서 파도로</span>
+      <span class="lang-en">Paradigm shift — from line to wave</span>
+    </h2>
+
+    <svg class="scene" viewBox="0 0 720 220" width="100%" height="220">
+      <!-- Old paradigm (left) -->
+      <rect x="20" y="20" width="320" height="180" rx="14" fill="#f5f5f5" stroke="#888" stroke-width="2"/>
+      <text class="lang-kr" x="180" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#888">기존 패러다임</text>
+      <text class="lang-en" x="180" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#888">OLD paradigm</text>
+      <text class="lang-kr" x="180" y="65" text-anchor="middle" font-size="12" fill="#888">노화 = 천천히 누적되는 직선</text>
+      <text class="lang-en" x="180" y="65" text-anchor="middle" font-size="12" fill="#888">aging = slow linear accumulation</text>
+      <line x1="40" y1="170" x2="320" y2="170" stroke="#888" stroke-width="1"/>
+      <line x1="40" y1="160" x2="320" y2="100" stroke="#888" stroke-width="3"/>
+      <text class="lang-kr" x="180" y="190" text-anchor="middle" font-size="11" fill="#888">"하루 한 칸씩 늙는다"</text>
+      <text class="lang-en" x="180" y="190" text-anchor="middle" font-size="11" fill="#888">"one tiny step per day"</text>
+
+      <!-- Arrow -->
+      <path d="M 350,110 L 380,110 M 380,110 L 372,103 M 380,110 L 372,117" stroke="#5a4fcf" stroke-width="3" fill="none"/>
+
+      <!-- New paradigm (right) -->
+      <rect x="395" y="20" width="305" height="180" rx="14" fill="#fff5e6" stroke="#d63384" stroke-width="2.5"/>
+      <text class="lang-kr" x="547" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#d63384">새 패러다임</text>
+      <text class="lang-en" x="547" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#d63384">NEW paradigm</text>
+      <text class="lang-kr" x="547" y="65" text-anchor="middle" font-size="12" fill="#d63384">노화 = 두 번의 파도가 있는 비선형</text>
+      <text class="lang-en" x="547" y="65" text-anchor="middle" font-size="12" fill="#d63384">aging = nonlinear, with two waves</text>
+      <line x1="415" y1="170" x2="690" y2="170" stroke="#888" stroke-width="1"/>
+      <path d="M 415,160 L 470,158 Q 500,155 510,120 T 555,158 Q 580,162 600,120 T 690,150"
+            fill="none" stroke="#d63384" stroke-width="3"/>
+      <text class="lang-kr" x="547" y="190" text-anchor="middle" font-size="11" fill="#d63384">"40대 중반 · 60세에 도약"</text>
+      <text class="lang-en" x="547" y="190" text-anchor="middle" font-size="11" fill="#d63384">"jumps at mid-40s &amp; ~60"</text>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <h2>🌟
+      <span class="lang-kr">시사점 — 만약 사실이라면…</span>
+      <span class="lang-en">Implications — if this holds up …</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item">
+        <h4>⏰
+          <span class="lang-kr">"중년 위기"는 분자에도 있다</span>
+          <span class="lang-en">A "midlife transition" exists at the molecular level</span>
+        </h4>
+        <p>
+          <span class="lang-kr">40대 중반에 사람들이 흔히 보고하는 체력·체중·피부·수면의 급변이 단순한 기분 탓이 아닐 수 있다. 분자 데이터가 같은 시점에서 봉우리를 그린다.</span>
+          <span class="lang-en">The fitness, weight, skin and sleep changes many people report in their mid-40s may not be psychological. The molecular data show a real, measurable surge of change at that age.</span>
+        </p>
+      </li>
+      <li class="discussion-item">
+        <h4>💊
+          <span class="lang-kr">개입의 "타이밍"이 중요하다</span>
+          <span class="lang-en">Timing of interventions matters</span>
+        </h4>
+        <p>
+          <span class="lang-kr">같은 운동·식이·약이라도 파도 직전에 시작하는 게 더 효과적일 가능성. 30대 후반과 50대 후반이 잠재적 "골든 윈도우".</span>
+          <span class="lang-en">The same lifestyle or pharmacological intervention may have a bigger payoff if started <em>before</em> a wave. Late 30s and late 50s emerge as potential "golden windows."</span>
+        </p>
+      </li>
+      <li class="discussion-item">
+        <h4>🩺
+          <span class="lang-kr">파도별 임상 점검 항목이 다르다</span>
+          <span class="lang-en">Different waves call for different clinical checks</span>
+        </h4>
+        <p>
+          <span class="lang-kr">44세 즈음엔 심혈관·지질, 60세 즈음엔 면역·당대사·신장 — 이미 임상에서 어렴풋이 알려져 있던 것을 분자 시점에서 재확인.</span>
+          <span class="lang-en">Cardiovascular &amp; lipid screening near 44; immune, glucose &amp; renal screening near 60. The molecular data echo patterns clinicians already half-knew.</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>⚠️
+      <span class="lang-kr">한계 — 이 그림이 아직 못 보여주는 것</span>
+      <span class="lang-en">Limitations — what this picture does not yet show</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item limitation">
+        <h4>🌎
+          <span class="lang-kr">지역·인종 다양성 부족</span>
+          <span class="lang-en">Limited geographic / ancestral diversity</span>
+        </h4>
+        <p>
+          <span class="lang-kr">캘리포니아 코호트 108명. 인종·식이·생활환경이 다른 집단에서도 같은 44/60 파도가 보일지 검증 필요.</span>
+          <span class="lang-en">A single California cohort of 108 — different ancestries, diets, and environments may shift or reshape the 44/60 waves.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4>⌛
+          <span class="lang-kr">추적 기간이 짧다</span>
+          <span class="lang-en">Follow-up is short relative to a lifespan</span>
+        </h4>
+        <p>
+          <span class="lang-kr">중앙값 1.7년. 50년에 걸친 노화 곡선을 cross-sectional + 짧은 longitudinal 조합으로 재구성한 것이라 실제 한 사람이 파도를 통과하는 모습을 처음부터 끝까지 본 건 아니다.</span>
+          <span class="lang-en">Median 1.7 yr. The 50-year arc is reconstructed from cross-sectional differences plus short longitudinal slices — no single individual was actually followed through both waves.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4>📏
+          <span class="lang-kr">25세 미만 · 75세 초과는 비어 있음</span>
+          <span class="lang-en">Ages &lt;25 and &gt;75 are blank spots</span>
+        </h4>
+        <p>
+          <span class="lang-kr">청소년기·초고령기에도 추가 파도가 있을 수 있지만 이 데이터로는 알 수 없다.</span>
+          <span class="lang-en">Additional waves in adolescence or advanced old age may exist but lie outside this dataset.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4>🔬
+          <span class="lang-kr">메커니즘은 미해결</span>
+          <span class="lang-en">Mechanism remains open</span>
+        </h4>
+        <p>
+          <span class="lang-kr">왜 하필 44세·60세인가? 폐경, 호르몬 축, 면역 노화 등 후보가 있지만 이 논문이 직접 증명하진 않는다.</span>
+          <span class="lang-en">Why exactly 44 and 60? Menopause, hormonal axes, immune-system aging are candidates — but the paper describes the phenomenon rather than proving its drivers.</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>🚀
+      <span class="lang-kr">다음 행보</span>
+      <span class="lang-en">Next steps</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item future">
+        <h4>🌐
+          <span class="lang-kr">다양한 코호트에서 재현</span>
+          <span class="lang-en">Replicate in diverse cohorts</span>
+        </h4>
+        <p>
+          <span class="lang-kr">아시아·아프리카·유럽 코호트, 다른 식이·환경에서도 44/60 파도가 동일하게 나타나는가?</span>
+          <span class="lang-en">Do the 44/60 waves replicate in Asian, African, European cohorts with different diets and environments?</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>👥
+          <span class="lang-kr">성별·생식 호르몬 효과 분리</span>
+          <span class="lang-en">Disentangle sex / reproductive hormones</span>
+        </h4>
+        <p>
+          <span class="lang-kr">여성 폐경 시기가 1차 파도와 겹친다. 남녀 따로 분석하면 파도가 분리될까, 합쳐질까?</span>
+          <span class="lang-en">Female menopause overlaps with wave 1. Sex-stratified analyses could tell us whether the waves separate or persist.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>💊
+          <span class="lang-kr">"파도 직전" 개입 임상시험</span>
+          <span class="lang-en">"Pre-wave" intervention trials</span>
+        </h4>
+        <p>
+          <span class="lang-kr">30대 후반·50대 후반에 시작하는 운동·대사 개입 RCT가 더 큰 효과를 보일까? 노화 임상시험 설계의 새 변수.</span>
+          <span class="lang-en">Could exercise / metabolic interventions started in the late 30s or late 50s outperform later-start trials? A new dimension for designing aging RCTs.</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="summary-banner">
+    <span class="lang-kr">🌊 노화는 한 줄짜리 그래프가 아니라, 적어도 두 번의 파도가 있는 곡선이다.<br>그리고 그 봉우리는 <strong>44세</strong>와 <strong>60세</strong>에 있다.</span>
+    <span class="lang-en">🌊 Aging is not a straight line — it's a curve with at least two waves,<br>cresting near <strong>44</strong> and <strong>60</strong>.</span>
+  </div>
+
+</div>
+
+<footer>
+  <span class="lang-kr">📄 <strong>Shen, Wang, Zhou et al.</strong> Nonlinear dynamics of multi-omics profiles during human aging. <em>Nature Aging</em> 4, 1619–1634 (2024)</span>
+  <span class="lang-en">📄 <strong>Shen, Wang, Zhou et al.</strong> Nonlinear dynamics of multi-omics profiles during human aging. <em>Nature Aging</em> 4, 1619–1634 (2024)</span>
+  <br>
+  <a href="https://www.nature.com/articles/s43587-024-00692-2" target="_blank">📄 <span class="lang-kr">원 논문</span><span class="lang-en">Original article</span></a> ·
+  <a href="https://pubmed.ncbi.nlm.nih.gov/39143318/" target="_blank">🔬 PubMed</a> ·
+  <a href="https://doi.org/10.1038/s43587-024-00692-2" target="_blank">🔗 DOI</a>
+</footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  function toggleLang() {
+    const body = document.body;
+    if (body.classList.contains('lang-kr')) {
+      body.classList.remove('lang-kr'); body.classList.add('lang-en');
+      localStorage.setItem('paper_easy_lang', 'en');
+    } else {
+      body.classList.remove('lang-en'); body.classList.add('lang-kr');
+      localStorage.setItem('paper_easy_lang', 'kr');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('paper_easy_lang');
+    if (saved === 'en') {
+      document.body.classList.remove('lang-kr');
+      document.body.classList.add('lang-en');
+    }
+  })();
+</script>
+
+</body>
+</html>
