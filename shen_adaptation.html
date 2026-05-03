@@ -105,8 +105,28 @@
     Shen의 "나이별 비선형 변화" 아이디어를<br>
     내 scRNA-seq의 <strong>SenePy senescence score 축</strong>으로 옮기기
   </div>
-  <div class="badge">🧪 prototype · adapt to G11BM data</div>
+  <div class="badge">🧪 deployed in code_for_G11BM</div>
 </header>
+
+<div class="panel" style="background:linear-gradient(135deg,#e8f5e9,#fff);border:2px solid #a5d6a7;">
+  <h2 style="color:#2e8b57;">📍 코드는 본인 G11BM repo에 있습니다</h2>
+  <p>이 페이지는 iPhone 보기용 컨셉 요약이고, 실제 분석 파일은 다음 위치에 배치되었습니다:</p>
+  <pre><code># 코드
+code_for_G11BM/senescence_deswan.py             ← 모듈 (DE-SWAN core)
+code_for_G11BM/make_senescence_deswan_figures.py ← 분석 sweep + figure 생성
+code_for_G11BM/run_senescence_deswan.sbatch     ← SLURM submission
+
+# 출력
+output_final/figures/senescence_deswan/         ← crest_&lt;celltype&gt;.png/pdf, summary_grid.pdf
+output_final/tables/senescence_deswan/          ← deswan_*, per_gene_peaks_*, crest_summary.csv
+
+# 해석 문서 (한국어, 10 sections + 부록)
+manuscript/interpretation_of_senescence_deswan.md</code></pre>
+  <p style="font-size:13px;color:#444;margin-top:10px;">
+    실행: <code>sbatch run_senescence_deswan.sbatch</code> (전체 cell type sweep, ~1.5h, 128GB).
+    또는 interactive: <code>python make_senescence_deswan_figures.py --celltypes Monocytes HSPC</code>
+  </p>
+</div>
 
 <div class="panel">
   <h2>💡 핵심 아이디어 (한 그림)</h2>
