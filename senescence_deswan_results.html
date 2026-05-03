@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Senescence-axis DE-SWAN — Results · G11BM</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; }
+  header { background: white; padding: 26px; border-radius: 22px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 8px; }
+  header .meta { color: #888; font-size: 12px; }
+  header .badge { display: inline-block; margin-top: 10px; padding: 4px 14px;
+    background: linear-gradient(135deg,#d4f4dd,#fff5e6); border: 2px solid #a5d6a7;
+    border-radius: 14px; font-size: 12px; font-weight: bold; color: #2e8b57; }
+
+  .panel { background: white; border-radius: 18px; padding: 22px; margin-bottom: 18px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); }
+  .panel h2 { font-size: 18px; color: #5a4fcf; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 14px; color: #5a4fcf; margin: 14px 0 6px; }
+  .panel p { font-size: 14px; line-height: 1.65; margin-bottom: 10px; }
+
+  .headline { background: linear-gradient(135deg,#fff,#f0e6ff); border: 3px solid #5a4fcf;
+    border-radius: 18px; padding: 22px; margin-bottom: 20px; }
+  .headline h2 { color: #5a4fcf; }
+  .headline strong.win { color: #d63384; font-size: 17px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+  th { background: #fef6f9; padding: 8px 10px; text-align: left; color: #5a4fcf; border-bottom: 2px solid #ffb3d4; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f0e6f5; }
+  tr.win td { background: #fff5e6; font-weight: 600; }
+  tr.flat td { color: #888; }
+  td.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+  td.celltype { font-weight: 600; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 11px; font-weight: bold; }
+  .pill.veh { background: #e6f0ff; color: #5b9bd5; }
+  .pill.dq  { background: #ffe6f0; color: #d63384; }
+
+  .fig-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .fig-card { background: white; border-radius: 14px; overflow: hidden;
+    border: 2px solid #fff; box-shadow: 0 4px 12px rgba(100,130,200,0.08); }
+  .fig-card .fig-head { padding: 12px 18px; display: flex; align-items: baseline;
+    justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    background: linear-gradient(90deg,#fef6f9,#fff); border-bottom: 1px solid #f0e6f5; }
+  .fig-card.headlight { border: 3px solid #d63384; }
+  .fig-card.headlight .fig-head { background: linear-gradient(90deg,#ffe6f0,#fff); }
+  .fig-card h3 { font-size: 15px; color: #d63384; margin: 0; }
+  .fig-card .fig-meta { font-size: 11px; color: #888; }
+  .fig-card img { width: 100%; height: auto; display: block; }
+  .fig-card .fig-caption { padding: 10px 18px 14px; font-size: 13px;
+    color: #444; line-height: 1.6; }
+  .fig-card .fig-caption .verdict {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 12px; font-weight: bold; margin-right: 6px; }
+  .verdict.win { background: #d4f4dd; color: #1b5e20; }
+  .verdict.shift { background: #f0e6ff; color: #5a4fcf; }
+  .verdict.flat { background: #f5f5f5; color: #888; }
+
+  .gene-list { background: #fafbff; border-radius: 12px; padding: 12px 16px;
+    font-size: 12px; line-height: 1.6; margin: 8px 0; border: 1px dashed #b89ce0; }
+  .gene-list strong { color: #5a4fcf; }
+  .gene-list code { font-family: 'JetBrains Mono', monospace; background: #f0e6ff;
+    padding: 1px 6px; border-radius: 6px; color: #5a4fcf; }
+
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+  footer a { color: #d63384; text-decoration: none; }
+
+  @media (max-width: 600px) {
+    table { font-size: 11px; }
+    th, td { padding: 5px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <h1>🌊 Senescence-axis DE-SWAN — Results</h1>
+  <div class="meta">G11BM dataset · 175,316 cells × 24,587 genes · 10 cell types × 2 conditions · 7m51s on DCC</div>
+  <div class="badge">✅ COMPLETED · job 46484030</div>
+</header>
+
+<div class="headline panel">
+  <h2>🎯 한 줄 결과</h2>
+  <p><strong class="win">Macrophage에서 시나리오 A 적중</strong> — DQ가 senescence-axis crest를 거의 완전히 무너뜨림 (Veh 349 sig genes → DQ 3 sig genes, **99% 감소**). 다른 cell type에서는 crest가 평탄하거나 두 condition에서 유사. <strong>Macrophage가 본 G11BM 논문의 새 mechanistic figure 후보 1순위.</strong></p>
+</div>
+
+<div class="panel">
+  <h2>📊 전체 Crest Summary</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Cell type</th>
+        <th class="num">Veh peak score</th>
+        <th class="num">Veh #sig</th>
+        <th class="num">DQ peak score</th>
+        <th class="num">DQ #sig</th>
+        <th>해석</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="win">
+        <td class="celltype">⭐ Macrophage</td>
+        <td class="num">0.617</td>
+        <td class="num">349</td>
+        <td class="num">0.489</td>
+        <td class="num">3</td>
+        <td><strong style="color:#1b5e20;">DQ가 crest 해체</strong> (시나리오 A)</td>
+      </tr>
+      <tr>
+        <td class="celltype">Neutrophil</td>
+        <td class="num">0.963</td>
+        <td class="num">5,549</td>
+        <td class="num">0.966</td>
+        <td class="num">6,595</td>
+        <td>두 조건 모두 sharp crest, 위치 동일</td>
+      </tr>
+      <tr>
+        <td class="celltype">Erythroid</td>
+        <td class="num">0.384</td>
+        <td class="num">6,671</td>
+        <td class="num">0.434</td>
+        <td class="num">6,896</td>
+        <td>두 조건 모두 매우 sharp, 위치 ≈동일</td>
+      </tr>
+      <tr>
+        <td class="celltype">B-cell</td>
+        <td class="num">1.361</td>
+        <td class="num">1,296</td>
+        <td class="num">1.123</td>
+        <td class="num">1,495</td>
+        <td>DQ가 crest를 <strong>왼쪽으로 이동</strong> (시나리오 B)</td>
+      </tr>
+      <tr class="flat">
+        <td class="celltype">Monocytes</td>
+        <td class="num">1.024</td>
+        <td class="num">0</td>
+        <td class="num">1.041</td>
+        <td class="num">0</td>
+        <td>crest 없음 (시나리오 D)</td>
+      </tr>
+      <tr class="flat">
+        <td class="celltype">HSPC</td>
+        <td class="num">0.288</td>
+        <td class="num">1</td>
+        <td class="num">0.749</td>
+        <td class="num">2</td>
+        <td>crest 없음 (sample size 적음)</td>
+      </tr>
+      <tr class="flat">
+        <td class="celltype">T-cell</td>
+        <td class="num">0.385</td>
+        <td class="num">0</td>
+        <td class="num">0.663</td>
+        <td class="num">1</td>
+        <td>crest 없음</td>
+      </tr>
+      <tr class="flat">
+        <td class="celltype">NK</td>
+        <td class="num">0.167</td>
+        <td class="num">1</td>
+        <td class="num">0.345</td>
+        <td class="num">1</td>
+        <td>crest 없음 (cells &lt;1k)</td>
+      </tr>
+      <tr class="flat">
+        <td class="celltype">Plasma</td>
+        <td class="num">0.174</td>
+        <td class="num">0</td>
+        <td class="num">0.175</td>
+        <td class="num">0</td>
+        <td>crest 없음</td>
+      </tr>
+      <tr class="flat">
+        <td class="celltype">MSC</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td class="num">0.175</td>
+        <td class="num">0</td>
+        <td>Veh n&lt;500 자동 skip</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Headline figure: Macrophage -->
+<div class="panel">
+  <h2>⭐ Headline figure — Macrophage</h2>
+  <p>본 분석의 핵심 발견. Veh에서는 senescence score ≈0.62 부근에 명확한 봉우리(349개 유전자가 동시에 transition)가 있는데, DQ에서는 이 봉우리가 <strong>거의 완전히 사라짐</strong> (3개 유전자뿐). 이는 senolytic이 macrophage의 senescence commitment 자체를 disrupt함을 시사.</p>
+  <div class="fig-grid">
+    <div class="fig-card headlight">
+      <div class="fig-head">
+        <h3>Macrophage — Veh vs DQ</h3>
+        <span class="fig-meta">peak: Veh @0.62 (349 genes) · DQ @0.49 (3 genes)</span>
+      </div>
+      <img src="results/senescence_deswan/crest_Macrophage.png" alt="Macrophage crest">
+      <div class="fig-caption">
+        <span class="verdict win">시나리오 A · DQ disrupts crest</span>
+        Veh의 sharp 봉우리가 DQ에서 사실상 사라짐 (99% 감소).
+        <div class="gene-list">
+          <strong>Veh crest top genes (~score 0.62):</strong> <code>Cdc5l</code>, <code>Tpx2</code>, <code>Mbd5</code>, <code>Mta1</code>, <code>Insr</code>, <code>Glud1</code>, <code>Atp11b</code>, <code>Ep400</code>, <code>Grb2</code>, <code>Ndufa9</code>, <code>Cyb561a3</code>, <code>Fcna</code>, <code>Dgkz</code>
+          <br>→ 다음 단계: KEGG/Reactome enrichment, 아마 <em>cell cycle (Cdc5l, Tpx2)</em> + <em>insulin/metabolism (Insr, Glud1)</em> + <em>chromatin (Mbd5, Mta1, Ep400)</em> 시그널 예상
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Strong but symmetric crests -->
+<div class="panel">
+  <h2>🔵 Sharp crest 있지만 두 조건 비슷 — Neutrophil &amp; Erythroid</h2>
+  <p>이 두 cell type은 crest 자체는 <strong>매우 strong</strong>하지만 (수천 유전자 동시 transition), Veh와 DQ 사이 차이가 거의 없음. Senescence threshold는 존재하나 DQ가 못 건드림. <em>Senescence axis 자체의 존재 증거</em>로 supplementary figure 후보.</p>
+  <div class="fig-grid">
+    <div class="fig-card">
+      <div class="fig-head">
+        <h3>Neutrophil — Veh vs DQ</h3>
+        <span class="fig-meta">peak ≈0.96 · ~6,000 genes 모두</span>
+      </div>
+      <img src="results/senescence_deswan/crest_Neutrophil.png" alt="Neutrophil crest">
+      <div class="fig-caption">
+        <span class="verdict shift">시나리오 invariant</span>
+        가장 큰 cell pool (94k cells), 매우 sharp crest. Top genes: <code>Rps27l</code>, <code>Insig1</code>, <code>Stat3</code>, <code>Irf2bp2</code>, <code>Hoxb4</code> — translation/inflammation 시그널. DQ가 이 transition은 못 건드림.
+      </div>
+    </div>
+    <div class="fig-card">
+      <div class="fig-head">
+        <h3>Erythroid — Veh vs DQ</h3>
+        <span class="fig-meta">peak ≈0.40 · ~6,700+ genes</span>
+      </div>
+      <img src="results/senescence_deswan/crest_Erythroid.png" alt="Erythroid crest">
+      <div class="fig-caption">
+        <span class="verdict shift">시나리오 invariant</span>
+        이른 score(0.4)에 sharp peak. 마찬가지로 두 조건 거의 동일.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Shift -->
+<div class="panel">
+  <h2>🟣 Crest 위치 이동 — B-cell</h2>
+  <p>Veh @1.36 → DQ @1.12로 leftward shift. DQ가 senescence threshold를 <strong>더 낮은 score 쪽으로 끌어당김</strong>. 의미는 미묘 — DQ가 B-cell senescence를 가속하는 게 아니라, distribution 형태가 변형됐을 가능성. truncation 효과 (DQ가 high-score cell을 제거) 의심됨.</p>
+  <div class="fig-grid">
+    <div class="fig-card">
+      <div class="fig-head">
+        <h3>B-cell — Veh vs DQ</h3>
+        <span class="fig-meta">peak: Veh @1.36 (1,296 genes) · DQ @1.12 (1,495 genes)</span>
+      </div>
+      <img src="results/senescence_deswan/crest_B-cell.png" alt="B-cell crest">
+      <div class="fig-caption">
+        <span class="verdict shift">시나리오 B · 위치 이동</span>
+        ΔPeak = -0.24. <code>senescent_fraction_per_sample.csv</code>로 truncation effect 보정 후 재해석 권장.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Flat / no crest -->
+<div class="panel">
+  <h2>⚪ Crest 없음 (negative) — Monocytes, HSPC, T-cell, NK, Plasma, MSC</h2>
+  <p>이 cell type들에선 SenePy score 축에 따라 광범위 transition이 일어나는 시점이 없음. 가능성: (a) 이미 SenMayo + Spearman&gt;0.7 filter로 score-driven gene 다 빠진 뒤라 잔여 시그널 없음, (b) 진짜 senescence가 점진적이라 threshold 부재, (c) cell number 부족 (NK, MSC, Plasma 특히). HSPC는 흥미롭게 negative — senescence 점진적 모델 지지.</p>
+  <div class="fig-grid">
+    <div class="fig-card">
+      <div class="fig-head"><h3>Monocytes</h3><span class="fig-meta">flat</span></div>
+      <img src="results/senescence_deswan/crest_Monocytes.png" alt="Monocytes crest">
+    </div>
+    <div class="fig-card">
+      <div class="fig-head"><h3>HSPC</h3><span class="fig-meta">flat</span></div>
+      <img src="results/senescence_deswan/crest_HSPC.png" alt="HSPC crest">
+    </div>
+    <div class="fig-card">
+      <div class="fig-head"><h3>T-cell</h3><span class="fig-meta">flat</span></div>
+      <img src="results/senescence_deswan/crest_T-cell.png" alt="T-cell crest">
+    </div>
+    <div class="fig-card">
+      <div class="fig-head"><h3>NK</h3><span class="fig-meta">flat (n&lt;1k)</span></div>
+      <img src="results/senescence_deswan/crest_NK.png" alt="NK crest">
+    </div>
+    <div class="fig-card">
+      <div class="fig-head"><h3>Plasma</h3><span class="fig-meta">flat</span></div>
+      <img src="results/senescence_deswan/crest_Plasma.png" alt="Plasma crest">
+    </div>
+    <div class="fig-card">
+      <div class="fig-head"><h3>MSC (DQ only — Veh n&lt;500 skip)</h3><span class="fig-meta">flat</span></div>
+      <img src="results/senescence_deswan/crest_MSC.png" alt="MSC crest">
+    </div>
+  </div>
+</div>
+
+<!-- Action items -->
+<div class="panel">
+  <h2>🚀 다음 단계 (우선순위)</h2>
+  <ol style="padding-left:22px;line-height:1.8;font-size:14px;">
+    <li><strong>Macrophage Veh crest 유전자 list pathway enrichment</strong> — <code>per_gene_peaks_Macrophage_Veh.csv</code>를 본인 <code>gsea_percelltype_aging.py</code> 패턴으로 KEGG/Reactome 돌리기. Cell cycle + metabolism + chromatin이 강하게 나오면 mechanistic story 완성.</li>
+    <li><strong>Robust 검증 — bin 수 / bucket size sweep.</strong> Macrophage 결과가 hyperparameter에 의존하는지 확인. n_bins ∈ {15, 20, 30, 50}로 재실행.</li>
+    <li><strong>Permutation null</strong> — Macrophage Veh 데이터에서 cell-score 매핑을 100회 셔플 후 같은 분석. 진짜 봉우리(349개)가 null distribution 위에 있는지 확인.</li>
+    <li><strong>마우스 leave-one-out</strong> — V1~V4 중 1마리씩 빼고 Macrophage 재분석. 봉우리가 한두 마리에 끌려가는 건 아닌가?</li>
+    <li><strong>Manuscript figure 후보 결정</strong> — Macrophage panel을 Fig 5/6에 넣을지, supplementary로 갈지. 시나리오 A 결과니까 main figure 강력 추천.</li>
+  </ol>
+</div>
+
+<div class="panel">
+  <h2>📁 파일 위치</h2>
+  <pre style="background:#2d2640;color:#f8f5ff;padding:14px 16px;border-radius:12px;font-size:11.5px;line-height:1.6;overflow-x:auto;"><code>code_for_G11BM/output_final/figures/senescence_deswan/
+  ├── crest_Macrophage.{png,pdf}  ← ⭐ headline
+  ├── crest_Neutrophil.{png,pdf}
+  ├── crest_Erythroid.{png,pdf}
+  ├── crest_B-cell.{png,pdf}
+  ├── crest_<6 others>.{png,pdf}
+  └── summary_grid.pdf            ← 한 페이지 모든 cell type
+
+code_for_G11BM/output_final/tables/senescence_deswan/
+  ├── crest_summary.csv           ← 위 표의 raw 데이터
+  ├── deswan_<celltype>_<cond>.csv  (×18)
+  └── per_gene_peaks_<celltype>_<cond>.csv  (×18)
+
+code_for_G11BM/manuscript/
+  └── interpretation_of_senescence_deswan.md  ← 한국어 10-section 해설</code></pre>
+</div>
+
+<footer>
+  Job <strong>46484030</strong> · DE-SWAN sweep · 7m51s · MaxRSS 53.8GB · Exit 0<br>
+  <a href="index.html">← back to catalog</a> · <a href="shen_adaptation.html">concept page</a>
+</footer>
+
+</div>
+</body>
+</html>
