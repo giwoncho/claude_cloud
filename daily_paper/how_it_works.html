@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Daily Paper 루틴 — 어떻게 작동하나 (system schematic)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: white; padding: 28px; border-radius: 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 10px; }
+  header .subtitle { color: #6c757d; font-size: 14px; }
+  header .emoji { font-size: 32px; margin-bottom: 8px; }
+
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-bottom: 24px; background: white; padding: 10px; border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(100,130,200,0.1); }
+  .tab-btn { border: 2px solid transparent; background: #fef6f9; padding: 14px 16px;
+    border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 14px;
+    font-weight: 600; color: #888; transition: all 0.25s; display: flex;
+    flex-direction: column; align-items: center; gap: 4px; }
+  .tab-btn .tab-emoji { font-size: 22px; }
+  .tab-btn:hover { background: #fff0f5; color: #5a4fcf; transform: translateY(-2px); }
+  .tab-btn.active { background: linear-gradient(135deg,#ffd6e7 0%,#fff5e6 100%);
+    color: #d63384; border-color: #ffb3d4;
+    box-shadow: 0 4px 12px rgba(255,150,200,0.3); }
+
+  .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+  .panel { background: white; border-radius: 20px; padding: 28px; margin-bottom: 24px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); border: 2px solid #fff; }
+  .panel h2 { font-size: 19px; color: #5a4fcf; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 15px; color: #5a4fcf; margin: 16px 0 8px; }
+  .scene { display: block; margin: 12px auto; max-width: 100%; }
+  .bubble { background: #fff5e6; padding: 14px 18px; border-radius: 16px;
+    border: 2px solid #ffd591; font-size: 14px; margin: 12px 0; line-height: 1.65; }
+  .bubble.pink { background: #ffe6f0; border-color: #ffb3d4; }
+  .bubble.blue { background: #e6f0ff; border-color: #91b8e0; }
+  .bubble.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .bubble.purple { background: #f0e6ff; border-color: #b89ce0; }
+  .bubble.orange { background: #fff0e0; border-color: #ffb380; }
+
+  .step-row {
+    display: grid; grid-template-columns: 70px 1fr; gap: 14px;
+    align-items: flex-start; margin: 14px 0; padding: 14px 18px;
+    background: #fafbff; border-radius: 14px; border-left: 4px solid #b89ce0;
+  }
+  .step-row .step-num {
+    background: #5a4fcf; color: white; width: 50px; height: 50px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 17px; flex-shrink: 0;
+  }
+  .step-row .step-body { font-size: 13.5px; line-height: 1.7; }
+  .step-row .step-body strong { color: #5a4fcf; }
+  .step-row .step-body .step-where { display: inline-block; padding: 2px 10px;
+    background: #f0e6ff; color: #5a4fcf; border-radius: 10px; font-size: 11px;
+    font-weight: bold; margin-left: 8px; }
+  .step-row .step-body .step-tool { display: inline-block; padding: 2px 8px;
+    background: #e6f0ff; color: #2a6ea3; border-radius: 8px; font-size: 11px;
+    font-family: monospace; margin-right: 6px; }
+  .step-row.fail-row { border-left-color: #ed7d31; background: #fdf0e6; }
+  .step-row.fail-row .step-num { background: #ed7d31; }
+
+  .actor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .actor-card {
+    border-radius: 16px; padding: 18px; background: #fafbff;
+    border: 2px solid #e0e6f5; transition: transform 0.2s;
+  }
+  .actor-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(100,130,200,0.12); }
+  .actor-card h4 {
+    color: #5a4fcf; font-size: 14px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .actor-card .actor-icon { font-size: 22px; }
+  .actor-card p { font-size: 13px; color: #555; line-height: 1.6; }
+  .actor-card .actor-where {
+    margin-top: 8px; font-family: monospace; font-size: 11px;
+    color: #888; background: #f5f5f7; padding: 4px 8px;
+    border-radius: 6px; word-break: break-all;
+  }
+  .actor-card.cloud { border-color: #91b8e0; background: linear-gradient(180deg,#fff,#e9f1fa); }
+  .actor-card.cloud h4 { color: #2a6ea3; }
+  .actor-card.repo  { border-color: #b89ce0; background: linear-gradient(180deg,#fff,#f0e6ff); }
+  .actor-card.repo h4 { color: #5a4fcf; }
+  .actor-card.web   { border-color: #ffb380; background: linear-gradient(180deg,#fff,#fff0e0); }
+  .actor-card.web h4 { color: #b85f25; }
+  .actor-card.user  { border-color: #6aaa64; background: linear-gradient(180deg,#fff,#e7f3e4); }
+  .actor-card.user h4 { color: #2e8b57; }
+
+  .summary-banner {
+    background: linear-gradient(135deg,#ffd591 0%,#ffb3d4 50%,#91b8e0 100%);
+    padding: 22px; border-radius: 18px; text-align: center; color: white;
+    font-size: 15px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    margin-top: 20px; line-height: 1.6;
+  }
+
+  .secret-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px;
+  }
+  .secret-card {
+    border-radius: 14px; padding: 16px; background: white;
+    border: 2px solid #e0e6f5; font-size: 13px; line-height: 1.55;
+  }
+  .secret-card h4 {
+    font-size: 13px; margin-bottom: 8px; padding: 4px 10px; border-radius: 8px;
+    display: inline-block;
+  }
+  .secret-card.public h4 { background: #e7f3e4; color: #2e8b57; }
+  .secret-card.private h4 { background: #ffe6f0; color: #a3296c; }
+  .secret-card.routine h4 { background: #f0e6ff; color: #5a4fcf; }
+  .secret-card code { font-size: 11px; background: #f5f5f7; padding: 2px 6px; border-radius: 4px; word-break: break-all; }
+
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+  footer a { color: #d63384; text-decoration: none; }
+
+  .lang-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 100;
+    background: white; border: 2px solid #ffb3d4; border-radius: 24px;
+    padding: 8px 16px; cursor: pointer; font-family: inherit; font-size: 13px;
+    font-weight: 600; color: #d63384; box-shadow: 0 4px 12px rgba(255,150,200,0.25);
+    transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .lang-toggle:hover { transform: scale(1.05); background: #fff0f5; }
+  .lang-toggle .flag { font-size: 16px; }
+  body.lang-kr .lang-en, body.lang-en .lang-kr { display: none !important; }
+  body.lang-kr svg .lang-en, body.lang-en svg .lang-kr { display: none !important; }
+
+  @media (max-width: 800px) {
+    .actor-grid, .secret-grid { grid-template-columns: 1fr; }
+    .tabs { grid-template-columns: 1fr 1fr; }
+    .lang-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body class="lang-kr">
+
+<button class="lang-toggle" onclick="toggleLang()">
+  <span class="flag lang-kr">🇰🇷</span><span class="lang-kr">한국어</span>
+  <span class="flag lang-en">🇺🇸</span><span class="lang-en">English</span>
+  <span style="opacity:0.5;">⇄</span>
+  <span class="flag lang-kr">🇺🇸</span><span class="lang-kr" style="opacity:0.5;">EN</span>
+  <span class="flag lang-en">🇰🇷</span><span class="lang-en" style="opacity:0.5;">KR</span>
+</button>
+
+<div class="container">
+
+<header>
+  <div class="emoji">⏰ 🤖 📄 📧</div>
+  <h1>
+    <span class="lang-kr">Daily Paper 루틴 — 어떻게 작동하나?</span>
+    <span class="lang-en">Daily Paper Routine — how it works</span>
+  </h1>
+  <div class="subtitle">
+    <span class="lang-kr">매일 아침 9시 (Eastern), 누구도 안 누르는데 논문 한 편이 메일로 도착하는 원리</span>
+    <span class="lang-en">A schematic of why a paper lands in your inbox every 9 AM Eastern without anyone clicking anything</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="t1">
+    <span class="tab-emoji">🏗️</span>
+    <span class="lang-kr">전체 구조</span><span class="lang-en">Architecture</span>
+  </button>
+  <button class="tab-btn" data-tab="t2">
+    <span class="tab-emoji">🔄</span>
+    <span class="lang-kr">실행 흐름</span><span class="lang-en">Execution flow</span>
+  </button>
+  <button class="tab-btn" data-tab="t3">
+    <span class="tab-emoji">🔐</span>
+    <span class="lang-kr">인증과 비밀</span><span class="lang-en">Auth & secrets</span>
+  </button>
+  <button class="tab-btn" data-tab="t4">
+    <span class="tab-emoji">⚠️</span>
+    <span class="lang-kr">실패 대응</span><span class="lang-en">Failure handling</span>
+  </button>
+</div>
+
+<!-- =================================================== -->
+<!-- TAB 1: ARCHITECTURE                                  -->
+<!-- =================================================== -->
+<div class="tab-content active" id="t1">
+
+  <div class="panel">
+    <h2>🏗️
+      <span class="lang-kr">한 장으로 보는 시스템</span>
+      <span class="lang-en">The system in one diagram</span>
+    </h2>
+
+    <svg class="scene" viewBox="0 0 1000 560" width="100%" style="max-width:1000px;">
+      <!-- background -->
+      <rect x="0" y="0" width="1000" height="560" fill="#fafbff" rx="20"/>
+
+      <!-- ============== TOP: Cron ============== -->
+      <g transform="translate(420, 30)">
+        <rect x="0" y="0" width="160" height="60" fill="#fff5e6" stroke="#ed7d31" stroke-width="3" rx="14"/>
+        <text x="80" y="26" font-size="13" font-weight="bold" fill="#b85f25" text-anchor="middle">⏰ Cron Trigger</text>
+        <text x="80" y="46" font-size="11" fill="#444" text-anchor="middle">0 13 * * * (UTC) = 9 AM EDT</text>
+      </g>
+      <line x1="500" y1="92" x2="500" y2="120" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- ============== MIDDLE: claude.ai cloud sandbox (big box) ============== -->
+      <g transform="translate(120, 130)">
+        <rect x="0" y="0" width="760" height="280" fill="white" stroke="#5b9bd5" stroke-width="3" rx="18" stroke-dasharray="6,4"/>
+        <text x="20" y="24" font-size="13" font-weight="bold" fill="#2a6ea3">
+          <tspan class="lang-kr">claude.ai cloud sandbox (Anthropic 가 띄움 · ~12분)</tspan>
+          <tspan class="lang-en">claude.ai cloud sandbox (spun up by Anthropic · ~12 min)</tspan>
+        </text>
+
+        <!-- Agent (center) -->
+        <g transform="translate(290, 50)">
+          <rect x="0" y="0" width="180" height="90" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="3" rx="14"/>
+          <text x="90" y="22" font-size="13" font-weight="bold" fill="#5a4fcf" text-anchor="middle">🤖 Claude Sonnet 4.6</text>
+          <text x="90" y="42" font-size="11" fill="#555" text-anchor="middle">
+            <tspan class="lang-kr">agent (read · think · write)</tspan>
+            <tspan class="lang-en">agent (read · think · write)</tspan>
+          </text>
+          <text x="90" y="62" font-size="10" fill="#777" text-anchor="middle">
+            <tspan class="lang-kr">tools: Bash · Read · Write · Edit</tspan>
+            <tspan class="lang-en">tools: Bash · Read · Write · Edit</tspan>
+          </text>
+          <text x="90" y="78" font-size="10" fill="#777" text-anchor="middle">WebSearch · WebFetch · Grep · Glob</text>
+        </g>
+
+        <!-- Repo clone box (left of agent) -->
+        <g transform="translate(20, 60)">
+          <rect x="0" y="0" width="200" height="80" fill="#fff5e6" stroke="#ffb380" stroke-width="2" rx="12"/>
+          <text x="100" y="22" font-size="12" font-weight="bold" fill="#b85f25" text-anchor="middle">📦 cloned repo</text>
+          <text x="100" y="42" font-size="10" fill="#555" text-anchor="middle">giwoncho/claude_cloud</text>
+          <text x="100" y="58" font-size="10" fill="#555" text-anchor="middle">
+            <tspan class="lang-kr">/daily_paper/* (지시·사양·로그)</tspan>
+            <tspan class="lang-en">/daily_paper/* (instructions, spec, log)</tspan>
+          </text>
+          <text x="100" y="72" font-size="9" fill="#999" text-anchor="middle">agent_instructions.md ← 핵심</text>
+        </g>
+        <line x1="220" y1="100" x2="290" y2="95" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Tools box (right of agent) -->
+        <g transform="translate(540, 60)">
+          <rect x="0" y="0" width="200" height="80" fill="#e6f0ff" stroke="#91b8e0" stroke-width="2" rx="12"/>
+          <text x="100" y="22" font-size="12" font-weight="bold" fill="#2a6ea3" text-anchor="middle">🔍 web tools</text>
+          <text x="100" y="42" font-size="10" fill="#555" text-anchor="middle">WebSearch (≤3 calls)</text>
+          <text x="100" y="58" font-size="10" fill="#555" text-anchor="middle">WebFetch (≤2 calls)</text>
+          <text x="100" y="72" font-size="9" fill="#999" text-anchor="middle">
+            <tspan class="lang-kr">→ PMC, bioRxiv, JCI, Nature</tspan>
+            <tspan class="lang-en">→ PMC, bioRxiv, JCI, Nature</tspan>
+          </text>
+        </g>
+        <line x1="540" y1="95" x2="470" y2="95" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Inside-sandbox bottom row -->
+        <g transform="translate(80, 175)">
+          <rect x="0" y="0" width="600" height="80" fill="#fafbff" stroke="#b89ce0" stroke-width="2" rx="12" stroke-dasharray="4,3"/>
+          <text x="300" y="22" font-size="12" font-weight="bold" fill="#5a4fcf" text-anchor="middle">
+            <tspan class="lang-kr">8단계를 순서대로 실행 (~10분)</tspan>
+            <tspan class="lang-en">executes 8 steps in sequence (~10 min)</tspan>
+          </text>
+          <text x="300" y="44" font-size="10" fill="#444" text-anchor="middle">
+            <tspan class="lang-kr">read setup → search → score → 🎯 PICK ONE → write HTML → update index → commit → push → email</tspan>
+            <tspan class="lang-en">read setup → search → score → 🎯 PICK ONE → write HTML → update index → commit → push → email</tspan>
+          </text>
+          <text x="300" y="64" font-size="10" fill="#888" text-anchor="middle">
+            <tspan class="lang-kr">완료 후 sandbox 자동 소멸 — 다음 날 새 sandbox</tspan>
+            <tspan class="lang-en">sandbox is destroyed when done — fresh sandbox next day</tspan>
+          </text>
+        </g>
+      </g>
+
+      <!-- ============== BOTTOM: outputs ============== -->
+      <!-- arrow down -->
+      <line x1="500" y1="412" x2="500" y2="438" stroke="#888" stroke-width="2"/>
+
+      <!-- branch points -->
+      <line x1="250" y1="438" x2="750" y2="438" stroke="#888" stroke-width="2"/>
+      <line x1="250" y1="438" x2="250" y2="460" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="500" y1="438" x2="500" y2="460" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="750" y1="438" x2="750" y2="460" stroke="#888" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- output 1: GitHub push -->
+      <g transform="translate(160, 470)">
+        <rect x="0" y="0" width="180" height="70" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2" rx="12"/>
+        <text x="90" y="22" font-size="12" font-weight="bold" fill="#5a4fcf" text-anchor="middle">📤 git push</text>
+        <text x="90" y="40" font-size="10" fill="#555" text-anchor="middle">→ giwoncho/claude_cloud</text>
+        <text x="90" y="55" font-size="10" fill="#555" text-anchor="middle">→ GitHub Pages rebuild</text>
+      </g>
+
+      <!-- output 2: Resend POST -->
+      <g transform="translate(410, 470)">
+        <rect x="0" y="0" width="180" height="70" fill="#ffe6f0" stroke="#d63384" stroke-width="2" rx="12"/>
+        <text x="90" y="22" font-size="12" font-weight="bold" fill="#d63384" text-anchor="middle">📨 Resend HTTPS</text>
+        <text x="90" y="40" font-size="10" fill="#555" text-anchor="middle">api.resend.com/emails</text>
+        <text x="90" y="55" font-size="10" fill="#555" text-anchor="middle">+ User-Agent (CF bypass)</text>
+      </g>
+
+      <!-- output 3: console summary -->
+      <g transform="translate(660, 470)">
+        <rect x="0" y="0" width="180" height="70" fill="#e7f3e4" stroke="#2e8b57" stroke-width="2" rx="12"/>
+        <text x="90" y="22" font-size="12" font-weight="bold" fill="#2e8b57" text-anchor="middle">🖥️ run log</text>
+        <text x="90" y="40" font-size="10" fill="#555" text-anchor="middle">claude.ai routine page</text>
+        <text x="90" y="55" font-size="10" fill="#555" text-anchor="middle">
+          <tspan class="lang-kr">디버깅용</tspan>
+          <tspan class="lang-en">for debugging</tspan>
+        </text>
+      </g>
+
+      <!-- arrow defs -->
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <polygon points="0 0, 10 5, 0 10" fill="#888"/>
+        </marker>
+      </defs>
+    </svg>
+
+    <div class="bubble pink">
+      <strong><span class="lang-kr">한 줄 요약</span><span class="lang-en">One-line summary</span></strong><br>
+      <span class="lang-kr">Anthropic 의 cron 이 매일 13:00 UTC 에 sandbox 를 띄우고, sandbox 안에서 Claude 가 GitHub 에서 받은 instructions 대로 논문을 골라 HTML 을 만든 뒤 GitHub Pages 에 push 하고 Resend 로 메일을 보낸다. 끝나면 sandbox 가 사라진다.</span>
+      <span class="lang-en">Anthropic's cron spins up a sandbox at 13:00 UTC daily; inside, Claude follows instructions pulled from GitHub to pick a paper, generate the HTML, push it to GitHub Pages, and send the email via Resend. The sandbox vanishes when done.</span>
+    </div>
+  </div>
+
+  <!-- Actors panel -->
+  <div class="panel">
+    <h2>🎭
+      <span class="lang-kr">등장 actor 5명</span>
+      <span class="lang-en">The five actors</span>
+    </h2>
+    <div class="actor-grid">
+
+      <div class="actor-card cloud">
+        <h4><span class="actor-icon">⏰</span>
+          <span class="lang-kr">1. Anthropic Routine 시스템</span>
+          <span class="lang-en">1. Anthropic Routine system</span>
+        </h4>
+        <p>
+          <span class="lang-kr">cron 식 (`0 13 * * *`)을 등록 받아 매일 정확한 시각에 fresh container 를 spin up. Claude Sonnet 4.6 + 미리 정의된 도구들을 그 안에 띄움.</span>
+          <span class="lang-en">Registers a cron expression (`0 13 * * *`) and spins up a fresh container at the exact time daily. Inside: Claude Sonnet 4.6 + the predefined tool set.</span>
+        </p>
+        <div class="actor-where">trigger ID: trig_0159rp3a4dd1TSqBDeQvdgPQ</div>
+      </div>
+
+      <div class="actor-card cloud">
+        <h4><span class="actor-icon">🤖</span>
+          <span class="lang-kr">2. Claude (sandbox 안의 agent)</span>
+          <span class="lang-en">2. Claude (the agent in the sandbox)</span>
+        </h4>
+        <p>
+          <span class="lang-kr">읽고·생각하고·도구를 호출해 명령을 수행. 메모리 없음 — 매일 빈 상태로 시작해 GitHub repo 에서 어제까지의 sent_log 를 읽어 중복을 피함.</span>
+          <span class="lang-en">Reads, thinks, and calls tools to execute instructions. No memory — starts blank each day and reads yesterday's sent_log from the GitHub repo to avoid duplicates.</span>
+        </p>
+        <div class="actor-where">model: claude-sonnet-4-6</div>
+      </div>
+
+      <div class="actor-card repo">
+        <h4><span class="actor-icon">📦</span>
+          <span class="lang-kr">3. GitHub repo (giwoncho/claude_cloud)</span>
+          <span class="lang-en">3. GitHub repo (giwoncho/claude_cloud)</span>
+        </h4>
+        <p>
+          <span class="lang-kr">agent 의 "두뇌 외부 저장소". 지시 (agent_instructions.md), 연구 컨텍스트 (research_context.md), HTML 사양 (paper_easy.md), 이미 보낸 논문 로그 (sent_log.csv), 매일 추가되는 output HTML 들이 이곳에 산다. GitHub Pages 가 같은 repo 에서 서빙.</span>
+          <span class="lang-en">The agent's "external brain storage." Holds instructions (agent_instructions.md), research context (research_context.md), HTML spec (paper_easy.md), the log of sent papers (sent_log.csv), and the daily output HTMLs. GitHub Pages serves the same repo.</span>
+        </p>
+        <div class="actor-where">github.com/giwoncho/claude_cloud</div>
+      </div>
+
+      <div class="actor-card web">
+        <h4><span class="actor-icon">🌐</span>
+          <span class="lang-kr">4. 외부 web (PMC, bioRxiv, journals)</span>
+          <span class="lang-en">4. External web (PMC, bioRxiv, journals)</span>
+        </h4>
+        <p>
+          <span class="lang-kr">논문 후보를 찾는 곳. WebSearch 가 Google-style 검색을 하고, WebFetch 가 OA full-text URL 을 읽어 abstract / methods / fig caption 을 가져온다.</span>
+          <span class="lang-en">Where candidate papers come from. WebSearch performs Google-style queries; WebFetch reads OA full-text URLs to extract abstract, methods, and figure captions.</span>
+        </p>
+        <div class="actor-where">PMC · bioRxiv · JCI · Nature · arXiv</div>
+      </div>
+
+      <div class="actor-card user">
+        <h4><span class="actor-icon">📧</span>
+          <span class="lang-kr">5. Resend (이메일 배송 서비스)</span>
+          <span class="lang-en">5. Resend (email delivery service)</span>
+        </h4>
+        <p>
+          <span class="lang-kr">HTTPS API 한 방으로 이메일을 보내는 SaaS. agent 가 Python urllib 로 POST 하면 Resend 가 SMTP 망을 통해 Gmail 로 전달. 무료 등급은 100통/일.</span>
+          <span class="lang-en">A SaaS that sends email via a single HTTPS API. The agent POSTs JSON via Python urllib; Resend then relays through SMTP to Gmail. Free tier: 100/day.</span>
+        </p>
+        <div class="actor-where">api.resend.com/emails</div>
+      </div>
+
+      <div class="actor-card user">
+        <h4><span class="actor-icon">📥</span>
+          <span class="lang-kr">6. 당신의 Gmail + 브라우저</span>
+          <span class="lang-en">6. Your Gmail + browser</span>
+        </h4>
+        <p>
+          <span class="lang-kr">최종 도착지. 메일을 받아 첨부 HTML 을 열거나 GitHub Pages 링크로 들어감. 며칠 후엔 archive (index.html) 에서 옛날 schematic 도 볼 수 있음.</span>
+          <span class="lang-en">Final destination. Receives the email, opens the HTML attachment or visits the GitHub Pages link. Past schematics remain browsable in the archive (index.html).</span>
+        </p>
+        <div class="actor-where">giwoncho1206@gmail.com</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- =================================================== -->
+<!-- TAB 2: EXECUTION FLOW                                -->
+<!-- =================================================== -->
+<div class="tab-content" id="t2">
+
+  <div class="panel">
+    <h2>🔄
+      <span class="lang-kr">매일 13:00 UTC, 정확히 이런 순서로 일어남</span>
+      <span class="lang-en">Every day at 13:00 UTC, this exact sequence runs</span>
+    </h2>
+
+    <div class="step-row">
+      <div class="step-num">0</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">Cron 발화 + sandbox spin-up</span><span class="lang-en">Cron fires + sandbox spin-up</span></strong>
+        <span class="step-where">~30s</span><br>
+        <span class="lang-kr">Anthropic 의 cron scheduler 가 trigger ID 를 보고 환경 (env_019uEKUnyeFPkwQN6jtx85tW) 에 새 container 를 띄움. GitHub repo 가 자동으로 clone 되어 `/work/giwoncho-claude_cloud/` 에 들어감. Claude Sonnet 4.6 instance 가 그 안에서 시작.</span>
+        <span class="lang-en">Anthropic's cron scheduler sees the trigger ID and spins up a new container in environment env_019uEKUnyeFPkwQN6jtx85tW. The GitHub repo is auto-cloned to `/work/giwoncho-claude_cloud/`. A Claude Sonnet 4.6 instance starts inside.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">prompt + 지시 파일 읽기</span><span class="lang-en">Read the prompt + instruction files</span></strong>
+        <span class="step-where">~30s</span><br>
+        <span class="step-tool">Read</span>
+        <span class="lang-kr">routine prompt (RESEND_API_KEY 포함) → `daily_paper/agent_instructions.md` (12분 시간 예산 명시) → `research_context.md` (테마 우선순위, scoring rubric) → `paper_easy.md` (HTML 사양 — 정해진 line range 만 읽음, 1430줄 통째로 읽으면 timeout) → `sent_log.csv` (어제까지 보낸 DOI 목록).</span>
+        <span class="lang-en">Reads the routine prompt (which includes RESEND_API_KEY) → `daily_paper/agent_instructions.md` (with the 12-min budget) → `research_context.md` (theme priorities, scoring rubric) → `paper_easy.md` (HTML spec — only specific line ranges, never the full 1430 lines) → `sent_log.csv` (yesterday's sent DOIs).</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">논문 후보 ~3-4편 찾기</span><span class="lang-en">Find ~3–4 candidate papers</span></strong>
+        <span class="step-where">~3min</span><br>
+        <span class="step-tool">WebSearch ×3</span><span class="step-tool">WebFetch ×2</span>
+        <span class="lang-kr">research_context.md 의 top-3 테마에서 검색 query 3개를 골라 WebSearch 호출 → 결과에서 OA + 최신 논문 후보 골라 abstract 가져오기 (WebFetch ≤2). sent_log 에 이미 있는 DOI 는 skip.</span>
+        <span class="lang-en">Picks 3 search queries from the top-3 themes in research_context.md, runs WebSearch, then fetches abstracts of top OA candidates with WebFetch (≤2). DOIs already in sent_log are skipped.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">scoring + ONE 선정</span><span class="lang-en">Score and pick ONE</span></strong>
+        <span class="step-where">~1min</span><br>
+        <span class="lang-kr">research_context.md 의 rubric 5축 (theme 적합성 ×3가중, novelty, 방법론 transferability, recency, OA verified) 으로 점수 매김. 가장 높은 점수 1편 선정. 동률이면 recency 로 tie-break.</span>
+        <span class="lang-en">Scores each candidate on the 5-axis rubric in research_context.md (theme fit ×3, novelty, transferability, recency, OA verified). Picks the top-scoring paper. Ties broken by recency.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">HTML schematic 생성</span><span class="lang-en">Generate the HTML schematic</span></strong>
+        <span class="step-where">~3min</span><br>
+        <span class="step-tool">Write</span>
+        <span class="lang-kr">paper_easy.md 의 4-tab 구조 (Intro · Methods · Results · Discussion) + Figure Tree (3-4 figs × 2-3 panels) + Method Deep Cards (3-4 techniques) + Deep Dive (3 findings). 모든 visible string KR/EN 토글. CSS + SVG inline 으로 self-contained.</span>
+        <span class="lang-en">Builds the 4-tab structure (Intro · Methods · Results · Discussion) + Figure Tree (3–4 figs × 2–3 panels) + Method Deep Cards (3–4 techniques) + Deep Dive (3 findings) per the paper_easy.md spec. Every visible string has KR/EN toggle. CSS + SVG inline → self-contained.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">index.html 와 sent_log.csv 갱신</span><span class="lang-en">Update index.html and sent_log.csv</span></strong>
+        <span class="step-where">~30s</span><br>
+        <span class="step-tool">Edit</span>
+        <span class="lang-kr">`<!-- DAILY-LIST -->` 마커 사이 맨 위에 새 `<li>` 추가. 60일 넘은 row 제거. sent_log.csv 끝에 한 줄 추가 (date, DOI, title, journal, year, type, why_chosen).</span>
+        <span class="lang-en">Inserts a new `<li>` at the top of the `<!-- DAILY-LIST -->` block. Trims rows older than 60 days. Appends one row to sent_log.csv: date, DOI, title, journal, year, type, why_chosen.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">git commit + push</span><span class="lang-en">git commit + push</span></strong>
+        <span class="step-where">~30s</span><br>
+        <span class="step-tool">Bash</span>
+        <span class="lang-kr">commit author = "Daily Paper Bot". push 시 GH_TOKEN 이 없으면 plain `git push` 시도 (sandbox 의 default git auth 사용). 실패해도 다음 step 으로. 성공 시 GitHub Pages 가 1-2분 후 rebuild.</span>
+        <span class="lang-en">Commits as "Daily Paper Bot". Pushes via plain `git push` (using the sandbox's default git auth, since no GH_TOKEN is set). On failure, continues anyway. On success, GitHub Pages rebuilds within 1–2 min.</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">Resend HTTP API 로 메일 발송</span><span class="lang-en">Send email via Resend HTTP API</span></strong>
+        <span class="step-where">~30s</span><br>
+        <span class="step-tool">Bash + Python</span>
+        <span class="lang-kr">Python urllib 로 `POST https://api.resend.com/emails` 호출. **반드시 `User-Agent: Mozilla/5.0 ...` 헤더 추가** (없으면 Cloudflare 1010 거부). Body JSON: from=`onboarding@resend.dev`, to=[`giwoncho1206@gmail.com`], subject, html (cute card layout), attachments (HTML 파일 base64).</span>
+        <span class="lang-en">Python urllib does `POST https://api.resend.com/emails`. **Must include `User-Agent: Mozilla/5.0 ...` header** (without it, Cloudflare returns 1010). JSON body: from=`onboarding@resend.dev`, to=[`giwoncho1206@gmail.com`], subject, html (cute card layout), attachments (HTML file as base64).</span>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">최종 요약 출력 + sandbox 종료</span><span class="lang-en">Print final summary + sandbox terminates</span></strong>
+        <span class="step-where">~10s</span><br>
+        <span class="lang-kr">Push status, Email status, Pages URL, Index URL 을 stdout 에 찍음. 이게 routine page 의 run log 에 남음. 그 후 sandbox 자동 소멸 — 다음 날 깨끗한 새 sandbox.</span>
+        <span class="lang-en">Prints push status, email status, Pages URL, and index URL to stdout. This is preserved in the routine page's run log. The sandbox is then destroyed — fresh sandbox tomorrow.</span>
+      </div>
+    </div>
+
+    <div class="summary-banner">
+      <span class="lang-kr">⏱️ 전체 ~10분. 12분 hard cap. 하나라도 timeout 나면 그 step 은 fail 처리하고 다음으로 넘어감 — 두 가지 결과물 (Pages publish + email) 은 서로 독립.</span>
+      <span class="lang-en">⏱️ Total ~10 min. 12-min hard cap. If any step times out, mark it failed and continue — the two outputs (Pages publish + email) are independent.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- =================================================== -->
+<!-- TAB 3: AUTH & SECRETS                                -->
+<!-- =================================================== -->
+<div class="tab-content" id="t3">
+
+  <div class="panel">
+    <h2>🔐
+      <span class="lang-kr">비밀 정보가 어디에 어떻게 사는지</span>
+      <span class="lang-en">Where each secret lives</span>
+    </h2>
+    <div class="bubble blue">
+      <strong><span class="lang-kr">핵심 원칙</span><span class="lang-en">Core principle</span></strong>:
+      <span class="lang-kr">절대로 GitHub repo 에 secret 을 commit 하지 않는다. 비밀은 routine prompt 안에만 살고 (본인 계정으로만 접근 가능), 평문 파일에 저장되지 않는다.</span>
+      <span class="lang-en">No secret is ever committed to the GitHub repo. Secrets live only in the routine prompt (accessible only by your account) and are never written to plain files.</span>
+    </div>
+
+    <h3>
+      <span class="lang-kr">3 가지 위치 분리</span>
+      <span class="lang-en">Three separated locations</span>
+    </h3>
+    <div class="secret-grid">
+      <div class="secret-card public">
+        <h4>🌍 <span class="lang-kr">공개 (GitHub repo)</span><span class="lang-en">Public (GitHub repo)</span></h4>
+        <p>
+          <span class="lang-kr"><strong>들어있는 것:</strong> agent_instructions.md, research_context.md, paper_easy.md, sent_log.csv, daily output HTML.</span>
+          <span class="lang-en"><strong>What lives here:</strong> agent_instructions.md, research_context.md, paper_easy.md, sent_log.csv, the daily output HTMLs.</span>
+        </p>
+        <p style="margin-top:8px;">
+          <span class="lang-kr"><strong>비밀 정보:</strong> 없음. 누구든 fork / clone 가능.</span>
+          <span class="lang-en"><strong>Secrets:</strong> none. Anyone can fork or clone.</span>
+        </p>
+      </div>
+
+      <div class="secret-card routine">
+        <h4>🔒 <span class="lang-kr">비공개 (claude.ai routine prompt)</span><span class="lang-en">Private (claude.ai routine prompt)</span></h4>
+        <p>
+          <span class="lang-kr"><strong>들어있는 것:</strong> RESEND_API_KEY (re_...), 8단계 요약, 모델·도구 목록.</span>
+          <span class="lang-en"><strong>What lives here:</strong> RESEND_API_KEY (re_...), summary of the 8 steps, model and tool list.</span>
+        </p>
+        <p style="margin-top:8px;">
+          <span class="lang-kr"><strong>접근:</strong> 본인 계정 + Anthropic 시스템만. routine 페이지에서 본인이 직접 보거나 수정.</span>
+          <span class="lang-en"><strong>Access:</strong> only your account + Anthropic infra. Visible/editable from the routine page.</span>
+        </p>
+      </div>
+
+      <div class="secret-card private">
+        <h4>👤 <span class="lang-kr">본인 계정 (giwoncho)</span><span class="lang-en">Your accounts (giwoncho)</span></h4>
+        <p>
+          <span class="lang-kr"><strong>들어있는 것:</strong> Resend 계정 + API 키 발급 권한, GitHub 계정 + push 권한, Gmail 받은 편지함.</span>
+          <span class="lang-en"><strong>What lives here:</strong> Resend account + API key issuance, GitHub account + push permissions, Gmail inbox.</span>
+        </p>
+        <p style="margin-top:8px;">
+          <span class="lang-kr"><strong>접근:</strong> 오직 본인. 패스워드 / OAuth 통제.</span>
+          <span class="lang-en"><strong>Access:</strong> only you. Controlled by passwords / OAuth.</span>
+        </p>
+      </div>
+    </div>
+
+    <h3>
+      <span class="lang-kr">RESEND_API_KEY 가 sandbox 에 도달하는 경로</span>
+      <span class="lang-en">How RESEND_API_KEY reaches the sandbox</span>
+    </h3>
+    <svg class="scene" viewBox="0 0 920 250" width="100%" style="max-width:920px;">
+      <rect x="0" y="0" width="920" height="250" fill="#fafbff" rx="16"/>
+
+      <g transform="translate(30, 40)">
+        <rect x="0" y="0" width="200" height="100" fill="#fff5e6" stroke="#ed7d31" stroke-width="3" rx="14"/>
+        <text x="100" y="22" font-size="13" font-weight="bold" fill="#b85f25" text-anchor="middle">
+          <tspan class="lang-kr">1️⃣ resend.com</tspan>
+          <tspan class="lang-en">1️⃣ resend.com</tspan>
+        </text>
+        <text x="100" y="44" font-size="11" fill="#444" text-anchor="middle">
+          <tspan class="lang-kr">사용자가 가입 후</tspan>
+          <tspan class="lang-en">user signs up</tspan>
+        </text>
+        <text x="100" y="60" font-size="11" fill="#444" text-anchor="middle">
+          <tspan class="lang-kr">API key 발급</tspan>
+          <tspan class="lang-en">issues API key</tspan>
+        </text>
+        <text x="100" y="82" font-size="10" fill="#888" text-anchor="middle">re_xxxxxxxxxxx...</text>
+      </g>
+
+      <line x1="230" y1="90" x2="290" y2="90" stroke="#888" stroke-width="2" marker-end="url(#arrow2)"/>
+      <text x="260" y="80" font-size="10" fill="#666" text-anchor="middle">
+        <tspan class="lang-kr">붙여넣기</tspan>
+        <tspan class="lang-en">paste</tspan>
+      </text>
+
+      <g transform="translate(290, 40)">
+        <rect x="0" y="0" width="200" height="100" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="3" rx="14"/>
+        <text x="100" y="22" font-size="13" font-weight="bold" fill="#5a4fcf" text-anchor="middle">
+          <tspan class="lang-kr">2️⃣ Routine prompt</tspan>
+          <tspan class="lang-en">2️⃣ Routine prompt</tspan>
+        </text>
+        <text x="100" y="44" font-size="11" fill="#444" text-anchor="middle">claude.ai routines</text>
+        <text x="100" y="60" font-size="11" fill="#444" text-anchor="middle">
+          <tspan class="lang-kr">prompt 안에 embed</tspan>
+          <tspan class="lang-en">embedded in prompt</tspan>
+        </text>
+        <text x="100" y="80" font-size="10" fill="#888" text-anchor="middle">export RESEND_API_KEY=...</text>
+      </g>
+
+      <line x1="490" y1="90" x2="550" y2="90" stroke="#888" stroke-width="2" marker-end="url(#arrow2)"/>
+      <text x="520" y="80" font-size="10" fill="#666" text-anchor="middle">
+        <tspan class="lang-kr">cron 발화</tspan>
+        <tspan class="lang-en">cron fires</tspan>
+      </text>
+
+      <g transform="translate(550, 40)">
+        <rect x="0" y="0" width="200" height="100" fill="#e6f0ff" stroke="#5b9bd5" stroke-width="3" rx="14"/>
+        <text x="100" y="22" font-size="13" font-weight="bold" fill="#2a6ea3" text-anchor="middle">
+          <tspan class="lang-kr">3️⃣ Sandbox env</tspan>
+          <tspan class="lang-en">3️⃣ Sandbox env</tspan>
+        </text>
+        <text x="100" y="44" font-size="11" fill="#444" text-anchor="middle">
+          <tspan class="lang-kr">agent 가 환경 변수로 사용</tspan>
+          <tspan class="lang-en">agent reads as env var</tspan>
+        </text>
+        <text x="100" y="60" font-size="11" fill="#444" text-anchor="middle">
+          <tspan class="lang-kr">Python POST 로 전달</tspan>
+          <tspan class="lang-en">passes via Python POST</tspan>
+        </text>
+        <text x="100" y="80" font-size="10" fill="#888" text-anchor="middle">os.environ['RESEND_API_KEY']</text>
+      </g>
+
+      <line x1="750" y1="90" x2="810" y2="90" stroke="#888" stroke-width="2" marker-end="url(#arrow2)"/>
+      <text x="780" y="80" font-size="10" fill="#666" text-anchor="middle">
+        <tspan class="lang-kr">HTTPS</tspan>
+        <tspan class="lang-en">HTTPS</tspan>
+      </text>
+
+      <g transform="translate(810, 40)">
+        <rect x="0" y="0" width="80" height="100" fill="#ffe6f0" stroke="#d63384" stroke-width="3" rx="14"/>
+        <text x="40" y="40" font-size="22" text-anchor="middle">📨</text>
+        <text x="40" y="70" font-size="11" fill="#a3296c" text-anchor="middle" font-weight="bold">Resend</text>
+      </g>
+
+      <text x="460" y="200" font-size="11" fill="#888" text-anchor="middle">
+        <tspan class="lang-kr">⚠️ key 가 sandbox 의 stdout / log 에 평문으로 찍히지 않게 — agent 는 env var 만 사용</tspan>
+        <tspan class="lang-en">⚠️ key is never echoed in plain text in sandbox stdout/log — agent only reads env var</tspan>
+      </text>
+
+      <defs>
+        <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <polygon points="0 0, 10 5, 0 10" fill="#888"/>
+        </marker>
+      </defs>
+    </svg>
+
+    <div class="bubble orange">
+      <strong>⚠️ <span class="lang-kr">위험 신호</span><span class="lang-en">When to rotate the key</span></strong><br>
+      <span class="lang-kr">(1) 채팅 / Slack / 이메일에 실수로 paste 했을 때 (2) 노트북 도난 / 피싱 의심 시 (3) 6개월 정기 rotation. https://resend.com/api-keys 에서 1초만에 revoke + 새 키 발급. 새 키 받으면 routine 의 prompt 안 RESEND_API_KEY 만 교체하면 끝.</span>
+      <span class="lang-en">(1) Pasted into a chat / Slack / email by mistake. (2) Laptop stolen or phishing suspected. (3) Routine 6-mo rotation. Revoke + reissue at https://resend.com/api-keys in seconds. After getting a new key, just replace RESEND_API_KEY in the routine prompt — nothing else changes.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- =================================================== -->
+<!-- TAB 4: FAILURE HANDLING                              -->
+<!-- =================================================== -->
+<div class="tab-content" id="t4">
+
+  <div class="panel">
+    <h2>⚠️
+      <span class="lang-kr">"한쪽이 망가져도 한쪽은 살아남게" — 이중화 디자인</span>
+      <span class="lang-en">"If one side breaks, the other still ships" — redundant design</span>
+    </h2>
+
+    <div class="bubble pink">
+      <span class="lang-kr">매일 두 가지 출력이 독립적으로 만들어짐: <strong>(A) GitHub Pages 에 publish</strong>, <strong>(B) Gmail 로 메일 발송</strong>. 둘 중 하나가 실패해도 다른 하나는 살아남도록 설계 — 그래서 매일 적어도 어딘가엔 결과물이 남는다.</span>
+      <span class="lang-en">Two outputs are produced independently each day: <strong>(A) publish to GitHub Pages</strong>, <strong>(B) email via Resend</strong>. Either one can fail without taking down the other — so the result lands somewhere every day.</span>
+    </div>
+
+    <h3>
+      <span class="lang-kr">실패 케이스별 동작</span>
+      <span class="lang-en">Behavior per failure mode</span>
+    </h3>
+
+    <div class="step-row fail-row">
+      <div class="step-num">A</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">검색 결과가 비었을 때</span><span class="lang-en">Search returns nothing</span></strong><br>
+        <span class="lang-kr">→ 검색어를 6개월 더 넓혀 한 번 재시도. 그래도 비면 `_no_paper.html` 을 만들고 "오늘은 적합한 논문 없음, 이유는 ..." 이메일 발송.</span>
+        <span class="lang-en">→ Broaden the date window by 6 months and retry once. If still empty, write `_no_paper.html` and send an email saying "no qualifying paper today — here's why."</span>
+      </div>
+    </div>
+
+    <div class="step-row fail-row">
+      <div class="step-num">B</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">git push 실패 (인증 거부 등)</span><span class="lang-en">git push fails (auth rejection, etc.)</span></strong><br>
+        <span class="lang-kr">→ 그래도 step 7 (이메일) 진행. HTML 파일은 첨부로 사용자한테 도달. 메일 본문에 "push 실패 — 첨부 HTML 로 대신" 표기. Pages 업데이트 안 됨 — 다음 날 또는 사용자가 수동 push.</span>
+        <span class="lang-en">→ Step 7 (email) still runs. The HTML file reaches the user as an attachment. The email body notes "push failed — see attachment instead." Pages isn't updated; user can push manually or wait for tomorrow's run.</span>
+      </div>
+    </div>
+
+    <div class="step-row fail-row">
+      <div class="step-num">C</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">Resend 송신 실패 (Cloudflare, key revoked, quota 초과)</span><span class="lang-en">Resend send fails (Cloudflare, key revoked, quota)</span></strong><br>
+        <span class="lang-kr">→ Pages 는 이미 업데이트 됨 (step 6 성공). 사용자는 archive 페이지 (https://giwoncho.github.io/claude_cloud/daily_paper/) 에서 그날 paper 확인 가능. 실패 원인은 routine page 의 run log 에 기록.</span>
+        <span class="lang-en">→ Pages was already updated (step 6 succeeded). The user can find the day's paper in the archive (https://giwoncho.github.io/claude_cloud/daily_paper/). The failure reason is logged on the routine page.</span>
+      </div>
+    </div>
+
+    <div class="step-row fail-row">
+      <div class="step-num">D</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">12분 timeout — 어딘가에서 멈춤</span><span class="lang-en">12-min timeout — agent stalls somewhere</span></strong><br>
+        <span class="lang-kr">→ Anthropic 시스템이 sandbox 강제 종료. 그날 출력물 0. 다음 날 새 sandbox 가 다시 시도 (sent_log 가 어제 paper 없음을 알고 같은 후보 다시 고를 수도 있음). 사용자가 routine page 에서 마지막 도구 호출 확인 후 spec 추가 다이어트 가능.</span>
+        <span class="lang-en">→ Anthropic forcibly terminates the sandbox. Zero output that day. Next day's fresh sandbox tries again (sent_log shows yesterday was empty, so the same candidate may be picked again). User checks the routine page for the last tool call and trims the spec further if needed.</span>
+      </div>
+    </div>
+
+    <div class="step-row fail-row">
+      <div class="step-num">E</div>
+      <div class="step-body">
+        <strong><span class="lang-kr">사용자가 멈추고 싶을 때</span><span class="lang-en">User wants to stop the routine</span></strong><br>
+        <span class="lang-kr">→ https://claude.ai/code/routines/trig_0159rp3a4dd1TSqBDeQvdgPQ 에서 "Disable" 토글. enabled=false 가 되면 cron 안 발화. 다시 켜면 즉시 다음 13:00 UTC 에 발화. 완전 삭제는 trigger 자체를 delete.</span>
+        <span class="lang-en">→ Toggle "Disable" at https://claude.ai/code/routines/trig_0159rp3a4dd1TSqBDeQvdgPQ. Setting enabled=false stops the cron. Re-enabling resumes from the next 13:00 UTC. Full removal = delete the trigger.</span>
+      </div>
+    </div>
+
+    <div class="summary-banner">
+      <span class="lang-kr">🛡️ 두 출력이 독립이고 sandbox 가 매일 fresh 라서, 어떤 실패도 영구적이지 않다. 최악의 경우 "오늘 하루 빈 칸" 정도 — 다음 날엔 자동 회복.</span>
+      <span class="lang-en">🛡️ Two independent outputs and a fresh daily sandbox mean no failure is permanent. Worst case: one blank day — auto-recovers the next.</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="lang-kr">Built for Giwon · Varghese Lab, Duke BME · </span>
+  <span class="lang-en">Built for Giwon · Varghese Lab, Duke BME · </span>
+  <a href="https://github.com/giwoncho/claude_cloud" target="_blank">repo</a> ·
+  <a href="https://giwoncho.github.io/claude_cloud/daily_paper/" target="_blank">archive</a> ·
+  <a href="https://claude.ai/code/routines/trig_0159rp3a4dd1TSqBDeQvdgPQ" target="_blank">routine page</a>
+</footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  function toggleLang() {
+    const body = document.body;
+    if (body.classList.contains('lang-kr')) {
+      body.classList.remove('lang-kr'); body.classList.add('lang-en');
+      localStorage.setItem('paper_easy_lang', 'en');
+    } else {
+      body.classList.remove('lang-en'); body.classList.add('lang-kr');
+      localStorage.setItem('paper_easy_lang', 'kr');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('paper_easy_lang');
+    if (saved === 'en') {
+      document.body.classList.remove('lang-kr');
+      document.body.classList.add('lang-en');
+    }
+  })();
+</script>
+
+</body>
+</html>
