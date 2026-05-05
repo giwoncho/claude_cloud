@@ -144,62 +144,116 @@ If push fails → still proceed to email. Embed the rendered HTML in
 the email so the user gets the content. Note the push failure in
 the email body footer.
 
-## Step 7 — Send email via Gmail MCP
+## Step 7 — Send email via Resend HTTP API
 
-The Gmail MCP connector is attached to this routine. Use it to send
-to **BOTH** addresses in a single email (To + Cc, or two separate
-sends — whichever the connector's tool surface supports).
+We use **Resend** (https://resend.com) for delivery. The API key is
+provided to you in the prompt as `$RESEND_API_KEY`. Do NOT commit the
+key to any file in the repo. Use it only from the env at runtime.
 
-**Recipients:**
-- giwon.cho@duke.edu
-- giwoncho1206@gmail.com
+**Recipients:** for now, ONLY `giwoncho1206@gmail.com`. The Resend free
+tier blocks non-registered addresses until a domain is verified.
+Eventually `giwon.cho@duke.edu` will also be added (after domain
+verification or a fallback Gmail-App-Password path).
+
+**From:** `onboarding@resend.dev` (Resend's default until user verifies
+their own domain).
 
 **Subject:**
 ```
-[Daily Paper YYYY-MM-DD] {Title} — {Journal} {Year}
+[Daily Paper YYYY-MM-DD] {FirstAuthor et al.} — {short-title} — {Journal} {Year}
 ```
 
-**Body** (HTML email format if supported, else plain text):
+**Body:** HTML — pretty card layout, schematic link prominent, 1-2 paragraph
+"why chosen", one-line takeaway, keywords, footer.
 
+**Attachment:** the generated HTML file (base64-encoded in the JSON).
+
+**Critical Cloudflare workaround:** Resend sits behind Cloudflare and
+will return HTTP 403 (error code 1010) without a User-Agent header.
+ALWAYS send a `User-Agent: Mozilla/5.0 (Linux x86_64) Resend-Client/1.0`
+header.
+
+**Implementation (use this Python via Bash heredoc):**
+
+```bash
+EMAIL_STATUS="sent"
+EMAIL_ERROR=""
+
+if [ -z "$RESEND_API_KEY" ]; then
+  EMAIL_STATUS="failed"
+  EMAIL_ERROR="RESEND_API_KEY not set in routine env"
+else
+  python3 <<'PYEOF' || { EMAIL_STATUS="failed"; EMAIL_ERROR="resend send raised"; }
+import os, json, base64, urllib.request, urllib.error
+
+HTML_FILE = "daily_paper/output/<TODAY-FILENAME>.html"  # set this
+SUBJECT   = "[Daily Paper YYYY-MM-DD] {Author} et al. — {short-title} — {Journal} {Year}"
+
+# Compose body — fill all bracketed slots from the paper you selected
+body_html = """<div style="font-family:Helvetica,Arial,sans-serif;max-width:640px;margin:0 auto;line-height:1.6;color:#3a4252;">
+<p>안녕하세요 Giwon,</p>
+<p>오늘 골라드린 논문 한 편입니다.</p>
+<table style="width:100%;background:#fafbff;border-radius:12px;margin:16px 0;border-collapse:collapse;">
+  <tr><td style="padding:14px 18px;border-left:4px solid #d63384;">
+    <p><strong>📄 제목:</strong> {Full title}</p>
+    <p><strong>👥 저자:</strong> {First author et al.} ({Lab}, {Institution})</p>
+    <p><strong>📚 저널:</strong> {Journal} {Volume}({Issue}):{pages}, {Year}</p>
+    <p><strong>🔗 DOI:</strong> <a href="https://doi.org/{DOI}">{DOI}</a></p>
+    <p><strong>📖 OA:</strong> <a href="{OA_URL}">{OA_URL}</a></p>
+    <p><strong>🏷️ 종류:</strong> {detected type}</p>
+  </td></tr>
+</table>
+<p style="background:linear-gradient(135deg,#ffd6e7,#fff5e6);padding:14px 18px;border-radius:12px;border:2px dashed #ffb3d4;">
+  <strong>🌐 인터랙티브 schematic:</strong><br>
+  <a href="{pages_url}" style="color:#d63384;font-weight:bold;">{pages_url}</a><br>
+  <span style="color:#888;font-size:12px;">push 2분 후부터 활성. 첨부 HTML 파일도 단독으로 열림.</span>
+</p>
+<p><strong>🎯 왜 이 논문을 골랐는지</strong></p>
+<p>{1-2 specific paragraphs — which top-3 theme it hits, why this beat the other candidates, novelty axis. Avoid generic phrases.}</p>
+<p><strong>🌟 핵심 takeaway</strong> (한 줄): {one sentence}</p>
+<p><strong>🔑 keywords:</strong> {5-8 comma-separated keywords}</p>
+<hr style="margin-top:24px;border:none;border-top:1px solid #eee;">
+<p style="color:#888;font-size:12px;line-height:1.5;">
+— 매일 아침 9시 (Eastern) 자동 발송<br>
+&nbsp;&nbsp;&nbsp;archive: <a href="https://giwoncho.github.io/claude_cloud/daily_paper/" style="color:#888;">https://giwoncho.github.io/claude_cloud/daily_paper/</a><br>
+&nbsp;&nbsp;&nbsp;routine: <a href="https://claude.ai/code/routines/trig_0159rp3a4dd1TSqBDeQvdgPQ" style="color:#888;">claude.ai/code/routines/trig_0159rp3a4dd1TSqBDeQvdgPQ</a>
+</p>
+</div>"""
+
+with open(HTML_FILE, "rb") as f:
+    attachment_b64 = base64.b64encode(f.read()).decode("ascii")
+
+payload = {
+    "from": "onboarding@resend.dev",
+    "to":   ["giwoncho1206@gmail.com"],
+    "subject": SUBJECT,
+    "html": body_html,
+    "attachments": [{
+        "filename": HTML_FILE.split("/")[-1],
+        "content":  attachment_b64,
+    }],
+}
+
+req = urllib.request.Request(
+    "https://api.resend.com/emails",
+    data=json.dumps(payload).encode("utf-8"),
+    headers={
+        "Authorization": f"Bearer {os.environ['RESEND_API_KEY']}",
+        "Content-Type":  "application/json",
+        "User-Agent":    "Mozilla/5.0 (Linux x86_64) Resend-Client/1.0",
+        "Accept":        "application/json",
+    },
+    method="POST",
+)
+with urllib.request.urlopen(req, timeout=30) as resp:
+    print("RESEND HTTP", resp.status, resp.read().decode())
+PYEOF
+fi
 ```
-안녕하세요 Giwon,
 
-오늘 골라드린 논문 한 편 입니다.
-
-📄 제목: {Full title}
-👥 저자: {First author et al.}
-📚 저널: {Journal} {Volume}({Issue}):{pages}, {Year}
-🔗 DOI: {DOI}
-📖 OA URL: {public full-text URL}
-🏷️ 종류: {detected paper type, e.g., "Research (mechanism)"}
-
-🌐 인터랙티브 schematic (4탭 + Figure Tree + Method Deep Cards):
-{If push succeeded:}
-   {pages_url}
-{If push failed:}
-   (push 실패 — HTML 첨부로 대신. push 에러: {PUSH_ERROR})
-
-🎯 왜 이 논문을 골랐는지 (1-2 문단):
-{선택 이유 — 사용자 연구의 어떤 부분과 직접 연결되는지,
- 왜 다른 후보들보다 이게 중요한지, novelty point}
-
-🌟 핵심 takeaway (한 줄):
-{One-sentence summary}
-
-🔑 keywords: {comma-separated 5-8 keywords}
-
-— 매일 9시 동부시간 자동 발송
-   archive: https://giwoncho.github.io/claude_cloud/daily_paper/
-   routine config: https://claude.ai/code/routines/trig_0159rp3a4dd1TSqBDeQvdgPQ
-```
-
-**Attachment:** the generated HTML file. Use the Gmail MCP's
-attachment feature if available. If the connector doesn't support
-attachments in this transport, embed a brief inline preview snippet
-+ link to the Pages URL.
-
-If Gmail MCP send fails for any reason → log the error and continue.
-Do not fail the run; the Pages publish (Step 6) is the durable copy.
+**Failure handling:** if Resend send fails → log `EMAIL_ERROR` and
+continue. Do not fail the run; the Pages publish (Step 6) remains the
+durable copy.
 
 ## Step 8 — Print confirmation
 
