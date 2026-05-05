@@ -1,1 +1,2 @@
 date,doi,title,journal,year,paper_type,why_chosen
+2026-05-05,10.1172/JCI195772,"Aged murine bone marrow myeloid and mesenchymal cells develop unique senescence phenotypes",J Clin Invest,2026,research,"Theme 1+3+7 hit: paired CyTOF in same mouse shows MSC p16 +170% vs myeloid; LysM-Cre × p16-LOX-ATTAC clearance fails to rescue bone (myeloid repopulates fast, no BCL2 surge, no YAP/TAZ loss, no cGAS/STING). Directly questions D+Q substrate identity in BM."

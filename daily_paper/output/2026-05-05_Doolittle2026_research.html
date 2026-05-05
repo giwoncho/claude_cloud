@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Doolittle 2026 — 골수 노화 senotype 비교 (cute · research)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', 'Comic Sans MS', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: white; padding: 28px; border-radius: 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; position: relative; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 10px; }
+  header .subtitle { color: #6c757d; font-size: 14px; }
+  header .citation { color: #999; font-size: 12px; margin-top: 4px; font-style: italic; }
+  header .emoji { font-size: 32px; margin-bottom: 8px; }
+  header .type-badge { display: inline-block; margin-top: 10px; padding: 4px 14px;
+    background: linear-gradient(135deg,#ffd6e7,#fff5e6); border: 2px solid #ffb3d4;
+    border-radius: 14px; font-size: 12px; font-weight: bold; color: #d63384; }
+
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-bottom: 24px; background: white; padding: 10px; border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(100,130,200,0.1); }
+  .tab-btn { border: 2px solid transparent; background: #fef6f9; padding: 14px 16px;
+    border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 14px;
+    font-weight: 600; color: #888; transition: all 0.25s; display: flex;
+    flex-direction: column; align-items: center; gap: 4px; }
+  .tab-btn .tab-emoji { font-size: 22px; }
+  .tab-btn:hover { background: #fff0f5; color: #5a4fcf; transform: translateY(-2px); }
+  .tab-btn.active { background: linear-gradient(135deg,#ffd6e7 0%,#fff5e6 100%);
+    color: #d63384; border-color: #ffb3d4;
+    box-shadow: 0 4px 12px rgba(255,150,200,0.3); }
+
+  .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+  .panel { background: white; border-radius: 20px; padding: 28px; margin-bottom: 24px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); border: 2px solid #fff; }
+  .panel h2 { font-size: 19px; color: #5a4fcf; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 15px; color: #5a4fcf; margin: 16px 0 8px; }
+
+  .scene { display: block; margin: 12px auto; max-width: 100%; }
+  .bubble { background: #fff5e6; padding: 14px 18px; border-radius: 16px;
+    border: 2px solid #ffd591; font-size: 14px; margin: 12px 0; line-height: 1.65; }
+  .bubble.pink { background: #ffe6f0; border-color: #ffb3d4; }
+  .bubble.blue { background: #e6f0ff; border-color: #91b8e0; }
+  .bubble.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .bubble.purple { background: #f0e6ff; border-color: #b89ce0; }
+  .bubble.orange { background: #fff0e0; border-color: #ffb380; }
+
+  .outcomes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 20px; }
+  .outcome-card { border-radius: 18px; padding: 20px; text-align: center;
+    border: 3px solid; background: white; transition: transform 0.2s; }
+  .outcome-card:hover { transform: translateY(-4px); }
+  .outcome-card.pink { border-color: #d63384; background: linear-gradient(180deg,#fff,#ffe6f0); }
+  .outcome-card.blue { border-color: #5b9bd5; background: linear-gradient(180deg,#fff,#e9f1fa); }
+  .outcome-card.orange { border-color: #ed7d31; background: linear-gradient(180deg,#fff,#fdf0e6); }
+  .outcome-card.green { border-color: #2e8b57; background: linear-gradient(180deg,#fff,#e7f3e4); }
+  .outcome-card.purple { border-color: #5a4fcf; background: linear-gradient(180deg,#fff,#f0e6ff); }
+  .outcome-card .icon { font-size: 42px; margin-bottom: 8px; }
+  .outcome-card h3 { font-size: 15px; margin-bottom: 6px; color: #3a4252; }
+  .outcome-card .source-tag { display: inline-block; font-size: 11px; padding: 3px 10px;
+    border-radius: 10px; margin-bottom: 10px; font-weight: bold; color: white; }
+  .outcome-card.pink .source-tag { background: #d63384; }
+  .outcome-card.blue .source-tag { background: #5b9bd5; }
+  .outcome-card.orange .source-tag { background: #ed7d31; }
+  .outcome-card.green .source-tag { background: #2e8b57; }
+  .outcome-card.purple .source-tag { background: #5a4fcf; }
+  .outcome-card ul { list-style: none; text-align: left; font-size: 13px; line-height: 1.6; }
+  .outcome-card li { padding: 3px 0; }
+
+  .summary-banner { background: linear-gradient(135deg,#ffd591 0%,#ffb3d4 50%,#91b8e0 100%);
+    padding: 24px; border-radius: 20px; text-align: center; color: white;
+    font-size: 16px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.15); margin-top: 20px; line-height: 1.6; }
+
+  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .method-card { border-radius: 16px; padding: 18px; background: #fafbff; border: 2px solid #e0e6f5; }
+  .method-card h4 { color: #5a4fcf; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .method-card p, .method-card ul { font-size: 13px; color: #555; line-height: 1.6; }
+  .method-card ul { padding-left: 18px; margin-top: 6px; }
+
+  .hierarchy { background: linear-gradient(180deg,#fff 0%,#f0f7ff 100%);
+    padding: 20px; border-radius: 16px; border: 2px dashed #91b8e0; margin-top: 12px; }
+
+  .discussion-list { list-style: none; padding: 0; }
+  .discussion-item { background: #fafbff; border-left: 5px solid #5a4fcf;
+    padding: 16px 20px; border-radius: 8px; margin-bottom: 12px; }
+  .discussion-item.limitation { border-left-color: #ed7d31; background: #fdf0e6; }
+  .discussion-item.future { border-left-color: #6aaa64; background: #e7f3e4; }
+  .discussion-item.controversy { border-left-color: #d63384; background: #ffe6f0; }
+  .discussion-item h4 { font-size: 14px; margin-bottom: 6px; color: #5a4fcf; }
+  .discussion-item.limitation h4 { color: #b85f25; }
+  .discussion-item.future h4 { color: #4a7c47; }
+  .discussion-item.controversy h4 { color: #a3296c; }
+  .discussion-item p { font-size: 13px; color: #555; line-height: 1.65; }
+
+  .qa-flow { background: linear-gradient(135deg,#fff5e6 0%,#ffe6f0 100%);
+    padding: 20px; border-radius: 16px; margin-top: 12px; }
+  .qa-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; }
+  .qa-q, .qa-a { padding: 12px 16px; border-radius: 14px; font-size: 13px; flex: 1; min-width: 220px; line-height: 1.6; }
+  .qa-q { background: #ffe6f0; border: 2px solid #ffb3d4; }
+  .qa-a { background: #e6f0ff; border: 2px solid #91b8e0; }
+
+  details.deep-dive { margin: 14px 0; background: #fafbff; border: 2px solid #e0e6f5;
+    border-radius: 14px; padding: 14px 18px; transition: background 0.2s; }
+  details.deep-dive[open] { background: linear-gradient(180deg,#fff,#fafbff);
+    border-color: #b89ce0; box-shadow: 0 4px 12px rgba(100,130,200,0.08); }
+  details.deep-dive summary { cursor: pointer; font-size: 14px; font-weight: 600;
+    color: #5a4fcf; padding: 4px 0; user-select: none; list-style: none;
+    display: flex; align-items: center; gap: 8px; }
+  details.deep-dive summary::-webkit-details-marker { display: none; }
+  details.deep-dive summary::before { content: '▶'; display: inline-block;
+    transition: transform 0.2s; color: #d63384; font-size: 11px; }
+  details.deep-dive[open] summary::before { transform: rotate(90deg); }
+  details.deep-dive .body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5; }
+  details.deep-dive .body h4 { color: #5a4fcf; font-size: 13px; margin: 14px 0 8px;
+    display: flex; align-items: center; gap: 6px; font-weight: 700; }
+  details.deep-dive .body h4:first-child { margin-top: 0; }
+
+  .narrative { font-size: 13.5px; line-height: 1.75; color: #444; margin: 6px 0 12px; }
+  .narrative strong { color: #5a4fcf; }
+
+  .numbers-strip { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 14px; }
+  .number-chip { background: linear-gradient(135deg,#ffe6f0,#fff5e6);
+    border: 2px solid #ffb3d4; border-radius: 12px; padding: 8px 14px;
+    font-size: 12px; min-width: 80px; text-align: center; }
+  .number-chip strong { display: block; color: #d63384; font-size: 17px;
+    font-weight: bold; line-height: 1.2; }
+  .number-chip .unit { color: #888; font-size: 11px; display: block; margin-top: 2px; }
+  .number-chip.blue { background: linear-gradient(135deg,#e6f0ff,#fff); border-color: #91b8e0; }
+  .number-chip.blue strong { color: #5b9bd5; }
+  .number-chip.green { background: linear-gradient(135deg,#e8f5e9,#fff); border-color: #a5d6a7; }
+  .number-chip.green strong { color: #2e8b57; }
+  .number-chip.purple { background: linear-gradient(135deg,#f0e6ff,#fff); border-color: #b89ce0; }
+  .number-chip.purple strong { color: #5a4fcf; }
+
+  .paper-quote { background: #fff5e6; border-left: 4px solid #d63384;
+    padding: 12px 16px 12px 20px; margin: 10px 0 14px; font-style: italic;
+    font-size: 13px; color: #6c3a52; border-radius: 0 12px 12px 0; line-height: 1.65; }
+  .paper-quote .src { display: block; margin-top: 8px; font-size: 11px;
+    font-style: normal; color: #999; text-align: right; }
+
+  /* Figure Tree */
+  .figure-tree { margin: 16px 0; display: flex; flex-direction: column; gap: 14px; }
+  details.fig-node { background: linear-gradient(135deg,#fff,#fff5e6);
+    border: 3px solid #ffb3d4; border-radius: 18px; padding: 14px 18px;
+    box-shadow: 0 4px 14px rgba(255,150,200,0.14); transition: background 0.2s; }
+  details.fig-node[open] { background: linear-gradient(135deg,#fff,#ffeef5);
+    box-shadow: 0 6px 18px rgba(255,150,200,0.20); }
+  details.fig-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px; padding: 4px 0;
+    font-weight: 700; user-select: none; flex-wrap: wrap; }
+  details.fig-node > summary::-webkit-details-marker { display: none; }
+  details.fig-node > summary::before { content: '▶'; font-size: 12px; color: #d63384;
+    transition: transform 0.2s; flex-shrink: 0; }
+  details.fig-node[open] > summary::before { transform: rotate(90deg); }
+  details.fig-node .fig-num { background: #d63384; color: white;
+    padding: 5px 14px; border-radius: 12px; font-size: 13px;
+    font-weight: bold; flex-shrink: 0; letter-spacing: 0.5px; }
+  details.fig-node .fig-claim { font-size: 14.5px; flex: 1; color: #5a4fcf; line-height: 1.5; min-width: 200px; }
+  details.fig-node .fig-body { margin-top: 14px; padding: 4px 0 4px 18px;
+    border-left: 3px dashed #ffb3d4; display: flex; flex-direction: column; gap: 8px; }
+  details.fig-node .fig-overview { font-size: 13px; color: #555;
+    background: #fff5e6; padding: 10px 14px; border-radius: 12px;
+    line-height: 1.65; border: 1px solid #ffd591; margin-bottom: 4px; }
+
+  details.panel-node { background: white; border: 2px solid #91b8e0;
+    border-radius: 12px; padding: 10px 14px; transition: background 0.2s; }
+  details.panel-node[open] { background: linear-gradient(135deg,#fff,#e6f0ff);
+    box-shadow: 0 3px 8px rgba(91,155,213,0.15); }
+  details.panel-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 10px; padding: 2px 0;
+    font-size: 13px; user-select: none; flex-wrap: wrap; }
+  details.panel-node > summary::-webkit-details-marker { display: none; }
+  details.panel-node > summary::before { content: '▸'; font-size: 11px;
+    color: #5b9bd5; transition: transform 0.2s; flex-shrink: 0; }
+  details.panel-node[open] > summary::before { transform: rotate(90deg); }
+  details.panel-node .panel-letter { background: #5b9bd5; color: white;
+    width: 26px; height: 26px; border-radius: 7px; display: inline-flex;
+    align-items: center; justify-content: center; font-weight: bold;
+    font-size: 12px; flex-shrink: 0; }
+  details.panel-node .panel-exp-type { color: #5a4fcf; font-weight: 600; }
+  details.panel-node .panel-tldr { color: #666; font-size: 12px; margin-left: auto; font-style: italic; }
+  details.panel-node .panel-body { margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed #e0e6f5; display: flex; flex-direction: column; gap: 10px; }
+  .panel-block { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.65; }
+  .panel-block.exptype { background: #f0e6ff; border-left: 4px solid #5a4fcf; }
+  .panel-block.analogy { background: #fff5e6; border-left: 4px solid #ffb380; }
+  .panel-block.result  { background: #e6f0ff; border-left: 4px solid #5b9bd5; }
+  .panel-block.meaning { background: #e8f5e9; border-left: 4px solid #6aaa64; }
+  .panel-block strong { display: block; margin-bottom: 5px; font-size: 12px; letter-spacing: 0.3px; }
+  .panel-block.exptype strong { color: #5a4fcf; }
+  .panel-block.analogy strong { color: #b85f25; }
+  .panel-block.result  strong { color: #2a6ea3; }
+  .panel-block.meaning strong { color: #4a7c47; }
+
+  /* Method Deep Cards */
+  details.method-deep { margin: 12px 0; background: white;
+    border: 2px solid #b89ce0; border-radius: 16px; padding: 14px 18px;
+    box-shadow: 0 4px 12px rgba(100,80,200,0.08); transition: background 0.2s; }
+  details.method-deep[open] { background: linear-gradient(135deg,#fff,#f0e6ff);
+    border-color: #5a4fcf; box-shadow: 0 6px 18px rgba(100,80,200,0.15); }
+  details.method-deep > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; color: #5a4fcf; font-size: 14.5px;
+    padding: 4px 0; user-select: none; flex-wrap: wrap; }
+  details.method-deep > summary::-webkit-details-marker { display: none; }
+  details.method-deep > summary::before { content: '▶'; font-size: 12px;
+    color: #5a4fcf; transition: transform 0.2s; flex-shrink: 0; }
+  details.method-deep[open] > summary::before { transform: rotate(90deg); }
+  details.method-deep .method-icon { font-size: 22px; flex-shrink: 0; }
+  details.method-deep .method-name { flex: 1; min-width: 180px; }
+  details.method-deep .method-shorttag { font-size: 11px; color: #888;
+    background: #f5f0ff; padding: 3px 9px; border-radius: 8px;
+    font-weight: normal; flex-shrink: 0; }
+  details.method-deep .method-body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5; display: flex; flex-direction: column; gap: 12px; }
+  details.method-deep .method-body h4 { font-size: 13px; color: #5a4fcf;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 6px; font-weight: 700; }
+  details.method-deep .method-body p { font-size: 13px; color: #444; line-height: 1.7; }
+  .analogy-box { background: linear-gradient(135deg,#fff5e6,#ffe6f0);
+    border: 2px dashed #ffb380; border-radius: 12px; padding: 14px 18px; }
+  .analogy-box h4 { color: #b85f25 !important; }
+  .analogy-box p { color: #6c4a32 !important; font-style: italic; line-height: 1.75 !important; }
+  .why-box { background: linear-gradient(135deg,#e6f0ff,#fff);
+    border-left: 4px solid #5b9bd5; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .can-see-box { background: linear-gradient(135deg,#e8f5e9,#fff);
+    border-left: 4px solid #6aaa64; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .limit-box { background: linear-gradient(135deg,#fdf0e6,#fff);
+    border-left: 4px solid #ed7d31; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+  footer a { color: #d63384; text-decoration: none; }
+
+  .lang-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 100;
+    background: white; border: 2px solid #ffb3d4; border-radius: 24px;
+    padding: 8px 16px; cursor: pointer; font-family: inherit; font-size: 13px;
+    font-weight: 600; color: #d63384; box-shadow: 0 4px 12px rgba(255,150,200,0.25);
+    transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .lang-toggle:hover { transform: scale(1.05); background: #fff0f5; }
+  .lang-toggle .flag { font-size: 16px; }
+  body.lang-kr .lang-en, body.lang-en .lang-kr { display: none !important; }
+  body.lang-kr svg .lang-en, body.lang-en svg .lang-kr { display: none !important; }
+
+  @media (max-width: 800px) {
+    .outcomes, .method-grid { grid-template-columns: 1fr; }
+    .tabs { grid-template-columns: 1fr 1fr; }
+    .lang-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body class="lang-kr">
+
+<button class="lang-toggle" onclick="toggleLang()">
+  <span class="flag lang-kr">🇰🇷</span><span class="lang-kr">한국어</span>
+  <span class="flag lang-en">🇺🇸</span><span class="lang-en">English</span>
+  <span style="opacity:0.5;">⇄</span>
+  <span class="flag lang-kr">🇺🇸</span><span class="lang-kr" style="opacity:0.5;">EN</span>
+  <span class="flag lang-en">🇰🇷</span><span class="lang-en" style="opacity:0.5;">KR</span>
+</button>
+
+<div class="container">
+
+<header>
+  <div class="emoji">🦴 🧬 🐭 🌊</div>
+  <h1>
+    <span class="lang-kr">늙은 골수에서 면역세포와 MSC는 다른 senescence를 갖는다</span>
+    <span class="lang-en">Aged BM myeloid and mesenchymal cells develop unique senescence phenotypes</span>
+  </h1>
+  <div class="subtitle">
+    <span class="lang-kr">Doolittle, Froemming, Rowsey 외 — Khosla Lab (Mayo Clinic Kogod Center on Aging)</span>
+    <span class="lang-en">Doolittle, Froemming, Rowsey et al. — Khosla Lab (Mayo Clinic Kogod Center on Aging)</span>
+  </div>
+  <div class="citation">J Clin Invest 136(7):e195772, 2026 · DOI: 10.1172/JCI195772 · published online 2026-01-27</div>
+  <div class="type-badge">
+    <span class="lang-kr">🧪 연구 논문 (메커니즘 / 발견)</span>
+    <span class="lang-en">🧪 Research (mechanism / discovery)</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="t1">
+    <span class="tab-emoji">📖</span>
+    <span class="lang-kr">서론</span><span class="lang-en">Introduction</span>
+  </button>
+  <button class="tab-btn" data-tab="t2">
+    <span class="tab-emoji">🔬</span>
+    <span class="lang-kr">방법</span><span class="lang-en">Methods</span>
+  </button>
+  <button class="tab-btn" data-tab="t3">
+    <span class="tab-emoji">💡</span>
+    <span class="lang-kr">결과</span><span class="lang-en">Results</span>
+  </button>
+  <button class="tab-btn" data-tab="t4">
+    <span class="tab-emoji">💭</span>
+    <span class="lang-kr">고찰</span><span class="lang-en">Discussion</span>
+  </button>
+</div>
+
+<!-- ============================================================= -->
+<!-- TAB 1 — INTRODUCTION                                            -->
+<!-- ============================================================= -->
+<div class="tab-content active" id="t1">
+
+  <!-- Figure Tree (REQUIRED for research type, top of Tab 1) -->
+  <div class="panel">
+    <h2>🌳
+      <span class="lang-kr">피규어 수형도 — 한 눈에 paper map</span>
+      <span class="lang-en">Figure Tree — paper map at a glance</span>
+    </h2>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">
+      <span class="lang-kr">▶ 클릭으로 Figure 펼치기 → ▸ 다시 클릭으로 패널별 실험 자세히 보기</span>
+      <span class="lang-en">▶ click a figure to expand → ▸ click a panel for the experiment in detail</span>
+    </p>
+
+    <div class="figure-tree">
+
+      <!-- ========= Figure 1 (open) ========= -->
+      <details class="fig-node" open>
+        <summary>
+          <span class="fig-num">Fig 1</span>
+          <span class="fig-claim">
+            <span class="lang-kr">골수 면역세포 중 myeloid (단핵구·호중구)에서 p16/p21 발현이 가장 높다 — 그러나 절대량은 MSC에 비해 낮다</span>
+            <span class="lang-en">Among BM immune cells, myeloid lineages express the highest p16/p21 — but absolute levels stay below MSC</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">두 가지 데이터로 골수 면역세포의 senescence 지형을 그린다: (1) Tabula Muris Senis 공개 scRNA-seq에서 24·30개월 마우스 골수의 SenMayo score 매핑, (2) 자체 CyTOF (mass cytometry) 패널로 24개월 암컷 마우스 10마리에서 p16·p21·SASP·pATM 측정. 면역계 안에서는 myeloid가 챔피언이지만, 뒤에서 MSC와 직접 비교하면 myeloid는 약하다는 것을 미리 깐다.</span>
+            <span class="lang-en">Two datasets paint the BM-immune senescence landscape: (1) Tabula Muris Senis scRNA-seq with SenMayo scoring on 24/30-mo mice, (2) custom CyTOF panel measuring p16, p21, SASP, pATM in 10 female 24-mo mice. Within the immune compartment, myeloid wins; but the figure quietly foreshadows that myeloid still loses to MSC in absolute terms.</span>
+          </div>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">scRNA-seq UMAP + SenMayo 점수 overlay</span>
+                <span class="lang-en">scRNA-seq UMAP with SenMayo score overlay</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ myeloid 클러스터에서 SenMayo 점수가 가장 높음</span>
+                <span class="lang-en">→ SenMayo highest in myeloid clusters</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류 (정확히)</span><span class="lang-en">Experiment type (precisely)</span></strong>
+                <span class="lang-kr">Tabula Muris Senis (공개 데이터셋, 10x Genomics scRNA-seq)에서 24개월 + 30개월 마우스 골수 cell만 추출하고 Seurat v4로 dimensionality reduction. 각 세포에 SenMayo 125-gene signature 점수를 매겨 UMAP에 색깔로 덮어 씌움.</span>
+                <span class="lang-en">Subset 24- and 30-month BM cells from public Tabula Muris Senis (10x scRNA-seq), reduce dimensions with Seurat v4, score every cell on the SenMayo 125-gene signature, color the UMAP by score.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">"노인 학교 사진"에서 학생 한 명 한 명한테 "오늘 얼마나 피곤해?" 점수를 매기고, 비슷한 직업끼리 모여있는 동네 지도에 그 피곤 점수를 색칠해 보는 것. "아, 청소부 동네가 제일 피곤하네!" 가 myeloid에 해당.</span>
+                <span class="lang-en">On a "senior school photo", score each student on "how tired are you today?", then color the neighborhood map (each neighborhood = one job category) by tiredness. "Oh, the janitor neighborhood is the most tired!" = the myeloid clusters.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">UMAP에서 monocyte / neutrophil 클러스터가 가장 진한 SenMayo 색깔. T세포·B세포는 옅음. Cdkn2a (p16), Cdkn1a (p21) 개별 유전자도 같은 패턴.</span>
+                <span class="lang-en">Monocyte and neutrophil clusters glow brightest with SenMayo. T and B cells stay dim. Individual Cdkn2a (p16) and Cdkn1a (p21) panels mirror the same pattern.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"면역세포 중에서는 myeloid가 가장 senescent"라는 가설을 데이터로 깔아둠. 이 가설을 뒤에서 깬다 — myeloid가 immune 중에선 1등이지만 MSC 대비는 한참 아래라는 반전 setup.</span>
+                <span class="lang-en">Plants the hypothesis "myeloid = the most senescent immune cells" — which the paper will later undercut by showing myeloid is far below MSC. Fig 1 sets the trap.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">b</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">CyTOF (mass cytometry) viSNE + FlowSOM 클러스터</span>
+                <span class="lang-en">CyTOF viSNE + FlowSOM clustering</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ 면역 cell type 마다 p16+ 비율 다름</span>
+                <span class="lang-en">→ different %p16+ per immune cluster</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">Helios CyTOF로 동시에 ~40개 metal-tagged 항체 측정. CD11b·CD14·CD19·CD3e·F4/80·Ly6C·Ly6G·CD117 (정체성 마커) + p16·p21·pATM·BCL2·Ki67·SASP 단백질 (senescence 마커). 200-400 events/sec 획득, Cytobank의 viSNE + FlowSOM으로 군집화. n = 10 마리 24개월령 암컷.</span>
+                <span class="lang-en">Helios CyTOF runs ~40 metal-tagged antibodies in parallel. Identity markers (CD11b, CD14, CD19, CD3e, F4/80, Ly6C, Ly6G, CD117) plus senescence markers (p16, p21, pATM, BCL2, Ki67, SASP proteins). Acquired at 200–400 events/sec, clustered in Cytobank with viSNE + FlowSOM. n = 10 female mice, 24 mo.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">한 사람한테 40개의 다른 색 스티커를 동시에 붙이고 (어떤 옷·어떤 모자·어떤 가방인지), 그 사람들을 큰 공원에 풀어두면 비슷한 차림끼리 자기 동네를 만든다. CyTOF가 이걸 한 세포당 한 번에 측정하는 기계.</span>
+                <span class="lang-en">Stick 40 different-colored stickers on each person at once (which shirt, hat, bag), let them mingle in a park; people who look similar cluster together. CyTOF measures all 40 stickers per cell in one shot.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">14개 면역 클러스터가 viSNE에서 잘 분리됨. CD14+ monocyte/macrophage 클러스터가 p16 발현 가장 높음. p16 median: CD14+ = 14.26±5.31, CD11b+ general myeloid = 6.32±2.22, CD3e+CD8+ T cell = 2.50±1.11.</span>
+                <span class="lang-en">14 immune clusters separate cleanly. CD14+ monocyte/macrophage clusters carry the highest p16. p16 medians: CD14+ = 14.26±5.31, CD11b+ general myeloid = 6.32±2.22, CD3e+CD8+ T cells = 2.50±1.11.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">scRNA에서 본 패턴이 단백질 레벨에서도 재현됨 — Fig 2의 LysM-Cre × p16-LOX-ATTAC 모델로 "myeloid p16+를 지우면 어떻게 되나" 실험할 motivation을 줌.</span>
+                <span class="lang-en">Confirms the scRNA pattern at the protein level — motivates the LysM-Cre × p16-LOX-ATTAC clearance experiment in Fig 2.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">c</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">SASP volcano plot (p16+ vs p21+ 면역세포)</span>
+                <span class="lang-en">SASP volcano: p16+ vs p21+ immune cells</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ p16+가 p21+보다 SASP 더 높음</span>
+                <span class="lang-en">→ p16+ carries more SASP than p21+</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">CyTOF 데이터에서 같은 면역 cell들을 p16+ vs p21+로 양자택일 분류한 뒤 두 그룹 간 SASP 단백질 (IL-6, MMP3, TNFα 등) 레벨을 짝지어 비교. Volcano: x = log fold-change, y = -log p-value.</span>
+                <span class="lang-en">From the same CyTOF dataset, partition immune cells by p16+ vs p21+, compare SASP protein levels (IL-6, MMP3, TNFα, …) between the two pools. Volcano: x = log fold-change, y = −log p.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">"p16 스티커 붙은 노인" 그룹과 "p21 스티커 붙은 노인" 그룹이 각각 얼마나 시끄럽게 (염증 단백질을 분비) 떠들지 비교. p16팀이 더 시끄러움.</span>
+                <span class="lang-en">Compare how loudly (= inflammatory cytokine secretion) the "p16-sticker" elders versus the "p21-sticker" elders are talking. The p16 team is louder.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">SASP 마커 다수가 p16+ 쪽으로 유의하게 치우침. pATM도 p16+에서 더 높음 (DNA damage 반응이 더 활성).</span>
+                <span class="lang-en">Most SASP markers tilt significantly toward p16+. pATM is also higher in p16+ (more active DNA-damage response).</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">두 senescence 마커 중 어느 게 "진짜 deep senescent"를 잘 잡나 결정 — p16+이 손. 이후 모든 clearance 실험을 p16-LOX-ATTAC 모델로 가는 정당화.</span>
+                <span class="lang-en">Decides which marker tags "deeper" senescence — p16 wins. Justifies using the p16-LOX-ATTAC clearance model in subsequent figures.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- ========= Figure 2 ========= -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 2</span>
+          <span class="fig-claim">
+            <span class="lang-kr">Myeloid p16+를 4개월간 유전적으로 청소해도 골손실은 거의 안 막힌다 (특히 암컷)</span>
+            <span class="lang-en">4-month genetic clearance of p16+ myeloid cells barely rescues bone loss (especially in females)</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">LysM-Cre × p16-LOX-ATTAC 마우스에 dimerizer (AP20187)를 4개월간 i.p. 주사해 myeloid 계열의 p16+ 세포만 골라서 죽임 (caspase-8 dimerization). 20-24개월령 마우스 암수 모두에서 μCT로 femur 피질 두께·BV/TV·trabecular 측정. 결과: 효과 거의 없음. 암컷에선 zero, 수컷에선 modest.</span>
+            <span class="lang-en">LysM-Cre × p16-LOX-ATTAC mice receive AP20187 dimerizer twice weekly for 4 months, dimerizing caspase-8 only inside myeloid p16+ cells (myeloid-specific p16+ cell ablation). Aged 20–24 mo, μCT on femur cortical thickness, BV/TV, trabecular params. Punchline: no benefit in females, modest in males.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">유전자 모델 schematic + 24h validation</span>
+                <span class="lang-en">Genetic model schematic + 24h validation</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ AP20187 1회 주사로 CD14+에서 p16 즉시 감소</span>
+                <span class="lang-en">→ single AP injection drops p16 in CD14+ within 24h</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">p16 promoter 아래에서 발현하는 FKBP-Caspase8 fusion 단백질이 AP20187 주사에 의해 dimer를 이루며 그 세포를 apoptosis 시키는 conditional senolytic 모델. LysM-Cre로 myeloid 계열에 한정. AP 1회 주사 24h 후 골수 채취 → CyTOF 검증, n=12.</span>
+                <span class="lang-en">FKBP-Caspase8 fusion driven by p16 promoter; AP20187 forces dimerization → apoptosis in any cell expressing p16. LysM-Cre restricts to myeloid lineage. 24 h after a single AP dose, BM harvested for CyTOF validation, n = 12.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">"청소부 옷을 입고 빨간 모자(p16)를 쓴 사람한테만" 작동하는 자폭 스위치를 심어놓고, 리모컨(AP)을 누르면 그 조건을 만족하는 사람만 사라진다. LysM = 청소부 옷, p16 = 빨간 모자.</span>
+                <span class="lang-en">A self-destruct switch installed only in "people wearing janitor clothes (LysM) AND a red hat (p16)." A remote control (AP) makes them vanish; everyone else is unaffected.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">AP 24h 후 CD14+에서 p16 발현·%p16+ 모두 유의하게 감소. CD19+ B세포·CD3e+ T세포는 변화 없음 — Cre specificity 확인.</span>
+                <span class="lang-en">24 h post-AP: p16 expression and %p16+ drop significantly in CD14+. CD19+ B and CD3e+ T cells are untouched — Cre specificity confirmed.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"우리 도구는 잘 작동한다"는 증명. 즉 다음 패널에서 골 phenotype이 약하게 나오더라도 도구 결함이 아니라 진짜 myeloid p16+ 청소가 별 효과 없다는 결론을 정당화.</span>
+                <span class="lang-en">Proves the tool works. So when the bone phenotype barely budges in the next panels, it isn't a tool failure — myeloid p16+ clearance just genuinely doesn't matter much for bone.</span>
+              </div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">b–e</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">μCT 4-month treatment, 암수 분리</span>
+                <span class="lang-en">μCT after 4-month treatment, sex-stratified</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ 암컷: 변화 없음 / 수컷: 약하게 개선</span>
+                <span class="lang-en">→ female: nothing / male: modest gain</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">AP20187 또는 vehicle을 20-24개월령 마우스에 4개월간 i.p. 주사. 종료 후 femur diaphysis·metaphysis cortical thickness, metaphysis·lumbar spine BV/TV (μCT), 그리고 osteoclast/osteoblast histomorphometry.</span>
+                <span class="lang-en">AP20187 or vehicle for 4 months in 20–24-mo mice. Endpoint μCT for cortical thickness at femoral diaphysis & metaphysis, trabecular BV/TV at metaphysis and lumbar spine, plus histomorphometry counting osteoclasts and osteoblasts on bone perimeter.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">집에서 "청소부 중에 빨간 모자 쓴 사람"만 매주 두 번 4개월간 사라지게 했더니, 집 벽이 (= 뼈) 더 튼튼해졌나? 보니까 여자 집은 그대로, 남자 집만 살짝 좋아짐.</span>
+                <span class="lang-en">In the house, twice a week for 4 months, the "janitors with red hats" vanish. Did the walls (= bones) get stronger? Female house: unchanged. Male house: slightly better.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">암컷: cortical thickness, BV/TV, 어디에서도 유의 차이 없음. 수컷: metaphysis cortical thickness↑, BV/TV↑ modest, cortical porosity↓. 그러나 osteoblast/osteoclast 수는 군 사이 차이 없음 — bone formation rate도 변화 없음.</span>
+                <span class="lang-en">Females: no significant change anywhere. Males: modest gains in metaphyseal cortical thickness and BV/TV, lower porosity. But osteoblast/osteoclast numbers and bone formation rates remain unchanged.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">패러다임의 첫 균열. "p16+ 면역세포 = 골 노화의 주범"이라면 myeloid p16+ 청소가 큰 효과여야 함. 그런데 실제론 거의 효과 없음 → 다음 figure에서 "왜?" 답을 찾으러 감.</span>
+                <span class="lang-en">First crack in the paradigm. If p16+ immune cells were the main driver of bone aging, myeloid clearance should rescue it. It barely does → the next figure asks "why?"</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- ========= Figure 3 ========= -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 3</span>
+          <span class="fig-claim">
+            <span class="lang-kr">Myeloid p16+는 청소되어도 며칠 내 다시 채워진다 — 반면 osteocyte는 청소된 채로 남는다</span>
+            <span class="lang-en">Myeloid p16+ repopulate within days; osteocyte p16+ stay cleared</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">2주간 AP20187 처리 후 마지막 주사 96시간 뒤 골수를 다시 봄. LysM-LOX-ATTAC (myeloid 청소) vs DMP1-LOX-ATTAC (osteocyte 청소) 비교. Myeloid p16+는 다시 가득 차 있는데 osteocyte는 87%·73% 감소가 유지됨.</span>
+            <span class="lang-en">2-week AP regimen, then look 96 h after the final dose. LysM-LOX-ATTAC (myeloid clearance) vs DMP1-LOX-ATTAC (osteocyte clearance). Myeloid p16+ has refilled; osteocyte p16+ remains 87% and 73% reduced.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">2주 AP + 96h recovery, CyTOF tSNE</span>
+                <span class="lang-en">2-week AP + 96h recovery, CyTOF tSNE</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ CD14+ p16 발현 회복</span>
+                <span class="lang-en">→ p16 in CD14+ has rebounded</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">LysM-LOX-ATTAC + AP 2주 (주 2회) 처리. 마지막 주사 후 96시간 뒤 골수 채취 → CyTOF로 모든 면역 클러스터의 p16 median 측정. Vehicle 그룹과 비교.</span>
+                <span class="lang-en">LysM-LOX-ATTAC + AP for 2 weeks (twice weekly). Sacrifice 96 h after the last dose, harvest BM, run CyTOF, compare p16 medians across all immune clusters vs vehicle.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">청소부 빨간모자 사람을 4일 전에 다 사라지게 했는데, 4일 만에 새로 입사한 청소부들이 또 빨간 모자를 쓰고 있더라. 즉 청소부가 매번 빨리 채워지면서 빨간 모자도 빨리 다시 생김.</span>
+                <span class="lang-en">Four days ago all the red-hat janitors vanished; today new janitors have already been hired — and they're already wearing red hats. The supply pipeline regenerates fast.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">CD14+ p16 median, %p16+ 모두 vehicle과 유의 차이 없음. 전체 t-SNE도 vehicle과 거의 동일.</span>
+                <span class="lang-en">No significant difference in CD14+ p16 median or %p16+ vs vehicle. Whole t-SNE looks almost identical to vehicle.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">왜 Fig 2에서 myeloid p16+ 청소가 골에 큰 효과 없는지 설명 — myeloid는 수명 짧고 빠르게 보충되는 세포라 청소해도 곧 새로 차 버림. 청소 효과가 누적되지 않음.</span>
+                <span class="lang-en">Explains Fig 2's null bone result — short-lived myeloid cells repopulate fast, so the depletion never accumulates.</span>
+              </div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">b</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">DMP1-LOX-ATTAC (osteocyte 청소) 비교 control</span>
+                <span class="lang-en">DMP1-LOX-ATTAC (osteocyte clearance) comparison</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ osteocyte p16+ 87%, 73% 감소 유지</span>
+                <span class="lang-en">→ osteocyte p16+ stays 87% / 73% lower</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">동일한 2주 + 96h 디자인, 단 Cre가 osteocyte-특이 DMP1-Cre. CyTOF로 두 osteocyte 클러스터 (OCL-1, OCL-2)에서 %p16+ 측정.</span>
+                <span class="lang-en">Same 2-week + 96 h design, but with osteocyte-specific DMP1-Cre instead of LysM-Cre. CyTOF measures %p16+ in two osteocyte clusters (OCL-1, OCL-2).</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">집의 벽돌 (= osteocyte) 안에 박힌 빨간 모자 노인은 청소되면 그 자리에 잘 안 채워짐. 벽돌 자체가 평생 그대로 박혀있으니까. 청소 효과가 4일 후에도 그대로 유지됨.</span>
+                <span class="lang-en">The red-hat residents embedded inside the wall bricks (= osteocytes) don't get replaced — the bricks themselves are lifelong. So 4 days later the clearance is still visible.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">OCL-1: %p16+ Vehicle 5.06%±6.26 → AP 0.65%±0.84 (~87% 감소). OCL-2: 0.52%±0.51 → 0.14%±0.24 (~73% 감소). 둘 다 유의.</span>
+                <span class="lang-en">OCL-1: %p16+ vehicle 5.06±6.26 → AP 0.65±0.84 (~87% drop). OCL-2: 0.52±0.51 → 0.14±0.24 (~73% drop). Both significant.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">동일 시스템에서 long-lived 세포는 청소가 누적되는 결정적 control. 즉 도구 문제가 아니라 cell 수명 문제임이 분명해짐.</span>
+                <span class="lang-en">Critical control: in the same system, long-lived cells stay cleared. So the failure for myeloid is a cell-lifespan issue, not a tool issue.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- ========= Figure 4 ========= -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 4</span>
+          <span class="fig-claim">
+            <span class="lang-kr">같은 마우스의 골수에서 직접 비교: MSC가 면역세포보다 p16 발현 170% 높다</span>
+            <span class="lang-en">Within the same mice, MSCs carry 170% more p16 than immune cells</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">"같은 뼈, 같은 마우스" 비교가 결정타. n=18 노화 마우스에서 골수 면역 cell + 골 MSC를 따로 isolate 해 paired CyTOF 진행. p16 median이 mesenchymal에서 170.2% (±16.9 SD) 높고, 모든 개체에서 일관됨 (P<0.0001).</span>
+            <span class="lang-en">The "same bone, same mouse" design is the killer move. n = 18 aged mice; isolate BM immune + bone-derived MSCs and run paired CyTOF. p16 median is 170.2% higher in mesenchymal (±16.9 SD), consistent across every individual (P < 0.0001).</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">Paired CyTOF (immune vs mesenchymal in same mouse)</span>
+                <span class="lang-en">Paired CyTOF (immune vs mesenchymal, same mouse)</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ 모든 마우스에서 MSC가 더 높음</span>
+                <span class="lang-en">→ MSC higher in every single mouse</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">한 마우스에서 골수 (RBC lysis + lineage MACS depletion → 면역 cell)와 분쇄한 뼈 (collagenase digestion + lineage depletion → mesenchymal cell)를 따로 준비, 같은 CyTOF 패널로 측정. paired t-test로 동일 마우스 내 비교 (n=18).</span>
+                <span class="lang-en">From one mouse: BM (RBC lysis + MACS lineage depletion → immune cells) and crushed bone (collagenase digestion + lineage depletion → mesenchymal cells) processed in parallel, run on the same CyTOF panel. Paired analysis within each mouse (n = 18).</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">한 학교에서 청소부 (= immune)와 건축가 (= MSC) 그룹을 따로 한 줄로 세워놓고 둘이 얼마나 피곤한지 점수 매김. 학교마다 결과 다를 수 있으니 모든 학교에서 두 그룹을 짝지어 비교 — 그러면 "어느 학교든 건축가가 더 피곤"이 깔끔하게 나옴.</span>
+                <span class="lang-en">In one school, line up janitors (immune) and architects (MSC) and rate their tiredness. Across many schools, pair them within each school — and you find "in every school, architects are more tired" cleanly.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">p16 median이 mesenchymal에서 평균 170.2% 높음 (P&lt;0.0001). %p16+, SASP 단백질, pATM 모두 mesenchymal에서 더 높음. DMP1+ osteocyte = 27.99 vs CD14+ = 14.26 vs CD3e+CD8+ = 2.50.</span>
+                <span class="lang-en">p16 median averages 170.2% higher in mesenchymal (P&lt;0.0001). %p16+, SASP proteins, pATM all higher in mesenchymal. DMP1+ osteocyte 27.99 vs CD14+ 14.26 vs CD3e+CD8+ T 2.50.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">Fig 1에서 "면역세포 중에선 myeloid가 1등"이라 했지만, 진짜 무대를 넓혀 비교하면 MSC에 비하면 myeloid는 2부 리그. Fig 5에서 "왜 차이가 나는지" mechanism으로 들어감.</span>
+                <span class="lang-en">In Fig 1 myeloid topped the immune chart — but on the wider stage they're the minor league next to MSC. Fig 5 dives into the mechanism of why.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- ========= Figure 5 ========= -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 5</span>
+          <span class="fig-claim">
+            <span class="lang-kr">Myeloid는 "deep" senescence 못 만든다 — TAF 미축적, YAP/TAZ 부재, cGAS/STING 약함, 항-apoptotic 안 켜짐</span>
+            <span class="lang-en">Myeloid never reaches "deep" senescence — no TAF accumulation, no YAP/TAZ axis, weak cGAS/STING, no antiapoptotic surge</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">In vitro에서 BMDM (BM-derived macrophage) vs BMSC (BM stromal cell)를 동일하게 etoposide로 senescence induction → qPCR + bulk RNA-seq + GSEA + cytokine multiplex + SA-βgal. BMSC만 진짜 senescence 프로그램이 켜지고 BMDM은 partial state에 머문다. 그리고 in vivo CD11b+에서는 노화에 따라 TAF (telomere-associated foci)도 안 생김.</span>
+            <span class="lang-en">In vitro BMDMs vs BMSCs both treated with etoposide → qPCR + bulk RNA-seq + GSEA + cytokine multiplex + SA-βgal. Only BMSCs flip on the full senescence program; BMDMs plateau at a partial state. In vivo CD11b+ cells also fail to accumulate TAFs with age.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">Telomere-Associated Foci (TAF) 이미징</span>
+                <span class="lang-en">Telomere-associated foci (TAF) imaging</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ CD11b+에서 노화로 TAF 안 늘음</span>
+                <span class="lang-en">→ CD11b+ shows no age-related TAF rise</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">FACS-sorted CD11b+ 골수세포에서 telomere FISH + γH2AX (DNA damage 마커) immunofluorescence. 두 신호가 colocalize하는 foci 수를 세포당 세서 %TAF+ 정량. Young (6mo) vs Old (24mo).</span>
+                <span class="lang-en">FACS-sort CD11b+ BM cells, perform telomere FISH + γH2AX (DNA-damage marker) immunofluorescence; count foci where both signals colocalize per cell, quantify %TAF+. Young (6 mo) vs old (24 mo).</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">DNA의 끝부분 (telomere = 끈 끝의 매듭)에 상처 (DNA damage 깃발)가 박혔는지 현미경으로 본다. Senescence의 hallmark는 끝부분 손상이 누적되는 것. Myeloid는 늙어도 끝부분 손상이 별로 안 늘어남 = "deep aging" 안 함.</span>
+                <span class="lang-en">Look under the microscope to see whether the rope-end knots (telomeres) carry damage flags (γH2AX). A hallmark of true senescence is end-damage piling up. In myeloid, the end-damage barely rises with age — they don't "deeply age."</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">CD11b+의 %TAF+가 young vs old 차이 없음. 같은 마우스의 osteocyte는 늙으면 ≥3 TAF/cell까지 누적 — 극명한 대비.</span>
+                <span class="lang-en">%TAF+ in CD11b+ does not rise from young to old. Osteocytes from the same mice accumulate ≥3 TAF/cell with age — a stark contrast.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"Hayflick senescence"의 가장 conservative 마커가 myeloid엔 안 적용됨. p16 발현은 있지만 진짜 분자적 senescence signature 부재의 첫 증거.</span>
+                <span class="lang-en">The most conservative marker of "Hayflick senescence" doesn't apply to myeloid. They express p16 yet lack the deeper molecular signature — first evidence of partial senescence.</span>
+              </div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">b–d</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">In vitro etoposide: BMDM vs BMSC qPCR + GSEA</span>
+                <span class="lang-en">In vitro etoposide: BMDM vs BMSC qPCR + GSEA</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ BMSC만 SenMayo + 항-apoptotic ON</span>
+                <span class="lang-en">→ only BMSCs flip on SenMayo + antiapoptotic</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">BMDM (M-CSF 7d 분화) vs BMSC (3% O₂ 확장)를 둘 다 20 μM etoposide 48h 처리. qPCR로 Cdkn2a, Cdkn1a, Bcl2, Bcl2l1, Il1a, Il1b, Il6 측정. Bulk RNA-seq + GSEA로 SenMayo·항-apoptotic·YAP/TAZ-TEAD signature 확인. Conditioned media 68-plex cytokine multiplex.</span>
+                <span class="lang-en">BMDM (7-day M-CSF differentiation) vs BMSC (3% O₂ expansion), both treated with 20 μM etoposide for 48 h. qPCR for Cdkn2a, Cdkn1a, Bcl2, Bcl2l1, Il1a, Il1b, Il6. Bulk RNA-seq + GSEA on SenMayo, antiapoptotic, YAP/TAZ-TEAD signatures. 68-plex cytokine multiplex on conditioned media.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">두 종류의 일꾼 (청소부 macrophage vs 건축가 stromal)에게 같은 양의 스트레스 (etoposide = "짜증 약")를 줬을 때 누가 진짜 "은퇴해서 안 죽고 매일 불평하는 노인"이 되나? 건축가는 그 모드 진입; 청소부는 흉내만 내고 며칠 뒤엔 그냥 죽거나 새로 옴.</span>
+                <span class="lang-en">Hand the same dose of stress (etoposide = "annoyance pills") to two worker types (janitor macrophage vs architect stromal). Who genuinely becomes the "retired-but-not-dead, perpetually-complaining elder"? Architects enter that state. Janitors only mimic it briefly, then die or get replaced.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">BMSC: Cdkn2a/Cdkn1a 강하게 상승, Bcl2·Bcl2l1·Bcl2l2 (항-apoptotic) 상승, Il1a·Il1b·Il6 상승, SA-β-gal+. BMDM: Cdkn2a/p21 약간만 오르고 항-apoptotic·SASP 거의 안 오름, SA-β-gal도 senescence 특이 신호 없음. GSEA에선 BMSC만 SenMayo + 항-apoptotic 유의 enrichment, 그리고 cGAS/STING upstream regulator activation도 BMSC만.</span>
+                <span class="lang-en">BMSCs: strong induction of Cdkn2a/Cdkn1a, Bcl2/Bcl2l1/Bcl2l2 (antiapoptotic), Il1a/Il1b/Il6, SA-β-gal+. BMDMs: only modest p16/p21 bump; antiapoptotic and SASP barely move; SA-β-gal is nonspecific. GSEA shows SenMayo and antiapoptotic enrichment only in BMSCs; cGAS/STING upstream-regulator activation only in BMSCs.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">Senolytic이 cell death로 작용하는 메커니즘은 보통 "BCL2 family에 의존하는 apoptosis 회피"를 깨는 것 (e.g. dasatinib + quercetin은 SCAP에 작용). Myeloid는 애초에 BCL2 surge가 없으니 senolytic의 표적이 아닐 수 있다 — 임상적으로 매우 중요한 implication.</span>
+                <span class="lang-en">Senolytic killing usually works by breaking the "BCL2-dependent apoptosis escape" (e.g., D+Q targeting SCAPs). Myeloid never raises BCL2 in the first place — meaning they may not be the senolytic substrate at all. Clinically pivotal.</span>
+              </div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">e</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">YAP/TAZ-TEAD 발현 비교</span>
+                <span class="lang-en">YAP/TAZ-TEAD expression comparison</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ macrophage에선 YAP/TAZ 베이스라인 자체가 거의 0</span>
+                <span class="lang-en">→ macrophages have near-zero YAP/TAZ baseline</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">Bulk RNA-seq에서 Cordenonsi YAP-conserved signature score 계산 + YAP/TAZ-TEAD 표적 유전자 (Ctgf, Cyr61 등) 발현 직접 plot. Etoposide ± vs vehicle ± 4가지 조건.</span>
+                <span class="lang-en">Compute Cordenonsi YAP-conserved signature on bulk RNA-seq, plus direct expression of YAP/TAZ-TEAD targets (Ctgf, Cyr61, …) across the four conditions (etoposide ± × cell type).</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">YAP/TAZ는 "조직의 형태와 긴장도를 감지하는 안테나". 건축가 (BMSC)는 안테나가 굵게 켜져있다가 stress 받으면 안테나가 꺾임 (= senescence). 청소부 (BMDM)는 애초에 안테나가 거의 없음 — 꺾일 안테나가 없어 senescence 진입 불가.</span>
+                <span class="lang-en">YAP/TAZ is "the antenna that senses tissue tension and shape." Architects (BMSCs) have a thick antenna, which collapses under stress (= senescence). Janitors (BMDMs) barely have an antenna — nothing to collapse, no senescence.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">Etoposide-treated BMSC에서 YAP/TAZ activity 유의 감소 (senescence 특징). Macrophage는 baseline에서 YAP/TAZ-TEAD mRNA가 거의 검출되지 않음 — etoposide 후에도 변화 없음.</span>
+                <span class="lang-en">Etoposide-treated BMSCs lose YAP/TAZ activity (a senescence hallmark). Macrophages show near-undetectable YAP/TAZ-TEAD mRNA at baseline — and unchanged after etoposide.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">왜 myeloid가 "deep" senescence 못 만드는지 분자 레벨 설명. Senescence는 단순히 p16↑이 아니라 BCL2↑ + YAP/TAZ↓ + cGAS/STING↑의 통합 프로그램이고, myeloid는 그 회로 자체가 빠져있음.</span>
+                <span class="lang-en">A molecular-level "why" for myeloid's failure to enter deep senescence: real senescence is an integrated program (BCL2↑ + YAP/TAZ↓ + cGAS/STING↑), and myeloid simply lack key wires.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- Background context -->
+  <div class="panel">
+    <h2>🦴
+      <span class="lang-kr">왜 이 논문이 골수 senolytic 분야에서 중요한가</span>
+      <span class="lang-en">Why this paper matters for BM senolytics</span>
+    </h2>
+    <div class="bubble pink">
+      <strong><span class="lang-kr">한 줄 메시지</span><span class="lang-en">In one line</span></strong><br>
+      <span class="lang-kr">"p16+ 면역세포 = 노화 골손실의 주범"이라는 단순 모델을 깨고, 진짜 senescent 표적은 long-lived MSC/osteocyte라는 것을 같은 마우스 안에서 직접 증명.</span>
+      <span class="lang-en">It dismantles the simple "p16+ immune cells drive bone aging" narrative and shows the real senescent target is the long-lived MSC/osteocyte compartment — proven in side-by-side comparisons within the same mice.</span>
+    </div>
+    <div class="qa-flow">
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q.</strong>
+          <span class="lang-kr">D+Q 같은 senolytic은 골수에서 무엇을 죽이고 있나?</span>
+          <span class="lang-en">What is a senolytic like D+Q actually killing in the bone marrow?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr">이 논문은 myeloid p16+가 죽어도 골에 큰 영향이 없고, MSC/osteocyte의 deep senescence가 진짜 표적임을 시사. D+Q의 골 보호 효과 대부분이 stromal compartment에 작용한다는 가설을 강화.</span>
+          <span class="lang-en">It suggests killing myeloid p16+ barely budges bone, while the deep senescence in MSC/osteocyte is the real substrate — strengthening the hypothesis that most of D+Q's bone benefit acts on the stromal compartment.</span>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q.</strong>
+          <span class="lang-kr">왜 4-month 청소에도 myeloid 효과가 누적 안 됐나?</span>
+          <span class="lang-en">Why didn't 4-month clearance accumulate?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr">Myeloid 수명 2-3일. 청소 → 며칠 안에 새로 채워짐 → BCL2 발현이 낮아 BCL2-inhibitor류 senolytic 표적이 아님 → "p16+ but not senolytic-vulnerable" 상태. Osteocyte (장수)는 정반대.</span>
+          <span class="lang-en">Myeloid live 2–3 days. Clearance refills within days. They never raise BCL2 so they're not even substrates for BCL2-inhibitor senolytics — "p16+ but not senolytic-vulnerable." Osteocytes (long-lived) are the opposite.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================= -->
+<!-- TAB 2 — METHODS                                                 -->
+<!-- ============================================================= -->
+<div class="tab-content" id="t2">
+
+  <!-- Method Deep Cards (REQUIRED, top of Tab 2) -->
+  <div class="panel">
+    <h2>🔬
+      <span class="lang-kr">방법 자세히 — 어떤 실험인지 비유로 이해하기</span>
+      <span class="lang-en">Methods in Depth — each technique by analogy</span>
+    </h2>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">
+      <span class="lang-kr">▶ 클릭하면 각 기법에 대한 자세한 설명 + 초딩 비유가 펼쳐집니다.</span>
+      <span class="lang-en">▶ click any card to expand the technique with a kid-friendly analogy.</span>
+    </p>
+
+    <!-- Method 1: CyTOF -->
+    <details class="method-deep" open>
+      <summary>
+        <span class="method-icon">🌊</span>
+        <span class="method-name">
+          <span class="lang-kr">Mass cytometry (CyTOF) — 단백질 ~40종 동시 측정</span>
+          <span class="lang-en">Mass cytometry (CyTOF) — ~40 proteins per cell, simultaneous</span>
+        </span>
+        <span class="method-shorttag">Helios · viSNE · FlowSOM</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">기존 flow cytometry가 형광 색깔을 쓰는 대신, 무거운 lanthanide metal을 항체에 conjugate. 세포를 진공에 분사 → ICP-MS (mass spectrometer)로 metal 신호 동시에 ~40개 채널 측정. 색깔 spillover 거의 없어 panel 크게 짤 수 있음. 이 논문은 정체성 마커 (CD11b, CD14, CD19, CD3e, F4/80, Ly6C 등) + senescence 마커 (p16, p21, pATM, BCL2, Ki67) + SASP 단백질을 한 panel에 담음.</span>
+            <span class="lang-en">Replaces fluorescence with heavy lanthanide metals conjugated to antibodies. Cells are nebulized into a plasma → ICP-MS measures ~40 metal channels per cell. Almost zero spillover, so the panel can be huge. This paper puts identity markers (CD11b, CD14, CD19, CD3e, F4/80, Ly6C, …) + senescence markers (p16, p21, pATM, BCL2, Ki67) + SASP proteins on a single panel.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid-friendly analogy</span></h4>
+          <p>
+            <span class="lang-kr">놀이공원에서 모든 사람한테 동시에 40가지 색의 손목띠를 채워놓고, 그 사람들이 정문을 한 명씩 통과할 때 기계가 모든 손목띠 색을 한꺼번에 스캔. 형광 flow cytometry는 ~10가지 색까지만 구분 가능했는데, CyTOF는 색 대신 "원자 무게"를 쓰니까 40가지를 동시에 깔끔히 구분.</span>
+            <span class="lang-en">At an amusement park, slap 40 colored wristbands on every visitor; as they pass the gate one by one, the machine scans all 40 at once. Fluorescence flow tops out around 10 distinguishable colors; CyTOF uses atomic weight instead of color, so 40 channels separate cleanly.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나 (대안 대비)</span><span class="lang-en">Why this method (vs alternatives)</span></h4>
+          <p>
+            <span class="lang-kr">대안: (1) 일반 flow cytometry — 한 panel에 senescence 마커 + 정체성 마커 다 넣기엔 채널이 모자람. (2) scRNA-seq — 단백질이 아닌 mRNA만 보고, p16 같은 저발현 유전자는 dropout. (3) IHC — paired comparison 못함. CyTOF만이 "같은 마우스 골수에서 immune cell 14 type별로 p16 단백질을 paired로 정량"을 가능케 함.</span>
+            <span class="lang-en">Alternatives: (1) Standard flow — channels run out when you stack senescence + identity panels. (2) scRNA-seq — only mRNA, and lowly-expressed p16 dropouts. (3) IHC — no paired per-cell quantification. CyTOF alone delivers "p16 protein per cell across 14 immune subtypes from the same mouse, in paired comparisons."</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 무엇을 볼 수 있나</span><span class="lang-en">What you can actually see</span></h4>
+          <p>
+            <span class="lang-kr">viSNE 2D map (cell type 정체성 클러스터), FlowSOM hierarchy, 각 클러스터의 marker median, %positive cells, paired same-mouse comparison (immune vs MSC), volcano plot (p16+ vs p21+ 등).</span>
+            <span class="lang-en">viSNE 2D maps (identity clusters), FlowSOM hierarchies, per-cluster median marker levels, %positive populations, paired within-mouse comparisons (immune vs MSC), volcano plots (p16+ vs p21+, etc).</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계 — 이걸론 못하는 것</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">(1) 세포가 측정 후 파괴됨 — 후속 culture 불가. (2) 200-400 events/sec로 scRNA-seq보다 throughput 낮음. (3) RNA 정보 zero. (4) 항체 specificity에 종속 — p16 항체는 p16-KO control로 검증해야 함 (이 논문도 그렇게 함). (5) 세포 표면 vs 핵 단백질 fixation 조건 다름.</span>
+            <span class="lang-en">(1) Cells are destroyed during acquisition — no downstream culture. (2) ~200–400 events/sec, lower throughput than scRNA-seq. (3) No RNA info. (4) Antibody-specificity dependent — p16 antibody must be validated against p16-KO control (this paper does so). (5) Surface vs nuclear staining requires different fixation.</span>
+          </p>
+        </div>
+        <div class="paper-quote">
+          <span class="lang-kr">"Cells were stained with a CyTOF panel including identity, senescence, and SASP markers, then acquired on a Helios at 200–400 events/sec and analyzed in Cytobank with viSNE and FlowSOM."</span>
+          <span class="lang-en">"Cells were stained with a CyTOF panel including identity, senescence, and SASP markers, then acquired on a Helios at 200–400 events/sec and analyzed in Cytobank with viSNE and FlowSOM."</span>
+          <span class="src">— <span class="lang-kr">Methods, Mass cytometry 섹션 (paraphrase)</span><span class="lang-en">Methods, mass cytometry section (paraphrase)</span></span>
+        </div>
+      </div>
+    </details>
+
+    <!-- Method 2: Conditional senolytic genetic model -->
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🐭</span>
+        <span class="method-name">
+          <span class="lang-kr">유전학적 senolytic — LysM-Cre × p16-LOX-ATTAC</span>
+          <span class="lang-en">Genetic senolytic — LysM-Cre × p16-LOX-ATTAC</span>
+        </span>
+        <span class="method-shorttag">conditional · cell-type specific</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">p16 promoter 아래에 LoxP-FKBP-Caspase8 (LOX-ATTAC) 카세트를 넣어두고, Cre로 LoxP를 잘라 카세트를 활성화한다. AP20187 (dimerizer drug)가 들어오면 FKBP가 dimer를 형성 → Caspase8 활성 → apoptosis. LysM-Cre는 myeloid lineage (monocyte, macrophage, neutrophil)에서만 Cre 발현. 결과: "myeloid 계열의 p16 발현 세포만 골라서 죽이는" conditional senolytic 모델.</span>
+            <span class="lang-en">A LoxP-FKBP-Caspase8 (LOX-ATTAC) cassette sits under the p16 promoter; Cre excises the LoxP stop, activating the cassette. AP20187 (a dimerizer drug) forces FKBP dimerization → Caspase8 activation → apoptosis. LysM-Cre expresses Cre only in myeloid (monocyte, macrophage, neutrophil), giving a conditional senolytic that kills only myeloid p16+ cells.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">한 마을의 모든 청소부 (LysM)에게 "빨간 모자(p16)를 쓰면 자폭 스위치가 작동" 하는 옷을 입혀놓고, 리모컨 (AP)을 누르면 "청소부 + 빨간 모자" 조건을 동시 만족하는 사람만 사라진다. 이 논문은 그 리모컨을 4개월간 매주 두 번 누르고 마을 (= 뼈)이 어떻게 변하는지 본다.</span>
+            <span class="lang-en">Give every janitor (LysM) a uniform with a "self-destruct activates if you wear a red hat (p16)" rule. Pressing the remote (AP) vaporizes anyone who is "janitor AND red-hat." This paper presses the remote twice weekly for 4 months, then sees how the village (= bone) fared.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나 (대안 대비)</span><span class="lang-en">Why this method (vs alternatives)</span></h4>
+          <p>
+            <span class="lang-kr">대안 (1) 약물 senolytic (D+Q, ABT-263) — cell type 특이성 부족, off-target 큼. (2) Global INK-ATTAC — 어떤 cell type 청소가 phenotype에 기여하는지 분리 못 함. LysM × p16-LOX-ATTAC만이 "myeloid p16+만 골라서 청소했을 때 골에 무슨 일이 생기나" causal 질문에 답할 수 있음. 이 논문은 비교 control로 DMP1-LOX-ATTAC (osteocyte 청소)도 같이 사용.</span>
+            <span class="lang-en">Alternatives: (1) Drug senolytics (D+Q, ABT-263) — poor cell-type specificity, off-target. (2) Global INK-ATTAC — can't dissect which cell type contributes to a phenotype. Only LysM × p16-LOX-ATTAC answers the causal question "what happens to bone when only myeloid p16+ cells are cleared?" The paper pairs it with DMP1-LOX-ATTAC (osteocyte clearance) as a contrasting control.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 무엇을 볼 수 있나</span><span class="lang-en">What you can actually see</span></h4>
+          <p>
+            <span class="lang-kr">Cell-type 특이적 senolytic 효과의 "원인 - 결과"를 분리 가능. 이 논문에서: myeloid p16+ 청소 → 골손실 거의 변화 없음 vs osteocyte p16+ 청소 → 골 보호. "어떤 senescent 세포가 진짜 골 노화의 원동력인가" 답.</span>
+            <span class="lang-en">Cleanly separates cell-type-specific senolytic effects. Here: clearing myeloid p16+ → little change in bone vs clearing osteocyte p16+ → measurable bone protection. Pinpoints which senescent cell type is the actual driver of bone aging.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">(1) p16 promoter는 노화 외에도 stress 반응에서 켜지므로 "p16+ = senescent" 가정에 의존. (2) AP20187은 FKBP-Caspase8 의존, 약물 senolytic의 mechanism (BCL2 inhibition 등)과 다름 — 이 논문 결과를 D+Q 같은 약물 senolytic에 직접 옮기려면 한 단계 추가 필요. (3) Cre leakage. (4) AP 자주 처리는 systemic effect 가능.</span>
+            <span class="lang-en">(1) The p16 promoter fires under stress as well as senescence — the "p16+ = senescent" assumption is required. (2) AP20187 acts through FKBP-Caspase8, not the BCL2 axis that drug senolytics (D+Q) target — translating these results to D+Q needs one more step. (3) Cre leakage. (4) Frequent AP dosing may have systemic effects.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <!-- Method 3: scRNA-seq re-analysis -->
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🧬</span>
+        <span class="method-name">
+          <span class="lang-kr">공개 scRNA-seq 재분석 — Tabula Muris Senis</span>
+          <span class="lang-en">Public scRNA-seq re-analysis — Tabula Muris Senis</span>
+        </span>
+        <span class="method-shorttag">Seurat v4 · SenMayo · SenePy</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">Tabula Muris Senis (TMS)는 다양한 연령 (3-30개월) C57BL/6 마우스 조직의 10x scRNA-seq 공개 데이터셋. 이 논문은 24·30개월 BM cell만 추출 → Seurat v4 standard pipeline (normalization, PCA, UMAP, Leiden clustering) → SenMayo (125-gene aging-senescence signature, Saul et al. 2022 Nat Comm) + SenePy (cell-type-specific senescence hub) 점수 계산 후 UMAP에 overlay.</span>
+            <span class="lang-en">Tabula Muris Senis (TMS) is a 10x scRNA-seq dataset across mouse tissues at multiple ages (3–30 mo). The paper subsets 24- and 30-mo BM cells, runs Seurat v4 (normalization, PCA, UMAP, Leiden clustering), then scores each cell on SenMayo (125-gene signature, Saul et al. 2022 Nat Comm) and SenePy (cell-type-specific senescence hubs), overlaid on the UMAP.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">남이 찍어둔 마을 사진 (TMS)에서 학생 한 명 한 명 얼굴을 스캔해 "노인스러운 얼굴 점수" (SenMayo)로 채점하고, 비슷한 직업끼리 모여있는 동네 지도에 그 점수를 색칠. 새 데이터 안 만들고도 "어느 동네 노인스러움 제일 진하나" 답을 빨리 얻는 방법.</span>
+            <span class="lang-en">Use a previously photographed village (TMS), score every student's face on "looks-elderly" (SenMayo), then color the neighborhood map by score. Without collecting new data, you quickly answer "which neighborhood looks oldest?"</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나 (대안 대비)</span><span class="lang-en">Why this method (vs alternatives)</span></h4>
+          <p>
+            <span class="lang-kr">대안: (1) 자체 scRNA-seq — 시간·비용 큼. (2) bulk RNA-seq — cell type 분리 안 됨. TMS 같은 공개 데이터셋 재분석은 "가설 빠르게 깔기"에 최적. 이 논문에선 Fig 1a-b의 hypothesis-generating step으로 사용하고 hypothesis 자체는 자체 CyTOF (단백질)로 검증 — 가장 합리적인 hybrid 디자인.</span>
+            <span class="lang-en">Alternatives: (1) collect new scRNA-seq — slow, expensive. (2) bulk RNA-seq — no cell-type resolution. Public-data re-analysis is the fastest way to plant a hypothesis. This paper uses TMS for Fig 1a-b hypothesis generation, then validates with their own CyTOF (protein-level) — a clean hybrid design.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 무엇을 볼 수 있나</span><span class="lang-en">What you can actually see</span></h4>
+          <p>
+            <span class="lang-kr">UMAP 위에 SenMayo·SenePy 점수 분포, cell type별 senescence 정도 ranking, Cdkn2a/Cdkn1a/Trp53 등 개별 유전자 발현 overlay, 성별·나이 비교 (TMS는 두 성 모두 포함).</span>
+            <span class="lang-en">SenMayo/SenePy score distributions on UMAP, ranked cell-type senescence, individual gene overlays (Cdkn2a, Cdkn1a, Trp53), and sex × age comparisons (TMS contains both sexes).</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">(1) Drop-out — 저발현 senescence 유전자는 scRNA-seq에서 0으로 잡혀 신호 약화. (2) 단백질 정보 없음 (이 논문은 CyTOF로 보완). (3) TMS는 다양한 lab에서 처리된 sample이 섞여 batch effect 가능. (4) Sorting bias — TMS의 BM은 어떤 gating으로 isolate 됐는지에 따라 cell type composition 다름.</span>
+            <span class="lang-en">(1) Drop-out — lowly-expressed senescence genes show as zero, weakening signal. (2) No protein info (the paper compensates with CyTOF). (3) TMS pools samples processed by different labs — batch effects. (4) Sorting bias — BM composition depends on the gating used to isolate.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <!-- Method 4: TAF imaging -->
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🔬</span>
+        <span class="method-name">
+          <span class="lang-kr">Telomere-Associated Foci (TAF) 이미징</span>
+          <span class="lang-en">Telomere-Associated Foci (TAF) imaging</span>
+        </span>
+        <span class="method-shorttag">FISH + γH2AX IF</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">Telomere FISH (PNA probe → telomere DNA에 형광 hybridize) + γH2AX immunofluorescence (DNA double-strand break 마커)를 같은 세포에서 수행. 두 신호가 colocalize 하는 점 = TAF (telomere에 박힌 DNA 손상). Senescence의 conservative 마커 — replicative senescence와 oxidative-stress senescence에서 모두 누적.</span>
+            <span class="lang-en">Telomere FISH (a PNA probe hybridizes to telomere DNA) combined with γH2AX immunofluorescence (DNA double-strand-break marker) in the same cell. Spots where both signals colocalize = TAFs (DNA damage at telomeres). A conservative senescence marker that accumulates in both replicative and oxidative-stress senescence.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">DNA의 끝부분은 신발끈 끝에 있는 작은 매듭(telomere)과 같고, 거기에 가위 자국(damage)이 쌓이는지 형광 색깔로 본다. 두 색이 겹치는 점이 한 세포에 3개 이상이면 "진짜 늙은 세포". 이 논문에서 osteocyte는 늙으면 점이 많이 쌓이는데 myeloid는 안 쌓임.</span>
+            <span class="lang-en">DNA ends are like the little knots at the tips of shoelaces (telomeres). Color whether scissor marks (damage) pile up at those knots. ≥3 colocalized spots per cell = "truly old cell." Osteocytes accumulate them with age; myeloid don't.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나</span><span class="lang-en">Why this method</span></h4>
+          <p>
+            <span class="lang-kr">대안: SA-βgal — myeloid에서 비특이 신호 ("BMDM은 etoposide 처리해도 SA-βgal nonspecific"이라고 본 논문도 명시). γH2AX 단독 — telomere 외 손상도 잡힘. TAF는 가장 깨끗한 "depth-of-senescence" 분자 마커. CD11b+에서 늙어도 TAF 안 늘어남이 myeloid의 partial senescence 가설을 결정적으로 지지.</span>
+            <span class="lang-en">Alternatives: SA-β-gal — nonspecific in myeloid (the paper itself notes this). γH2AX alone — picks up non-telomeric damage. TAF is the cleanest molecular marker for "depth of senescence." That CD11b+ shows no age-related TAF rise nails down the partial-senescence hypothesis for myeloid.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">무엇을 볼 수 있나</span><span class="lang-en">What you can see</span></h4>
+          <p>
+            <span class="lang-kr">세포당 TAF 개수, %TAF+ cell (≥3 foci), young vs old 비교, cell type 간 비교 (이 논문: CD11b+ vs osteocyte).</span>
+            <span class="lang-en">TAF count per cell, %TAF+ cells (≥3 foci), young vs old, and cross-cell-type comparisons (here: CD11b+ vs osteocytes).</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">(1) 손작업 정량 — bias 가능 (이 논문은 blinded counting). (2) Throughput 낮음. (3) Telomere가 짧은 종 (mouse)에선 신호 좁아 colocalization 검출 어려움. (4) Cell viability 좋아야 — apoptotic cell은 false positive.</span>
+            <span class="lang-en">(1) Manual counting — bias risk (paper used blinded counting). (2) Low throughput. (3) Mouse telomeres are short, narrowing the colocalization signal. (4) Requires viable cells — apoptotic cells produce false positives.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <!-- Method 5: In vitro etoposide senescence induction -->
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🧪</span>
+        <span class="method-name">
+          <span class="lang-kr">In vitro etoposide senescence induction (BMDM vs BMSC)</span>
+          <span class="lang-en">In vitro etoposide-induced senescence (BMDM vs BMSC)</span>
+        </span>
+        <span class="method-shorttag">20 μM × 48 h</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">Etoposide (topoisomerase II inhibitor) → DNA double-strand break → DNA damage response → 일부 세포는 apoptosis, 일부는 senescence. BMDM (M-CSF 7d 분화한 macrophage) vs BMSC (3% O₂ 확장한 stromal cell) 둘 다 20 μM etoposide 48h 처리, qPCR + bulk RNA-seq + 68-plex cytokine multiplex + SA-βgal로 senescence 프로그램 진입 여부 비교.</span>
+            <span class="lang-en">Etoposide (topoisomerase II inhibitor) → DNA double-strand breaks → DDR → either apoptosis or senescence. BMDMs (7-day M-CSF differentiation) and BMSCs (3% O₂ expansion) both receive 20 μM etoposide × 48 h. Senescence program entry is compared by qPCR, bulk RNA-seq, 68-plex cytokine multiplex, and SA-β-gal.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">두 종류의 일꾼 (청소부·건축가)에게 똑같은 양의 "스트레스 약" (etoposide)을 주고, 누가 진짜로 "은퇴 노인 모드" (senescence)에 들어가나 본다. 건축가는 진입; 청소부는 흉내만 내고 못 들어감.</span>
+            <span class="lang-en">Give two worker types (janitors vs architects) the same "stress pill" (etoposide) and watch who actually shifts into "retired-elder mode" (senescence). Architects do; janitors only mimic and can't fully transition.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나</span><span class="lang-en">Why this method</span></h4>
+          <p>
+            <span class="lang-kr">In vivo에서 본 차이 (myeloid p16+ 청소 효과 약함)가 cell-intrinsic인지 niche-extrinsic인지 분리하기 위해. In vitro에서도 같은 차이 (BMDM은 senescence 프로그램 잘 안 켜짐)가 재현되면 cell-intrinsic 결론 가능. Etoposide는 가장 표준적인 strong DDR-induced senescence inducer.</span>
+            <span class="lang-en">To dissociate cell-intrinsic from niche-extrinsic explanations of the in vivo difference. Reproducing the difference in vitro nails it as cell-intrinsic. Etoposide is the standard strong DDR-induced senescence inducer.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">무엇을 볼 수 있나</span><span class="lang-en">What you can see</span></h4>
+          <p>
+            <span class="lang-kr">qPCR: Cdkn2a, Cdkn1a, Bcl2, Bcl2l1, Bcl2l2, Il1a, Il1b, Il6 등의 fold change. RNA-seq + GSEA: SenMayo·항-apoptotic·YAP/TAZ-TEAD·DNA repair signature. Multiplex: secreted SASP. SA-βgal+ %.</span>
+            <span class="lang-en">qPCR fold changes for Cdkn2a, Cdkn1a, Bcl2/Bcl2l1/Bcl2l2, Il1a/Il1b/Il6, etc. RNA-seq + GSEA for SenMayo, antiapoptotic, YAP/TAZ-TEAD, DNA-repair signatures. Multiplex secreted SASP. SA-β-gal+ percentages.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">(1) Etoposide 외 inducer (H₂O₂, replicative exhaustion, oncogenic Ras 등)에서 BMDM이 senescence 진입할 가능성 — 이 논문도 limitation으로 인정. (2) BMDM은 7일 M-CSF 분화한 macrophage이므로 in vivo BM monocyte와 정체성 다를 수 있음. (3) 2D 배양 vs 3D niche 차이.</span>
+            <span class="lang-en">(1) BMDMs might enter senescence under different inducers (H₂O₂, replicative exhaustion, oncogenic Ras) — the paper acknowledges this. (2) 7-day M-CSF-differentiated BMDMs are not identical to in vivo BM monocytes. (3) 2D culture differs from the 3D niche.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <!-- Method 6: GSEA / pathway analysis -->
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🧮</span>
+        <span class="method-name">
+          <span class="lang-kr">GSEA + Upstream Regulator Analysis</span>
+          <span class="lang-en">GSEA + Upstream Regulator Analysis</span>
+        </span>
+        <span class="method-shorttag">SenMayo · YAP/TAZ · cGAS/STING</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">Bulk RNA-seq DEG 결과에 GSEA (Gene Set Enrichment Analysis)로 미리 정의된 유전자 세트가 두 조건 비교에서 enriched 인지 검정. 이 논문은 특히 SenMayo (125 senescence-aging genes), Cordenonsi YAP-conserved signature, antiapoptotic Bcl2 family. + IPA (Ingenuity)나 MSigDB의 Upstream Regulator analysis로 "어떤 transcription factor가 이 변화를 일으켰을 가능성이 높은지" 추론 → cGAS/STING, IRF3, IFN-β/γ.</span>
+            <span class="lang-en">From bulk RNA-seq DEGs, GSEA tests whether a predefined gene set is enriched between two conditions. Here: SenMayo (125 senescence-aging genes), Cordenonsi YAP-conserved signature, antiapoptotic BCL2 family. Plus an Upstream Regulator analysis (e.g., IPA, MSigDB) to infer which transcription factors most likely drive the change → cGAS/STING, IRF3, IFN-β/γ.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">큰 시험 답안지에서 어떤 카테고리 문제 (수학 / 영어 / 음악)가 잘 됐는지 그룹별로 채점. "노인스러움" 카테고리 점수가 건축가는 +20점, 청소부는 +2점이면 "건축가만 진짜 노인 됨". 거기서 한 발 더 — "어느 선생님 (transcription factor)이 이 점수 차이를 만들었나"를 역으로 추론 = upstream regulator analysis.</span>
+            <span class="lang-en">Score the test by category (math/English/music). If the "elder-look" category jumped +20 in architects but only +2 in janitors, only architects truly aged. Then go a step further — "which teacher (transcription factor) caused that score gap?" That's upstream-regulator analysis.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나</span><span class="lang-en">Why this method</span></h4>
+          <p>
+            <span class="lang-kr">개별 유전자 cherry-pick보다 전체 signature 비교가 robust. SenMayo는 Saul et al. 2022 Nat Comm에서 cross-tissue validate된 standard. Cordenonsi YAP signature는 stromal mechanosensing 추적용. Upstream Regulator는 "왜 이런 패턴인가" 메커니즘 첫 단서.</span>
+            <span class="lang-en">Whole-signature tests are more robust than cherry-picking single genes. SenMayo (Saul et al. 2022 Nat Comm) is the cross-tissue-validated standard. The Cordenonsi YAP signature tracks stromal mechanosensing. Upstream-regulator analysis offers the first mechanistic hint of why a pattern exists.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">무엇을 볼 수 있나</span><span class="lang-en">What you can see</span></h4>
+          <p>
+            <span class="lang-kr">NES + adjusted P, leading-edge gene 리스트, 후보 upstream regulator의 activation z-score, 비교군 간 enriched pathway 차이.</span>
+            <span class="lang-en">NES + adjusted P, leading-edge gene lists, candidate upstream-regulator activation z-scores, and cross-condition enriched-pathway differences.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">(1) Signature는 reference 데이터셋에 의존 — SenMayo는 주로 stromal/epithelial에서 만들어졌으니 myeloid signal 약할 수 있음. (2) Upstream regulator는 추론이지 실험 검증 아님. (3) Gene set DB 버전마다 결과 다름.</span>
+            <span class="lang-en">(1) Signatures depend on the reference dataset — SenMayo was built mostly from stromal/epithelial cells, so myeloid signal may be weaker. (2) Upstream regulators are inferences, not experimental tests. (3) Results shift with gene-set DB version.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Mouse model summary -->
+  <div class="panel">
+    <h2>🐭
+      <span class="lang-kr">마우스 모델 정리</span>
+      <span class="lang-en">Mouse model summary</span>
+    </h2>
+    <div class="method-grid">
+      <div class="method-card">
+        <h4>🧬 <span class="lang-kr">유전 모델</span><span class="lang-en">Genetic models</span></h4>
+        <ul>
+          <li>p16-LOX-ATTAC (inducible p16+ apoptosis)</li>
+          <li>LysM-Cre × p16-LOX-ATTAC <span class="lang-kr">(myeloid-특이 청소)</span><span class="lang-en">(myeloid-specific clearance)</span></li>
+          <li>DMP1-Cre × p16-LOX-ATTAC <span class="lang-kr">(osteocyte-특이)</span><span class="lang-en">(osteocyte-specific)</span></li>
+          <li>INK-ATTAC <span class="lang-kr">(global p16+ 청소, 비교용)</span><span class="lang-en">(global p16+ clearance, comparison)</span></li>
+          <li>p16-knockout <span class="lang-kr">(antibody control)</span><span class="lang-en">(antibody control)</span></li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <h4>💊 <span class="lang-kr">처리 / 처방</span><span class="lang-en">Treatments</span></h4>
+        <ul>
+          <li>AP20187 dimerizer 10 mg/kg, i.p., <span class="lang-kr">주 2회 × 4개월</span><span class="lang-en">twice weekly × 4 mo</span></li>
+          <li>20-24 mo <span class="lang-kr">암수 모두</span><span class="lang-en">both sexes</span></li>
+          <li>Etoposide 20 μM × 48h (in vitro)</li>
+          <li>M-CSF 20 ng/mL × 7d → BMDM</li>
+          <li>3% O₂ hypoxic culture → BMSC</li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <h4>🌊 <span class="lang-kr">분석 platform</span><span class="lang-en">Analysis platforms</span></h4>
+        <ul>
+          <li>CyTOF Helios (Fluidigm) · Cytobank (viSNE, FlowSOM)</li>
+          <li>Illumina HiSeq 4000 (bulk RNA-seq) · DESeq2 · clusterProfiler</li>
+          <li>Seurat v4 · SenMayo · SenePy</li>
+          <li>μCT (skeletal phenotyping)</li>
+          <li>68-plex Eve Technologies cytokine multiplex (CLIA)</li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <h4>📂 <span class="lang-kr">데이터 가용성</span><span class="lang-en">Data availability</span></h4>
+        <ul>
+          <li>CyTOF: Mendeley Data <code>10.17632/tk466mks85.1</code></li>
+          <li>RNA-seq: GEO <code>GSE294362</code>, <code>GSE283633</code></li>
+          <li>Code: <code>github.com/DoolittleLab/Doolittle-JCI-2026</code></li>
+          <li><span class="lang-kr">CC-BY 4.0 오픈 액세스</span><span class="lang-en">CC-BY 4.0 OA</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cell hierarchy -->
+  <div class="panel">
+    <h2>🌲
+      <span class="lang-kr">분석된 세포 계통 hierarchy</span>
+      <span class="lang-en">Analyzed cell-type hierarchy</span>
+    </h2>
+    <div class="hierarchy">
+      <p style="font-size:13.5px;line-height:1.85;">
+        <strong>BM</strong> → 면역 (RBC lysis + lineage MACS depletion)<br>
+        &nbsp;&nbsp;├── <strong>Myeloid</strong> (CD11b+) → CD14+ (mono/mac), CD115+ DC, Ly6G+ neutrophil<br>
+        &nbsp;&nbsp;├── <strong>Lymphoid</strong> → CD3e+ (T), CD3e+CD8+, CD19+ (B)<br>
+        &nbsp;&nbsp;└── <strong>Other</strong> → CD117+ progenitor, NK<br><br>
+        <strong>Bone</strong> → mesenchymal (collagenase digestion + lineage depletion)<br>
+        &nbsp;&nbsp;├── <strong>DMP1+ osteocyte</strong> (OCL-1, OCL-2 — DMP1-LOX-ATTAC 표적)<br>
+        &nbsp;&nbsp;├── <strong>BMSC</strong> (in vitro 3% O₂ 확장)<br>
+        &nbsp;&nbsp;└── <strong>Osteolineage</strong> 계통
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================= -->
+<!-- TAB 3 — RESULTS                                                 -->
+<!-- ============================================================= -->
+<div class="tab-content" id="t3">
+
+  <div class="panel">
+    <h2>💡
+      <span class="lang-kr">결과 — 한 눈에 보기</span>
+      <span class="lang-en">Results — at a glance</span>
+    </h2>
+    <div class="outcomes">
+      <div class="outcome-card blue">
+        <div class="icon">🏗️</div>
+        <span class="source-tag"><span class="lang-kr">발견 1</span><span class="lang-en">Finding 1</span></span>
+        <h3>
+          <span class="lang-kr">MSC가 myeloid보다 senescence 170% 진함</span>
+          <span class="lang-en">MSC senescence 170% deeper than myeloid</span>
+        </h3>
+        <ul>
+          <li><span class="lang-kr">paired CyTOF, n=18</span><span class="lang-en">paired CyTOF, n=18</span></li>
+          <li><span class="lang-kr">p16, SASP, pATM 모두 ↑</span><span class="lang-en">p16, SASP, pATM all higher</span></li>
+          <li>P&lt;0.0001</li>
+        </ul>
+      </div>
+      <div class="outcome-card orange">
+        <div class="icon">⚠️</div>
+        <span class="source-tag"><span class="lang-kr">발견 2</span><span class="lang-en">Finding 2</span></span>
+        <h3>
+          <span class="lang-kr">Myeloid p16+ 청소 4mo → 골 보호 거의 없음</span>
+          <span class="lang-en">4-mo myeloid p16+ clearance barely rescues bone</span>
+        </h3>
+        <ul>
+          <li><span class="lang-kr">암컷: zero</span><span class="lang-en">females: zero</span></li>
+          <li><span class="lang-kr">수컷: modest gains</span><span class="lang-en">males: modest only</span></li>
+          <li><span class="lang-kr">2주 후 p16+ 다시 채움</span><span class="lang-en">refills within 2 weeks</span></li>
+        </ul>
+      </div>
+      <div class="outcome-card green">
+        <div class="icon">🚫</div>
+        <span class="source-tag"><span class="lang-kr">발견 3</span><span class="lang-en">Finding 3</span></span>
+        <h3>
+          <span class="lang-kr">Myeloid는 "deep" senescence 못 만듬</span>
+          <span class="lang-en">Myeloid never reaches "deep" senescence</span>
+        </h3>
+        <ul>
+          <li><span class="lang-kr">TAF 노화로 안 늚</span><span class="lang-en">no age-related TAF rise</span></li>
+          <li><span class="lang-kr">YAP/TAZ baseline ≈ 0</span><span class="lang-en">YAP/TAZ baseline ≈ 0</span></li>
+          <li><span class="lang-kr">cGAS/STING 약함</span><span class="lang-en">weak cGAS/STING</span></li>
+          <li><span class="lang-kr">Bcl2 surge 없음</span><span class="lang-en">no antiapoptotic surge</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Mechanism schematic SVG -->
+    <h3 style="margin-top:30px;text-align:center;">
+      <span class="lang-kr">메커니즘 요약 — 두 cell type, 두 운명</span>
+      <span class="lang-en">Mechanism schematic — two cell types, two fates</span>
+    </h3>
+    <svg class="scene" viewBox="0 0 880 380" width="100%" style="max-width:880px;">
+      <!-- Background -->
+      <rect x="0" y="0" width="880" height="380" fill="#fafbff" rx="20"/>
+
+      <!-- Left: BMSC / osteocyte path -->
+      <g transform="translate(50, 30)">
+        <text x="180" y="0" font-size="15" font-weight="bold" fill="#5a4fcf" text-anchor="middle">
+          <tspan class="lang-kr">건축가 — MSC / osteocyte (long-lived)</tspan>
+          <tspan class="lang-en">Architect — MSC / osteocyte (long-lived)</tspan>
+        </text>
+        <!-- Cell -->
+        <ellipse cx="180" cy="60" rx="60" ry="40" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="3"/>
+        <circle cx="170" cy="55" r="3" fill="#3a4252"/>
+        <circle cx="190" cy="55" r="3" fill="#3a4252"/>
+        <path d="M 170 70 Q 180 78 190 70" stroke="#3a4252" stroke-width="2" fill="none"/>
+        <text x="180" y="105" font-size="12" fill="#5a4fcf" text-anchor="middle">p16↑ p21↑</text>
+
+        <!-- Stress arrow -->
+        <text x="180" y="140" font-size="20" text-anchor="middle">⬇ <tspan font-size="12">etoposide / aging</tspan></text>
+
+        <!-- Deep senescence box -->
+        <rect x="40" y="160" width="280" height="170" fill="#fff" stroke="#5a4fcf" stroke-width="2" stroke-dasharray="6,4" rx="14"/>
+        <text x="180" y="182" font-size="13" font-weight="bold" fill="#5a4fcf" text-anchor="middle">
+          <tspan class="lang-kr">"Deep" senescence — 진입함</tspan>
+          <tspan class="lang-en">"Deep" senescence — engaged</tspan>
+        </text>
+        <text x="60" y="208" font-size="11" fill="#444">✅ TAF accumulates with age</text>
+        <text x="60" y="226" font-size="11" fill="#444">✅ BCL2 / Bcl2l1 ↑ (antiapoptotic)</text>
+        <text x="60" y="244" font-size="11" fill="#444">✅ YAP/TAZ activity loss</text>
+        <text x="60" y="262" font-size="11" fill="#444">✅ cGAS/STING activation</text>
+        <text x="60" y="280" font-size="11" fill="#444">✅ SASP secretion ↑↑</text>
+        <text x="60" y="298" font-size="11" fill="#444">✅ SA-β-gal +</text>
+        <text x="60" y="316" font-size="11" font-weight="bold" fill="#2e8b57">→ <tspan class="lang-kr">senolytic 표적</tspan><tspan class="lang-en">senolytic target</tspan></text>
+      </g>
+
+      <!-- Right: myeloid path -->
+      <g transform="translate(490, 30)">
+        <text x="180" y="0" font-size="15" font-weight="bold" fill="#ed7d31" text-anchor="middle">
+          <tspan class="lang-kr">청소부 — myeloid (short-lived, 2-3d)</tspan>
+          <tspan class="lang-en">Janitor — myeloid (short-lived, 2-3d)</tspan>
+        </text>
+        <!-- Cell -->
+        <circle cx="180" cy="60" r="40" fill="#fff0e0" stroke="#ed7d31" stroke-width="3"/>
+        <circle cx="170" cy="55" r="3" fill="#3a4252"/>
+        <circle cx="190" cy="55" r="3" fill="#3a4252"/>
+        <path d="M 170 70 Q 180 75 190 70" stroke="#3a4252" stroke-width="2" fill="none"/>
+        <text x="180" y="105" font-size="12" fill="#ed7d31" text-anchor="middle">p16↑ (mild)</text>
+
+        <text x="180" y="140" font-size="20" text-anchor="middle">⬇ <tspan font-size="12">etoposide / aging</tspan></text>
+
+        <!-- Partial senescence box -->
+        <rect x="40" y="160" width="280" height="170" fill="#fff" stroke="#ed7d31" stroke-width="2" stroke-dasharray="6,4" rx="14"/>
+        <text x="180" y="182" font-size="13" font-weight="bold" fill="#ed7d31" text-anchor="middle">
+          <tspan class="lang-kr">"Partial" senescence — 흉내만</tspan>
+          <tspan class="lang-en">"Partial" senescence — only mimicked</tspan>
+        </text>
+        <text x="60" y="208" font-size="11" fill="#444">❌ TAF flat with age</text>
+        <text x="60" y="226" font-size="11" fill="#444">❌ no BCL2 surge</text>
+        <text x="60" y="244" font-size="11" fill="#444">❌ YAP/TAZ baseline ≈ 0</text>
+        <text x="60" y="262" font-size="11" fill="#444">❌ weak cGAS/STING</text>
+        <text x="60" y="280" font-size="11" fill="#444">⚪ SASP modest, transient</text>
+        <text x="60" y="298" font-size="11" fill="#444">❌ SA-β-gal nonspecific</text>
+        <text x="60" y="316" font-size="11" font-weight="bold" fill="#b85f25">→ <tspan class="lang-kr">청소해도 며칠 내 채워짐</tspan><tspan class="lang-en">refills within days</tspan></text>
+      </g>
+
+      <!-- Center divider -->
+      <line x1="440" y1="50" x2="440" y2="350" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+    </svg>
+  </div>
+
+  <!-- Deep Dive panel (REQUIRED for research type, in Tab 3) -->
+  <div class="panel">
+    <h2>📔
+      <span class="lang-kr">결과 자세히 — 펼쳐서 읽기</span>
+      <span class="lang-en">Results in Depth — expand to read</span>
+    </h2>
+
+    <details class="deep-dive" open>
+      <summary>
+        <span class="lang-kr">발견 1: MSC senescence가 myeloid보다 170% 깊다 — 자세히</span>
+        <span class="lang-en">Finding 1: MSCs carry 170% more p16 than immune cells — in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip blue"><strong>+170.2%</strong><span class="unit"><span class="lang-kr">MSC p16 vs immune</span><span class="lang-en">MSC p16 vs immune</span></span></div>
+          <div class="number-chip"><strong>±16.9</strong><span class="unit">SD</span></div>
+          <div class="number-chip green"><strong>P&lt;0.0001</strong><span class="unit"><span class="lang-kr">paired</span><span class="lang-en">paired</span></span></div>
+          <div class="number-chip purple"><strong>n=18</strong><span class="unit"><span class="lang-kr">노화 마우스</span><span class="lang-en">aged mice</span></span></div>
+          <div class="number-chip"><strong>27.99</strong><span class="unit"><span class="lang-kr">DMP1+ osteocyte p16 median</span><span class="lang-en">DMP1+ osteocyte p16 median</span></span></div>
+          <div class="number-chip"><strong>14.26</strong><span class="unit"><span class="lang-kr">CD14+ myeloid p16 median</span><span class="lang-en">CD14+ myeloid p16 median</span></span></div>
+          <div class="number-chip"><strong>2.50</strong><span class="unit"><span class="lang-kr">CD8+ T p16 median</span><span class="lang-en">CD8+ T p16 median</span></span></div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how it was compared</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">한 마우스 (n=18, 24개월)에서 골수 면역세포와 분쇄한 뼈에서 분리한 mesenchymal cell을 동시에 준비해 같은 CyTOF panel에 묻혔다. 같은 개체 안에서 두 compartment의 p16 protein median과 %p16+를 paired로 비교 — 즉 마우스 간 변이를 통제한 가장 strong 디자인. 14개 면역 클러스터 + DMP1+ 골세포 클러스터를 별도 ranking 했다.</span>
+          <span class="lang-en">From each of n=18 aged mice (24 mo), BM immune cells and bone-derived mesenchymal cells were prepared in parallel and run through the same CyTOF panel. Within each mouse, p16 protein median and %p16+ were compared in a paired design — the strongest control for mouse-to-mouse variance. 14 immune clusters plus DMP1+ osteocyte clusters were ranked separately.</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"p16 발현은 mesenchymal 세포에서 immune 세포보다 평균 170.2% 더 높았으며 (±16.9 SD), 모든 개별 마우스에서 mesenchymal compartment가 더 높은 값을 보였다."</span>
+          <span class="lang-en">"p16 expression in mesenchymal cells was 170.2% higher (±16.9 SD) than immune cells, and the mesenchymal compartment was higher in every individual mouse."</span>
+          <span class="src">— <span class="lang-kr">Fig 4, paraphrase from accessible portion</span><span class="lang-en">Fig 4, paraphrase from accessible portion</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가 (쉽게)</span><span class="lang-en">Why it matters (in plain language)</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">"같은 마우스, 같은 골수"에서 paired로 비교한 데이터는 "어떤 cell type이 진짜 senescent burden을 짊어지나"라는 질문에 mouse-to-mouse 변이를 깔끔히 빼고 답한다. 결과: <strong>면역세포 (특히 myeloid)는 senescence의 "1부 리그"가 아니라 MSC/osteocyte보다 한참 아래.</strong> 이전 문헌에서 myeloid p16 데이터를 인용해 "면역 senescence가 골 노화를 일으킨다"고 주장하던 패러다임의 quantitative 기반을 흔드는 결과.</span>
+          <span class="lang-en">Paired within-mouse comparison cleanly removes mouse-to-mouse variance and answers "which compartment carries the real senescent burden." The verdict: <strong>immune cells (even myeloid) sit far below MSC/osteocyte.</strong> This shakes the quantitative basis of prior claims that "immune senescence drives bone aging" — those claims often cited myeloid p16 data without ever measuring it next to MSCs in the same animal.</span>
+        </p>
+      </div>
+    </details>
+
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">발견 2: Myeloid p16+ 4mo 청소도 골 보호에 거의 효과 없음 — 자세히</span>
+        <span class="lang-en">Finding 2: 4-mo myeloid p16+ clearance barely rescues bone — in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip"><strong>4 mo</strong><span class="unit"><span class="lang-kr">AP 처리 기간</span><span class="lang-en">treatment duration</span></span></div>
+          <div class="number-chip blue"><strong>20-24</strong><span class="unit"><span class="lang-kr">개월 마우스</span><span class="lang-en">mo mouse age</span></span></div>
+          <div class="number-chip green"><strong>~87%</strong><span class="unit"><span class="lang-kr">DMP1+ OCL-1 p16+ 감소</span><span class="lang-en">DMP1+ OCL-1 p16+ drop</span></span></div>
+          <div class="number-chip green"><strong>~73%</strong><span class="unit"><span class="lang-kr">DMP1+ OCL-2 p16+ 감소</span><span class="lang-en">DMP1+ OCL-2 p16+ drop</span></span></div>
+          <div class="number-chip"><strong>0%</strong><span class="unit"><span class="lang-kr">암컷 BV/TV 변화</span><span class="lang-en">female BV/TV change</span></span></div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">LysM-LOX-ATTAC 마우스 vs vehicle 마우스 모두 20-24개월령. AP20187 (10 mg/kg, i.p., 주 2회) 4개월 처리 후 femur diaphysis·metaphysis cortical thickness, metaphysis·lumbar spine BV/TV (μCT), bone formation rate, osteoclast/osteoblast 수 (histomorphometry). 짝짓지 않은 그룹 간 비교, 암수 따로 분석. 비교 control로 osteocyte-특이 DMP1-LOX-ATTAC + 2주 짧은 코스도 별도 진행.</span>
+          <span class="lang-en">LysM-LOX-ATTAC vs vehicle, both 20–24 mo. AP20187 (10 mg/kg, i.p., twice weekly) for 4 months. Endpoints: femoral diaphysis & metaphysis cortical thickness, metaphysis & lumbar spine BV/TV by μCT, bone formation rate, osteoclast/osteoblast counts. Sex-stratified between-group analysis. A 2-week short course on DMP1-LOX-ATTAC served as the contrasting control.</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"Targeted clearance of p16+ myeloid cells in aged mice produced only minor effects on age-related bone loss in male mice and no detectable effects in females, while p16+ myeloid cells repopulated rapidly after acute clearance."</span>
+          <span class="lang-en">"Targeted clearance of p16+ myeloid cells in aged mice produced only minor effects on age-related bone loss in male mice and no detectable effects in females, while p16+ myeloid cells repopulated rapidly after acute clearance."</span>
+          <span class="src">— <span class="lang-kr">Fig 2 + Fig 3, paraphrase</span><span class="lang-en">Fig 2 + Fig 3, paraphrase</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">유전적 senolytic이 4개월 동안 myeloid p16+를 골라서 죽였는데도 bone density에 의미있는 변화가 없다 — 즉 <strong>"골수의 p16+ 면역세포가 골 노화의 driver가 아니다"</strong>는 인과 결론. 같은 시스템에서 osteocyte를 청소하면 효과가 누적된다는 점이 결정적 control. Mechanism 두 가지: (1) myeloid는 단백질 수명이 2-3일이라 청소 효과가 누적 안 됨, (2) myeloid는 BCL2 surge 등 deep senescence 회로가 빠져있어 senolytic의 진짜 표적이 아닐 수 있음 (Fig 5).</span>
+          <span class="lang-en">A 4-month genetic senolytic targeted at myeloid p16+ produced no meaningful change in bone density. <strong>Causal conclusion: BM myeloid p16+ are not drivers of bone aging.</strong> The same system clearing osteocytes does accumulate benefit — the killer control. Two mechanisms: (1) myeloid live 2–3 days, so clearance never accumulates; (2) myeloid lack the deep-senescence circuitry (BCL2 surge, etc.), so they may not be the senolytic substrate at all (Fig 5).</span>
+        </p>
+      </div>
+    </details>
+
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">발견 3: Myeloid는 분자 레벨에서 "deep" senescence 회로가 부재 — 자세히</span>
+        <span class="lang-en">Finding 3: Myeloid lack the deep-senescence circuitry molecularly — in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip blue"><strong>≥3 TAF</strong><span class="unit"><span class="lang-kr">osteocyte 노화 시</span><span class="lang-en">osteocytes aged</span></span></div>
+          <div class="number-chip"><strong>≈ 0</strong><span class="unit"><span class="lang-kr">CD11b+ TAF 증가</span><span class="lang-en">CD11b+ TAF rise</span></span></div>
+          <div class="number-chip green"><strong>SenMayo NES↑</strong><span class="unit"><span class="lang-kr">BMSC etop only</span><span class="lang-en">BMSC etop only</span></span></div>
+          <div class="number-chip purple"><strong>YAP/TAZ ≈ 0</strong><span class="unit"><span class="lang-kr">macrophage baseline</span><span class="lang-en">macrophage baseline</span></span></div>
+          <div class="number-chip"><strong>cGAS/STING↑</strong><span class="unit"><span class="lang-kr">BMSC only</span><span class="lang-en">BMSC only</span></span></div>
+          <div class="number-chip"><strong>20 μM × 48h</strong><span class="unit">etoposide</span></div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">In vitro에서 BMDM (M-CSF 7d 분화) vs BMSC (3% O₂ 확장)에 동일 etoposide 처리. qPCR로 senescence·항-apoptotic·SASP 유전자 fold change, bulk RNA-seq → GSEA (SenMayo, Cordenonsi YAP, antiapoptotic, DNA repair signature), Upstream Regulator로 cGAS/STING/IRF3 활성화 추론. In vivo에선 FACS-sort CD11b+ + 같은 마우스의 osteocyte에 telomere FISH + γH2AX IF로 TAF 정량 (young 6mo vs old 24mo).</span>
+          <span class="lang-en">In vitro, BMDMs (7-day M-CSF differentiation) and BMSCs (3% O₂ expansion) received identical etoposide. qPCR quantified senescence, antiapoptotic, SASP fold changes; bulk RNA-seq fed GSEA (SenMayo, Cordenonsi YAP, antiapoptotic, DNA-repair signatures); upstream-regulator analysis inferred cGAS/STING/IRF3 activation. In vivo, FACS-sorted CD11b+ and matched osteocytes received telomere FISH + γH2AX IF for TAF quantification (young 6 mo vs old 24 mo).</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"BMDM은 etoposide 처리 후 p16과 p21을 약하게 상승시켰지만 항-apoptotic, SASP, YAP/TAZ-target 유전자, cGAS/STING signature를 충분히 켜지 못해 mesenchymal 세포에서 원래 기술된 fully developed senescence phenotype에 도달하지 못했다."</span>
+          <span class="lang-en">"BMDMs modestly upregulated p16 and p21 after etoposide but failed to engage antiapoptotic, SASP, YAP/TAZ-target gene, and cGAS/STING signatures sufficient to reach the fully developed senescence phenotype originally described in mesenchymal cells."</span>
+          <span class="src">— <span class="lang-kr">Fig 5, paraphrase</span><span class="lang-en">Fig 5, paraphrase</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">D+Q, ABT-263 등 약물 senolytic의 작용 기전은 대부분 <strong>"BCL2-family에 의존하는 apoptosis 회피를 깨는 것"</strong>. 그런데 myeloid는 senescence 진입 시에도 BCL2 surge가 안 나오면 → 그 약물의 표적 자체가 아닐 수 있다. 임상적으로 D+Q 같은 senolytic이 BM에서 무엇을 죽이는가 다시 묻게 만든다. 이 논문은 답으로 "주로 MSC/osteocyte이며, BM myeloid는 partial senescent 상태로 senolytic 표적이 아닐 가능성"을 제시.</span>
+          <span class="lang-en">Drug senolytics like D+Q and ABT-263 mostly act by <strong>breaking BCL2-family-dependent apoptosis escape.</strong> If myeloid don't raise BCL2 even when entering "senescence," they may not even be substrates for these drugs. Clinically, this re-asks "what is D+Q killing in the bone marrow?" The paper's answer leans MSC/osteocyte as the real targets, with myeloid sitting in a partial-senescence state outside the senolytic substrate pool.</span>
+        </p>
+      </div>
+    </details>
+  </div>
+
+  <div class="summary-banner">
+    <span class="lang-kr">📌 같은 골수, 다른 운명: MSC는 senescence "본체", myeloid는 senescence "흉내". 골 노화 senolytic 표적은 long-lived stromal/osteocyte.</span>
+    <span class="lang-en">📌 Same marrow, different fates: MSC is the senescence "core," myeloid is its "mimic." Bone-aging senolytic targets are long-lived stromal/osteocyte.</span>
+  </div>
+
+</div>
+
+<!-- ============================================================= -->
+<!-- TAB 4 — DISCUSSION                                              -->
+<!-- ============================================================= -->
+<div class="tab-content" id="t4">
+
+  <div class="panel">
+    <h2>🔄
+      <span class="lang-kr">이전 패러다임 vs 이 논문이 제안한 모델</span>
+      <span class="lang-en">Old paradigm vs the model this paper proposes</span>
+    </h2>
+    <svg class="scene" viewBox="0 0 880 280" width="100%" style="max-width:880px;">
+      <rect x="0" y="0" width="880" height="280" fill="#fafbff" rx="20"/>
+      <!-- Old -->
+      <g transform="translate(40,30)">
+        <rect x="0" y="0" width="380" height="220" fill="#fdf0e6" stroke="#ed7d31" stroke-width="3" rx="14"/>
+        <text x="190" y="30" font-size="14" font-weight="bold" fill="#b85f25" text-anchor="middle">
+          <tspan class="lang-kr">이전 모델 (deprecated)</tspan>
+          <tspan class="lang-en">Old model (deprecated)</tspan>
+        </text>
+        <text x="190" y="62" font-size="12" fill="#b85f25" text-anchor="middle">
+          <tspan class="lang-kr">"p16+ = senescent = 골 노화의 주범"</tspan>
+          <tspan class="lang-en">"p16+ = senescent = driver of bone aging"</tspan>
+        </text>
+        <text x="20" y="100" font-size="11" fill="#444">• <tspan class="lang-kr">cell type 안 가리고 p16+ 다 같다고 봄</tspan><tspan class="lang-en">treats all p16+ as equivalent</tspan></text>
+        <text x="20" y="124" font-size="11" fill="#444">• <tspan class="lang-kr">myeloid p16↑이 SASP의 메인 source</tspan><tspan class="lang-en">myeloid p16↑ as main SASP source</tspan></text>
+        <text x="20" y="148" font-size="11" fill="#444">• <tspan class="lang-kr">"청소하면 다 좋아진다" 가정</tspan><tspan class="lang-en">"clear them all = bone gets better"</tspan></text>
+        <text x="20" y="172" font-size="11" fill="#444">• <tspan class="lang-kr">cell-type-specific tool 부재</tspan><tspan class="lang-en">no cell-type-specific tools used</tspan></text>
+        <text x="20" y="196" font-size="11" fill="#b85f25">⚠️ <tspan class="lang-kr">Doolittle 2026이 직접 깸</tspan><tspan class="lang-en">refuted by Doolittle 2026</tspan></text>
+      </g>
+      <text x="445" y="150" font-size="32" fill="#5a4fcf" text-anchor="middle">→</text>
+      <!-- New -->
+      <g transform="translate(470,30)">
+        <rect x="0" y="0" width="380" height="220" fill="#e7f3e4" stroke="#2e8b57" stroke-width="3" rx="14"/>
+        <text x="190" y="30" font-size="14" font-weight="bold" fill="#2e8b57" text-anchor="middle">
+          <tspan class="lang-kr">새 모델 (proposed)</tspan>
+          <tspan class="lang-en">New model (proposed)</tspan>
+        </text>
+        <text x="190" y="62" font-size="12" fill="#2e8b57" text-anchor="middle">
+          <tspan class="lang-kr">"deep senescence는 long-lived stromal에 한정"</tspan>
+          <tspan class="lang-en">"deep senescence is confined to long-lived stromal"</tspan>
+        </text>
+        <text x="20" y="100" font-size="11" fill="#444">• <tspan class="lang-kr">p16+가 다 같은 게 아님 — depth 다름</tspan><tspan class="lang-en">not all p16+ equal — depth varies</tspan></text>
+        <text x="20" y="124" font-size="11" fill="#444">• <tspan class="lang-kr">myeloid는 "partial" senescence (BCL2 부재)</tspan><tspan class="lang-en">myeloid = "partial" (no BCL2)</tspan></text>
+        <text x="20" y="148" font-size="11" fill="#444">• <tspan class="lang-kr">MSC/osteocyte 청소가 진짜 효과</tspan><tspan class="lang-en">MSC/osteocyte clearance = real effect</tspan></text>
+        <text x="20" y="172" font-size="11" fill="#444">• <tspan class="lang-kr">senolytic 표적 = long-lived stromal</tspan><tspan class="lang-en">senolytic target = long-lived stromal</tspan></text>
+        <text x="20" y="196" font-size="11" fill="#2e8b57">✅ <tspan class="lang-kr">cell-type-specific 디자인이 핵심</tspan><tspan class="lang-en">cell-type-specific design is key</tspan></text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Implications -->
+  <div class="panel">
+    <h2>🎯
+      <span class="lang-kr">시사점 (implications)</span>
+      <span class="lang-en">Implications</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item future">
+        <h4>1. <span class="lang-kr">"p16+ = senescent"의 단순 등치 폐기</span><span class="lang-en">Drop the simple "p16+ = senescent" equation</span></h4>
+        <p>
+          <span class="lang-kr">Cell type별로 senescence "depth"가 다름. p16 발현은 senescence의 한 신호일 뿐, BCL2 surge·YAP/TAZ loss·cGAS/STING activation·TAF accumulation 같은 다른 회로가 함께 켜져야 "deep" senescence. 향후 senolytic 논문은 cell type 분리 + 다중 marker로 보고해야.</span>
+          <span class="lang-en">Senescence depth varies by cell type. p16 expression is one signal — true senescence requires the joint engagement of BCL2 surge, YAP/TAZ loss, cGAS/STING activation, and TAF accumulation. Future senolytic papers should report cell-type-resolved, multi-marker senescence.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>2. <span class="lang-kr">D+Q 같은 BM senolytic의 표적 재고</span><span class="lang-en">Reconsider what BM senolytics like D+Q target</span></h4>
+        <p>
+          <span class="lang-kr">D+Q의 작용 기전은 SCAP (senescence cell anti-apoptotic pathway, BCL2 family 등)을 부수는 것. 하지만 myeloid는 senescence 진입 시 BCL2 surge가 없어 D+Q 표적이 아닐 수 있다. 즉 BM에서 D+Q의 골 보호 효과 대부분이 MSC/osteocyte clearance에서 올 가능성. 사용자의 manuscript v11에서 BM senolytic 효과 attribution 할 때 직접 인용 가능.</span>
+          <span class="lang-en">D+Q acts by breaking SCAPs (BCL2-family-dependent apoptosis-escape pathways). Since myeloid lack the BCL2 surge during "senescence," they may not be D+Q substrates at all. Most of D+Q's bone protection in BM may stem from MSC/osteocyte clearance. Directly citable for attribution discussions in your v11 manuscript.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>3. <span class="lang-kr">Cell-type-specific senolytic 도구의 가치</span><span class="lang-en">Value of cell-type-specific senolytic tools</span></h4>
+        <p>
+          <span class="lang-kr">LysM-Cre × p16-LOX-ATTAC와 DMP1-Cre × p16-LOX-ATTAC 두 도구로 "어느 senescent cell이 phenotype의 driver인가" 인과 분리. 이 논리는 사용자의 BM senolytic 분야에 직접 응용 가능 — D+Q의 효과를 cell type별로 attribute 하려면 비슷한 conditional system 필요.</span>
+          <span class="lang-en">LysM-Cre × p16-LOX-ATTAC and DMP1-Cre × p16-LOX-ATTAC dissect causality across senescent cell types. The same logic transfers to BM senolytic work — to attribute D+Q's effect by cell type, you need an analogous conditional system.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>4. <span class="lang-kr">남녀 차이가 약간 있다는 점</span><span class="lang-en">Modest sex effect</span></h4>
+        <p>
+          <span class="lang-kr">수컷 마우스에서만 myeloid p16+ 청소가 약한 효과를 보임. 사용자의 manuscript에서 BM senolytic 효과의 sex stratification 시 주의 — myeloid 기여도 차이일 수도 있음. (단, 이 논문 자체는 sex × treatment interaction이 통계적으로 유의하지 않다고 보고.)</span>
+          <span class="lang-en">Only male mice showed modest gain after myeloid p16+ clearance. Worth noting for sex-stratified analyses of BM senolytic effects in your manuscript — could reflect a myeloid-contribution difference. (The paper notes the sex × treatment interaction was not statistically significant.)</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Limitations -->
+  <div class="panel">
+    <h2>⚠️
+      <span class="lang-kr">한계 (저자가 인정한)</span>
+      <span class="lang-en">Limitations (author-acknowledged)</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item limitation">
+        <h4><span class="lang-kr">조직 특이성 — BM myeloid에 한정된 결론</span><span class="lang-en">Tissue specificity — limited to BM myeloid</span></h4>
+        <p>
+          <span class="lang-kr">microglia, alveolar macrophage 같은 tissue-resident long-lived myeloid는 다를 수 있음. 이 논문 결론을 "모든 myeloid는 senescence 안 함" 으로 일반화 금지.</span>
+          <span class="lang-en">Tissue-resident long-lived myeloid (microglia, alveolar macrophages) may behave differently. Don't over-generalize to "all myeloid don't senesce."</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4><span class="lang-kr">유전적 senolytic ≠ 약물 senolytic</span><span class="lang-en">Genetic ≠ drug senolytic</span></h4>
+        <p>
+          <span class="lang-kr">FKBP-Caspase8 dimerization은 D+Q의 BCL2 inhibition과 다른 mechanism. "myeloid p16+ 청소가 골에 효과 없다" → "D+Q가 myeloid에 효과 없다" 직접 추론은 한 단계 더 필요.</span>
+          <span class="lang-en">FKBP-Caspase8 dimerization differs from D+Q's BCL2 inhibition mechanism. Going from "myeloid p16+ clearance fails to rescue bone" → "D+Q has no effect on myeloid" requires one more step.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4><span class="lang-kr">In vitro senescence inducer 한 가지만 시험</span><span class="lang-en">Only one in vitro inducer tested</span></h4>
+        <p>
+          <span class="lang-kr">Etoposide (DNA damage) 외에 H₂O₂ (oxidative), oncogenic Ras, replicative exhaustion에서 BMDM이 다른 양상을 보일 수 있음. 저자도 명시적으로 인정.</span>
+          <span class="lang-en">Beyond etoposide (DNA damage), BMDMs might respond differently to H₂O₂ (oxidative), oncogenic Ras, or replicative exhaustion. The authors explicitly acknowledge this.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4><span class="lang-kr">B/T cell senescence는 거의 안 다룸</span><span class="lang-en">B/T cell senescence barely covered</span></h4>
+        <p>
+          <span class="lang-kr">Adaptive immunity (CD3e+, CD19+)의 BM senotype은 별도 논문이 필요. 이 논문은 myeloid에 집중.</span>
+          <span class="lang-en">Adaptive immunity senescence (CD3e+, CD19+) needs its own paper. This study focuses on myeloid.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4><span class="lang-kr">HSC 노화에 myeloid senescence가 영향 주는지 불명</span><span class="lang-en">Unclear if myeloid senescence affects HSC aging</span></h4>
+        <p>
+          <span class="lang-kr">사용자 연구에서 HSC niche가 핵심인데, 이 논문은 골 phenotype에 집중하고 HSC functional readout (transplant chimerism, lineage skew)은 측정하지 않음.</span>
+          <span class="lang-en">HSC niche is central to your work, but this paper focuses on bone and never reads out HSC function (transplant chimerism, lineage skew).</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Future directions -->
+  <div class="panel">
+    <h2>🚀
+      <span class="lang-kr">앞으로 할 수 있는 것 (future)</span>
+      <span class="lang-en">Future directions</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item future">
+        <h4><span class="lang-kr">Cell-type-specific senolytic 약물 디자인</span><span class="lang-en">Design cell-type-specific senolytic drugs</span></h4>
+        <p>
+          <span class="lang-kr">Stromal-targeting senolytic (e.g. αSMA / LepR / Nes-targeted prodrug) 개발. 사용자 분야와 직접 연결.</span>
+          <span class="lang-en">Stromal-targeting senolytics (e.g., αSMA / LepR / Nes-targeted prodrugs). Directly relevant to your work.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4><span class="lang-kr">"depth of senescence" 통합 score</span><span class="lang-en">Integrated "depth of senescence" score</span></h4>
+        <p>
+          <span class="lang-kr">p16 + BCL2 + YAP/TAZ loss + TAF + SASP + cGAS/STING 6-axis composite로 single-cell 단위 senescence depth scoring. 사용자의 SenePy / SenMayo 분석을 한 단계 발전시킬 수 있는 framework.</span>
+          <span class="lang-en">A 6-axis composite (p16 + BCL2 + YAP/TAZ loss + TAF + SASP + cGAS/STING) for per-cell depth scoring. Could extend your SenePy / SenMayo workflows.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4><span class="lang-kr">Niche-driven HSC aging에서 senescent stromal 역할</span><span class="lang-en">Senescent stromal in niche-driven HSC aging</span></h4>
+        <p>
+          <span class="lang-kr">DMP1-LOX-ATTAC 또는 LepR-Cre × p16-LOX-ATTAC 모델에서 HSC competitive transplantation 측정 — niche senolytic이 HSC functional aging을 어디까지 reverse 하는지 정량.</span>
+          <span class="lang-en">In DMP1-LOX-ATTAC or LepR-Cre × p16-LOX-ATTAC models, run competitive HSC transplantation to quantify how far niche-targeted senolytic rescues functional HSC aging.</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="summary-banner">
+    <span class="lang-kr">🌟 Take-home: 골수에서 senescence는 모든 cell이 같지 않다. 진짜 deep senescent 표적은 long-lived MSC/osteocyte. Senolytic 효과를 attribute 할 땐 cell type 분리가 필수.</span>
+    <span class="lang-en">🌟 Take-home: BM senescence is not equal across cell types. The deep-senescent target is the long-lived MSC/osteocyte compartment. Always dissect senolytic effects per cell type.</span>
+  </div>
+
+</div>
+
+<footer>
+  <span class="lang-kr">Cute schematic of <strong>Doolittle et al. 2026, <em>J Clin Invest</em> 136(7):e195772</strong></span>
+  <span class="lang-en">Cute schematic of <strong>Doolittle et al. 2026, <em>J Clin Invest</em> 136(7):e195772</strong></span>
+  <br>
+  <a href="https://www.jci.org/articles/view/195772" target="_blank">📄 <span class="lang-kr">원 논문</span><span class="lang-en">Original article</span></a> ·
+  <a href="https://pubmed.ncbi.nlm.nih.gov/41592025/" target="_blank">🔬 PubMed</a> ·
+  <a href="https://doi.org/10.1172/JCI195772" target="_blank">🔗 DOI</a>
+</footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  function toggleLang() {
+    const body = document.body;
+    if (body.classList.contains('lang-kr')) {
+      body.classList.remove('lang-kr'); body.classList.add('lang-en');
+      localStorage.setItem('paper_easy_lang', 'en');
+    } else {
+      body.classList.remove('lang-en'); body.classList.add('lang-kr');
+      localStorage.setItem('paper_easy_lang', 'kr');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('paper_easy_lang');
+    if (saved === 'en') {
+      document.body.classList.remove('lang-kr');
+      document.body.classList.add('lang-en');
+    }
+  })();
+</script>
+
+</body>
+</html>
