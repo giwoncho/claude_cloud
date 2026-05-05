@@ -5,50 +5,79 @@
 > pick ONE important paper, generate a cute bilingual HTML schematic,
 > publish it on GitHub Pages, AND email it to the user.
 
-## Step 0 — Read setup files
+## ⏱️ Time budget (HARD)
 
-You have already cloned this repo (`giwoncho/claude_cloud`). Read in
-order:
+The whole run must finish in <12 min. Budget:
+- Search + scoring + verify: **6 min max** (3 WebSearch, 2 WebFetch hard cap)
+- HTML write: 4 min
+- Commit + push + email: 2 min
 
-1. `daily_paper/research_context.md` — themes, scoring rubric,
-   exclude list.
-2. `daily_paper/paper_easy.md` — full HTML spec (4-tab structure,
-   Figure Tree, Method Deep Cards, Deep Dive, bilingual rules).
-3. `daily_paper/sent_log.csv` — papers already sent in last 60 days
-   (skip these by DOI).
+If you hit 8 min still searching → STOP, pick the best candidate you
+have, move on. A "good-enough" paper that ships beats a perfect one
+that times out.
 
-## Step 1 — Find ~8 candidate papers
+## Step 0 — Read setup files (LEAN)
 
-WebSearch + WebFetch for recent (last 12 months preferred) papers
-matching the top-3 research themes in `research_context.md`. Search
-seeds:
+You have already cloned this repo (`giwoncho/claude_cloud`). Read:
 
-- `"hematopoietic stem cell" senolytic 2026`
-- `"bone marrow" niche aging single-cell 2026`
-- `"mesenchymal stromal" CAR cell HSC 2025..2026`
-- `bivalent chromatin HSC priming 2026`
-- `CellChat NicheNet bone marrow aging`
-- `scRNA-seq scATAC integration WNN bone marrow`
-- `senolytic dasatinib quercetin marrow 2026`
+1. `daily_paper/research_context.md` — themes, scoring rubric, exclude list. **Full file.**
+2. `daily_paper/sent_log.csv` — papers already sent (skip these by DOI). **Full file.**
+3. `daily_paper/paper_easy.md` — HTML spec. **DO NOT read in full (1430 lines).** Read only:
+   - Lines 1–200 (input handling, supported types, workflow overview)
+   - Lines 204–632 (HTML skeleton — this is the boilerplate you must use verbatim)
+   - Lines 640–663 (RESEARCH type schema — most papers are this type)
+   - Lines 786–890 (Deep Dive panel spec)
+   - Lines 891–1027 (Figure Tree panel spec)
+   - Lines 1029–1170 (Method Deep Cards spec)
+   - Lines 1383–1430 (color palette + checklist + verification)
 
-Drop anything paywalled (no PMC/bioRxiv/OA full-text).
+   **Skip the SVG illustration library (1172–1382) and other type schemas (665–784) unless your paper is review/meta/clinical/method/perspective.**
+
+   You can use `Read` with `offset` and `limit` parameters to grab just these ranges in 4–5 calls.
+
+For reference, `daily_paper/output/2026-05-05_Doolittle2026_research.html` (the 2026-05-05 example) is a fully-conforming research-type output — if you get stuck on structure, peek at it to copy patterns rather than re-reading the spec.
+
+## Step 1 — Find candidates (HARD CAPS: 3 WebSearch, 2 WebFetch)
+
+Run **3 WebSearch calls maximum**, picked from the top-3 themes in
+`research_context.md`. Examples (rotate to avoid repeats with
+`sent_log.csv`):
+
+- `"bone marrow" senolytic single-cell 2026`
+- `"hematopoietic stem cell" niche aging 2026`
+- `"mesenchymal stromal" bone marrow rejuvenation 2026`
+- `bivalent chromatin HSC 2026`
+- `CellChat NicheNet bone marrow aging 2026`
+
+From the search results pick **3–4 promising candidates**. Run **at
+most 2 WebFetch calls** to read the abstracts of the top 1–2.
+
+Drop anything paywalled (no PMC / bioRxiv / OA full-text).
 
 ## Step 2 — Score and pick ONE
 
-Apply the rubric in `research_context.md`. Tie-break by recency.
-If nothing scores well, pick a high-relevance recent landmark and
-flag it as "refresher" in the rationale.
+Apply the rubric in `research_context.md`. Tie-break by recency. Pick
+ONE within 2 minutes of finishing fetches. Don't dither — the time
+budget is tight.
 
-## Step 3 — Generate HTML
+## Step 3 — Generate HTML (lean target)
 
-Follow `daily_paper/paper_easy.md` EXACTLY. For research/clinical/
-method types in default deep mode, REQUIRED:
+Follow `daily_paper/paper_easy.md`. For research/clinical/method types,
+REQUIRED:
 - 🌳 Figure Tree at top of Tab 1
 - 🔬 Method Deep Cards at top of Tab 2
 - 📔 Results Deep Dive in Results-equivalent tab
 
+**Lean targets to fit budget:**
+- Figure Tree: **3–4 figures** (not all 5–7), each with 2–3 panels
+  (not 4–6). Pick the most informative ones.
+- Method Deep Cards: **3–4 cards** (not 5–6). Cover the central
+  techniques only.
+- Deep Dive: **3 findings** (matches summary cards).
+
 Bilingual every visible string (Korean default, English toggle).
-Self-contained (CSS + SVG inline, no external assets).
+Self-contained (CSS + SVG inline, no external assets). One single
+`Write` call for the full HTML — don't fragment.
 
 **Output filename:** `daily_paper/output/<YYYY-MM-DD>_<FirstAuthor><Year>_<type>.html`
 
