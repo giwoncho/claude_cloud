@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Daily Paper — Giwon Cho</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  header {
+    background: white; padding: 28px; border-radius: 24px;
+    text-align: center; margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4;
+  }
+  header h1 { font-size: 24px; color: #d63384; margin-bottom: 6px; }
+  header .sub { color: #6c757d; font-size: 14px; }
+  header .emoji { font-size: 36px; margin-bottom: 6px; }
+
+  .empty {
+    background: white; padding: 40px 28px; border-radius: 18px;
+    text-align: center; color: #888; font-size: 15px; line-height: 1.7;
+    border: 2px dashed #d0d6e0;
+  }
+
+  ul.papers { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  li.paper-row {
+    background: white; border-radius: 16px; padding: 18px 22px;
+    box-shadow: 0 4px 12px rgba(100,130,200,0.08);
+    border: 2px solid #fff; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  li.paper-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255,150,200,0.18);
+    border-color: #ffd6e7;
+  }
+  li.paper-row a {
+    text-decoration: none; color: inherit;
+    display: grid; grid-template-columns: 110px 1fr; gap: 14px;
+    align-items: baseline;
+  }
+  li.paper-row .date {
+    color: #d63384; font-weight: bold; font-size: 13px;
+    font-family: monospace;
+  }
+  li.paper-row .title {
+    color: #3a4252; font-weight: 600; font-size: 15px; line-height: 1.45;
+  }
+  li.paper-row .meta {
+    grid-column: 2; color: #888; font-size: 12px; margin-top: 4px;
+  }
+  li.paper-row .why {
+    grid-column: 2; color: #555; font-size: 13px; margin-top: 8px;
+    font-style: italic; line-height: 1.55;
+  }
+
+  footer {
+    text-align: center; padding: 24px 0 0; color: #888; font-size: 12px;
+  }
+  footer a { color: #d63384; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="emoji">📄✨🔬</div>
+  <h1>Daily Paper</h1>
+  <div class="sub">매일 아침 9시 (Eastern) 자동 발행 · 매일 1편의 골라낸 논문 schematic</div>
+</header>
+
+<ul class="papers">
+<!-- DAILY-LIST -->
+  <li class="paper-row">
+    <a>
+      <span class="date">—</span>
+      <span class="title">아직 첫 paper 가 발행되지 않았습니다</span>
+      <span class="meta">9 AM EDT 의 첫 routine 발화 후 여기에 자동 추가됩니다</span>
+    </a>
+    <p class="why">매일 새 논문이 가장 위에 추가됩니다. 최근 60일 분만 보입니다.</p>
+  </li>
+<!-- /DAILY-LIST -->
+</ul>
+
+<footer>
+  Curated for Giwon Cho · Varghese Lab, Duke BME ·
+  <a href="https://github.com/giwoncho/claude_cloud">repo</a>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,13 +1,15 @@
-# Daily Paper — Remote Agent Instructions
+# Daily Paper — Remote Agent Instructions (GitHub Pages mode)
 
-> You are the remote agent that runs once per day at 9 AM Eastern.
-> Your job: pick ONE important paper for the user, generate a cute
-> bilingual HTML schematic, and email it to them.
+> You are the remote agent that runs once per day at 13:00 UTC (= 9 AM
+> EDT through 2026-11-01, then 8 AM EST until next DST). Your job: pick
+> ONE important paper for the user, generate a cute bilingual HTML
+> schematic, push it to this repo so it goes live on GitHub Pages, and
+> update the index page.
 
-## Step 0 — Setup
+## Step 0 — Read setup files
 
 You have already cloned this repo (`giwoncho/claude_cloud`). Read these
-three files first:
+in order:
 
 1. `daily_paper/research_context.md` — what the user works on, what to
    prioritize, what to exclude, and the selection rubric.
@@ -15,16 +17,16 @@ three files first:
    generate. Follow it exactly. It defines the 4-tab structure, type
    detection, Figure Tree panel, Method Deep Cards, Deep Dive panel,
    bilingual rules, and CSS skeleton.
-3. `daily_paper/sent_log.csv` (if it exists) — papers already sent in
-   the last 60 days. Skip these.
+3. `daily_paper/sent_log.csv` — papers already sent in the last 60
+   days. Skip these (dedup by DOI).
 
 ## Step 1 — Find ~8 candidate papers
 
 Use **WebSearch** (and **WebFetch** to verify open access) to pull
 recent (last 12 months preferred) papers matching the top-3 research
-themes in `research_context.md`. Good search starting points:
+themes in `research_context.md`. Search starting points:
 
-- Google Scholar / PubMed search queries:
+- Google Scholar / PubMed:
   - `"hematopoietic stem cell" senolytic 2026`
   - `"bone marrow" niche aging single-cell 2026`
   - `"mesenchymal stromal" CAR cell HSC 2025..2026`
@@ -42,10 +44,9 @@ Apply the scoring rubric in `research_context.md` (relevance × 3,
 novelty, methodological transferability, recency, OA verified). Pick
 the highest scorer. Tie-break by recency.
 
-If no candidate scores well today (e.g., a slow news day), pick a
-**high-relevance recent landmark** the user is likely to want
-reinforcement on, but flag in the email body that today's pick is a
-"refresher / catch-up" choice.
+If no candidate scores well today, pick a high-relevance recent
+landmark the user is likely to want reinforcement on, and flag in the
+HTML header comment that today's pick is a "refresher / catch-up".
 
 ## Step 3 — Generate the HTML
 
@@ -54,102 +55,100 @@ Follow `daily_paper/paper_easy.md` EXACTLY:
 - Auto-detect paper type (research / review / meta / clinical / method
   / perspective).
 - Use the 4-tab structure for that type.
-- **REQUIRED for research/clinical/method types** (deep mode):
+- **REQUIRED for research/clinical/method types** (default deep mode):
   - 🌳 Figure Tree panel at TOP of Tab 1
   - 🔬 Method Deep Cards panel at TOP of Tab 2
   - 📔 Results Deep Dive panel in the Results-equivalent tab
 - Bilingual EVERY visible string (Korean default, English toggle).
-- Save to a temporary file: `daily_paper/output/<FirstAuthor><Year>_<type>_cute.html`
 - File must be self-contained (CSS + SVG inline, no external assets).
 
-## Step 4 — Email both addresses
+### Output filename and path
 
-Use the **Gmail MCP connector** (already attached to this routine) to
-send to BOTH:
-- giwon.cho@duke.edu
-- giwoncho1206@gmail.com
+Save to: `daily_paper/output/<YYYY-MM-DD>_<FirstAuthor><Year>_<type>.html`
 
-**Subject line format:**
-```
-[Daily Paper] {Title} — {Journal} {Year}
-```
+Example: `daily_paper/output/2026-05-06_Smith2024_research.html`
 
-**Email body (plain text or simple HTML):**
-```
-안녕하세요 Giwon,
+Use today's date (UTC) as the prefix so files sort chronologically.
 
-오늘 골라드린 논문:
+## Step 4 — Update `daily_paper/index.html`
 
-📄 제목: {Full title}
-👥 저자: {First author et al.}
-📚 저널: {Journal}, Volume(Issue):pages, {Year}
-🔗 DOI: {DOI}
-📖 OA URL: {public full-text URL}
-🏷️ 종류: {detected paper type, e.g., "Research (mechanism)"}
+Open `daily_paper/index.html`. It contains a `<!-- DAILY-LIST -->` /
+`<!-- /DAILY-LIST -->` marker pair. Insert a new `<li>` row at the
+TOP of that block:
 
-🎯 왜 이 논문을 골랐는지 (1-2 문단):
-{선택 이유 — 사용자 연구의 어떤 부분과 직접 연결되는지,
- 왜 다른 후보들보다 이게 중요한지, novelty point는 무엇인지}
-
-🌟 핵심 takeaway (한 줄):
-{One-sentence summary}
-
-첨부된 HTML 파일에서 자세한 schematic 보세요. Figure Tree로
-paper map 펼치고, Method Deep Cards로 각 기법 비유 확인하시면 됩니다.
-
-— 매일 9시 동부시간 자동 발송
+```html
+<li class="paper-row">
+  <a href="output/2026-05-06_Smith2024_research.html">
+    <span class="date">2026-05-06</span>
+    <span class="title">Smith et al. — [Paper title]</span>
+    <span class="meta">Cell, 2026 · 🧪 research</span>
+  </a>
+  <p class="why">[1-2 sentence rationale: why this paper today]</p>
+</li>
 ```
 
-**Attachment:** the HTML file generated in Step 3.
-
-If the Gmail connector cannot attach files, fall back to:
-1. Push the HTML to `~/work/claude_cloud/daily_paper/output/` and commit
-   to the repo so the GitHub Pages URL becomes live:
-   `https://giwoncho.github.io/claude_cloud/daily_paper/output/<filename>.html`
-2. Include the Pages URL in the email body instead.
+Trim the list to the most recent 60 entries. Older entries stay in
+`output/` (not deleted) but are removed from the index after 60 days.
 
 ## Step 5 — Log
 
-Append a row to `daily_paper/sent_log.csv` so future runs don't repeat:
+Append to `daily_paper/sent_log.csv`:
 ```
-date,doi,title,journal,year,paper_type,why_chosen
-2026-05-05,10.xxxx/yyyy,"...",Cell,2026,research,"..."
-```
-
-Commit the log update + (if attaching via Pages fallback) the new HTML
-to the repo:
-```
-git add daily_paper/sent_log.csv daily_paper/output/*.html
-git commit -m "Daily paper YYYY-MM-DD: <short title>"
-git push
+2026-05-06,10.xxxx/yyyy,"Smith et al. ...",Cell,2026,research,"why chosen"
 ```
 
-(Repo remote is already `git@github-giwoncho:giwoncho/claude_cloud.git`
-with the right SSH alias. If push fails, the routine still succeeded
-provided the email was sent.)
+## Step 6 — Commit and push
 
-## Step 6 — Done
+```bash
+cd $REPO_ROOT
+git add daily_paper/output/*.html daily_paper/index.html daily_paper/sent_log.csv
+git config user.email "daily-paper-bot@anthropic.com"
+git config user.name  "Daily Paper Bot"
+git commit -m "Daily paper $(date -u +%Y-%m-%d): <short title>"
 
-Print a one-line confirmation: `✅ Sent <title> ({DOI}) to both addresses.`
+# Push using the GH_TOKEN secret embedded in the routine prompt below.
+# If GH_TOKEN is not set, try plain `git push` (Anthropic's clone may
+# have provided push-capable auth — if it fails, log and exit 0).
+if [ -n "$GH_TOKEN" ]; then
+  git push "https://x-access-token:${GH_TOKEN}@github.com/giwoncho/claude_cloud.git" main
+else
+  git push || echo "⚠ push failed without PAT — please add GH_TOKEN to routine prompt"
+fi
+```
+
+Successful push → GitHub Pages rebuilds in 1–2 minutes →
+`https://giwoncho.github.io/claude_cloud/daily_paper/` shows the new
+entry at top and `https://giwoncho.github.io/claude_cloud/daily_paper/output/2026-05-06_Smith2024_research.html`
+is live.
+
+## Step 7 — Done
+
+Print to stdout:
+```
+✅ Today's paper: <Title>
+   DOI: <DOI>
+   Type: <detected type>
+   Live URL: https://giwoncho.github.io/claude_cloud/daily_paper/output/<filename>.html
+   Index:    https://giwoncho.github.io/claude_cloud/daily_paper/
+```
 
 ## Honesty rules
 
-- **NEVER fabricate** a DOI, journal, year, author list, or quote. If a
+- NEVER fabricate DOI, journal, year, author list, or quote. If a
   detail isn't in the abstract you can access, omit it or say
   "(specific value not in accessible portion)" in the HTML.
-- If you genuinely cannot find a single qualifying paper, send a short
-  email saying "오늘은 적절한 후보를 못 찾았어요. 검색 쿼리를
-  알려주시면 다음에 더 잘 찾겠습니다." Do not pick a low-quality
-  paper just to fill the slot.
-- Drop any paper whose full text you cannot reach — the user wants
-  publicly available papers only.
+- If you genuinely cannot find a single qualifying paper, write
+  `daily_paper/output/<DATE>_no_paper.html` with a short note and
+  push that. Do not pick a low-quality paper just to fill the slot.
+- Drop any paper whose full text you cannot reach.
 
-## Failure modes — what to do
+## Failure modes
 
-- **No Gmail connector available** → push HTML to repo + email cannot
-  be sent. Print error in agent log.
-- **WebSearch returns nothing relevant** → broaden by 6 months, retry.
-  If still nothing, send "no qualifying paper today" email.
-- **HTML generation fails** → email a plain-text summary (no
-  attachment) so the user still gets something.
-- **Push to GitHub fails** → still send the email; log the error.
+- **Push fails** → write the HTML to the routine's stdout (cat) so the
+  user can see it at https://claude.ai/code/routines/{ID}. Print the
+  exact `git push` error. Exit 0 (don't fail the routine — partial
+  success better than nothing).
+- **WebSearch returns nothing relevant** → broaden by 6 months, retry
+  once. If still nothing, write a `_no_paper.html` with reasoning.
+- **HTML generation fails mid-way** → still commit a plain markdown
+  summary at `output/<DATE>_fallback.md` so the day is logged.
