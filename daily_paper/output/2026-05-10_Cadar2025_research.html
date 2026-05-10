@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cadar & Bartley 2025 — D+Q reshapes CD8 T cell responses</title>
+<style>
+  :root {
+    --bg:#fdf9f5; --fg:#1a1a1a; --muted:#6b6b6b;
+    --pink:#d63384; --blue:#5b9bd5;
+    --pink-soft:#ffe4f0; --blue-soft:#dbeafa;
+    --line:#e0d8cc; --hl:#fff3a8; --card:#fff;
+    --shadow:0 1px 4px rgba(0,0,0,.06);
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:var(--bg);color:var(--fg);margin:0;padding:24px 16px 80px;font-size:15px;line-height:1.55}
+  .wrap{max-width:880px;margin:0 auto}
+  .lang{position:fixed;top:12px;right:12px;background:var(--card);padding:6px 12px;border-radius:20px;box-shadow:var(--shadow);font-size:13px;cursor:pointer;border:1px solid var(--line);user-select:none;z-index:10}
+  h1{font-size:22px;margin:0 0 4px;font-weight:700;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:6px}
+  .meta{font-size:13px;color:var(--muted);margin-bottom:18px}
+  .meta a{color:var(--pink);text-decoration:none;font-weight:600}
+  .one-liner{background:var(--card);padding:14px 16px;border-radius:8px;box-shadow:var(--shadow);margin-bottom:18px;border-left:4px solid var(--pink);font-size:14px}
+  .one-liner b{color:var(--pink)}
+  .tabs{display:flex;gap:4px;margin:24px 0 12px;overflow-x:auto;border-bottom:2px solid var(--line)}
+  .tab{padding:10px 14px;background:transparent;border:none;font-weight:600;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;font-family:inherit}
+  .tab.active{color:var(--pink);border-bottom-color:var(--pink)}
+  .panel{display:none;animation:fade .15s}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  h2{font-size:17px;font-weight:700;margin:18px 0 10px;border-bottom:1px solid var(--line);padding-bottom:4px}
+  h3{font-size:15px;font-weight:600;margin:14px 0 6px}
+  .card{background:var(--card);padding:14px 16px;border-radius:10px;box-shadow:var(--shadow);margin:10px 0}
+  .card h3{margin-top:0}
+  .pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-right:4px}
+  .pill.theme{background:var(--pink-soft);color:#9c1f5e}
+  .pill.method{background:var(--blue-soft);color:#1f5e9c}
+  ul.flat{padding-left:18px;margin:6px 0}
+  ul.flat li{margin:3px 0;font-size:14px}
+  .tree{background:var(--card);padding:14px;border-radius:10px;box-shadow:var(--shadow);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--fg);overflow-x:auto;line-height:1.6;white-space:pre}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);font-size:13px;margin:8px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--blue-soft);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .deep{background:linear-gradient(135deg,#fff5e6,#ffe4f0);border-radius:10px;padding:14px 16px;margin:10px 0}
+  .deep h3{color:#9c1f5e;margin-top:0}
+  .why{background:#fffce8;border-left:4px solid #d4a800;padding:12px 14px;border-radius:6px;margin:14px 0;font-size:14px}
+  .why b{color:#a07700}
+  .quote{font-style:italic;color:var(--muted);font-size:13px;border-left:3px solid var(--blue);padding:6px 12px;margin:8px 0}
+  .en{display:none}
+  body.en .ko{display:none}
+  body.en .en{display:block}
+  body.en .en.inline{display:inline}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<div class="lang" onclick="document.body.classList.toggle('en')"><span class="ko">EN ⇄</span><span class="en">KR ⇄</span></div>
+
+<div class="wrap">
+
+<h1>
+  <span class="ko">D+Q 가 노쇠 백신 마우스의 CD8 T cell 면역우세를 재구성한다</span>
+  <span class="en">D+Q reshapes CD8 T cell immunodominance in aged vaccinated mice</span>
+</h1>
+<div class="sub">Cadar AN & Bartley JM · Aging Cell 2025;25(1):e70345 · 🧪 research</div>
+<div class="meta">
+  DOI: <a href="https://doi.org/10.1111/acel.70345">10.1111/acel.70345</a> ·
+  PMC: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12748518/">PMC12748518</a> ·
+  Published 2025-12-29
+</div>
+
+<div class="one-liner">
+  <b><span class="ko">한 줄:</span><span class="en">One-liner:</span></b>
+  <span class="ko">D+Q (5/50 mg/kg, 사용자 protocol 과 동일 dose) 가 노쇠 마우스 백신 후 CD8 T cell repertoire 를 NP→PA 쪽으로 *재배치* 하지만 *viral clearance 나 lung pathology 는 개선 안 함* — senolysis 가 아닌 immunomodulation 으로 작동한다는 직접 증거.</span>
+  <span class="en">D+Q (5/50 mg/kg, same dose as user's protocol) reorganizes post-vaccination CD8 T cell immunodominance from NP toward PA epitopes in aged mice — but does NOT improve viral clearance or lung pathology, providing direct evidence that D+Q acts via immunomodulation rather than canonical senolysis.</span>
+</div>
+
+<div class="why">
+  <b><span class="ko">🎯 왜 오늘 이 논문인가</span><span class="en">🎯 Why this paper today</span></b><br>
+  <span class="ko">사용자의 v11 manuscript 핵심 narrative — "D+Q 가 cell death 없이 transcriptional reprogramming 을 한다" — 와 *정확히 같은 방향* 의 외부 evidence. 본 논문은 (1) 동일한 D+Q dose (5/50 mg/kg, 3-day cycle), (2) 동일한 노쇠 C57BL/6 모델, (3) 같은 결론 ("primary efficacy endpoint 미달, immune repertoire 만 재배치"). 사용자 manuscript 의 Discussion §3.7 에서 Doolittle 2026 (myeloid 가 cell-autonomous substrate 가 아님) 과 묶어 *D+Q action mode = immunomodulation, not senolysis* framing 의 추가 anchor 로 인용 가능.</span>
+  <span class="en">External evidence directly aligned with the user's v11 manuscript core narrative — "D+Q reprograms transcriptionally without cell death". This paper uses (1) identical D+Q dose (5/50 mg/kg, 3-day cycle), (2) identical aged C57BL/6 model, (3) reaches the same conclusion (primary efficacy endpoint missed, only immune repertoire reorganized). Citable in user's Discussion §3.7 alongside Doolittle 2026 (myeloid not cell-autonomous substrate) to frame D+Q action mode as immunomodulation rather than canonical senolysis.</span>
+</div>
+
+<div>
+  <span class="pill theme">Theme 1 (D+Q mechanism)</span>
+  <span class="pill theme">Theme 7 (Senescence biology)</span>
+  <span class="pill method">Flow + tetramer</span>
+  <span class="pill method">In vivo influenza</span>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="tab(0)">🌳 <span class="ko">Figure Tree</span><span class="en">Figure Tree</span></button>
+  <button class="tab" onclick="tab(1)">🔬 <span class="ko">Method</span><span class="en">Method</span></button>
+  <button class="tab" onclick="tab(2)">📔 <span class="ko">Deep Dive</span><span class="en">Deep Dive</span></button>
+  <button class="tab" onclick="tab(3)">💬 <span class="ko">Take-home</span><span class="en">Take-home</span></button>
+</div>
+
+<div class="panel active">
+<h2><span class="ko">Figure Tree — 4 figure 구조</span><span class="en">Figure Tree — 4-figure structure</span></h2>
+<div class="tree">Figure 1 ─ D+Q 처리 schedule + 백신 timeline
+   ├─ (a) experiment schematic — D+Q 5/50 mg/kg × 3d ×2 cycles → vacc → infection
+   ├─ (b) age groups: young (3-5mo) vs aged (18-20mo) C57BL/6JN
+   └─ (c) sample collection: serum, BAL, lung, draining LN @ 6, 12, 15, 20 DPI
+
+Figure 2 ─ Vaccine + infection 의 *primary outcome* — D+Q 효과 없음
+   ├─ (a) viral load (lung qPCR, PR8 NP) — Veh = D+Q (n.s.)
+   ├─ (b) lung pathology histology — Veh = D+Q (n.s.)
+   ├─ (c) body weight loss curves — overlap
+   └─ ★ headline: "D+Q does not enhance vaccine-induced protection"
+
+Figure 3 ─ ★ Headline — CD8 T cell immunodominance 재구성
+   ├─ (a) lung CD8+ tetramer (NP-DbNP366, PA-DbPA224) @ 12 DPI
+   │       NP-specific ↓, PA-specific ↑ in D+Q-aged-vaccinated
+   ├─ (b) immunodominance ratio NP:PA flips
+   ├─ (c) draining LN CD4 — minimal change (no biological signal)
+   └─ ★ "epitope hierarchy reorganization without enhanced clearance"
+
+Figure 4 ─ Antibody dynamics
+   ├─ (a) serum anti-PR8 IgG titers @ 6, 12, 15, 20 DPI
+   ├─ (b) increased total IgG @ 20 DPI in D+Q vacc aged
+   └─ (c) BAL antibody — no change</div>
+</div>
+
+<div class="panel">
+<h2><span class="ko">Method Deep Cards</span><span class="en">Method Deep Cards</span></h2>
+
+<div class="card">
+  <h3>1. <span class="ko">D+Q 투여 protocol</span><span class="en">D+Q dosing protocol</span></h3>
+  <ul class="flat">
+    <li><span class="ko">Dasatinib 5 mg/kg/day + Quercetin 50 mg/kg/day, oral gavage</span><span class="en">Dasatinib 5 mg/kg/day + Quercetin 50 mg/kg/day, oral gavage</span></li>
+    <li><span class="ko">3-day on → 1-week rest → 3-day on → 5-day rest → vaccination</span><span class="en">3-day on → 1-week rest → 3-day on → 5-day rest → vaccination</span></li>
+    <li><span class="ko"><b>★ 사용자 protocol 과 dose 일치</b> (Varghese Lab 의 5/50 mg/kg, 3-day × 3 cycles 와 거의 같음)</span><span class="en"><b>★ Identical dose to user's protocol</b> (Varghese Lab uses 5/50 mg/kg, 3-day × 3 cycles)</span></li>
+    <li><span class="ko">초딩 비유: 우리 실험과 같은 약, 같은 양, 같은 mouse — 다른 endpoint 만 다른 셈.</span><span class="en">Easy analogy: same drug, same dose, same mouse — only the readout differs from our protocol.</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>2. <span class="ko">Influenza 모델 + 백신</span><span class="en">Influenza model + vaccination</span></h3>
+  <ul class="flat">
+    <li><span class="ko">백신: PR8 NP protein 30 μg + alum, intranasal</span><span class="en">Vaccine: PR8 NP protein 30 μg + alum, intranasal</span></li>
+    <li><span class="ko">감염: PR8 H1N1 sublethal 500 EID50, intranasal</span><span class="en">Infection: PR8 H1N1 sublethal 500 EID50, intranasal</span></li>
+    <li><span class="ko">정량: viral RNA (qPCR), lung histopathology, weight loss</span><span class="en">Readout: viral RNA (qPCR), lung histopathology, weight loss</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>3. <span class="ko">MHC-tetramer 로 epitope-specific CD8 정량</span><span class="en">MHC-tetramer epitope-specific CD8 quantification</span></h3>
+  <ul class="flat">
+    <li><span class="ko">DbNP366 (NP epitope) + DbPA224 (PA epitope) tetramer dual stain</span><span class="en">DbNP366 (NP epitope) + DbPA224 (PA epitope) dual tetramer stain</span></li>
+    <li><span class="ko">초딩 비유: T cell 의 "이름표 검사" — 어떤 바이러스 조각을 인식하는지 1cell 씩 직접 확인</span><span class="en">Easy analogy: T cell "name-tag check" — directly counts which viral fragment each cell recognizes, one cell at a time</span></li>
+    <li><span class="ko">Lung + spleen + draining LN 다 측정</span><span class="en">Measured in lung + spleen + draining LN</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>4. <span class="ko">Antibody titer 측정</span><span class="en">Antibody titer measurement</span></h3>
+  <ul class="flat">
+    <li><span class="ko">Serum + BAL anti-PR8 IgG (whole flu) ELISA</span><span class="en">Serum + BAL anti-PR8 IgG (whole flu) ELISA</span></li>
+    <li><span class="ko">Time course: 6, 12, 15, 20 DPI (days post infection)</span><span class="en">Time course: 6, 12, 15, 20 DPI (days post infection)</span></li>
+  </ul>
+</div>
+</div>
+
+<div class="panel">
+<h2><span class="ko">Results Deep Dive — 3 핵심 finding</span><span class="en">Results Deep Dive — 3 core findings</span></h2>
+
+<div class="deep">
+  <h3>1. <span class="ko">D+Q 가 백신 + 감염의 primary outcome 을 개선 못 함</span><span class="en">D+Q fails to improve the primary vaccine + infection outcomes</span></h3>
+  <p><span class="ko">Veh-vaccinated 와 D+Q-vaccinated 노쇠 마우스가 viral load (lung qPCR), lung histopathology, weight loss 모두 차이 없음. <i>"minimal impact on overall vaccination and flu outcomes"</i> (논문 abstract). senolytic 의 *전통적 expectation* (senescent cell 제거 → 면역 회춘 → clearance 향상) 이 이 모델에서는 fail.</span><span class="en">Vehicle-vaccinated and D+Q-vaccinated aged mice showed no differences in viral load (lung qPCR), lung histopathology, or weight loss. <i>"Minimal impact on overall vaccination and flu outcomes"</i> (paper abstract). The conventional senolytic expectation (clear senescent cells → rejuvenate immunity → improve clearance) fails in this model.</span></p>
+</div>
+
+<div class="deep">
+  <h3>2. <span class="ko">★ Immunodominance hierarchy 가 NP→PA 로 reorganize</span><span class="en">★ Immunodominance hierarchy reorganizes from NP to PA</span></h3>
+  <p><span class="ko">백신은 NP-protein 으로 보냈는데도 D+Q 처리군의 lung CD8 T cell 응답이 <b>NP-specific 감소 + PA-specific 증가</b> (12 DPI). 즉 D+Q 가 *immune repertoire 의 epitope 우세 순위* 를 바꿈. 이게 efficacy 로 이어지진 않지만 — *senolytic 이 immune system 의 어느 axis 에 작용하는지* 의 mechanism-level 흔적.</span><span class="en">Despite NP-protein vaccination, D+Q-treated lung CD8 responses showed <b>decreased NP-specific + increased PA-specific</b> (12 DPI). D+Q reorganizes the *epitope dominance hierarchy* of the immune repertoire. This doesn't translate to better outcome, but it's a mechanism-level fingerprint of which immune axis senolytic touches.</span></p>
+</div>
+
+<div class="deep">
+  <h3>3. <span class="ko">Serum total IgG 증가 — late-phase humoral effect</span><span class="en">Increased serum total IgG — late-phase humoral effect</span></h3>
+  <p><span class="ko">20 DPI 에 D+Q-vaccinated aged 마우스의 serum anti-PR8 IgG 가 증가 (6/12/15 DPI 에는 차이 없음). 즉 D+Q 효과가 *delayed humoral immunity* 차원에서 나타남 — initial response 가 아니라 후기 antibody class switching/affinity maturation 가능성.</span><span class="en">At 20 DPI, serum anti-PR8 IgG was elevated in D+Q-vaccinated aged mice (no difference at 6/12/15 DPI). D+Q effect manifests in *delayed humoral immunity* — possibly affecting late-phase class switching or affinity maturation rather than initial response.</span></p>
+</div>
+
+<div class="deep">
+  <h3>+ <span class="ko">반대 흐름 — Unvaccinated D+Q 는 *clearance 악화*</span><span class="en">+ Counter-flow — Unvaccinated D+Q shows *worsened clearance*</span></h3>
+  <p><span class="ko">백신 없이 D+Q 만 받은 노쇠 마우스는 15 DPI 에 viral clearance *감소* + PA-specific CD8 *감소*. 즉 senolytic 이 *immune cell 의 정상 function* 도 일부 손상시킬 수 있음을 시사 — context dependence 가 강함.</span><span class="en">Unvaccinated D+Q-treated aged mice showed *impaired* viral clearance at 15 DPI plus *decreased* PA-specific CD8 responses. Suggests senolytic can also impair normal immune cell function — context dependence is strong.</span></p>
+</div>
+</div>
+
+<div class="panel">
+<h2><span class="ko">Take-home — 사용자 manuscript 와의 연결</span><span class="en">Take-home — connection to user's manuscript</span></h2>
+
+<div class="card">
+  <h3>★ <span class="ko">사용자 v11 narrative 와 *어떻게* 연결되나</span><span class="en">★ How this connects to user's v11 narrative</span></h3>
+  <p><span class="ko">사용자 manuscript 의 핵심: <b>D+Q 가 BM 에서 cell death 없이 transcriptional reprogramming</b> (Fig 1c — no population sacrificed). 본 논문은 그 framing 의 *외부 cross-system anchor*:</span><span class="en">User's manuscript core: <b>D+Q reprograms BM transcriptionally without cell death</b> (Fig 1c — no population sacrificed). This paper provides external cross-system anchor for that framing:</span></p>
+  <ul class="flat">
+    <li><span class="ko"><b>Doolittle 2026</b> (BM, myeloid p16-ATTAC clearance fails) → D+Q substrate 가 myeloid 가 아님</span><span class="en"><b>Doolittle 2026</b> (BM, myeloid p16-ATTAC clearance fails) → D+Q substrate not myeloid</span></li>
+    <li><span class="ko"><b>Cadar & Bartley 2025</b> (lung, CD8 repertoire reorganization but no clearance) → D+Q 가 *immunomodulation > senolysis* 로 작동</span><span class="en"><b>Cadar & Bartley 2025</b> (lung, CD8 repertoire reorganization without clearance) → D+Q acts via *immunomodulation > senolysis*</span></li>
+    <li><span class="ko"><b>본 manuscript</b> (BM, transcriptional reprogramming, federation reset) → 같은 mechanism 의 BM-specific 정량</span><span class="en"><b>User's manuscript</b> (BM, transcriptional reprogramming, federation reset) → BM-specific quantification of same mechanism</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>📝 <span class="ko">Discussion §3.7 인용 제안</span><span class="en">Discussion §3.7 citation suggestion</span></h3>
+  <p class="quote"><span class="ko">"D+Q 의 in vivo action mode 는 canonical senolysis 가 아닌 transcriptional/immunomodulatory reprogramming 임이 여러 시스템에서 수렴적으로 보고된다 (Doolittle et al., JCI 2026; Cadar & Bartley, Aging Cell 2025; 본 연구). 본 BM single-cell 분석은 그 reprogramming 의 sub-state-resolved federation 구조를 정량 한다."</span><span class="en">"D+Q's in vivo action mode is convergently reported across systems as transcriptional/immunomodulatory reprogramming rather than canonical senolysis (Doolittle et al., JCI 2026; Cadar & Bartley, Aging Cell 2025; this study). The present BM single-cell analysis quantifies the sub-state-resolved federation architecture of that reprogramming."</span></p>
+</div>
+
+<div class="card">
+  <h3>⚠️ <span class="ko">Caveat</span><span class="en">Caveat</span></h3>
+  <p><span class="ko">본 논문은 <i>lung + draining LN</i> system 으로 BM 직접 측정 안 함. 다만 D+Q 가 <i>system-level immune repertoire</i> 를 재구성 한다는 finding 은 <b>BM 의 niche reset → immune sub-state ripple</b> (사용자 Fig 4) 와 mechanism-level 일관.</span><span class="en">This paper measures lung + draining LN, not BM directly. However, the finding that D+Q <i>reorganizes system-level immune repertoire</i> is mechanism-level consistent with <b>BM niche reset → immune sub-state ripple</b> (user's Fig 4).</span></p>
+</div>
+</div>
+
+<footer>
+  <span class="ko">Daily Paper · 2026-05-10 · Giwon Cho</span>
+  <span class="en">Daily Paper · 2026-05-10 · Giwon Cho</span><br>
+  Archive: <a href="https://giwoncho.github.io/claude_cloud/daily_paper/">claude_cloud/daily_paper</a>
+</footer>
+</div>
+
+<script>
+function tab(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',j===i));
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',j===i));
+}
+</script>
+</body>
+</html>
