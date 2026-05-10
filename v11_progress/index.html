@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>v11 Manuscript Progress — 2026-05-10</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --pink: #d63384;
+    --blue: #5b9bd5;
+    --pink-soft: #ffe1ee;
+    --blue-soft: #d8eafa;
+    --line: #d4cfc6;
+    --hl: #fff3a8;
+    --card: #ffffff;
+    --shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Pretendard",
+                  "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    background: var(--bg); color: var(--fg);
+    margin: 0; padding: 24px 16px 80px;
+    font-size: 15px; line-height: 1.55;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  h1 {
+    font-size: 22px; margin: 0 0 4px; font-weight: 700; letter-spacing: -.02em;
+  }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  h2 {
+    font-size: 17px; font-weight: 700; margin: 32px 0 10px;
+    border-bottom: 1px solid var(--line); padding-bottom: 4px;
+  }
+  h3 { font-size: 15px; font-weight: 600; margin: 18px 0 6px; }
+  .one-liner {
+    background: var(--card); padding: 14px 16px;
+    border-radius: 8px; box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    border-left: 4px solid var(--pink);
+  }
+  .one-liner b { color: var(--pink); }
+
+  /* Figure cards */
+  .figs { display: grid; gap: 10px; }
+  .fig {
+    background: var(--card); border-radius: 10px;
+    box-shadow: var(--shadow); padding: 14px 16px;
+    display: grid; grid-template-columns: 38px 1fr; gap: 12px;
+    align-items: start;
+  }
+  .fig .num {
+    background: var(--blue); color: #fff;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+  .fig .body { min-width: 0; }
+  .fig .title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .fig .q {
+    color: var(--pink); font-style: italic; font-size: 13px; margin-bottom: 6px;
+  }
+  .fig .find { font-size: 13px; color: var(--fg); }
+  .fig .find b { color: var(--blue); }
+  .fig .new {
+    display: inline-block; background: var(--hl);
+    padding: 1px 6px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    margin-left: 4px;
+  }
+  .fig .panels {
+    margin-top: 6px; font-size: 12px; color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  /* Connector arrow */
+  .arrow {
+    text-align: center; color: var(--blue);
+    font-size: 18px; line-height: 1; margin: -2px 0 -2px 14px;
+  }
+
+  /* v11 changes table */
+  table.v11 {
+    width: 100%; border-collapse: collapse;
+    background: var(--card); border-radius: 8px; overflow: hidden;
+    box-shadow: var(--shadow); font-size: 13px;
+  }
+  table.v11 th, table.v11 td {
+    padding: 8px 10px; text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.v11 th {
+    background: var(--blue-soft); font-weight: 600; color: var(--fg);
+  }
+  table.v11 tr:last-child td { border-bottom: none; }
+  table.v11 .new-cell { background: var(--pink-soft); }
+
+  .pill {
+    display: inline-block; padding: 1px 7px; border-radius: 10px;
+    font-size: 11px; font-weight: 600;
+  }
+  .pill.done { background: #d6f5d6; color: #1a5e1a; }
+  .pill.todo { background: #ffe0d4; color: #8a3a00; }
+
+  ul.flat { padding-left: 18px; margin: 6px 0; }
+  ul.flat li { margin: 2px 0; font-size: 13px; }
+
+  footer {
+    margin-top: 40px; padding-top: 16px;
+    border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 12px; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>v11 Manuscript Progress</h1>
+<div class="sub">노쇠 BM senolytic (D+Q) — Nature Aging-targeted draft · 2026-05-10 snapshot</div>
+
+<div class="one-liner">
+<b>핵심 한 줄:</b> Senolytic D+Q 가 노쇠 BM 의 niche 를 <i>sub-state-resolved bidirectional federation</i> 으로 reset 한다.
+MSC = primary substrate, Neutrophil = mediator hub, HSPC = downstream — 모든 변화 cell death 없이.
+</div>
+
+<h2>7-Figure Storyline</h2>
+<div class="figs">
+
+<div class="fig">
+  <div class="num">1</div>
+  <div class="body">
+    <div class="title">Rejuvenation hierarchy</div>
+    <div class="q">"누가 가장 reset 되나? Cell death 없이?"</div>
+    <div class="find">★ <b>MSC #1</b> (NES = −0.522), HSPC #12, Lymphoid 하위. 어떤 cell type 도 depletion 0.</div>
+    <div class="panels">a) design  b) UMAP  c) freq  d) DEG  e) SenePy  f) CFU-F  g) GSEA  <b>h) hierarchy</b></div>
+  </div>
+</div>
+<div class="arrow">▼</div>
+
+<div class="fig">
+  <div class="num">2</div>
+  <div class="body">
+    <div class="title">MSC compartment zoom</div>
+    <div class="q">"MSC 가 단일 source 인가? + 자체도 균일한가?"</div>
+    <div class="find">No + No. <b>4 functional state</b> (CAR/Adipo/Osteo/Periv).
+      <b>Bmp2 0→2.61 in Osteo</b> (FDR=0.011). Cxcl12, Lgals9 같이 emerge.
+      Periv/CAR 에서는 SASP collapse (Serpine1, Dkk2, Tgfb2).
+      <span class="new">v11: panel f 추가 — sub-state-distributed program switching</span>
+    </div>
+    <div class="panels">a) niche heatmap  a-Δ) DESeq2  b) MSC UMAP  c) composition  <b>d) Bmp2  e) Cxcl12</b>  f) sub-state extras  g) CFU-F  h) schematic</div>
+  </div>
+</div>
+<div class="arrow">▼</div>
+
+<div class="fig">
+  <div class="num">3</div>
+  <div class="body">
+    <div class="title">4-axis bidirectional federation (CellChat)</div>
+    <div class="q">"누가 누구에게 보내나? linear relay 인가, 더 복잡한가?"</div>
+    <div class="find">★ <b>4-node federation: MSC ↔ Myeloid ↔ HSPC</b>.
+      Neu = federation hub (Step 0 source + Step 3 target dominant).
+      Step 1 OSM/TNF collapse · Step 2 Cxcl12 rise/Spp1 drop · Step 3 ADIPONECTIN+CXCL up / COMPLEMENT/GRN down.
+      <span class="new">v11 신규: Step 3 (MSC→Myeloid) closure</span>
+    </div>
+    <div class="panels">a) rankNet (Veh 핑크/D+Q 하늘)  b) Step 1 dual-bar  c) Step 2  d) Step 0  e) <b>Step 3</b>  f) federation circle plots  g) schematic</div>
+  </div>
+</div>
+<div class="arrow">▼</div>
+
+<div class="fig">
+  <div class="num">4</div>
+  <div class="body">
+    <div class="title">Sub-state transcriptomic ripple</div>
+    <div class="q">"Federation reset 의 transcriptomic 흔적이 immune sub-state 차원에서?"</div>
+    <div class="find">★ <b>TGF axis 전반 collapse</b> (Tgfbr2 6 sig + Smad3 5 sig sub-states; receptor + 신호전달 모두 down).
+      ★ <b>Lgals9 cross-compartment emergence</b> (Neu primary-granule, Mac × 2, T cycling).
+      Federation TGFb sender-side collapse 의 receiver-side mirror.
+      <span class="new">v11: 통일 framework (a bulk → b sub-state → c spotlight) 로 reframe</span>
+    </div>
+    <div class="panels">a) bulk 14ct × 17 niche-gene  <b>b) 26 sub-state heatmap</b>  c) 4 spotlight  d) composition mini  e) Lgals9 schematic</div>
+  </div>
+</div>
+<div class="arrow">▼</div>
+
+<div class="fig">
+  <div class="num">5</div>
+  <div class="body">
+    <div class="title">Bidirectional + fetal honest verdict</div>
+    <div class="q">"ligand 만 변하나, 받는 receptor 도? fetal 재활성화인가?"</div>
+    <div class="find">Receptor 18 sig hits (down 13 + up 5) — 양방향 desensitization.
+      <b>Fetal 가설 reject</b> (per-gene 7/7 down, binomial P=0.008): "aged-marker depletion without fetal reactivation".
+    </div>
+    <div class="panels">a) schematic  b) bulk receptor heatmap  c) sub-state receptor  d) top hits boxplot  e) fetal vs adult  f) per-gene  g) rewind index  h) schematic</div>
+  </div>
+</div>
+<div class="arrow">▼</div>
+
+<div class="fig">
+  <div class="num">6</div>
+  <div class="body">
+    <div class="title">HSPC molecular detail + 발달 rewind</div>
+    <div class="q">"HSPC 자체에서는 무엇이?"</div>
+    <div class="find"><b>GMP 11→20%</b> (P=0.041), CLP V(D)J 7/7 priming (P=0.008).
+      자기재생 TFs (Hlf/Mecom/Mpl/Hoxb5/Meis1) DOWN.
+      ★ <b>HSPC LT-HSC root 응집</b> (KS P=9.72×10⁻⁶, Δ=−0.107) — pseudotime-level rewind.
+    </div>
+    <div class="panels">a) UMAP  b) frequency  c) lineage panels  d) volcano  e) CLP V(D)J  f) enrichr  g) GSEA  <b>h) pseudotime</b></div>
+  </div>
+</div>
+<div class="arrow">▼</div>
+
+<div class="fig">
+  <div class="num">7</div>
+  <div class="body">
+    <div class="title">Chromatin grammar 보존</div>
+    <div class="q">"RNA reset 이 chromatin level 까지 가나?"</div>
+    <div class="find">No — <b>RNA-ATAC decoupled</b> (genome-wide r=0.028).
+      자기재생 TFs (Hlf/Mecom/Mpl/Hoxb5/Meis1/Slamf1) 모두 <b>RNA-down / ATAC-up</b> 사분면.
+      = <i>"Armed but quiet"</i> bivalent priming 보존, stem identity grammar 는 senolytic 영향 받지 않음.
+    </div>
+    <div class="panels">a) schematic  b) WNN hist  c) concordance heatmap  d) joint UMAP  e) ChromVAR motif  <b>f) RNA-ATAC scatter</b></div>
+  </div>
+</div>
+</div>
+
+<h2>v11 핵심 변경 (vs v10)</h2>
+<table class="v11">
+  <thead>
+    <tr><th>Figure</th><th>변경</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Fig 2</b></td>
+      <td>(f) NEW MSC sub-state SASP/niche-factor 4-panel boxplot 이동 (원래 Fig 3f).
+          Serpine1/Tgfb2/Dkk2/Lgals9 sub-state-distributed switch.</td>
+      <td><span class="pill done">done</span></td>
+    </tr>
+    <tr>
+      <td><b>Fig 3</b></td>
+      <td>(a) rankNet transposed (Veh 핑크 / D+Q 하늘색 convention).
+          (b)(c)(d)(e) dual-bar split (left disambiguation + right zoom).
+          (f) federation 5-node × 8 panel-paired pathway diff circle.
+          <b>Step 3 (MSC→Myeloid) NEW</b> — federation closure.</td>
+      <td><span class="pill done">done</span></td>
+    </tr>
+    <tr class="new-cell">
+      <td><b>Fig 4</b></td>
+      <td>전체 reframe — UMAP+composition grab-bag 폐기, transcriptomic-rich 통일 framework.
+          (a) bulk 14ct heatmap → (b) sub-state zoom → (c) 4 spotlight (TGF×2 + Lgals9×2) → (d) composition mini → (e) schematic.
+          Pan-immune lineage dot matrix + UMAP/composition 8개 → ExtData demoted.</td>
+      <td><span class="pill done">done</span></td>
+    </tr>
+    <tr>
+      <td><b>ExtData 25</b></td>
+      <td>(c) MSC-Osteo panel direction barplot — <b>8/8 ligand UP, binomial P=0.0039 ★</b>.</td>
+      <td><span class="pill done">done</span></td>
+    </tr>
+    <tr>
+      <td><b>ExtData 26</b></td>
+      <td>(e) Cross-compartment correlation heatmap (HSC-niche × SASP, 18×18).</td>
+      <td><span class="pill done">done</span></td>
+    </tr>
+    <tr>
+      <td><b>ExtData 29</b></td>
+      <td>NEW — Cross-compartment developmental rewind audit. HSPC dominant (Δ=−0.107),
+          B/Mac modest, Neu trivially small, T 반대방향 (mature-shift).
+          Reviewer-defense: "왜 HSPC 만?" 에 즉답.</td>
+      <td><span class="pill done">done</span></td>
+    </tr>
+    <tr>
+      <td><b>모든 Figure</b></td>
+      <td>storyline 트리 (수형도) 추가 — 각 figure 의 narrative arc panel-by-panel 명시.</td>
+      <td><span class="pill done">done</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>완료된 분석 (this week)</h2>
+<ul class="flat">
+  <li><b>Sub-state CellChat (24 labels)</b> — Neu × 8 + MSC × 4 + 12 bulk. 4 axis delta tables: MSCsub→Neusub (3240 rows), Neusub→HSPC (678), MSCsub→HSPC (901), Neusub→MSCsub (1965).
+    <br/><b>Headline 발견:</b> MSC.Perivascular = federation hub (Cxcl12-Cxcr4 / App-Sorl1 / Col1a2-Cd44 emerge to Neu.immature).
+    Osteo = transcriptional substrate, Perivascular = external distributor.
+  </li>
+  <li><b>Origin shift pseudotime (DPT)</b> — 4 compartment (Neu/B/Mac/T). HSPC 압도 dominant (Δ=−0.107),
+      others modest/opposite. ExtData 29 보존.</li>
+  <li><b>Fig 4 unified framework rebuild</b> — bulk → sub-state → spotlight 통일 progression.</li>
+  <li><b>Fig 3 federation 8-pathway diff circle (5-node)</b> — OSM/TNF (Step 1) + CXCL/SPP1 (Step 2)
+      + VISFATIN/GALECTIN (Step 0) + ADIPONECTIN/COMPLEMENT (Step 3).</li>
+</ul>
+
+<h2>남은 작업</h2>
+<ul class="flat">
+  <li>Schematic (Illustrator/BioRender, 사용자 손) — 9 panels: Fig 1a 실험 design, Fig 2h 다구획 개념,
+      Fig 3g federation schematic, Fig 4e Lgals9 convergence, Fig 5a/h 양방향 + honest verdict,
+      Fig 7a/i bi-modal + bivalent priming, ExtData 23a BMT</li>
+  <li>ArchR re-export — Fig 7e ChromVAR + Fig 7h TF footprints</li>
+  <li>Stage 33 sbatch 후 — Fig 7b/c/d/f WNN integration</li>
+</ul>
+
+<footer>
+  Snapshot 2026-05-10 · Giwon Cho · Varghese Lab · Duke BME
+</footer>
+
+</div>
+</body>
+</html>
