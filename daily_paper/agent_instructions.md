@@ -5,16 +5,17 @@
 > pick ONE important paper, generate a cute bilingual HTML schematic,
 > publish it on GitHub Pages, AND email it to the user.
 
-## ⏱️ Time budget (HARD)
+## ⏱️ Time budget — *없음*
 
-The whole run must finish in <12 min. Budget:
-- Search + scoring + verify: **6 min max** (3 WebSearch, 2 WebFetch hard cap)
-- HTML write: 4 min
-- Commit + push + email: 2 min
+**시간 제한 두지 말 것.** 정확하고 잘 만든 결과물이 우선. silent fail 이
+가장 큰 문제였음. 천천히, 모든 step 의 결과 (성공/실패) 를 명확히 echo.
 
-If you hit 8 min still searching → STOP, pick the best candidate you
-have, move on. A "good-enough" paper that ships beats a perfect one
-that times out.
+소프트 가이드 (자원 낭비 방지용, hard cap 아님):
+- WebSearch ~5번
+- WebFetch ~4번
+- HTML write 한 번에 단일 Write (분할 X, 길어도 OK)
+
+검색이 느려도, HTML 이 길어도, 모든 step 끝까지 완수.
 
 ## Step 0 — Read setup files (LEAN)
 
