@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Feng et al. 2024 — Evolving HSC niche interactome (cute · research)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', 'Comic Sans MS', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: white; padding: 28px; border-radius: 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; position: relative; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 10px; }
+  header .subtitle { color: #6c757d; font-size: 14px; }
+  header .citation { color: #999; font-size: 12px; margin-top: 4px; font-style: italic; }
+  header .emoji { font-size: 32px; margin-bottom: 8px; }
+  header .type-badge { display: inline-block; margin-top: 10px; padding: 4px 14px;
+    background: linear-gradient(135deg,#ffd6e7,#fff5e6); border: 2px solid #ffb3d4;
+    border-radius: 14px; font-size: 12px; font-weight: bold; color: #d63384; }
+
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-bottom: 24px; background: white; padding: 10px; border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(100,130,200,0.1); }
+  .tab-btn { border: 2px solid transparent; background: #fef6f9; padding: 14px 16px;
+    border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 14px;
+    font-weight: 600; color: #888; transition: all 0.25s; display: flex;
+    flex-direction: column; align-items: center; gap: 4px; }
+  .tab-btn .tab-emoji { font-size: 22px; }
+  .tab-btn:hover { background: #fff0f5; color: #5a4fcf; transform: translateY(-2px); }
+  .tab-btn.active { background: linear-gradient(135deg,#ffd6e7 0%,#fff5e6 100%);
+    color: #d63384; border-color: #ffb3d4;
+    box-shadow: 0 4px 12px rgba(255,150,200,0.3); }
+
+  .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+  .panel { background: white; border-radius: 20px; padding: 28px; margin-bottom: 24px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); border: 2px solid #fff; }
+  .panel h2 { font-size: 19px; color: #5a4fcf; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 15px; color: #5a4fcf; margin: 16px 0 8px; }
+
+  .scene { display: block; margin: 12px auto; max-width: 100%; }
+  .bubble { background: #fff5e6; padding: 14px 18px; border-radius: 16px;
+    border: 2px solid #ffd591; font-size: 14px; margin: 12px 0; }
+  .bubble.pink { background: #ffe6f0; border-color: #ffb3d4; }
+  .bubble.blue { background: #e6f0ff; border-color: #91b8e0; }
+  .bubble.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .bubble.purple { background: #f0e6ff; border-color: #b89ce0; }
+  .bubble.orange { background: #fff0e0; border-color: #ffb380; }
+
+  .outcomes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 20px; }
+  .outcome-card { border-radius: 18px; padding: 20px; text-align: center;
+    border: 3px solid; background: white; transition: transform 0.2s; }
+  .outcome-card:hover { transform: translateY(-4px); }
+  .outcome-card.pink { border-color: #d63384; background: linear-gradient(180deg,#fff,#ffe6f0); }
+  .outcome-card.blue { border-color: #5b9bd5; background: linear-gradient(180deg,#fff,#e9f1fa); }
+  .outcome-card.orange { border-color: #ed7d31; background: linear-gradient(180deg,#fff,#fdf0e6); }
+  .outcome-card.green { border-color: #2e8b57; background: linear-gradient(180deg,#fff,#e7f3e4); }
+  .outcome-card.purple { border-color: #5a4fcf; background: linear-gradient(180deg,#fff,#f0e6ff); }
+  .outcome-card .icon { font-size: 42px; margin-bottom: 8px; }
+  .outcome-card h3 { font-size: 15px; margin-bottom: 6px; color: #3a4252; }
+  .outcome-card .source-tag { display: inline-block; font-size: 11px; padding: 3px 10px;
+    border-radius: 10px; margin-bottom: 10px; font-weight: bold; color: white; }
+  .outcome-card.pink .source-tag { background: #d63384; }
+  .outcome-card.blue .source-tag { background: #5b9bd5; }
+  .outcome-card.orange .source-tag { background: #ed7d31; }
+  .outcome-card.green .source-tag { background: #2e8b57; }
+  .outcome-card.purple .source-tag { background: #5a4fcf; }
+  .outcome-card ul { list-style: none; text-align: left; font-size: 13px; }
+  .outcome-card li { padding: 3px 0; }
+
+  .summary-banner { background: linear-gradient(135deg,#ffd591 0%,#ffb3d4 50%,#91b8e0 100%);
+    padding: 24px; border-radius: 20px; text-align: center; color: white;
+    font-size: 16px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.15); margin-top: 20px; }
+
+  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .method-card { border-radius: 16px; padding: 18px; background: #fafbff; border: 2px solid #e0e6f5; }
+  .method-card h4 { color: #5a4fcf; font-size: 14px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px; }
+  .method-card p, .method-card ul { font-size: 13px; color: #555; }
+  .method-card ul { padding-left: 18px; margin-top: 6px; }
+
+  .discussion-list { list-style: none; padding: 0; }
+  .discussion-item { background: #fafbff; border-left: 5px solid #5a4fcf;
+    padding: 16px 20px; border-radius: 8px; margin-bottom: 12px; }
+  .discussion-item.limitation { border-left-color: #ed7d31; background: #fdf0e6; }
+  .discussion-item.future { border-left-color: #6aaa64; background: #e7f3e4; }
+  .discussion-item.controversy { border-left-color: #d63384; background: #ffe6f0; }
+  .discussion-item h4 { font-size: 14px; margin-bottom: 6px; color: #5a4fcf; }
+  .discussion-item.limitation h4 { color: #b85f25; }
+  .discussion-item.future h4 { color: #4a7c47; }
+  .discussion-item.controversy h4 { color: #a3296c; }
+  .discussion-item p { font-size: 13px; color: #555; line-height: 1.6; }
+
+  .qa-flow { background: linear-gradient(135deg,#fff5e6 0%,#ffe6f0 100%);
+    padding: 20px; border-radius: 16px; margin-top: 12px; }
+  .qa-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+  .qa-q, .qa-a { padding: 12px 16px; border-radius: 14px; font-size: 13px; flex: 1; }
+  .qa-q { background: #ffe6f0; border: 2px solid #ffb3d4; }
+  .qa-a { background: #e6f0ff; border: 2px solid #91b8e0; }
+
+  details.deep-dive { margin: 14px 0; background: #fafbff; border: 2px solid #e0e6f5;
+    border-radius: 14px; padding: 14px 18px; transition: background 0.2s; }
+  details.deep-dive[open] { background: linear-gradient(180deg,#fff,#fafbff);
+    border-color: #b89ce0; box-shadow: 0 4px 12px rgba(100,130,200,0.08); }
+  details.deep-dive summary { cursor: pointer; font-size: 14px; font-weight: 600;
+    color: #5a4fcf; padding: 4px 0; user-select: none; list-style: none;
+    display: flex; align-items: center; gap: 8px; }
+  details.deep-dive summary::-webkit-details-marker { display: none; }
+  details.deep-dive summary::before { content: '▶'; display: inline-block;
+    transition: transform 0.2s; color: #d63384; font-size: 11px; }
+  details.deep-dive[open] summary::before { transform: rotate(90deg); }
+  details.deep-dive .body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5; }
+  details.deep-dive .body h4 { color: #5a4fcf; font-size: 13px; margin: 14px 0 8px;
+    display: flex; align-items: center; gap: 6px; font-weight: 700; }
+  details.deep-dive .body h4:first-child { margin-top: 0; }
+
+  .narrative { font-size: 13.5px; line-height: 1.75; color: #444; margin: 6px 0 12px; }
+  .narrative strong { color: #5a4fcf; }
+
+  .numbers-strip { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 14px; }
+  .number-chip { background: linear-gradient(135deg,#ffe6f0,#fff5e6);
+    border: 2px solid #ffb3d4; border-radius: 12px; padding: 8px 14px;
+    font-size: 12px; min-width: 80px; text-align: center; }
+  .number-chip strong { display: block; color: #d63384; font-size: 17px;
+    font-weight: bold; line-height: 1.2; }
+  .number-chip .unit { color: #888; font-size: 11px; display: block; margin-top: 2px; }
+  .number-chip.blue { background: linear-gradient(135deg,#e6f0ff,#fff);
+    border-color: #91b8e0; }
+  .number-chip.blue strong { color: #5b9bd5; }
+  .number-chip.green { background: linear-gradient(135deg,#e8f5e9,#fff);
+    border-color: #a5d6a7; }
+  .number-chip.green strong { color: #2e8b57; }
+  .number-chip.purple { background: linear-gradient(135deg,#f0e6ff,#fff);
+    border-color: #b89ce0; }
+  .number-chip.purple strong { color: #5a4fcf; }
+
+  .paper-quote { background: #fff5e6; border-left: 4px solid #d63384;
+    padding: 12px 16px 12px 20px; margin: 10px 0 14px; font-style: italic;
+    font-size: 13px; color: #6c3a52; border-radius: 0 12px 12px 0; line-height: 1.65; }
+  .paper-quote .src { display: block; margin-top: 8px; font-size: 11px;
+    font-style: normal; color: #999; text-align: right; }
+
+  .figure-tree { margin: 16px 0; display: flex; flex-direction: column; gap: 14px; }
+  details.fig-node { background: linear-gradient(135deg,#fff,#fff5e6);
+    border: 3px solid #ffb3d4; border-radius: 18px; padding: 14px 18px;
+    box-shadow: 0 4px 14px rgba(255,150,200,0.14); transition: background 0.2s; }
+  details.fig-node[open] { background: linear-gradient(135deg,#fff,#ffeef5);
+    box-shadow: 0 6px 18px rgba(255,150,200,0.20); }
+  details.fig-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px; padding: 4px 0;
+    font-weight: 700; user-select: none; }
+  details.fig-node > summary::-webkit-details-marker { display: none; }
+  details.fig-node > summary::before { content: '▶'; font-size: 12px; color: #d63384;
+    transition: transform 0.2s; flex-shrink: 0; }
+  details.fig-node[open] > summary::before { transform: rotate(90deg); }
+  details.fig-node .fig-num { background: #d63384; color: white;
+    padding: 5px 14px; border-radius: 12px; font-size: 13px;
+    font-weight: bold; flex-shrink: 0; letter-spacing: 0.5px; }
+  details.fig-node .fig-claim { font-size: 14.5px; flex: 1; color: #5a4fcf;
+    line-height: 1.5; }
+  details.fig-node .fig-body { margin-top: 14px; padding: 4px 0 4px 18px;
+    border-left: 3px dashed #ffb3d4; display: flex; flex-direction: column; gap: 8px; }
+  details.fig-node .fig-overview { font-size: 13px; color: #555;
+    background: #fff5e6; padding: 10px 14px; border-radius: 12px;
+    line-height: 1.65; border: 1px solid #ffd591; margin-bottom: 4px; }
+
+  details.panel-node { background: white; border: 2px solid #91b8e0;
+    border-radius: 12px; padding: 10px 14px; transition: background 0.2s; }
+  details.panel-node[open] { background: linear-gradient(135deg,#fff,#e6f0ff);
+    box-shadow: 0 3px 8px rgba(91,155,213,0.15); }
+  details.panel-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 10px; padding: 2px 0;
+    font-size: 13px; user-select: none; flex-wrap: wrap; }
+  details.panel-node > summary::-webkit-details-marker { display: none; }
+  details.panel-node > summary::before { content: '▸'; font-size: 11px;
+    color: #5b9bd5; transition: transform 0.2s; flex-shrink: 0; }
+  details.panel-node[open] > summary::before { transform: rotate(90deg); }
+  details.panel-node .panel-letter { background: #5b9bd5; color: white;
+    width: 26px; height: 26px; border-radius: 7px; display: inline-flex;
+    align-items: center; justify-content: center; font-weight: bold;
+    font-size: 12px; flex-shrink: 0; }
+  details.panel-node .panel-exp-type { color: #5a4fcf; font-weight: 600; }
+  details.panel-node .panel-tldr { color: #666; font-size: 12px;
+    margin-left: auto; font-style: italic; }
+  details.panel-node .panel-body { margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed #e0e6f5; display: flex; flex-direction: column; gap: 10px; }
+  .panel-block { padding: 11px 14px; border-radius: 10px;
+    font-size: 13px; line-height: 1.65; }
+  .panel-block.exptype { background: #f0e6ff; border-left: 4px solid #5a4fcf; }
+  .panel-block.analogy { background: #fff5e6; border-left: 4px solid #ffb380; }
+  .panel-block.result  { background: #e6f0ff; border-left: 4px solid #5b9bd5; }
+  .panel-block.meaning { background: #e8f5e9; border-left: 4px solid #6aaa64; }
+  .panel-block strong { display: block; margin-bottom: 5px;
+    font-size: 12px; letter-spacing: 0.3px; }
+  .panel-block.exptype strong { color: #5a4fcf; }
+  .panel-block.analogy strong { color: #b85f25; }
+  .panel-block.result  strong { color: #2a6ea3; }
+  .panel-block.meaning strong { color: #4a7c47; }
+
+  details.method-deep { margin: 12px 0; background: white;
+    border: 2px solid #b89ce0; border-radius: 16px; padding: 14px 18px;
+    box-shadow: 0 4px 12px rgba(100,80,200,0.08); transition: background 0.2s; }
+  details.method-deep[open] { background: linear-gradient(135deg,#fff,#f0e6ff);
+    border-color: #5a4fcf; box-shadow: 0 6px 18px rgba(100,80,200,0.15); }
+  details.method-deep > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; color: #5a4fcf; font-size: 14.5px;
+    padding: 4px 0; user-select: none; }
+  details.method-deep > summary::-webkit-details-marker { display: none; }
+  details.method-deep > summary::before { content: '▶'; font-size: 12px;
+    color: #5a4fcf; transition: transform 0.2s; flex-shrink: 0; }
+  details.method-deep[open] > summary::before { transform: rotate(90deg); }
+  details.method-deep .method-icon { font-size: 22px; flex-shrink: 0; }
+  details.method-deep .method-name { flex: 1; }
+  details.method-deep .method-shorttag { font-size: 11px; color: #888;
+    background: #f5f0ff; padding: 3px 9px; border-radius: 8px;
+    font-weight: normal; flex-shrink: 0; }
+  details.method-deep .method-body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5;
+    display: flex; flex-direction: column; gap: 12px; }
+  details.method-deep .method-body h4 { font-size: 13px; color: #5a4fcf;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+    font-weight: 700; }
+  details.method-deep .method-body p { font-size: 13px; color: #444;
+    line-height: 1.7; }
+  .analogy-box { background: linear-gradient(135deg,#fff5e6,#ffe6f0);
+    border: 2px dashed #ffb380; border-radius: 12px; padding: 14px 18px; }
+  .analogy-box h4 { color: #b85f25 !important; }
+  .analogy-box p { color: #6c4a32 !important; font-style: italic;
+    line-height: 1.75 !important; }
+  .why-box { background: linear-gradient(135deg,#e6f0ff,#fff);
+    border-left: 4px solid #5b9bd5; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .can-see-box { background: linear-gradient(135deg,#e8f5e9,#fff);
+    border-left: 4px solid #6aaa64; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .limit-box { background: linear-gradient(135deg,#fdf0e6,#fff);
+    border-left: 4px solid #ed7d31; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+  footer a { color: #d63384; text-decoration: none; }
+
+  .lang-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 100;
+    background: white; border: 2px solid #ffb3d4; border-radius: 24px;
+    padding: 8px 16px; cursor: pointer; font-family: inherit; font-size: 13px;
+    font-weight: 600; color: #d63384; box-shadow: 0 4px 12px rgba(255,150,200,0.25);
+    transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .lang-toggle:hover { transform: scale(1.05); background: #fff0f5; }
+  .lang-toggle .flag { font-size: 16px; }
+
+  body.lang-kr .lang-en, body.lang-en .lang-kr { display: none !important; }
+  body.lang-kr svg .lang-en, body.lang-en svg .lang-kr { display: none !important; }
+
+  @media (max-width: 800px) {
+    .outcomes, .method-grid { grid-template-columns: 1fr; }
+    .tabs { grid-template-columns: 1fr 1fr; }
+    .lang-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body class="lang-kr">
+
+<button class="lang-toggle" onclick="toggleLang()">
+  <span class="flag lang-kr">🇰🇷</span><span class="lang-kr">한국어</span>
+  <span class="flag lang-en">🇺🇸</span><span class="lang-en">English</span>
+  <span style="opacity:0.5;">⇄</span>
+  <span class="flag lang-kr">🇺🇸</span><span class="lang-kr" style="opacity:0.5;">EN</span>
+  <span class="flag lang-en">🇰🇷</span><span class="lang-en" style="opacity:0.5;">KR</span>
+</button>
+
+<div class="container">
+
+<header>
+  <div class="emoji">🌱 🩸 🕸️ 👵</div>
+  <h1>
+    <span class="lang-kr">발생부터 노화까지 — 인간 HSC niche의 진화하는 ligand-receptor 지도</span>
+    <span class="lang-en">From ontogeny to aging — the evolving ligand–receptor interactome of the human HSC niche</span>
+  </h1>
+  <div class="subtitle">
+    <span class="lang-kr">Cong Feng 외 — Ming Chen 연구실 (Zhejiang University, 중국)</span>
+    <span class="lang-en">Cong Feng et al. — Ming Chen Lab (Zhejiang University, China)</span>
+  </div>
+  <div class="citation">Frontiers in Molecular Biosciences 11:1479605, 2024 · DOI: 10.3389/fmolb.2024.1479605</div>
+  <div class="type-badge">
+    <span class="lang-kr">🧪 연구 논문 (Brief Research Report)</span>
+    <span class="lang-en">🧪 Research Article (Brief Research Report)</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="t1">
+    <span class="tab-emoji">📖</span>
+    <span class="lang-kr">서론</span><span class="lang-en">Introduction</span>
+  </button>
+  <button class="tab-btn" data-tab="t2">
+    <span class="tab-emoji">🔬</span>
+    <span class="lang-kr">방법</span><span class="lang-en">Methods</span>
+  </button>
+  <button class="tab-btn" data-tab="t3">
+    <span class="tab-emoji">💡</span>
+    <span class="lang-kr">결과</span><span class="lang-en">Results</span>
+  </button>
+  <button class="tab-btn" data-tab="t4">
+    <span class="tab-emoji">💭</span>
+    <span class="lang-kr">고찰</span><span class="lang-en">Discussion</span>
+  </button>
+</div>
+
+<!-- =========================================================== -->
+<!-- TAB 1 — INTRO with Figure Tree at top -->
+<!-- =========================================================== -->
+<div class="tab-content active" id="t1">
+
+  <div class="panel">
+    <h2>🌳
+      <span class="lang-kr">피규어 수형도 — 한 눈에 paper map</span>
+      <span class="lang-en">Figure Tree — paper map at a glance</span>
+    </h2>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">
+      <span class="lang-kr">▶ 클릭으로 Figure 펼치기 → ▸ 다시 클릭으로 패널별 실험 자세히 보기</span>
+      <span class="lang-en">▶ click a figure to expand → ▸ click a panel to see the experiment in detail</span>
+    </p>
+
+    <div class="figure-tree">
+
+      <!-- ===== Figure 1 ===== -->
+      <details class="fig-node" open>
+        <summary>
+          <span class="fig-num">Fig 1</span>
+          <span class="fig-claim">
+            <span class="lang-kr">발생 5단계(AGM→FL→FBM→YBM→OBM) 전체에서 통합된 인간 HSC niche 단일세포 지도와 26개 세포 종류를 정의했다.</span>
+            <span class="lang-en">An integrated single-cell atlas of the human HSC niche across five developmental/aging stages (AGM→FL→FBM→YBM→OBM), annotating 26 cell types.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">11개 공개 scRNA-seq 데이터셋(GEO/ArrayExpress/NGDC)을 Seurat+Harmony로 통합. 발생/노화 5단계마다 UMAP을 그리고, 그 위에 26개 세포 종류를 라벨링하여 이후 모든 분석의 공통 좌표계를 만들었다.</span>
+            <span class="lang-en">11 public scRNA-seq datasets (GEO/ArrayExpress/NGDC) integrated with Seurat+Harmony. A UMAP is drawn for each of five stages and labeled with 26 shared cell types, providing the common coordinate system for every downstream analysis.</span>
+          </div>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">5단계 scRNA-seq UMAP (A-E)</span>
+                <span class="lang-en">scRNA-seq UMAPs of 5 stages (A-E)</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ AGM 23.7k세포, FL 218k, FBM 134k, YBM 98k, OBM 83k</span>
+                <span class="lang-en">→ AGM 23.7k cells, FL 218k, FBM 134k, YBM 98k, OBM 83k</span>
+              </span>
+            </summary>
+            <div class="panel-block-list panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류 (정확히)</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">통합 scRNA-seq UMAP — Seurat v4.3 NormalizeData/FindVariableFeatures → Harmony v1.2 batch correction → FindClusters. 11개 데이터셋(7+31+20+16+12=86 샘플)을 합쳐 5개 단계별 UMAP을 따로 출력.</span>
+                <span class="lang-en">Integrated scRNA-seq UMAPs — Seurat v4.3 normalization + variable feature selection → Harmony v1.2 batch correction → graph-based clustering. 11 datasets (86 samples total) integrated, with one UMAP per developmental stage.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">서로 다른 시기에 같은 동네 사진을 5장 찍어서, 사람들 옷차림(유전자 발현)으로 직업을 알아낸 뒤 같은 직업끼리 한 군데 모으는 작업. 사진마다 사람은 다르지만 직업 분류는 똑같게 맞춰 놓아야 다음에 시기끼리 비교할 수 있다.</span>
+                <span class="lang-en">Like taking 5 photos of the same neighborhood at different ages, identifying everyone's job from their clothing (gene expression), and grouping same-job people together. Different people in each photo, but the job categories must match across photos so you can compare ages later.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">5개의 UMAP 모두에서 hematopoietic + stromal + endothelial 세포가 분리됨. 5단계 합쳐 26개 세포 종류 annotation.</span>
+                <span class="lang-en">All five UMAPs cleanly separate hematopoietic + stromal + endothelial compartments. 26 cell-type labels shared across stages.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">이 26개 라벨이 Fig 2-3 CellChat 분석의 source/target 노드가 된다. 라벨이 단계마다 일관되어야 ligand-receptor 변화가 진짜 변화인지 라벨링 차이인지 구분 가능.</span>
+                <span class="lang-en">These 26 labels become the source/target nodes of every CellChat analysis in Figs 2-3. Consistent labels are required to attribute ligand-receptor changes to biology, not annotation drift.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">f</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">26개 cell type proportion stacked bar</span>
+                <span class="lang-en">Stacked bar of 26 cell-type proportions</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ AGM/FL은 erythroid 다수, BM은 myeloid 다수</span>
+                <span class="lang-en">→ AGM/FL erythroid-rich; BM myeloid-rich</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">cell type별 비율 stacked bar plot — 단순 세포 카운트 / 총 세포수.</span>
+                <span class="lang-en">Stacked bar plot of per-stage cell-type proportions — raw count / total per stage.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">학교 5학년이 될 때까지 매년 학반 학생 비율(남/여/안경 쓴 사람 등)이 어떻게 바뀌는지 막대그래프로 보는 것. 발생 단계마다 어떤 세포가 다수파인지 한 눈에 들어옴.</span>
+                <span class="lang-en">Like charting how a classroom's demographic mix shifts year by year as students grow up. Shows which cell type dominates at each developmental stage at a glance.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">AGM/FL: erythroid lineage 비중 큼. FBM~OBM: myeloid + lymphoid 비중 증가. OBM에서 plasma cell, T/NK 비중 변화 관찰.</span>
+                <span class="lang-en">AGM/FL erythroid-dominated; FBM→OBM shifts toward myeloid + lymphoid. OBM shows visible expansion of plasma cells and altered T/NK fractions.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">cell type 자체의 비율 변화가 ligand-receptor 변화의 한 원인이 됨을 인정. 이후 Fig 3에서 OBM-only plasma cell signaling을 발견하는 근거가 여기서 만들어진다.</span>
+                <span class="lang-en">Acknowledges that compositional shifts partly drive the ligand-receptor changes seen later. Sets up the OBM-only plasma-cell signaling discovered in Fig 3.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- ===== Figure 2 ===== -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 2</span>
+          <span class="fig-claim">
+            <span class="lang-kr">HSC 성숙 동안(AGM→FL→FBM) cell-cell communication 강도가 점진적으로 증가하며, NOTCH·MIF·CD48·MHC가 단계 특이적으로 작동한다.</span>
+            <span class="lang-en">During HSC maturation (AGM→FL→FBM) overall cell-cell communication strength progressively rises, with NOTCH, MIF, CD48 and MHC pathways acting in stage-specific patterns.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">CellChat v2.1으로 AGM, FL, FBM 각각의 LR interaction probability를 추정하고 정보 흐름을 비교. 단계마다 어떤 pathway가 활성/소실되는지 circle plot으로 시각화.</span>
+            <span class="lang-en">CellChat v2.1 estimates LR interaction probabilities at AGM, FL, FBM, then compares information flow across stages. Stage-specific pathway use is visualized as circle plots.</span>
+          </div>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">b</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">전체 interaction 수+강도 정량화</span>
+                <span class="lang-en">Total interaction count + strength</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ AGM&lt;FL&lt;FBM 순으로 강도 증가</span>
+                <span class="lang-en">→ strength rises AGM&lt;FL&lt;FBM</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">CellChat aggregated communication probability — 각 단계별로 모든 source-target cell type 쌍의 LR 점수를 합산한 막대 그래프.</span>
+                <span class="lang-en">CellChat aggregated communication probability — bar plot of summed LR scores over all source-target pairs at each stage.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">동네에서 사람들이 하루 동안 주고받은 카톡 개수를 다 더한 합계. 합계가 커질수록 그 동네는 "수다스러운" 동네라는 뜻.</span>
+                <span class="lang-en">Like tallying every text message every neighbor sent on a given day. A higher tally means a chattier neighborhood overall.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">interaction strength: AGM &lt; FL &lt; FBM. 발생이 진행될수록 niche 신호 망이 촘촘해진다.</span>
+                <span class="lang-en">Interaction strength: AGM &lt; FL &lt; FBM. The niche signaling web tightens as development advances.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">발생 동안 niche가 점점 "수다스러워진다"는 baseline trend를 보여줌. 이 trend가 노화 때 어떻게 깨지는지가 Fig 3의 핵심 질문이 됨.</span>
+                <span class="lang-en">Establishes a baseline "more chatter with maturation" trend whose disruption during aging drives the central question of Fig 3.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">e-k</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">pathway-specific circle plots (NOTCH·MIF·CD48·MHC-I/II)</span>
+                <span class="lang-en">Pathway-specific circle plots (NOTCH·MIF·CD48·MHC-I/II)</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ SPP1-CD44는 AGM에만, CD48은 FL에만 특이</span>
+                <span class="lang-en">→ SPP1-CD44 only in AGM, CD48 only in FL</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">CellChat pathway circle plot — pathway별로 source→target 간 신호 strength를 화살표 굵기로 표현.</span>
+                <span class="lang-en">CellChat pathway circle plots — arrow thickness encodes source→target signaling strength for each pathway.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">동네 사람들 사이에 "택배" "전화" "편지" "이메일" 별 화살표 지도. 발생 시기마다 어떤 채널이 활성인지 따로 그려서 한 눈에 비교.</span>
+                <span class="lang-en">Imagine arrow maps drawn separately for "package", "phone", "letter", "email" between neighbors. Each maturation stage gets its own panel so you can compare which channel is on when.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">SPP1-CD44 interaction은 AGM에서 가장 높고 FL/FBM에선 사라짐. MIF pathway는 AGM→FL→FBM으로 점진적으로 강해짐. CD48 signaling은 FL에 특이적.</span>
+                <span class="lang-en">SPP1-CD44 peaks in AGM and is absent at FL/FBM. MIF strength rises progressively across AGM→FL→FBM. CD48 signaling is uniquely strong in FL.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"무엇이 변하는가"의 첫 사례 — pathway 별로 단계 특이성이 분명히 존재함을 입증. Fig 3에서 노화 단계에도 같은 분석을 적용하면 어떤 pathway가 "노화 특이적"으로 나타날지 비교 기준 마련.</span>
+                <span class="lang-en">First demonstration that LR pathways are stage-specific. Sets the comparison framework so aging-specific pathways in Fig 3 can be cleanly identified.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- ===== Figure 3 ===== -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 3</span>
+          <span class="fig-claim">
+            <span class="lang-kr">노화 동안(FBM→YBM→OBM) niche 신호는 먼저 감소하다가 OBM에서 적응적으로 다시 증가하며, plasma·T/NK·MSC가 새로운 송신자가 된다.</span>
+            <span class="lang-en">During aging (FBM→YBM→OBM) niche signaling first declines then adaptively rebounds in OBM, with plasma cells, T/NK cells and MSCs emerging as new senders.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">동일한 CellChat 분석을 FBM, YBM, OBM에 적용. 노화의 핵심 신호 — plasma cell WNT, T/NK GZMA-PARD3, MSC CXCL12-CXCR4 — 가 OBM에서만 또는 OBM에서 강하게 나타남을 발견.</span>
+            <span class="lang-en">Same CellChat pipeline applied to FBM, YBM, OBM. The aging-defining signals — plasma cell WNT, T/NK GZMA-PARD3, MSC CXCL12-CXCR4 — appear only in OBM or are strongly enhanced there.</span>
+          </div>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">b</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">interaction 수+강도 정량화 (노화)</span>
+                <span class="lang-en">Interaction count + strength (aging)</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ FBM&gt;YBM, OBM은 적응적 증가</span>
+                <span class="lang-en">→ FBM&gt;YBM; OBM rebounds</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">CellChat aggregated communication probability — FBM, YBM, OBM 비교.</span>
+                <span class="lang-en">CellChat aggregated communication probability across FBM, YBM, OBM.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">청년기 동네는 갑자기 카톡이 줄지만 — 노인이 된 후엔 다시 늘어남. 다만 늘어난 카톡 내용은 옛날 카톡과 달라서 "염증 단톡방"이 새로 생긴 느낌.</span>
+                <span class="lang-en">The young-adult neighborhood goes quiet — but the elderly neighborhood gets chatty again. The new chatter isn't the old kind, though: a new "inflammation group chat" has opened.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">interaction strength: FBM &gt; YBM, 그러나 OBM은 YBM보다 다시 증가. 단순 "감소" 모델을 깨는 biphasic 패턴.</span>
+                <span class="lang-en">Strength FBM &gt; YBM but OBM &gt; YBM — a biphasic pattern that breaks the simple "monotonic decline" model.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">노화 niche의 핵심 주장 — 단순 감소가 아닌 "감소 후 적응적 재증가". 이 적응적 신호의 정체가 ligand 분석(Fig 4)으로 이어진다.</span>
+                <span class="lang-en">Core aging claim — not monotonic decline but "decline followed by adaptive rebound." Identifying the rebound signals motivates the ligand analysis in Fig 4.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">d-e</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">T/NK-HSPC + plasma-HSPC LR pair table</span>
+                <span class="lang-en">T/NK→HSPC + plasma→HSPC LR pair tables</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ WNT10A·WNT5B·GZMA-PARD3는 OBM 한정</span>
+                <span class="lang-en">→ WNT10A·WNT5B·GZMA-PARD3 OBM-only</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">CellChat LR pair dot plot — source→HSPC 방향의 모든 유의한 ligand-receptor 쌍을 색·크기로 표시.</span>
+                <span class="lang-en">CellChat LR-pair dot plot — every significant ligand-receptor pair from a given source onto HSPC, encoded by color + dot size.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">"새로 생긴 단톡방"의 멤버 명단 — 어느 시기엔 없다가 노인기에만 등장하는 화자(plasma cell, T/NK cell)들이 HSC에게 보내는 메시지 종류를 줄줄이 나열.</span>
+                <span class="lang-en">A "new group chat" roster — speakers (plasma cells, T/NK cells) that didn't exist earlier and now message the HSC, with each message type listed by name.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">Plasma→HSPC: WNT10A, WNT5B 신호가 OBM에서만 등장. T/NK→HSPC: GZMA-PARD3가 OBM에 특이적. MSC→HSPC CXCL12-CXCR4는 YBM→OBM으로 증가.</span>
+                <span class="lang-en">Plasma→HSPC: WNT10A and WNT5B appear only in OBM. T/NK→HSPC: GZMA-PARD3 is OBM-specific. MSC→HSPC CXCL12-CXCR4 rises from YBM to OBM.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"적응적 재증가"의 정체가 염증·면역 세포가 새 송신자로 합류한 결과임을 보여줌. Giwon의 inflammaging niche 가설과 정확히 맞물림.</span>
+                <span class="lang-en">Reveals that the adaptive rebound is driven by inflammatory/immune cells joining as new senders — directly converging with Giwon's inflammaging-niche hypothesis.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- ===== Figure 4 ===== -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 4</span>
+          <span class="fig-claim">
+            <span class="lang-kr">NicheNet ligand activity 분석으로 SPP1·MMP9·FCAR가 노화 HSPC의 JUN/FOS/VEGFA·TGFB1 발현을 끌어올리는 핵심 ligand로 지목된다.</span>
+            <span class="lang-en">NicheNet ligand-activity analysis nominates SPP1, MMP9, and FCAR as the key ligands driving JUN/FOS/VEGFA and TGFB1 upregulation in aged HSPCs.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">OBM vs YBM DEG(Volcano) → NicheNet으로 niche ligand activity 예측 → 상위 30개 ligand의 cell-type별 발현(log2FC heatmap) + target gene 예측(상향 = 파랑, 하향 = 빨강) 시각화.</span>
+            <span class="lang-en">OBM vs YBM DEG (volcano) → NicheNet ligand-activity prediction → log2FC heatmap of the top 30 ligands across cell types + predicted target genes (up = blue, down = red).</span>
+          </div>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">OBM vs YBM HSPC volcano plot</span>
+                <span class="lang-en">OBM vs YBM HSPC volcano plot</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ JUN, JUND, FOS 상향 (염증성 AP-1)</span>
+                <span class="lang-en">→ JUN, JUND, FOS up (inflammatory AP-1)</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">Wilcoxon DE test — OBM HSPC vs YBM HSPC, log2FC vs -log10(adj.P) volcano plot.</span>
+                <span class="lang-en">Wilcoxon DE test — OBM vs YBM HSPC, plotted as log2FC vs -log10(adj.P) volcano.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">노인 동네 HSC vs 청년 동네 HSC의 "오늘 기분 일기장"을 비교 — 어떤 단어를 더 많이 썼고 어떤 단어를 덜 썼나. 노인 쪽은 "스트레스" "짜증" 단어가 늘었다.</span>
+                <span class="lang-en">Compare the "mood diaries" of elderly-neighborhood HSCs vs young-neighborhood HSCs — which words went up, which went down. The elderly side has more "stress" and "irritation" words.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">AP-1 family (JUN, JUND, FOS) 상향, ribosomal/protein synthesis 다수 하향. 전형적 inflammaging 시그너처.</span>
+                <span class="lang-en">AP-1 family (JUN, JUND, FOS) up; many ribosomal/protein-synthesis genes down. A textbook inflammaging signature.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"누가 이 변화를 시키나?"라는 NicheNet 질문의 출발점 — 이 DEG가 다음 panel의 ligand activity 예측의 input이 됨.</span>
+                <span class="lang-en">Defines the DEG set that becomes input to NicheNet — sets up the "who drives these changes?" question answered in the next panel.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">e-g</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">NicheNet top-30 ligand activity + target heatmap</span>
+                <span class="lang-en">NicheNet top-30 ligand activity + target heatmap</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ SPP1·MMP9·FCAR가 상위 — niche 송신자 추적</span>
+                <span class="lang-en">→ SPP1, MMP9, FCAR top-ranked</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">NicheNet v2.1 ligand activity — 모든 niche cell의 ligand 발현을 받아 HSPC 내부의 DEG와 가장 일관된 ligand를 ranking. 상위 30개의 cell-type별 log2FC heatmap + target gene prediction.</span>
+                <span class="lang-en">NicheNet v2.1 ligand-activity scoring — ranks ligands across all niche cells by how well their predicted regulons match the HSPC DEG set. Top 30 displayed as a log2FC heatmap with predicted target genes.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></strong>
+                <span class="lang-kr">노인 HSC의 일기장 단어가 누구 때문에 바뀌었는지를 알아내기 위해, 동네 사람마다 "이 단어 영향력 점수"를 매기고 1위부터 30위까지 줄세우는 작업. SPP1·MMP9·FCAR가 상위에 올라옴.</span>
+                <span class="lang-en">To figure out which neighbor changed the elderly HSC's diary words, assign each neighbor an "influence score" and rank the top 30. SPP1, MMP9, FCAR top the chart.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">SPP1↑ MSC, MMP9↑ Mono/Mac+Granulocytes, FCAR↑ Mono/Mac+GMP+Granulocytes. 예측 target: JUN, JUND, FOS, VEGFA, TGFB1.</span>
+                <span class="lang-en">SPP1 up in MSC; MMP9 up in monocyte/macrophage + granulocytes; FCAR up in mono/mac + GMP + granulocytes. Predicted targets: JUN, JUND, FOS, VEGFA, TGFB1.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">CellChat이 보여준 "송신자가 늘었다" 결과를 ligand 분자 단위까지 내려 보냄 — 노화 HSPC AP-1 활성의 주범 후보 3개를 분자적으로 특정. 다음 실험적 검증의 표적 리스트가 됨.</span>
+                <span class="lang-en">Translates "more senders" from CellChat into specific ligand molecules — three concrete candidates for aged-HSPC AP-1 activity that any follow-up experiment can target.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- mechanism schematic SVG -->
+  <div class="panel">
+    <h2>🩸
+      <span class="lang-kr">큰 그림 — HSC niche가 발생-노화에서 어떻게 변하나</span>
+      <span class="lang-en">The big picture — how the HSC niche shifts from ontogeny to aging</span>
+    </h2>
+
+    <svg viewBox="0 0 1000 360" class="scene" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gtl" x1="0" x2="1"><stop offset="0" stop-color="#ffe6f0"/><stop offset="1" stop-color="#fff5e6"/></linearGradient>
+      </defs>
+      <rect x="20" y="20" width="960" height="320" rx="20" fill="url(#gtl)" stroke="#ffb3d4" stroke-width="2"/>
+
+      <!-- 5 stages along a track -->
+      <line x1="80" y1="180" x2="920" y2="180" stroke="#d63384" stroke-width="3" stroke-dasharray="6,4"/>
+
+      <!-- AGM -->
+      <circle cx="120" cy="180" r="36" fill="#ffe6f0" stroke="#d63384" stroke-width="3"/>
+      <text x="120" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#a3296c" class="lang-kr">AGM</text>
+      <text x="120" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#a3296c" class="lang-en">AGM</text>
+      <text x="120" y="195" text-anchor="middle" font-size="10" fill="#a3296c" class="lang-kr">대동맥</text>
+      <text x="120" y="195" text-anchor="middle" font-size="10" fill="#a3296c" class="lang-en">aorta</text>
+      <text x="120" y="240" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">SPP1-CD44</text>
+      <text x="120" y="240" text-anchor="middle" font-size="11" fill="#555" class="lang-en">SPP1-CD44</text>
+      <text x="120" y="255" text-anchor="middle" font-size="10" fill="#888" class="lang-kr">23.7k 세포</text>
+      <text x="120" y="255" text-anchor="middle" font-size="10" fill="#888" class="lang-en">23.7k cells</text>
+
+      <!-- FL -->
+      <circle cx="300" cy="180" r="40" fill="#fff5e6" stroke="#ed7d31" stroke-width="3"/>
+      <text x="300" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25" class="lang-kr">FL</text>
+      <text x="300" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25" class="lang-en">FL</text>
+      <text x="300" y="195" text-anchor="middle" font-size="10" fill="#b85f25" class="lang-kr">태아 간</text>
+      <text x="300" y="195" text-anchor="middle" font-size="10" fill="#b85f25" class="lang-en">fetal liver</text>
+      <text x="300" y="245" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">CD48 신호</text>
+      <text x="300" y="245" text-anchor="middle" font-size="11" fill="#555" class="lang-en">CD48 signaling</text>
+      <text x="300" y="260" text-anchor="middle" font-size="10" fill="#888" class="lang-kr">218k 세포</text>
+      <text x="300" y="260" text-anchor="middle" font-size="10" fill="#888" class="lang-en">218k cells</text>
+
+      <!-- FBM -->
+      <circle cx="480" cy="180" r="44" fill="#e6f0ff" stroke="#5b9bd5" stroke-width="3"/>
+      <text x="480" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#0066cc" class="lang-kr">FBM</text>
+      <text x="480" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#0066cc" class="lang-en">FBM</text>
+      <text x="480" y="195" text-anchor="middle" font-size="10" fill="#0066cc" class="lang-kr">태아 BM</text>
+      <text x="480" y="195" text-anchor="middle" font-size="10" fill="#0066cc" class="lang-en">fetal BM</text>
+      <text x="480" y="248" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">MIF 최대</text>
+      <text x="480" y="248" text-anchor="middle" font-size="11" fill="#555" class="lang-en">MIF peak</text>
+      <text x="480" y="263" text-anchor="middle" font-size="10" fill="#888" class="lang-kr">134k 세포</text>
+      <text x="480" y="263" text-anchor="middle" font-size="10" fill="#888" class="lang-en">134k cells</text>
+
+      <!-- YBM -->
+      <circle cx="660" cy="180" r="38" fill="#e8f5e9" stroke="#2e8b57" stroke-width="3"/>
+      <text x="660" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20" class="lang-kr">YBM</text>
+      <text x="660" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20" class="lang-en">YBM</text>
+      <text x="660" y="195" text-anchor="middle" font-size="10" fill="#1b5e20" class="lang-kr">청년 BM</text>
+      <text x="660" y="195" text-anchor="middle" font-size="10" fill="#1b5e20" class="lang-en">young BM</text>
+      <text x="660" y="245" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">신호 감소</text>
+      <text x="660" y="245" text-anchor="middle" font-size="11" fill="#555" class="lang-en">signaling dip</text>
+      <text x="660" y="260" text-anchor="middle" font-size="10" fill="#888" class="lang-kr">98k 세포</text>
+      <text x="660" y="260" text-anchor="middle" font-size="10" fill="#888" class="lang-en">98k cells</text>
+
+      <!-- OBM -->
+      <circle cx="840" cy="180" r="46" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="3"/>
+      <text x="840" y="176" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2fa0" class="lang-kr">OBM</text>
+      <text x="840" y="176" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2fa0" class="lang-en">OBM</text>
+      <text x="840" y="193" text-anchor="middle" font-size="10" fill="#3a2fa0" class="lang-kr">노화 BM</text>
+      <text x="840" y="193" text-anchor="middle" font-size="10" fill="#3a2fa0" class="lang-en">old BM</text>
+      <text x="840" y="245" text-anchor="middle" font-size="11" fill="#a3296c" font-weight="bold" class="lang-kr">WNT·GZMA·CXCL12</text>
+      <text x="840" y="245" text-anchor="middle" font-size="11" fill="#a3296c" font-weight="bold" class="lang-en">WNT·GZMA·CXCL12</text>
+      <text x="840" y="260" text-anchor="middle" font-size="10" fill="#888" class="lang-kr">83k 세포</text>
+      <text x="840" y="260" text-anchor="middle" font-size="10" fill="#888" class="lang-en">83k cells</text>
+
+      <!-- arrows -->
+      <text x="210" y="174" text-anchor="middle" font-size="22" fill="#d63384">→</text>
+      <text x="390" y="174" text-anchor="middle" font-size="22" fill="#ed7d31">→</text>
+      <text x="570" y="174" text-anchor="middle" font-size="22" fill="#5b9bd5">→</text>
+      <text x="750" y="174" text-anchor="middle" font-size="22" fill="#2e8b57">→</text>
+
+      <text x="500" y="60" text-anchor="middle" font-size="15" font-weight="bold" fill="#5a4fcf" class="lang-kr">발생: 신호 강도 점진 증가 ↑   |   노화: 감소 후 적응적 재증가 ↘↗</text>
+      <text x="500" y="60" text-anchor="middle" font-size="15" font-weight="bold" fill="#5a4fcf" class="lang-en">Development: progressive rise ↑   |   Aging: dip then adaptive rebound ↘↗</text>
+
+      <text x="500" y="100" text-anchor="middle" font-size="12" fill="#666" class="lang-kr">11개 데이터셋 · 86개 샘플 · 26개 세포 종류 통합</text>
+      <text x="500" y="100" text-anchor="middle" font-size="12" fill="#666" class="lang-en">11 datasets · 86 samples · 26 cell types integrated</text>
+
+      <text x="500" y="320" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-kr">송신자가 바뀐다: AGM-stroma → FBM-stroma → OBM-plasma/T/NK + MSC</text>
+      <text x="500" y="320" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-en">The senders shift: AGM-stroma → FBM-stroma → OBM-plasma/T/NK + MSC</text>
+    </svg>
+
+    <div class="bubble pink">
+      <strong>📖 <span class="lang-kr">서론 한 줄</span><span class="lang-en">Intro in one line</span></strong><br>
+      <span class="lang-kr">HSC niche가 시간에 따라 어떻게 변하는지 사람 데이터로 처음부터 끝까지 한 번에 그린 작품. CellChat·NicheNet으로 ligand-receptor 수준의 시간 지도를 완성.</span>
+      <span class="lang-en">The first soup-to-nuts human-data atlas of how the HSC niche reshapes itself over time, with CellChat + NicheNet drawing the ligand-receptor map at every stage.</span>
+    </div>
+  </div>
+
+  <!-- background Q&A -->
+  <div class="panel">
+    <h2>❓
+      <span class="lang-kr">배경 질문 — 이 논문이 답하려는 것</span>
+      <span class="lang-en">Background questions — what the paper answers</span>
+    </h2>
+    <div class="qa-flow">
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q1.</strong>
+          <span class="lang-kr">HSC niche의 cell-cell 신호망은 발생과 노화에서 같은 방식으로 변하나, 단계마다 다른가?</span>
+          <span class="lang-en">Does the HSC-niche signaling web change the same way during development and aging, or differently at each stage?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr">단계마다 다르다 — 발생에선 단조 증가, 노화에선 감소 후 적응적 재증가의 biphasic 패턴.</span>
+          <span class="lang-en">Differently — development shows monotonic rise; aging shows a biphasic dip-then-rebound.</span>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q2.</strong>
+          <span class="lang-kr">노화 niche에서 새로 등장하는 송신자(sender cell type)는 누구이며 무엇을 보내나?</span>
+          <span class="lang-en">Which sender cell types newly appear in the aged niche, and what do they send?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr">Plasma cell (WNT10A/WNT5B), T/NK (GZMA-PARD3), MSC (CXCL12-CXCR4 ↑) — 모두 OBM에서만 또는 강하게 활성화.</span>
+          <span class="lang-en">Plasma cells (WNT10A/WNT5B), T/NK cells (GZMA-PARD3), and MSC (CXCL12-CXCR4 up) — each newly active or strongly enhanced only in OBM.</span>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q3.</strong>
+          <span class="lang-kr">노화 HSPC의 AP-1(JUN/FOS) 활성을 끌어올리는 ligand는 무엇인가?</span>
+          <span class="lang-en">Which ligand drives the AP-1 (JUN/FOS) program in aged HSPCs?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr">NicheNet 결과 SPP1(MSC), MMP9 + FCAR(monocyte/macrophage + granulocyte)가 상위 — JUN/JUND/FOS와 VEGFA, TGFB1 발현 조절자로 예측.</span>
+          <span class="lang-en">NicheNet ranks SPP1 (MSC), MMP9 and FCAR (monocyte/macrophage + granulocyte) at the top — predicted regulators of JUN/JUND/FOS plus VEGFA and TGFB1.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================== -->
+<!-- TAB 2 — METHODS with Method Deep Cards -->
+<!-- =========================================================== -->
+<div class="tab-content" id="t2">
+
+  <div class="panel">
+    <h2>🔬
+      <span class="lang-kr">방법 자세히 — 어떤 분석인지 비유로 이해하기</span>
+      <span class="lang-en">Methods in Depth — understanding each technique by analogy</span>
+    </h2>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">
+      <span class="lang-kr">▶ 클릭하면 각 기법에 대한 자세한 설명 + 초딩 비유가 펼쳐집니다.</span>
+      <span class="lang-en">▶ Click any card to expand the technique with a kid-friendly analogy.</span>
+    </p>
+
+    <details class="method-deep" open>
+      <summary>
+        <span class="method-icon">📊</span>
+        <span class="method-name">
+          <span class="lang-kr">Multi-dataset 통합 (Seurat + Harmony)</span>
+          <span class="lang-en">Multi-dataset integration (Seurat + Harmony)</span>
+        </span>
+        <span class="method-shorttag">Seurat v4.3 · Harmony v1.2</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">서로 다른 lab, 다른 시기, 다른 chemistry로 잡은 11개 scRNA-seq 데이터셋을 하나의 좌표계로 정렬하는 작업. Seurat이 정규화·variable feature·PCA를 담당하고, Harmony가 PCA embedding 위에서 lab/sample/chemistry batch를 반복적으로 빼낸다.</span>
+            <span class="lang-en">A way to align 11 scRNA-seq datasets — different labs, ages, and chemistries — into a single coordinate system. Seurat handles normalization, variable features, and PCA; Harmony iteratively regresses lab/sample/chemistry batch out of the PCA embedding.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></h4>
+          <p>
+            <span class="lang-kr">5명의 친구가 같은 도시 지도를 각자 다른 카메라로 다른 각도에서 찍었다. 이 사진들을 GPS 좌표로 모두 같은 방향·같은 축척으로 회전+이동시켜 한 장으로 합치는 것. Harmony가 "이 사진은 줌이 다르네, 줌 차이만큼 빼자"라고 반복해서 맞춰준다.</span>
+            <span class="lang-en">Five friends photographed the same city map from different cameras and angles. Aligning them to a common GPS grid — rotated, scaled, and overlaid into one map — is the goal. Harmony keeps saying "this shot is zoomed differently, subtract that zoom factor" until everything snaps into place.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나</span><span class="lang-en">Why this method</span></h4>
+          <p>
+            <span class="lang-kr">단일 cohort scRNA만으론 통계적 검정력 부족 — 86개 샘플(11 데이터셋)을 합쳐야 OBM의 희소 plasma cell signal까지 검출됨. CCA보다 Harmony가 메모리·속도에서 5×~10× 우위.</span>
+            <span class="lang-en">A single cohort wouldn't have the power — pooling 86 samples across 11 datasets is what lets rare OBM plasma-cell signals show up. Harmony is 5–10× faster and lighter in memory than CCA-style alignment.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 무엇을 볼 수 있나</span><span class="lang-en">What you can actually see</span></h4>
+          <p>
+            <span class="lang-kr">5단계 통합 UMAP, 26개 세포 종류 cross-stage annotation, 단계간 cell type proportion 변화.</span>
+            <span class="lang-en">A 5-stage integrated UMAP, cross-stage annotation of 26 cell types, and stage-to-stage cell-type proportion shifts.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계 — 이걸론 못하는 것</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">Harmony는 lab/chemistry 효과를 너무 강하게 빼면 진짜 생물학적 signal까지 같이 빠질 위험. OBM/YBM 데이터셋이 다른 cohort에서 왔으면, 일부 LR 차이가 cohort artifact일 가능성 잔존.</span>
+            <span class="lang-en">Aggressive Harmony correction can wash out genuine biology along with batch. Because OBM and YBM samples come from distinct cohorts, residual cohort artefacts can survive in some LR differences.</span>
+          </p>
+        </div>
+        <div class="paper-quote">
+          <span class="lang-kr">"data integration was performed using Seurat (v4.3) followed by Harmony (v1.2) batch correction across the 11 datasets" (paraphrased from Methods)</span>
+          <span class="lang-en">"data integration was performed using Seurat (v4.3) followed by Harmony (v1.2) batch correction across the 11 datasets" (paraphrased from Methods)</span>
+          <span class="src">— <span class="lang-kr">방법 섹션</span><span class="lang-en">Methods section</span></span>
+        </div>
+      </div>
+    </details>
+
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🕸️</span>
+        <span class="method-name">
+          <span class="lang-kr">CellChat — ligand-receptor 신호 추론</span>
+          <span class="lang-en">CellChat — ligand-receptor signaling inference</span>
+        </span>
+        <span class="method-shorttag">CellChat v2.1</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">단일세포 발현으로부터 cell type 간 ligand-receptor 상호작용 확률을 mass-action 모델로 추정. 각 LR 쌍이 source cell의 ligand 발현 × target cell의 receptor 발현에 비례하는 strength를 가짐. Permutation test로 유의성 검정.</span>
+            <span class="lang-en">Infers ligand-receptor interaction probabilities between cell types using a mass-action-style model: each LR pair gets a strength proportional to source-cell ligand expression × target-cell receptor expression. Permutation testing assesses significance.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></h4>
+          <p>
+            <span class="lang-kr">동네 사람들의 카톡을 한꺼번에 다 보고, "누가 누구에게 어떤 종류의 메시지를 얼마나 자주 보냈는지"를 표로 정리. 메시지 종류는 ligand, 받는 사람의 휴대폰 모델(=receptor)이 맞아야 메시지가 진짜 전달된 것으로 침.</span>
+            <span class="lang-en">Read every neighbor's text inbox at once and tabulate "who sent which kind of message to whom, how often." The message type is the ligand; only neighbors whose phone (receptor) supports that message type are scored as truly receiving it.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나</span><span class="lang-en">Why this method</span></h4>
+          <p>
+            <span class="lang-kr">CellPhoneDB는 cell pair 단위로만 보고 pathway 차원 합산이 약함. NicheNet은 downstream target 예측엔 강하지만 LR strength 비교는 약함. CellChat은 LR pair → pathway → signaling role(sender/receiver/mediator/influencer)까지 한 번에 출력해서 단계 비교에 적합.</span>
+            <span class="lang-en">CellPhoneDB stops at pair-level scores with weak pathway aggregation; NicheNet is great at downstream targets but weak at LR strength comparison. CellChat returns LR pair → pathway → signaling role (sender/receiver/mediator/influencer) in one pass — ideal for cross-stage comparison.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 무엇을 볼 수 있나</span><span class="lang-en">What you can actually see</span></h4>
+          <p>
+            <span class="lang-kr">cell type × cell type 행렬의 communication probability heatmap, pathway별 circle plot (NOTCH·MIF·CD48·MHC·CXCL12·GALECTIN 등), LR pair dot plot, signaling role 산점도.</span>
+            <span class="lang-en">Communication-probability heatmaps over cell-type × cell-type matrices, per-pathway circle plots (NOTCH, MIF, CD48, MHC, CXCL12, GALECTIN, …), LR-pair dot plots, and signaling-role scatter plots.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계 — 이걸론 못하는 것</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">신호의 실제 전달은 모름 — RNA 발현만 보고 protein, 분비 여부, 공간 거리는 무시. ligand가 발현되어 있어도 단백질로 분비되지 않을 수 있고, 두 세포가 실제 BM 안에서 멀리 있어도 점수가 높게 나올 수 있음.</span>
+            <span class="lang-en">It can't confirm actual signal transfer — only RNA expression matters in the score, ignoring protein, secretion, and spatial distance. A ligand may be transcribed but never secreted, and two cells far apart in vivo can still get a high pairing score.</span>
+          </p>
+        </div>
+        <div class="paper-quote">
+          <span class="lang-kr">"CellChat v2.1 was used to infer cell-cell communication via ligand-receptor interactions" (paraphrase from Methods)</span>
+          <span class="lang-en">"CellChat v2.1 was used to infer cell-cell communication via ligand-receptor interactions" (paraphrase from Methods)</span>
+          <span class="src">— <span class="lang-kr">방법 섹션</span><span class="lang-en">Methods section</span></span>
+        </div>
+      </div>
+    </details>
+
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🧮</span>
+        <span class="method-name">
+          <span class="lang-kr">NicheNet — ligand activity ranking</span>
+          <span class="lang-en">NicheNet — ligand-activity ranking</span>
+        </span>
+        <span class="method-shorttag">NicheNet v2.1</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">사전 구축된 ligand→signaling→target 망(prior network)을 이용해, target cell의 DEG와 가장 잘 맞아떨어지는 ligand에 activity 점수를 부여. CellChat이 "누가 누구에게 보내나"를 본다면 NicheNet은 "누구의 신호가 가장 잘 설명하나"를 답한다.</span>
+            <span class="lang-en">Uses a curated ligand→signaling→target prior network to score each candidate ligand by how well its predicted regulon matches the target cell's DEGs. If CellChat asks "who messages whom", NicheNet asks "whose message best explains the receiver's response."</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></h4>
+          <p>
+            <span class="lang-kr">노인 HSC가 새로 쓴 단어 100개 리스트를 가지고, 동네 사람마다 "내가 평소에 자주 쓰는 단어 사전"이랑 비교. 일치 단어가 가장 많은 사람을 "이 노인의 단어 변화에 가장 큰 영향을 준 사람"으로 1위 매김. SPP1, MMP9, FCAR이 상위에 올라옴.</span>
+            <span class="lang-en">Take the 100 new words an elderly HSC started using, compare them against each neighbor's "vocabulary dictionary," and the neighbor with the best match wins "most influential." SPP1, MMP9, FCAR top this ranking.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나</span><span class="lang-en">Why this method</span></h4>
+          <p>
+            <span class="lang-kr">CellChat 단독으론 "이 LR이 진짜 downstream 효과를 일으키나"를 답하지 못함. NicheNet의 prior network는 수천 개 실험적 DEG 데이터로 훈련된 ligand→target 관계 그래프라서, RNA 발현만 보는 CellChat에 mechanistic layer를 추가해 줌.</span>
+            <span class="lang-en">CellChat alone can't tell you whether an LR pair actually causes a downstream program. NicheNet's prior network — built from thousands of experimental ligand-perturbation DEG sets — adds the mechanistic layer that pure expression-based CellChat lacks.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 무엇을 볼 수 있나</span><span class="lang-en">What you can actually see</span></h4>
+          <p>
+            <span class="lang-kr">상위 N개 ligand의 activity score, ligand별 예측 target heatmap (up/down), ligand의 source cell type별 log2FC heatmap.</span>
+            <span class="lang-en">A ranked list of ligand activity scores, per-ligand predicted target heatmaps (up/down), and the source-cell-type log2FC of each ligand.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계 — 이걸론 못하는 것</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">Prior network는 대부분 cancer/immune 세포주 perturbation 데이터에서 왔음 — HSC niche 고유 signaling은 underrepresented. 새 ligand 발견엔 약하고 "기존에 알려진 ligand 중 누가 가장 잘 맞나"에 강함.</span>
+            <span class="lang-en">The prior network is dominated by cancer/immune cell-line perturbation data — HSC-niche-specific signaling is underrepresented. It's strong at ranking *known* ligands, weak at discovering truly novel ones.</span>
+          </p>
+        </div>
+        <div class="paper-quote">
+          <span class="lang-kr">"NicheNet (v2.1) was applied to predict niche ligand activity from differentially expressed genes in aged HSPC" (paraphrase from Methods)</span>
+          <span class="lang-en">"NicheNet (v2.1) was applied to predict niche ligand activity from differentially expressed genes in aged HSPC" (paraphrase from Methods)</span>
+          <span class="src">— <span class="lang-kr">방법 섹션</span><span class="lang-en">Methods section</span></span>
+        </div>
+      </div>
+    </details>
+
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🧬</span>
+        <span class="method-name">
+          <span class="lang-kr">공개 scRNA-seq 데이터 큐레이션</span>
+          <span class="lang-en">Public scRNA-seq curation</span>
+        </span>
+        <span class="method-shorttag">GEO + ArrayExpress + NGDC</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">이 기술이 무엇인가</span><span class="lang-en">What this technique is</span></h4>
+          <p>
+            <span class="lang-kr">기존에 발표된 single-cell BM 데이터셋을 체계적으로 모으는 작업. QC 기준: 500–8000 detected gene / cell, UMI ≤ 50,000, 미토콘드리아 RNA ≤ 10%. 총 11 데이터셋, 86 샘플, 약 576k 세포.</span>
+            <span class="lang-en">A systematic collection of published single-cell bone-marrow datasets. QC: 500–8000 genes/cell, UMI ≤ 50k, mito RNA ≤ 10%. Final tally: 11 datasets, 86 samples, ~576k cells.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></h4>
+          <p>
+            <span class="lang-kr">동네마다 다르게 적힌 일기장 11권을 도서관에서 빌려서, 글씨가 너무 흐리거나 너무 빽빽한 페이지는 빼고 정리하는 것. 빠진 페이지가 많은 일기는 분석에 못 씀.</span>
+            <span class="lang-en">Borrow 11 diaries with different handwriting styles from the library, throw out pages that are too smudged or overly dense, and keep the rest. Diaries with too many missing pages don't get analyzed.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법을 골랐나</span><span class="lang-en">Why this method</span></h4>
+          <p>
+            <span class="lang-kr">새 환자 코호트 sequencing 없이도 발생 5단계 비교가 가능 — AGM/FL 같이 윤리적·기술적으로 어려운 단계 샘플을 직접 구할 필요 없음. 단점은 cohort-specific batch 노출이 늘어남.</span>
+            <span class="lang-en">Lets the authors compare all five developmental stages without sequencing new patient cohorts — sidesteps the ethical/technical hurdles of acquiring AGM and FL samples directly, at the cost of more cohort-specific batch exposure.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 무엇을 볼 수 있나</span><span class="lang-en">What you can actually see</span></h4>
+          <p>
+            <span class="lang-kr">샘플 수가 충분히 커서(86 samples) 통계적 신뢰성 확보. AGM 7 / FL 31 / FBM 20 / YBM 16 / OBM 12 샘플.</span>
+            <span class="lang-en">An 86-sample pool with enough statistical leverage to detect rare populations. Breakdown: AGM 7 / FL 31 / FBM 20 / YBM 16 / OBM 12 samples.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계 — 이걸론 못하는 것</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">데이터셋마다 sorting strategy(CD34+, LIN-, whole BM 등)가 달라 cell type proportion 비교에 bias 있음. 미세조절(genotype, donor sex, BMI 같은 metadata)이 통일되지 않음.</span>
+            <span class="lang-en">Different sorting strategies (CD34+, LIN−, whole BM) bias proportion comparisons. Donor metadata — genotype, sex, BMI — isn't harmonized across the 11 cohorts.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Experimental design schematic -->
+  <div class="panel">
+    <h2>📐
+      <span class="lang-kr">5단계 비교 디자인 + 분석 파이프라인</span>
+      <span class="lang-en">5-stage comparison design + analysis pipeline</span>
+    </h2>
+
+    <svg viewBox="0 0 1000 360" class="scene" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="20" width="960" height="320" rx="20" fill="#fafbff" stroke="#b89ce0" stroke-width="2"/>
+
+      <!-- step 1 -->
+      <rect x="60" y="80" width="180" height="80" rx="14" fill="#ffe6f0" stroke="#d63384" stroke-width="2"/>
+      <text x="150" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#a3296c" class="lang-kr">1. 데이터 수집</text>
+      <text x="150" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#a3296c" class="lang-en">1. Data curation</text>
+      <text x="150" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">11 datasets, 86 samples</text>
+      <text x="150" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-en">11 datasets, 86 samples</text>
+      <text x="150" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">GEO/ArrayExpress/NGDC</text>
+      <text x="150" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-en">GEO/ArrayExpress/NGDC</text>
+
+      <text x="260" y="125" text-anchor="middle" font-size="22" fill="#5a4fcf">→</text>
+
+      <!-- step 2 -->
+      <rect x="280" y="80" width="180" height="80" rx="14" fill="#fff5e6" stroke="#ed7d31" stroke-width="2"/>
+      <text x="370" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25" class="lang-kr">2. QC + 통합</text>
+      <text x="370" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25" class="lang-en">2. QC + integration</text>
+      <text x="370" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">Seurat + Harmony</text>
+      <text x="370" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-en">Seurat + Harmony</text>
+      <text x="370" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">~576k 세포</text>
+      <text x="370" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-en">~576k cells</text>
+
+      <text x="480" y="125" text-anchor="middle" font-size="22" fill="#5a4fcf">→</text>
+
+      <!-- step 3 -->
+      <rect x="500" y="80" width="180" height="80" rx="14" fill="#e6f0ff" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="590" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#0066cc" class="lang-kr">3. CellChat LR 추론</text>
+      <text x="590" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#0066cc" class="lang-en">3. CellChat LR inference</text>
+      <text x="590" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">단계별 비교</text>
+      <text x="590" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-en">pairwise stages</text>
+      <text x="590" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">pathway · LR pair</text>
+      <text x="590" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-en">pathway · LR pair</text>
+
+      <text x="700" y="125" text-anchor="middle" font-size="22" fill="#5a4fcf">→</text>
+
+      <!-- step 4 -->
+      <rect x="720" y="80" width="220" height="80" rx="14" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+      <text x="830" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2fa0" class="lang-kr">4. NicheNet ligand activity</text>
+      <text x="830" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2fa0" class="lang-en">4. NicheNet ligand activity</text>
+      <text x="830" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">OBM HSPC DEG 기반</text>
+      <text x="830" y="135" text-anchor="middle" font-size="11" fill="#555" class="lang-en">from OBM HSPC DEGs</text>
+      <text x="830" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">상위 30개 ligand</text>
+      <text x="830" y="150" text-anchor="middle" font-size="11" fill="#555" class="lang-en">top 30 ligands</text>
+
+      <!-- secondary: monocle + GO -->
+      <rect x="280" y="220" width="220" height="60" rx="14" fill="#e8f5e9" stroke="#2e8b57" stroke-width="2"/>
+      <text x="390" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20" class="lang-kr">Monocle v2.32 — trajectory</text>
+      <text x="390" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20" class="lang-en">Monocle v2.32 — trajectory</text>
+      <text x="390" y="262" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">HSC pseudotime ordering</text>
+      <text x="390" y="262" text-anchor="middle" font-size="11" fill="#555" class="lang-en">HSC pseudotime ordering</text>
+
+      <rect x="540" y="220" width="220" height="60" rx="14" fill="#fff5e6" stroke="#ffb380" stroke-width="2"/>
+      <text x="650" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#b85f25" class="lang-kr">clusterProfiler — GO BP</text>
+      <text x="650" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#b85f25" class="lang-en">clusterProfiler — GO BP</text>
+      <text x="650" y="262" text-anchor="middle" font-size="11" fill="#555" class="lang-kr">v4.6 DEG enrichment</text>
+      <text x="650" y="262" text-anchor="middle" font-size="11" fill="#555" class="lang-en">v4.6 DEG enrichment</text>
+
+      <text x="500" y="50" text-anchor="middle" font-size="15" font-weight="bold" fill="#5a4fcf" class="lang-kr">분석 파이프라인 — Seurat → Harmony → CellChat → NicheNet (+ Monocle + GO)</text>
+      <text x="500" y="50" text-anchor="middle" font-size="15" font-weight="bold" fill="#5a4fcf" class="lang-en">Pipeline — Seurat → Harmony → CellChat → NicheNet (+ Monocle + GO)</text>
+      <text x="500" y="320" text-anchor="middle" font-size="12" fill="#666" class="lang-kr">모든 단계에서 5단계(AGM/FL/FBM/YBM/OBM)를 평행 비교</text>
+      <text x="500" y="320" text-anchor="middle" font-size="12" fill="#666" class="lang-en">Every step compared in parallel across AGM / FL / FBM / YBM / OBM</text>
+    </svg>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <h4>🧬
+          <span class="lang-kr">데이터 규모</span>
+          <span class="lang-en">Dataset scale</span>
+        </h4>
+        <ul>
+          <li><span class="lang-kr">AGM: 23,732 세포 (7 샘플, 2 데이터셋)</span><span class="lang-en">AGM: 23,732 cells (7 samples, 2 datasets)</span></li>
+          <li><span class="lang-kr">FL: 217,693 세포 (31 샘플, 4 데이터셋)</span><span class="lang-en">FL: 217,693 cells (31 samples, 4 datasets)</span></li>
+          <li><span class="lang-kr">FBM: 134,261 세포 (20 샘플, 3 데이터셋)</span><span class="lang-en">FBM: 134,261 cells (20 samples, 3 datasets)</span></li>
+          <li><span class="lang-kr">YBM: 97,614 세포 (16 샘플)</span><span class="lang-en">YBM: 97,614 cells (16 samples)</span></li>
+          <li><span class="lang-kr">OBM: 82,742 세포 (12 샘플)</span><span class="lang-en">OBM: 82,742 cells (12 samples)</span></li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <h4>📊
+          <span class="lang-kr">소프트웨어 버전</span>
+          <span class="lang-en">Software stack</span>
+        </h4>
+        <ul>
+          <li>Seurat v4.3</li>
+          <li>Harmony v1.2</li>
+          <li>CellChat v2.1</li>
+          <li>NicheNet v2.1</li>
+          <li>Monocle v2.32</li>
+          <li>clusterProfiler v4.6</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================== -->
+<!-- TAB 3 — RESULTS -->
+<!-- =========================================================== -->
+<div class="tab-content" id="t3">
+
+  <div class="panel">
+    <h2>💡
+      <span class="lang-kr">세 가지 핵심 결과</span>
+      <span class="lang-en">Three core findings</span>
+    </h2>
+
+    <div class="outcomes">
+      <div class="outcome-card pink">
+        <div class="icon">📈</div>
+        <span class="source-tag">Fig 2-3</span>
+        <h3>
+          <span class="lang-kr">Biphasic 신호 동역학</span>
+          <span class="lang-en">Biphasic signaling dynamics</span>
+        </h3>
+        <ul>
+          <li><span class="lang-kr">발생: AGM&lt;FL&lt;FBM 증가</span><span class="lang-en">Development: AGM&lt;FL&lt;FBM rise</span></li>
+          <li><span class="lang-kr">노화: FBM&gt;YBM ↓, OBM 재증가</span><span class="lang-en">Aging: FBM→YBM dip, OBM rebound</span></li>
+          <li><span class="lang-kr">단순 감소 모델 깨짐</span><span class="lang-en">Breaks monotonic-decline model</span></li>
+        </ul>
+      </div>
+
+      <div class="outcome-card purple">
+        <div class="icon">🆕</div>
+        <span class="source-tag">Fig 3d-e</span>
+        <h3>
+          <span class="lang-kr">노화-특이 송신자 등장</span>
+          <span class="lang-en">Aging-specific senders emerge</span>
+        </h3>
+        <ul>
+          <li><span class="lang-kr">Plasma → HSPC: WNT10A/WNT5B (OBM only)</span><span class="lang-en">Plasma → HSPC: WNT10A/WNT5B (OBM only)</span></li>
+          <li><span class="lang-kr">T/NK → HSPC: GZMA-PARD3 (OBM only)</span><span class="lang-en">T/NK → HSPC: GZMA-PARD3 (OBM only)</span></li>
+          <li><span class="lang-kr">MSC → HSPC: CXCL12-CXCR4 (YBM→OBM ↑)</span><span class="lang-en">MSC → HSPC: CXCL12-CXCR4 (YBM→OBM up)</span></li>
+        </ul>
+      </div>
+
+      <div class="outcome-card orange">
+        <div class="icon">🎯</div>
+        <span class="source-tag">Fig 4e-g</span>
+        <h3>
+          <span class="lang-kr">SPP1·MMP9·FCAR 핵심 ligand</span>
+          <span class="lang-en">SPP1·MMP9·FCAR top ligands</span>
+        </h3>
+        <ul>
+          <li><span class="lang-kr">SPP1↑ MSC → JUN/JUND target</span><span class="lang-en">SPP1 up in MSC → JUN/JUND target</span></li>
+          <li><span class="lang-kr">MMP9↑ Mono/Mac → FOS/VEGFA</span><span class="lang-en">MMP9 up Mono/Mac → FOS/VEGFA</span></li>
+          <li><span class="lang-kr">FCAR↑ Mono/Mac → TGFB1</span><span class="lang-en">FCAR up Mono/Mac → TGFB1</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- mechanism arrow chain -->
+    <svg viewBox="0 0 1000 280" class="scene" xmlns="http://www.w3.org/2000/svg" style="margin-top:24px;">
+      <rect x="20" y="20" width="960" height="240" rx="20" fill="#fff5e6" stroke="#ffd591" stroke-width="2"/>
+      <text x="500" y="48" text-anchor="middle" font-size="14" font-weight="bold" fill="#5a4fcf" class="lang-kr">노화 niche → HSPC AP-1 활성화 메커니즘 (NicheNet 예측)</text>
+      <text x="500" y="48" text-anchor="middle" font-size="14" font-weight="bold" fill="#5a4fcf" class="lang-en">Aged niche → HSPC AP-1 activation pathway (NicheNet prediction)</text>
+
+      <!-- sources -->
+      <ellipse cx="140" cy="140" rx="80" ry="50" fill="#e8f5e9" stroke="#2e8b57" stroke-width="3"/>
+      <text x="140" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20" class="lang-kr">MSC ↑</text>
+      <text x="140" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20" class="lang-en">MSC ↑</text>
+      <text x="140" y="155" text-anchor="middle" font-size="11" fill="#1b5e20" class="lang-kr">중간엽 기질세포</text>
+      <text x="140" y="155" text-anchor="middle" font-size="11" fill="#1b5e20" class="lang-en">mesenchymal stromal</text>
+
+      <ellipse cx="140" cy="220" rx="80" ry="35" fill="#fff0e0" stroke="#ed7d31" stroke-width="3"/>
+      <text x="140" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25" class="lang-kr">Mono/Mac + Gran</text>
+      <text x="140" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25" class="lang-en">Mono/Mac + Gran</text>
+      <text x="140" y="234" text-anchor="middle" font-size="11" fill="#b85f25" class="lang-kr">단핵구 + 과립구</text>
+      <text x="140" y="234" text-anchor="middle" font-size="11" fill="#b85f25" class="lang-en">myeloid &amp; granulocyte</text>
+
+      <!-- ligands -->
+      <rect x="320" y="100" width="120" height="36" rx="10" fill="white" stroke="#2e8b57" stroke-width="2"/>
+      <text x="380" y="123" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">SPP1</text>
+
+      <rect x="320" y="150" width="120" height="36" rx="10" fill="white" stroke="#ed7d31" stroke-width="2"/>
+      <text x="380" y="173" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25">MMP9</text>
+
+      <rect x="320" y="200" width="120" height="36" rx="10" fill="white" stroke="#ed7d31" stroke-width="2"/>
+      <text x="380" y="223" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25">FCAR</text>
+
+      <!-- arrows -->
+      <line x1="225" y1="140" x2="315" y2="118" stroke="#2e8b57" stroke-width="2" marker-end="url(#arrG)"/>
+      <line x1="225" y1="155" x2="315" y2="168" stroke="#ed7d31" stroke-width="2" marker-end="url(#arrO)"/>
+      <line x1="225" y1="215" x2="315" y2="218" stroke="#ed7d31" stroke-width="2" marker-end="url(#arrO)"/>
+
+      <defs>
+        <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2e8b57"/></marker>
+        <marker id="arrO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ed7d31"/></marker>
+        <marker id="arrP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5a4fcf"/></marker>
+      </defs>
+
+      <!-- HSPC -->
+      <circle cx="640" cy="170" r="55" fill="#ffe6f0" stroke="#d63384" stroke-width="3"/>
+      <text x="640" y="166" text-anchor="middle" font-size="13" font-weight="bold" fill="#a3296c" class="lang-kr">노화 HSPC</text>
+      <text x="640" y="166" text-anchor="middle" font-size="13" font-weight="bold" fill="#a3296c" class="lang-en">aged HSPC</text>
+      <text x="640" y="184" text-anchor="middle" font-size="11" fill="#a3296c" class="lang-kr">조혈모세포</text>
+      <text x="640" y="184" text-anchor="middle" font-size="11" fill="#a3296c" class="lang-en">hematopoietic SPC</text>
+
+      <line x1="440" y1="118" x2="585" y2="160" stroke="#5a4fcf" stroke-width="2" marker-end="url(#arrP)"/>
+      <line x1="440" y1="168" x2="585" y2="170" stroke="#5a4fcf" stroke-width="2" marker-end="url(#arrP)"/>
+      <line x1="440" y1="218" x2="585" y2="180" stroke="#5a4fcf" stroke-width="2" marker-end="url(#arrP)"/>
+
+      <!-- targets -->
+      <rect x="800" y="100" width="160" height="32" rx="8" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+      <text x="880" y="121" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a2fa0">JUN · JUND · FOS</text>
+
+      <rect x="800" y="145" width="160" height="32" rx="8" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+      <text x="880" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a2fa0">VEGFA</text>
+
+      <rect x="800" y="190" width="160" height="32" rx="8" fill="#f0e6ff" stroke="#5a4fcf" stroke-width="2"/>
+      <text x="880" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#3a2fa0">TGFB1</text>
+
+      <line x1="695" y1="150" x2="795" y2="118" stroke="#5a4fcf" stroke-width="2" marker-end="url(#arrP)"/>
+      <line x1="695" y1="170" x2="795" y2="160" stroke="#5a4fcf" stroke-width="2" marker-end="url(#arrP)"/>
+      <line x1="695" y1="195" x2="795" y2="205" stroke="#5a4fcf" stroke-width="2" marker-end="url(#arrP)"/>
+
+      <text x="280" y="80" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-kr">송신자(source)</text>
+      <text x="280" y="80" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-en">sender</text>
+      <text x="500" y="80" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-kr">ligand</text>
+      <text x="500" y="80" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-en">ligand</text>
+      <text x="880" y="80" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-kr">target gene</text>
+      <text x="880" y="80" text-anchor="middle" font-size="12" fill="#5a4fcf" class="lang-en">target gene</text>
+    </svg>
+  </div>
+
+  <!-- Deep Dive -->
+  <div class="panel">
+    <h2>📔
+      <span class="lang-kr">결과 자세히 — 펼쳐서 읽기</span>
+      <span class="lang-en">Results in Depth — expand to read</span>
+    </h2>
+
+    <details class="deep-dive" open>
+      <summary>
+        <span class="lang-kr">발견 1 — Biphasic dynamics (FBM→YBM ↓, YBM→OBM ↑) — 자세히</span>
+        <span class="lang-en">Finding 1 — Biphasic dynamics (FBM→YBM dip, YBM→OBM rebound) — read in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>5</strong>
+            <span class="unit"><span class="lang-kr">단계</span><span class="lang-en">stages</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>86</strong>
+            <span class="unit"><span class="lang-kr">샘플</span><span class="lang-en">samples</span></span>
+          </div>
+          <div class="number-chip green">
+            <strong>~576k</strong>
+            <span class="unit"><span class="lang-kr">세포</span><span class="lang-en">cells</span></span>
+          </div>
+          <div class="number-chip purple">
+            <strong>26</strong>
+            <span class="unit"><span class="lang-kr">세포 종류</span><span class="lang-en">cell types</span></span>
+          </div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how it was compared</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">CellChat v2.1으로 5개 단계 각각에서 모든 source→target cell type 쌍의 LR communication probability를 계산. 단계별로 합산해 "전체 interaction strength" 값을 비교(Fig 2B, 3B). 발생에선 AGM&lt;FL&lt;FBM으로 단조 증가, 노화에선 FBM&gt;YBM으로 감소했다가 YBM&lt;OBM으로 적응적 재증가.</span>
+          <span class="lang-en">CellChat v2.1 calculates LR communication probabilities for every source→target cell-type pair at each stage. Aggregated strength is compared across stages (Figs 2B and 3B): development is monotonic (AGM&lt;FL&lt;FBM), aging is biphasic (FBM&gt;YBM, then YBM&lt;OBM).</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"HSC aging was accompanied by a decrease in supportive niche interactions, followed by an adaptive increase in interaction strength in old adult bone marrow."</span>
+          <span class="lang-en">"HSC aging was accompanied by a decrease in supportive niche interactions, followed by an adaptive increase in interaction strength in old adult bone marrow."</span>
+          <span class="src">— <span class="lang-kr">초록 + 결과 §3.3</span><span class="lang-en">Abstract + Results §3.3</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">"노화 = 신호 감소"라는 직관을 깬다. 노인 BM의 신호망은 사실 **양적으로 더 시끄럽다** — 다만 시끄러움의 종류가 inflammaging/면역계 쪽으로 바뀌었을 뿐이다. Giwon의 D+Q 데이터에서 senolytic 후 일부 LR가 오히려 늘어나는 현상도 이 biphasic 모델로 자연스럽게 설명 가능하다 — 노인 niche의 "보상적 신호"가 D+Q 제거 후에도 잔류할 수 있음.</span>
+          <span class="lang-en">Breaks the "aging = silence" intuition. The aged BM is actually **noisier overall** — but the noise has shifted toward inflammaging and immune chatter. The biphasic model also explains why some LR pairs in Giwon's D+Q data appear to go *up* after senolytic: compensatory aged-niche signals can persist past senescent-cell clearance.</span>
+        </p>
+      </div>
+    </details>
+
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">발견 2 — OBM-특이 송신자: Plasma·T/NK·MSC — 자세히</span>
+        <span class="lang-en">Finding 2 — OBM-specific senders: plasma·T/NK·MSC — read in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>WNT10A</strong>
+            <span class="unit"><span class="lang-kr">plasma→HSPC, OBM only</span><span class="lang-en">plasma→HSPC, OBM only</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>WNT5B</strong>
+            <span class="unit"><span class="lang-kr">plasma→HSPC, OBM only</span><span class="lang-en">plasma→HSPC, OBM only</span></span>
+          </div>
+          <div class="number-chip purple">
+            <strong>GZMA-PARD3</strong>
+            <span class="unit"><span class="lang-kr">T/NK→HSPC, OBM only</span><span class="lang-en">T/NK→HSPC, OBM only</span></span>
+          </div>
+          <div class="number-chip green">
+            <strong>CXCL12-CXCR4 ↑</strong>
+            <span class="unit"><span class="lang-kr">MSC→HSPC, YBM→OBM</span><span class="lang-en">MSC→HSPC, YBM→OBM</span></span>
+          </div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how it was compared</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">FBM, YBM, OBM 세 단계의 CellChat LR pair dot plot에서 sender별로 HSPC를 향하는 유의한 LR pair만 필터링(Fig 3D plasma, 3E T/NK). 다른 단계에 없거나 매우 약한 LR pair가 OBM에서만 강하게 등장하는지를 확인.</span>
+          <span class="lang-en">CellChat LR-pair dot plots at FBM, YBM, OBM are filtered to senders signaling onto HSPC (Fig 3D plasma, 3E T/NK). LR pairs absent or weak at earlier stages but strongly active in OBM are flagged as aging-specific.</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"Plasma cell-HSPC interactions (WNT10A, WNT5B pathways): present only in OBM. T/NK cell interactions via GZMA-PARD3: specific to OBM, absent in YBM."</span>
+          <span class="lang-en">"Plasma cell-HSPC interactions (WNT10A, WNT5B pathways): present only in OBM. T/NK cell interactions via GZMA-PARD3: specific to OBM, absent in YBM."</span>
+          <span class="src">— <span class="lang-kr">결과 §3.3 (Fig 3 D-E)</span><span class="lang-en">Results §3.3 (Fig 3 D-E)</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">CellChat 결과 중 가장 강한 발견. T/NK 세포의 GZMA가 HSC에 직접 PARD3 receptor를 통해 신호 보낸다는 가설은 BM 면역-stem cell 축에선 거의 보고되지 않았다. Giwon의 v11 manuscript에서 HSPC-T cell axis 분석을 새로 추가할 leverage point — 본인의 mouse D+Q 데이터에서 GZMA·PARD3 LR pair를 확인하면 ladder 한 칸 더 오를 수 있다.</span>
+          <span class="lang-en">The strongest CellChat-side finding. The hypothesis that T/NK granzyme A signals HSCs through PARD3 has barely been reported in the BM immune-stem axis. This is a leverage point for Giwon's v11 — if the same GZMA·PARD3 pair shows up in his mouse D+Q dataset, that's a new HSPC-T axis story for the manuscript.</span>
+        </p>
+      </div>
+    </details>
+
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">발견 3 — SPP1·MMP9·FCAR가 노화 HSPC AP-1을 조종 — 자세히</span>
+        <span class="lang-en">Finding 3 — SPP1·MMP9·FCAR drive AP-1 in aged HSPC — read in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>Top 30</strong>
+            <span class="unit"><span class="lang-kr">ligand ranked</span><span class="lang-en">ligands ranked</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>SPP1</strong>
+            <span class="unit"><span class="lang-kr">MSC ↑</span><span class="lang-en">up in MSC</span></span>
+          </div>
+          <div class="number-chip purple">
+            <strong>MMP9 + FCAR</strong>
+            <span class="unit"><span class="lang-kr">Mono/Mac + Gran ↑</span><span class="lang-en">up in Mono/Mac + Gran</span></span>
+          </div>
+          <div class="number-chip green">
+            <strong>JUN·FOS·VEGFA·TGFB1</strong>
+            <span class="unit"><span class="lang-kr">예측 target</span><span class="lang-en">predicted targets</span></span>
+          </div>
+        </div>
+
+        <h4>🔬 <span class="lang-kr">무엇을 측정했고 어떻게 비교했나</span><span class="lang-en">What was measured and how it was compared</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">OBM HSPC vs YBM HSPC의 DEG를 NicheNet에 입력. NicheNet의 prior ligand-target network에서 이 DEG set를 가장 잘 설명하는 ligand를 ranking. 상위 30개 ligand 각각의 cell type별 log2FC heatmap(Fig 4F)과 예측 target gene heatmap(Fig 4G)을 출력해 어떤 ligand가 어떤 cell type에서 올라가서 어떤 target gene을 켰는지 추적.</span>
+          <span class="lang-en">DEGs from OBM HSPC vs YBM HSPC are fed to NicheNet. Its prior ligand-target network ranks ligands by how well they explain the DEG set; the top 30 are visualized as a per-cell-type log2FC heatmap (Fig 4F) and a predicted-target heatmap (Fig 4G), tracing which ligand goes up in which source and which target genes it activates.</span>
+        </p>
+
+        <div class="paper-quote">
+          <span class="lang-kr">"Elevated SPP1 and MMP9 from stromal and immune cells promote inflammatory gene expression (JUN, JUND, FOS) in aging HSCs, contributing to functional decline and myeloid-skewed differentiation despite adaptive retention mechanisms."</span>
+          <span class="lang-en">"Elevated SPP1 and MMP9 from stromal and immune cells promote inflammatory gene expression (JUN, JUND, FOS) in aging HSCs, contributing to functional decline and myeloid-skewed differentiation despite adaptive retention mechanisms."</span>
+          <span class="src">— <span class="lang-kr">고찰 §4 (Fig 4 E-G)</span><span class="lang-en">Discussion §4 (Fig 4 E-G)</span></span>
+        </div>
+
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">"노화 niche가 HSC를 망친다"는 추상 주장에 분자 단위 후보 3개(SPP1, MMP9, FCAR)를 박아 줌. Giwon의 D+Q manuscript는 이미 MSC를 가장 큰 reversal target(rank #1)으로 지목했는데, 이 논문은 MSC의 SPP1 ↑이 그 mechanistic 책임자일 수 있다고 분자 후보를 제공. 다음 실험: Veh vs DQ의 MSC pseudobulk에서 SPP1 발현을 확인 → DQ가 SPP1을 떨어뜨리는가? 그게 답이면 NicheNet target(JUN/JUND/FOS)이 HSPC에서 같이 떨어져야 한다.</span>
+          <span class="lang-en">Replaces the abstract claim "the aged niche damages HSCs" with three concrete molecular candidates (SPP1, MMP9, FCAR). Giwon's D+Q manuscript already ranks MSC as the #1 reversal target — this paper supplies SPP1 as the candidate mechanistic culprit. Next experiment: check SPP1 in Veh-vs-DQ MSC pseudobulk → if DQ lowers SPP1, the predicted NicheNet targets (JUN/JUND/FOS) should drop in HSPC too.</span>
+        </p>
+      </div>
+    </details>
+  </div>
+
+  <div class="summary-banner">
+    <span class="lang-kr">발생 5단계, 11 dataset, ~576k 세포, 26 cell type — CellChat + NicheNet이 그린 한 장의 HSC niche 시간 지도</span>
+    <span class="lang-en">5 stages, 11 datasets, ~576k cells, 26 cell types — one CellChat + NicheNet map of the HSC niche through time</span>
+  </div>
+</div>
+
+<!-- =========================================================== -->
+<!-- TAB 4 — DISCUSSION -->
+<!-- =========================================================== -->
+<div class="tab-content" id="t4">
+
+  <div class="panel">
+    <h2>🔄
+      <span class="lang-kr">이 결과가 바꾸는 패러다임</span>
+      <span class="lang-en">The paradigm this shifts</span>
+    </h2>
+
+    <div class="discussion-list">
+      <li class="discussion-item">
+        <h4>📜
+          <span class="lang-kr">예전 모델</span>
+          <span class="lang-en">Old model</span>
+        </h4>
+        <p>
+          <span class="lang-kr">"노화 niche의 신호 강도는 단조롭게 감소한다 — Cxcl12, Kitl 같은 quiescence cue가 줄어들어 HSC가 활성화되고 exhausted 된다."</span>
+          <span class="lang-en">"Aged niche signaling monotonically declines — quiescence cues like Cxcl12 and Kitl drop, HSCs get activated and exhausted."</span>
+        </p>
+      </li>
+      <li class="discussion-item">
+        <h4>🆕
+          <span class="lang-kr">새 모델</span>
+          <span class="lang-en">New model</span>
+        </h4>
+        <p>
+          <span class="lang-kr">Biphasic 모델: FBM→YBM에서 신호 감소하지만, YBM→OBM에서는 새로운 송신자(plasma, T/NK, MSC)가 적응적으로 등장해 신호가 다시 증가. 그러나 이 신호는 quiescence cue가 아니라 inflammaging cue(WNT, GZMA-PARD3, SPP1, MMP9, FCAR). HSC AP-1 활성화 → 분화 편향.</span>
+          <span class="lang-en">A biphasic model: signaling dips FBM→YBM, then rebounds YBM→OBM as new senders (plasma, T/NK, MSC) appear. The rebound is *not* quiescence support — it is inflammaging (WNT, GZMA-PARD3, SPP1, MMP9, FCAR) driving HSC AP-1 activation and lineage bias.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>🔮
+          <span class="lang-kr">함의 (Giwon에게)</span>
+          <span class="lang-en">Implication (for Giwon)</span>
+        </h4>
+        <p>
+          <span class="lang-kr">D+Q의 MSC reversal 효과(rank #1)는 단순한 senescent cell clearance가 아닐 수 있다 — MSC가 보내는 SPP1을 줄여서 HSPC의 AP-1 program을 cool down 시키는 *signaling reprogramming* 으로 재해석 가능. v11 manuscript의 "MSC가 왜 1위인가" 섹션에 추가할 만한 분자 가설.</span>
+          <span class="lang-en">D+Q's MSC reversal (rank #1) may not be about senescent-cell clearance per se — it could be reframed as MSC *signaling reprogramming*, specifically lowering SPP1 to cool the HSPC AP-1 program. A useful molecular hypothesis to plug into the v11 "why MSC ranks #1" section.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4>⚠️
+          <span class="lang-kr">한계</span>
+          <span class="lang-en">Limitations</span>
+        </h4>
+        <p>
+          <span class="lang-kr">(1) 11개 데이터셋의 sorting strategy가 다 달라 cell-type proportion 비교가 정확하지 않을 수 있음. (2) RNA 발현만 보고 protein·secretion·공간 거리는 모름. (3) CellChat·NicheNet은 모두 in silico 예측 — wet-lab validation 없음. (4) 사람 데이터라 Giwon의 mouse D+Q와 직접 fold-change 비교는 못함; 패턴 비교만 가능.</span>
+          <span class="lang-en">(1) Heterogeneous sorting across the 11 cohorts biases proportion comparisons. (2) RNA only — no protein, secretion, or spatial-distance information. (3) CellChat and NicheNet are in silico predictions with no wet-lab validation in this paper. (4) Human data — Giwon's mouse D+Q numbers can't be compared directly; only patterns transfer.</span>
+        </p>
+      </li>
+      <li class="discussion-item controversy">
+        <h4>🎯
+          <span class="lang-kr">다음 실험 (Giwon이 1주 안에 할 수 있는 것)</span>
+          <span class="lang-en">Next experiment (Giwon, within 1 week)</span>
+        </h4>
+        <p>
+          <span class="lang-kr">① Veh vs DQ의 MSC sub-cluster pseudobulk에서 Spp1 발현 확인. ② HSPC pseudobulk에서 Jun/Jund/Fos 확인 — DQ로 같이 내려가는지. ③ T/NK→HSPC GZMA-PARD3 LR pair를 본인 CellChat에 추가. 세 개 다 일치하면 v11에 한 단락(figure inset 가능) 추가할 가치 있음.</span>
+          <span class="lang-en">(1) Check Spp1 in Veh-vs-DQ MSC sub-cluster pseudobulk. (2) Check Jun/Jund/Fos in HSPC pseudobulk — do they drop with DQ? (3) Add T/NK→HSPC GZMA-PARD3 to your own CellChat. If all three line up, that's worth a paragraph (and a figure inset) in v11.</span>
+        </p>
+      </li>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>🧠
+      <span class="lang-kr">한 줄 takeaway</span>
+      <span class="lang-en">One-line takeaway</span>
+    </h2>
+    <div class="summary-banner">
+      <span class="lang-kr">노화 HSC niche는 "신호가 줄어드는 곳"이 아니라 "송신자가 바뀐 곳" — plasma·T/NK·MSC가 새로 들어와 SPP1·MMP9·FCAR로 HSC를 AP-1 모드로 끌어당긴다.</span>
+      <span class="lang-en">The aged HSC niche isn't a quieter niche — it's a niche where the *senders have changed*, with plasma, T/NK and MSC newly pumping SPP1, MMP9 and FCAR to push HSCs into AP-1 mode.</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="lang-kr">Cute schematic of <strong>Feng et al. 2024, <em>Frontiers in Molecular Biosciences</em> 11:1479605</strong></span>
+  <span class="lang-en">Cute schematic of <strong>Feng et al. 2024, <em>Frontiers in Molecular Biosciences</em> 11:1479605</strong></span>
+  <br>
+  <a href="https://doi.org/10.3389/fmolb.2024.1479605" target="_blank">📄 <span class="lang-kr">원 논문</span><span class="lang-en">Original article</span></a> ·
+  <a href="https://www.frontiersin.org/journals/molecular-biosciences/articles/10.3389/fmolb.2024.1479605/full" target="_blank">🔬 <span class="lang-kr">전문 (OA)</span><span class="lang-en">Full text (OA)</span></a>
+</footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  function toggleLang() {
+    const body = document.body;
+    if (body.classList.contains('lang-kr')) {
+      body.classList.remove('lang-kr'); body.classList.add('lang-en');
+      localStorage.setItem('paper_easy_lang', 'en');
+    } else {
+      body.classList.remove('lang-en'); body.classList.add('lang-kr');
+      localStorage.setItem('paper_easy_lang', 'kr');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('paper_easy_lang');
+    if (saved === 'en') {
+      document.body.classList.remove('lang-kr');
+      document.body.classList.add('lang-en');
+    }
+  })();
+</script>
+
+</body>
+</html>
