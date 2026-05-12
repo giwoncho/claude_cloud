@@ -38,28 +38,28 @@
     </marker>
   </defs>
 
-  <!-- ─── MYELOID node (top center) ───────────────────────────────── -->
-  <ellipse cx="760" cy="160" rx="280" ry="90"
+  <!-- ─── MYELOID node (top center) ─────────────────────────── -->
+  <ellipse cx="780" cy="140" rx="280" ry="80"
            fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
-  <text x="760" y="140" text-anchor="middle"
+  <text x="780" y="120" text-anchor="middle"
         style="font-size:16px; font-weight:600; fill:#0f172a;">
     MYELOID  ·  Neu  ·  Mac  ·  Mono
   </text>
-  <text x="760" y="160" text-anchor="middle"
+  <text x="780" y="140" text-anchor="middle"
         style="font-size:12px; font-style:italic; fill:#475569;">
     Neutrophil = federation mediator hub
   </text>
-  <text x="760" y="178" text-anchor="middle"
+  <text x="780" y="158" text-anchor="middle"
         style="font-size:10.5px; fill:#64748b;">
     Step 0 dominant source · Step 3 dominant target
   </text>
-  <text x="760" y="200" text-anchor="middle"
+  <text x="780" y="180" text-anchor="middle"
         style="font-size:11.5px; fill:#be185d; font-weight:500;">
     Lgals9 ↑ primary-granule
     <tspan dx="6" style="fill:#1d4ed8;">OSM, TNF, IL1β ↓</tspan>
   </text>
 
-  <!-- ─── MSC compartment (bottom-left) ──────────────────────────── -->
+  <!-- ─── MSC compartment (bottom-left) ─────────────────────── -->
   <rect x="60" y="540" width="460" height="300" rx="14"
         fill="#fdf2f8" stroke="#be185d" stroke-width="2.5"/>
   <text x="290" y="568" text-anchor="middle"
@@ -127,119 +127,153 @@
     SASP collapse (P=0.006)
   </text>
 
-  <!-- ─── HSPC node (right) ──────────────────────────────────────── -->
-  <ellipse cx="1280" cy="610" rx="200" ry="200"
+  <!-- ─── HSPC node (right) ──────────────────────────────────── -->
+  <ellipse cx="1300" cy="600" rx="190" ry="180"
            fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
-  <text x="1280" y="468" text-anchor="middle"
+  <text x="1300" y="462" text-anchor="middle"
         style="font-size:16px; font-weight:700; fill:#0f172a;">HSPC</text>
-  <text x="1280" y="488" text-anchor="middle"
+  <text x="1300" y="482" text-anchor="middle"
         style="font-size:10px; fill:#475569; font-style:italic;">
     7 subtypes · 2,991 cells
   </text>
 
-  <text x="1280" y="520" text-anchor="middle"
+  <text x="1300" y="514" text-anchor="middle"
         style="font-size:11.5px; fill:#be185d; font-weight:600;">
     GMP 11.4 → 19.7% (P=0.041)
   </text>
-  <text x="1280" y="538" text-anchor="middle"
+  <text x="1300" y="532" text-anchor="middle"
         style="font-size:11px; fill:#be185d; font-weight:500;">
     CLP V(D)J priming 7/7 (P=0.008)
   </text>
-
-  <text x="1280" y="568" text-anchor="middle"
+  <text x="1300" y="562" text-anchor="middle"
         style="font-size:11.5px; fill:#1d4ed8; font-weight:600;">
     Hlf · Mecom · Mpl · Hoxb5 · Meis1 ↓
   </text>
-  <text x="1280" y="586" text-anchor="middle"
+  <text x="1300" y="580" text-anchor="middle"
         style="font-size:11.5px; fill:#1d4ed8; font-weight:500;">
     Fos · Fosl2 · Egr1 ↓ (AP-1, FDR-sig)
   </text>
-
-  <text x="1280" y="618" text-anchor="middle"
+  <text x="1300" y="610" text-anchor="middle"
         style="font-size:11.5px; fill:#1e293b; font-weight:500;">
     Pseudotime → LT-HSC root cohesion
   </text>
-  <text x="1280" y="634" text-anchor="middle"
+  <text x="1300" y="626" text-anchor="middle"
         style="font-size:10px; fill:#64748b;">
     KS P = 9.7×10⁻⁶, Δ = −0.107
   </text>
-
-  <text x="1280" y="664" text-anchor="middle"
+  <text x="1300" y="654" text-anchor="middle"
         style="font-size:10.5px; fill:#1d4ed8; font-weight:500;">
     Hallmark TNF/NF-κB ↓ (adj P=1.2e-6)
   </text>
-  <text x="1280" y="682" text-anchor="middle"
+  <text x="1300" y="670" text-anchor="middle"
         style="font-size:10.5px; fill:#1d4ed8; font-weight:500;">
     KEGG Rap1 / MAPK / Circadian ↓
   </text>
-  <text x="1280" y="704" text-anchor="middle"
+  <text x="1300" y="688" text-anchor="middle"
         style="font-size:10.5px; fill:#1d4ed8; font-weight:500;">
     Osmr, Il1r1 receptor desensitization
   </text>
 
-  <!-- =================== ARROWS WITH FULL TEXT LABELS =================== -->
-
-  <!-- Step 1 — myeloid → MSC: LEFT-side curve, label OUTSIDE on LEFT -->
-  <path d="M 580 230 Q 380 380 290 540"
+  <!-- =================== ARROWS WITH TEXT LABELS ON-LINE =================== -->
+  <!-- Step 1 — myeloid → MSC: LEFT diagonal -->
+  <path d="M 580 215 Q 380 380 260 540"
         stroke="#0f172a" stroke-width="2.4" fill="none"
         marker-end="url(#arrowK)"/>
-  <!-- Step 1 label block: far left, x=40-300, y=320-450 (no overlap) -->
-  <text x="40" y="340"
-        style="font-size:14px; font-weight:700; fill:#0f172a;">Step 1 — myeloid → MSC</text>
-  <text x="40" y="358"
-        style="font-size:11px; font-style:italic; fill:#475569;">SASP input collapse</text>
-  <text x="40" y="382"
-        style="font-size:11px; fill:#1d4ed8; font-weight:600;">OSM Neu −6.17×10⁻⁶ ↓</text>
-  <text x="40" y="400"
-        style="font-size:11px; fill:#1d4ed8; font-weight:500;">TNF Neu→MSC (Veh 2.83e-6 → DQ 0)</text>
-  <text x="40" y="418"
-        style="font-size:11px; fill:#1d4ed8; font-weight:500;">GRN Mono/Mac/pDC/cDC → 0</text>
-  <text x="40" y="438"
-        style="font-size:10.5px; fill:#be185d; font-weight:500;">Lgals9 / App / Col1a2 emerge</text>
+  <!-- Step 1 label block — LEFT side, no overlap region (x=40-330, y=290-440) -->
+  <text x="58" y="310"
+        style="font-size:14px; font-weight:700; fill:#0f172a;">
+    Step 1 — myeloid → MSC
+  </text>
+  <text x="58" y="328"
+        style="font-size:11px; font-style:italic; fill:#475569;">
+    SASP input collapse
+  </text>
+  <text x="58" y="352"
+        style="font-size:11px; fill:#1d4ed8; font-weight:600;">
+    OSM (Neu) −6.17×10⁻⁶ ↓
+  </text>
+  <text x="58" y="370"
+        style="font-size:11px; fill:#1d4ed8; font-weight:500;">
+    TNF (Neu → MSC) gone
+  </text>
+  <text x="58" y="388"
+        style="font-size:11px; fill:#1d4ed8; font-weight:500;">
+    GRN (Mono/Mac/pDC/cDC) → 0
+  </text>
+  <text x="58" y="406"
+        style="font-size:11px; fill:#be185d; font-weight:500;">
+    Lgals9 / App / Col1a2 emerge
+  </text>
 
-  <!-- Step 3 — MSC → myeloid: RIGHT-side curve, PINK, label on RIGHT side -->
-  <path d="M 410 540 Q 600 380 740 250"
+  <!-- Step 3 — MSC → myeloid: RIGHT-of-center diagonal (pink), well separated from Step 1 -->
+  <path d="M 430 540 Q 600 380 720 215"
         stroke="#be185d" stroke-width="2.7" fill="none"
         marker-end="url(#arrowPk)"/>
-  <!-- Step 3 label block: between Step1 arrow and Step0 arrow, x=620-900, y=310-440 -->
-  <text x="660" y="338"
-        style="font-size:14px; font-weight:700; fill:#be185d;">★ Step 3 NEW — MSC → myeloid</text>
-  <text x="660" y="356"
-        style="font-size:11px; font-style:italic; fill:#9d174d;">federation closure (v11 novel)</text>
-  <text x="660" y="380"
-        style="font-size:11px; fill:#be185d; font-weight:600;">ADIPONECTIN +7.7×10⁻⁵ ↑</text>
-  <text x="660" y="398"
-        style="font-size:11px; fill:#be185d; font-weight:500;">CXCL12 +5.6×10⁻⁵ ↑</text>
-  <text x="660" y="416"
-        style="font-size:11px; fill:#1d4ed8; font-weight:500;">COMPLEMENT → 0 (−4.0×10⁻⁵)</text>
-  <text x="660" y="434"
-        style="font-size:11px; fill:#1d4ed8; font-weight:500;">GRN → 0 (−1.2×10⁻⁵)</text>
+  <!-- Step 3 label block — RIGHT of corridor, x=540-770, y=290-440 -->
+  <text x="540" y="310"
+        style="font-size:14px; font-weight:700; fill:#be185d;">
+    ★ Step 3 NEW — MSC → myeloid
+  </text>
+  <text x="540" y="328"
+        style="font-size:11px; font-style:italic; fill:#9d174d;">
+    federation closure (v11 novel)
+  </text>
+  <text x="540" y="352"
+        style="font-size:11px; fill:#be185d; font-weight:600;">
+    ADIPONECTIN +7.7×10⁻⁵ ↑
+  </text>
+  <text x="540" y="370"
+        style="font-size:11px; fill:#be185d; font-weight:500;">
+    CXCL12 +5.6×10⁻⁵ ↑
+  </text>
+  <text x="540" y="388"
+        style="font-size:11px; fill:#1d4ed8; font-weight:500;">
+    COMPLEMENT → 0 (−4.0×10⁻⁵)
+  </text>
+  <text x="540" y="406"
+        style="font-size:11px; fill:#1d4ed8; font-weight:500;">
+    GRN → 0 (−1.2×10⁻⁵)
+  </text>
 
-  <!-- Step 0 — myeloid → HSPC: TOP-RIGHT curve, label ABOVE path -->
-  <path d="M 940 215 Q 1180 290 1190 410"
-        stroke="#0f172a" stroke-width="2.2" fill="none"
-        marker-end="url(#arrowK)"/>
-  <!-- Step 0 label block: x=1010-1320, y=250-360 -->
-  <text x="1030" y="270"
-        style="font-size:14px; font-weight:700; fill:#0f172a;">Step 0 — myeloid → HSPC (direct)</text>
-  <text x="1030" y="288"
-        style="font-size:11px; font-style:italic; fill:#475569;">SASP bypass collapse</text>
-  <text x="1030" y="312"
-        style="font-size:11px; fill:#1d4ed8; font-weight:600;">VISFATIN (Nampt) −2.15×10⁻⁵</text>
-  <text x="1030" y="330"
-        style="font-size:11px; fill:#1d4ed8; font-weight:500;">Il1b −1.67×10⁻⁵ · TNF −8.1×10⁻⁶</text>
-  <text x="1030" y="348"
-        style="font-size:11px; fill:#be185d; font-weight:600;">Lgals9 +4.74×10⁻⁶ ↑ unique riser</text>
-
-  <!-- Step 2 — MSC → HSPC: horizontal, label BELOW path -->
-  <path d="M 530 700 Q 800 820 1080 700"
+  <!-- Step 0 — myeloid → HSPC: TOP-RIGHT curve, label ABOVE -->
+  <path d="M 980 200 Q 1190 280 1200 420"
         stroke="#0f172a" stroke-width="2.4" fill="none"
         marker-end="url(#arrowK)"/>
-  <!-- Step 2 label block: x=560-1050, y=870-980 (well below path) -->
+  <!-- Step 0 label block — TOP-RIGHT, x=950-1320, y=240-380 -->
+  <text x="985" y="260"
+        style="font-size:14px; font-weight:700; fill:#0f172a;">
+    Step 0 — myeloid → HSPC (direct)
+  </text>
+  <text x="985" y="278"
+        style="font-size:11px; font-style:italic; fill:#475569;">
+    SASP bypass collapse
+  </text>
+  <text x="985" y="302"
+        style="font-size:11px; fill:#1d4ed8; font-weight:600;">
+    VISFATIN (Nampt) −2.15×10⁻⁵
+  </text>
+  <text x="985" y="320"
+        style="font-size:11px; fill:#1d4ed8; font-weight:500;">
+    Il1b −1.67×10⁻⁵ · TNF −8.1×10⁻⁶
+  </text>
+  <text x="985" y="338"
+        style="font-size:11px; fill:#be185d; font-weight:600;">
+    Lgals9 +4.74×10⁻⁶ ↑ unique riser
+  </text>
+
+  <!-- Step 2 — MSC → HSPC: bottom curve -->
+  <path d="M 520 700 Q 820 830 1110 700"
+        stroke="#0f172a" stroke-width="2.4" fill="none"
+        marker-end="url(#arrowK)"/>
+  <!-- Step 2 label block — BELOW path, x=520-1100, y=880-980 -->
   <text x="800" y="892" text-anchor="middle"
-        style="font-size:14px; font-weight:700; fill:#0f172a;">Step 2 — MSC → HSPC</text>
+        style="font-size:14px; font-weight:700; fill:#0f172a;">
+    Step 2 — MSC → HSPC
+  </text>
   <text x="800" y="910" text-anchor="middle"
-        style="font-size:11px; font-style:italic; fill:#475569;">niche secretome swap</text>
+        style="font-size:11px; font-style:italic; fill:#475569;">
+    niche secretome swap
+  </text>
   <text x="800" y="934" text-anchor="middle"
         style="font-size:11.5px; fill:#be185d; font-weight:600;">
     CXCL12-CXCR4 +2.98×10⁻⁶ (single largest ΔP_int rise)
@@ -254,88 +288,85 @@
   </text>
 
   <!-- ============== Cross-compartment integrators ============== -->
-  <rect x="40" y="1020" width="700" height="86" rx="6"
+  <rect x="40" y="1010" width="700" height="86" rx="6"
         fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.4"/>
-  <text x="390" y="1042" text-anchor="middle"
+  <text x="390" y="1032" text-anchor="middle"
         style="font-size:13px; font-weight:700; fill:#0f172a;">
     Cross-compartment integrator A — TGF axis collapse
   </text>
-  <text x="390" y="1062" text-anchor="middle"
+  <text x="390" y="1052" text-anchor="middle"
         style="font-size:11px; fill:#1d4ed8; font-weight:500;">
     Tgfbr2 6 sig sub-states + Smad3 5 sig sub-states (24/26 directionally down)
   </text>
-  <text x="390" y="1082" text-anchor="middle"
+  <text x="390" y="1072" text-anchor="middle"
         style="font-size:10.5px; fill:#475569;">
     T-naive Tgfbr2 −0.22 (P=0.005) · T-exhausted P=0.022 · B-Plasma P=0.037 · Mac-M1 P=0.040
   </text>
-  <text x="390" y="1098" text-anchor="middle"
+  <text x="390" y="1088" text-anchor="middle"
         style="font-size:10.5px; fill:#475569; font-style:italic;">
     sender-side TGFb pathway 0↑/9↓ (Fig 3) ↔ receiver-side Tgfbr2 cross-compartment (Fig 4)
   </text>
 
-  <rect x="760" y="1020" width="700" height="86" rx="6"
+  <rect x="760" y="1010" width="700" height="86" rx="6"
         fill="#fce7f3" stroke="#be185d" stroke-width="1.4"/>
-  <text x="1110" y="1042" text-anchor="middle"
+  <text x="1110" y="1032" text-anchor="middle"
         style="font-size:13px; font-weight:700; fill:#0f172a;">
     Cross-compartment integrator B — Lgals9 multi-source emergence
   </text>
-  <text x="1110" y="1062" text-anchor="middle"
+  <text x="1110" y="1052" text-anchor="middle"
         style="font-size:11px; fill:#be185d; font-weight:500;">
     4 sub-state simultaneous emergence (Fig 4 mediator anchor)
   </text>
-  <text x="1110" y="1082" text-anchor="middle"
+  <text x="1110" y="1072" text-anchor="middle"
         style="font-size:10.5px; fill:#475569;">
     Neu primary-granule (P=0.010) · MSC-Osteo (+0.46) · Mac tissue-resident (P=0.010) · Mac MHCII (P=0.025) · T cycling (P=0.044)
   </text>
-  <text x="1110" y="1098" text-anchor="middle"
+  <text x="1110" y="1088" text-anchor="middle"
         style="font-size:10.5px; fill:#475569; font-style:italic;">
     convergent niche-supportive ligand → HSPC CD44 / Havcr2
   </text>
 
   <!-- ============== Chromatin layer ============== -->
-  <rect x="40" y="1130" width="1420" height="100" rx="10"
+  <rect x="40" y="1120" width="1420" height="100" rx="10"
         fill="#f8fafc" stroke="#475569" stroke-width="2"/>
-  <text x="750" y="1156" text-anchor="middle"
+  <text x="750" y="1146" text-anchor="middle"
         style="font-size:16px; font-weight:700; fill:#0f172a;">
     Chromatin layer — "armed but quiet" stem identity preservation
   </text>
 
-  <!-- RNA half -->
-  <rect x="60" y="1170" width="640" height="50" rx="4"
+  <rect x="60" y="1160" width="640" height="50" rx="4"
         fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.2"/>
-  <text x="380" y="1187" text-anchor="middle"
+  <text x="380" y="1177" text-anchor="middle"
         style="font-size:11.5px; font-weight:700; fill:#1d4ed8;">
     RNA (HSPC pseudobulk D+Q vs Veh)
   </text>
-  <text x="380" y="1203" text-anchor="middle"
+  <text x="380" y="1193" text-anchor="middle"
         style="font-size:10.5px; fill:#1e293b;">
     Self-renewal TFs (Hlf, Mecom, Mpl, Hoxb5, Meis1, Hoxa9, Erg) log₂FC <tspan style="fill:#1d4ed8; font-weight:600;">−0.09 to −0.55</tspan>
   </text>
-  <text x="380" y="1217" text-anchor="middle"
+  <text x="380" y="1207" text-anchor="middle"
         style="font-size:10.5px; fill:#475569;">
     Stress TFs Fos −0.53, Egr1 −0.56, Atf3 −0.22 down
   </text>
 
-  <!-- arrow ⇄ -->
-  <text x="750" y="1190" text-anchor="middle"
+  <text x="750" y="1180" text-anchor="middle"
         style="font-size:24px; font-weight:700; fill:#475569;">⇄</text>
-  <text x="750" y="1212" text-anchor="middle"
+  <text x="750" y="1202" text-anchor="middle"
         style="font-size:10px; font-style:italic; fill:#64748b;">
     Spearman r = 0.21 (decoupled)
   </text>
 
-  <!-- ATAC half -->
-  <rect x="800" y="1170" width="640" height="50" rx="4"
+  <rect x="800" y="1160" width="640" height="50" rx="4"
         fill="#fdf2f8" stroke="#be185d" stroke-width="1.2"/>
-  <text x="1120" y="1187" text-anchor="middle"
+  <text x="1120" y="1177" text-anchor="middle"
         style="font-size:11.5px; font-weight:700; fill:#be185d;">
     ATAC motif-binding-site accessibility
   </text>
-  <text x="1120" y="1203" text-anchor="middle"
+  <text x="1120" y="1193" text-anchor="middle"
         style="font-size:10.5px; fill:#1e293b;">
     21 TFs · &gt;100,000 motif peaks · median Δ access ≈ <tspan style="fill:#1d4ed8; font-weight:600;">−0.013</tspan>
   </text>
-  <text x="1120" y="1217" text-anchor="middle"
+  <text x="1120" y="1207" text-anchor="middle"
         style="font-size:10.5px; fill:#be185d; font-weight:600;">
     88–93% peaks preserved (|Δ|&lt;0.1) regardless of RNA direction
   </text>
@@ -353,7 +384,7 @@
 
   <div>
     <h3>HSPC molecular consequences</h3>
-    <p>Within the HSPC compartment, D+Q drives GMP expansion (11.4 → 19.7%, P=0.041) and CLP lymphoid priming (V(D)J commitment panel 7/7 expected direction, binomial P=0.008). Self-renewal transcription factors (Hlf, Mecom, Mpl, Hoxb5, Meis1) and AP-1 family members (Fos, Egr1) are significantly downregulated at the RNA level. Pseudotime analysis demonstrates LT-HSC root cohesion (KS P=9.7×10⁻⁶), a developmental rewind that is HSPC-specific and not observed at comparable magnitude in other lineage-progressive compartments.</p>
+    <p>Within the HSPC compartment, D+Q drives GMP expansion (11.4 → 19.7%, P=0.041) and CLP lymphoid priming (V(D)J commitment panel 7/7 expected direction, binomial P=0.008). Self-renewal transcription factors (Hlf, Mecom, Mpl, Hoxb5, Meis1) and AP-1 family members (Fos, Egr1) are significantly downregulated at the RNA level. Pseudotime analysis demonstrates LT-HSC root cohesion (KS P=9.7×10⁻⁶), a developmental rewind that is HSPC-specific.</p>
 
     <h3>Chromatin grammar preservation ("armed but quiet")</h3>
     <p>Genome-wide RNA-ATAC concordance reveals weak coupling (Spearman r=0.207) with self-renewal TFs clustering in the RNA-down + ATAC-preserved quadrant. Direct motif-binding-site analysis (21 TFs, &gt;100,000 motif peaks) confirms 88–93% of peaks show |Δ log₂FC| &lt; 0.1 regardless of RNA direction. This bivalent priming signature provides the molecular basis for transient transcriptional reset without permanent erasure of stem identity.</p>
