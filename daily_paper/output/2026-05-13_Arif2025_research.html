@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Arif 2025 — Lysosomes rejuvenate aged HSCs (cute · research)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Quicksand', 'Comic Sans MS', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: white; padding: 28px; border-radius: 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; position: relative; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 10px; }
+  header .subtitle { color: #6c757d; font-size: 14px; }
+  header .citation { color: #999; font-size: 12px; margin-top: 4px; font-style: italic; }
+  header .emoji { font-size: 32px; margin-bottom: 8px; }
+  header .type-badge { display: inline-block; margin-top: 10px; padding: 4px 14px;
+    background: linear-gradient(135deg,#ffd6e7,#fff5e6); border: 2px solid #ffb3d4;
+    border-radius: 14px; font-size: 12px; font-weight: bold; color: #d63384; }
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-bottom: 24px; background: white; padding: 10px; border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(100,130,200,0.1); }
+  .tab-btn { border: 2px solid transparent; background: #fef6f9; padding: 14px 16px;
+    border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 14px;
+    font-weight: 600; color: #888; transition: all 0.25s; display: flex;
+    flex-direction: column; align-items: center; gap: 4px; }
+  .tab-btn .tab-emoji { font-size: 22px; }
+  .tab-btn:hover { background: #fff0f5; color: #5a4fcf; transform: translateY(-2px); }
+  .tab-btn.active { background: linear-gradient(135deg,#ffd6e7 0%,#fff5e6 100%);
+    color: #d63384; border-color: #ffb3d4;
+    box-shadow: 0 4px 12px rgba(255,150,200,0.3); }
+  .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+  .panel { background: white; border-radius: 20px; padding: 28px; margin-bottom: 24px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); border: 2px solid #fff; }
+  .panel h2 { font-size: 19px; color: #5a4fcf; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 15px; color: #5a4fcf; margin: 16px 0 8px; }
+  .scene { display: block; margin: 12px auto; max-width: 100%; }
+  .bubble { background: #fff5e6; padding: 14px 18px; border-radius: 16px;
+    border: 2px solid #ffd591; font-size: 14px; margin: 12px 0; }
+  .bubble.pink { background: #ffe6f0; border-color: #ffb3d4; }
+  .bubble.blue { background: #e6f0ff; border-color: #91b8e0; }
+  .bubble.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .bubble.purple { background: #f0e6ff; border-color: #b89ce0; }
+  .bubble.orange { background: #fff0e0; border-color: #ffb380; }
+  .outcomes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 20px; }
+  .outcome-card { border-radius: 18px; padding: 20px; text-align: center;
+    border: 3px solid; background: white; transition: transform 0.2s; }
+  .outcome-card:hover { transform: translateY(-4px); }
+  .outcome-card.pink { border-color: #d63384; background: linear-gradient(180deg,#fff,#ffe6f0); }
+  .outcome-card.blue { border-color: #5b9bd5; background: linear-gradient(180deg,#fff,#e9f1fa); }
+  .outcome-card.orange { border-color: #ed7d31; background: linear-gradient(180deg,#fff,#fdf0e6); }
+  .outcome-card.green { border-color: #2e8b57; background: linear-gradient(180deg,#fff,#e7f3e4); }
+  .outcome-card.purple { border-color: #5a4fcf; background: linear-gradient(180deg,#fff,#f0e6ff); }
+  .outcome-card .icon { font-size: 42px; margin-bottom: 8px; }
+  .outcome-card h3 { font-size: 15px; margin-bottom: 6px; color: #3a4252; }
+  .outcome-card ul { list-style: none; text-align: left; font-size: 13px; }
+  .outcome-card li { padding: 3px 0; }
+  .summary-banner { background: linear-gradient(135deg,#ffd591 0%,#ffb3d4 50%,#91b8e0 100%);
+    padding: 24px; border-radius: 20px; text-align: center; color: white;
+    font-size: 16px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.15); margin-top: 20px; }
+  .discussion-list { list-style: none; padding: 0; }
+  .discussion-item { background: #fafbff; border-left: 5px solid #5a4fcf;
+    padding: 16px 20px; border-radius: 8px; margin-bottom: 12px; }
+  .discussion-item.limitation { border-left-color: #ed7d31; background: #fdf0e6; }
+  .discussion-item.future { border-left-color: #6aaa64; background: #e7f3e4; }
+  .discussion-item h4 { font-size: 14px; margin-bottom: 6px; color: #5a4fcf; }
+  .discussion-item.limitation h4 { color: #b85f25; }
+  .discussion-item.future h4 { color: #4a7c47; }
+  .discussion-item p { font-size: 13px; color: #555; line-height: 1.6; }
+  .qa-flow { background: linear-gradient(135deg,#fff5e6 0%,#ffe6f0 100%);
+    padding: 20px; border-radius: 16px; margin-top: 12px; }
+  .qa-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+  .qa-q, .qa-a { padding: 12px 16px; border-radius: 14px; font-size: 13px; flex: 1; }
+  .qa-q { background: #ffe6f0; border: 2px solid #ffb3d4; }
+  .qa-a { background: #e6f0ff; border: 2px solid #91b8e0; }
+  details.deep-dive { margin: 14px 0; background: #fafbff; border: 2px solid #e0e6f5;
+    border-radius: 14px; padding: 14px 18px; transition: background 0.2s; }
+  details.deep-dive[open] { background: linear-gradient(180deg,#fff,#fafbff);
+    border-color: #b89ce0; box-shadow: 0 4px 12px rgba(100,130,200,0.08); }
+  details.deep-dive summary { cursor: pointer; font-size: 14px; font-weight: 600;
+    color: #5a4fcf; padding: 4px 0; user-select: none; list-style: none;
+    display: flex; align-items: center; gap: 8px; }
+  details.deep-dive summary::-webkit-details-marker { display: none; }
+  details.deep-dive summary::before { content: '▶'; display: inline-block;
+    transition: transform 0.2s; color: #d63384; font-size: 11px; }
+  details.deep-dive[open] summary::before { transform: rotate(90deg); }
+  details.deep-dive .body { margin-top: 14px; padding-top: 12px; border-top: 1px dashed #e0e6f5; }
+  details.deep-dive .body h4 { color: #5a4fcf; font-size: 13px; margin: 14px 0 8px;
+    display: flex; align-items: center; gap: 6px; font-weight: 700; }
+  details.deep-dive .body h4:first-child { margin-top: 0; }
+  .narrative { font-size: 13.5px; line-height: 1.75; color: #444; margin: 6px 0 12px; }
+  .narrative strong { color: #5a4fcf; }
+  .numbers-strip { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 14px; }
+  .number-chip { background: linear-gradient(135deg,#ffe6f0,#fff5e6);
+    border: 2px solid #ffb3d4; border-radius: 12px; padding: 8px 14px;
+    font-size: 12px; min-width: 80px; text-align: center; }
+  .number-chip strong { display: block; color: #d63384; font-size: 17px;
+    font-weight: bold; line-height: 1.2; }
+  .number-chip .unit { color: #888; font-size: 11px; display: block; margin-top: 2px; }
+  .number-chip.blue { background: linear-gradient(135deg,#e6f0ff,#fff);
+    border-color: #91b8e0; }
+  .number-chip.blue strong { color: #5b9bd5; }
+  .number-chip.green { background: linear-gradient(135deg,#e8f5e9,#fff);
+    border-color: #a5d6a7; }
+  .number-chip.green strong { color: #2e8b57; }
+  .number-chip.purple { background: linear-gradient(135deg,#f0e6ff,#fff);
+    border-color: #b89ce0; }
+  .number-chip.purple strong { color: #5a4fcf; }
+  .paper-quote { background: #fff5e6; border-left: 4px solid #d63384;
+    padding: 12px 16px 12px 20px; margin: 10px 0 14px; font-style: italic;
+    font-size: 13px; color: #6c3a52; border-radius: 0 12px 12px 0; line-height: 1.65; }
+  .paper-quote .src { display: block; margin-top: 8px; font-size: 11px;
+    font-style: normal; color: #999; text-align: right; }
+  .figure-tree { margin: 16px 0; display: flex; flex-direction: column; gap: 14px; }
+  details.fig-node { background: linear-gradient(135deg,#fff,#fff5e6);
+    border: 3px solid #ffb3d4; border-radius: 18px; padding: 14px 18px;
+    box-shadow: 0 4px 14px rgba(255,150,200,0.14); transition: background 0.2s; }
+  details.fig-node[open] { background: linear-gradient(135deg,#fff,#ffeef5);
+    box-shadow: 0 6px 18px rgba(255,150,200,0.20); }
+  details.fig-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px; padding: 4px 0;
+    font-weight: 700; user-select: none; }
+  details.fig-node > summary::-webkit-details-marker { display: none; }
+  details.fig-node > summary::before { content: '▶'; font-size: 12px; color: #d63384;
+    transition: transform 0.2s; flex-shrink: 0; }
+  details.fig-node[open] > summary::before { transform: rotate(90deg); }
+  details.fig-node .fig-num { background: #d63384; color: white;
+    padding: 5px 14px; border-radius: 12px; font-size: 13px;
+    font-weight: bold; flex-shrink: 0; letter-spacing: 0.5px; }
+  details.fig-node .fig-claim { font-size: 14.5px; flex: 1; color: #5a4fcf; line-height: 1.5; }
+  details.fig-node .fig-body { margin-top: 14px; padding: 4px 0 4px 18px;
+    border-left: 3px dashed #ffb3d4; display: flex; flex-direction: column; gap: 8px; }
+  details.fig-node .fig-overview { font-size: 13px; color: #555;
+    background: #fff5e6; padding: 10px 14px; border-radius: 12px;
+    line-height: 1.65; border: 1px solid #ffd591; margin-bottom: 4px; }
+  details.panel-node { background: white; border: 2px solid #91b8e0;
+    border-radius: 12px; padding: 10px 14px; transition: background 0.2s; }
+  details.panel-node[open] { background: linear-gradient(135deg,#fff,#e6f0ff);
+    box-shadow: 0 3px 8px rgba(91,155,213,0.15); }
+  details.panel-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 10px; padding: 2px 0;
+    font-size: 13px; user-select: none; flex-wrap: wrap; }
+  details.panel-node > summary::-webkit-details-marker { display: none; }
+  details.panel-node > summary::before { content: '▸'; font-size: 11px;
+    color: #5b9bd5; transition: transform 0.2s; flex-shrink: 0; }
+  details.panel-node[open] > summary::before { transform: rotate(90deg); }
+  details.panel-node .panel-letter { background: #5b9bd5; color: white;
+    width: 26px; height: 26px; border-radius: 7px; display: inline-flex;
+    align-items: center; justify-content: center; font-weight: bold;
+    font-size: 12px; flex-shrink: 0; }
+  details.panel-node .panel-exp-type { color: #5a4fcf; font-weight: 600; }
+  details.panel-node .panel-tldr { color: #666; font-size: 12px;
+    margin-left: auto; font-style: italic; }
+  details.panel-node .panel-body { margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed #e0e6f5; display: flex; flex-direction: column; gap: 10px; }
+  .panel-block { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.65; }
+  .panel-block.exptype { background: #f0e6ff; border-left: 4px solid #5a4fcf; }
+  .panel-block.analogy { background: #fff5e6; border-left: 4px solid #ffb380; }
+  .panel-block.result  { background: #e6f0ff; border-left: 4px solid #5b9bd5; }
+  .panel-block.meaning { background: #e8f5e9; border-left: 4px solid #6aaa64; }
+  .panel-block strong { display: block; margin-bottom: 5px; font-size: 12px; letter-spacing: 0.3px; }
+  .panel-block.exptype strong { color: #5a4fcf; }
+  .panel-block.analogy strong { color: #b85f25; }
+  .panel-block.result  strong { color: #2a6ea3; }
+  .panel-block.meaning strong { color: #4a7c47; }
+  details.method-deep { margin: 12px 0; background: white;
+    border: 2px solid #b89ce0; border-radius: 16px; padding: 14px 18px;
+    box-shadow: 0 4px 12px rgba(100,80,200,0.08); transition: background 0.2s; }
+  details.method-deep[open] { background: linear-gradient(135deg,#fff,#f0e6ff);
+    border-color: #5a4fcf; box-shadow: 0 6px 18px rgba(100,80,200,0.15); }
+  details.method-deep > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px; font-weight: 700; color: #5a4fcf;
+    font-size: 14.5px; padding: 4px 0; user-select: none; }
+  details.method-deep > summary::-webkit-details-marker { display: none; }
+  details.method-deep > summary::before { content: '▶'; font-size: 12px;
+    color: #5a4fcf; transition: transform 0.2s; flex-shrink: 0; }
+  details.method-deep[open] > summary::before { transform: rotate(90deg); }
+  details.method-deep .method-icon { font-size: 22px; flex-shrink: 0; }
+  details.method-deep .method-name { flex: 1; }
+  details.method-deep .method-shorttag { font-size: 11px; color: #888;
+    background: #f5f0ff; padding: 3px 9px; border-radius: 8px;
+    font-weight: normal; flex-shrink: 0; }
+  details.method-deep .method-body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5; display: flex; flex-direction: column; gap: 12px; }
+  details.method-deep .method-body h4 { font-size: 13px; color: #5a4fcf;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 6px; font-weight: 700; }
+  details.method-deep .method-body p { font-size: 13px; color: #444; line-height: 1.7; }
+  .analogy-box { background: linear-gradient(135deg,#fff5e6,#ffe6f0);
+    border: 2px dashed #ffb380; border-radius: 12px; padding: 14px 18px; }
+  .analogy-box h4 { color: #b85f25 !important; }
+  .analogy-box p { color: #6c4a32 !important; font-style: italic; line-height: 1.75 !important; }
+  .why-box { background: linear-gradient(135deg,#e6f0ff,#fff);
+    border-left: 4px solid #5b9bd5; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .can-see-box { background: linear-gradient(135deg,#e8f5e9,#fff);
+    border-left: 4px solid #6aaa64; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .limit-box { background: linear-gradient(135deg,#fdf0e6,#fff);
+    border-left: 4px solid #ed7d31; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+  footer a { color: #d63384; text-decoration: none; }
+  .lang-toggle { position: fixed; top: 20px; right: 20px; z-index: 100;
+    background: white; border: 2px solid #ffb3d4; border-radius: 24px;
+    padding: 8px 16px; cursor: pointer; font-family: inherit; font-size: 13px;
+    font-weight: 600; color: #d63384; box-shadow: 0 4px 12px rgba(255,150,200,0.25);
+    transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+  .lang-toggle:hover { transform: scale(1.05); background: #fff0f5; }
+  .lang-toggle .flag { font-size: 16px; }
+  body.lang-kr .lang-en, body.lang-en .lang-kr { display: none !important; }
+  body.lang-kr svg .lang-en, body.lang-en svg .lang-kr { display: none !important; }
+  @media (max-width: 800px) {
+    .outcomes { grid-template-columns: 1fr; }
+    .tabs { grid-template-columns: 1fr 1fr; }
+    .lang-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body class="lang-kr">
+
+<button class="lang-toggle" onclick="toggleLang()">
+  <span class="flag lang-kr">🇰🇷</span><span class="lang-kr">한국어</span>
+  <span class="flag lang-en">🇺🇸</span><span class="lang-en">English</span>
+  <span style="opacity:0.5;">⇄</span>
+  <span class="flag lang-kr">🇺🇸</span><span class="lang-kr" style="opacity:0.5;">EN</span>
+  <span class="flag lang-en">🇰🇷</span><span class="lang-en" style="opacity:0.5;">KR</span>
+</button>
+
+<div class="container">
+
+<header>
+  <div class="emoji">🩸 🔬 🌀 ✨</div>
+  <h1>
+    <span class="lang-kr">노화된 혈액 줄기세포의 "재활용 공장" 을 재시동하면 8× 회춘한다</span>
+    <span class="lang-en">Restarting the "recycling factory" of aged blood stem cells rejuvenates them 8-fold</span>
+  </h1>
+  <div class="subtitle">
+    <span class="lang-kr">Tasleem Arif, Jiajing Qiu, ..., Saghi Ghaffari — Ghaffari Lab (Mount Sinai · Icahn School of Medicine; with Paris-based Imagine Institute)</span>
+    <span class="lang-en">Tasleem Arif, Jiajing Qiu, ..., Saghi Ghaffari — Ghaffari Lab (Mount Sinai · Icahn School of Medicine; with Paris-based Imagine Institute)</span>
+  </div>
+  <div class="citation">Cell Stem Cell, Nov 2025 · DOI: 10.1016/j.stem.2025.10.012</div>
+  <div class="type-badge">
+    <span class="lang-kr">🧪 원저 연구 논문</span>
+    <span class="lang-en">🧪 Original research</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="t1">
+    <span class="tab-emoji">📖</span>
+    <span class="lang-kr">서론</span><span class="lang-en">Introduction</span>
+  </button>
+  <button class="tab-btn" data-tab="t2">
+    <span class="tab-emoji">🔬</span>
+    <span class="lang-kr">방법</span><span class="lang-en">Methods</span>
+  </button>
+  <button class="tab-btn" data-tab="t3">
+    <span class="tab-emoji">💡</span>
+    <span class="lang-kr">결과</span><span class="lang-en">Results</span>
+  </button>
+  <button class="tab-btn" data-tab="t4">
+    <span class="tab-emoji">💭</span>
+    <span class="lang-kr">고찰</span><span class="lang-en">Discussion</span>
+  </button>
+</div>
+
+<!-- ====================== TAB 1 — INTRO ====================== -->
+<div class="tab-content active" id="t1">
+
+  <div class="panel">
+    <h2>🌳
+      <span class="lang-kr">피규어 수형도 — 한 눈에 paper map</span>
+      <span class="lang-en">Figure Tree — paper map at a glance</span>
+    </h2>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">
+      <span class="lang-kr">▶ 클릭으로 Figure 펼치기 → ▸ 다시 클릭으로 패널별 실험 자세히 보기</span>
+      <span class="lang-en">▶ click a figure to expand → ▸ click a panel to see the experiment in detail</span>
+    </p>
+
+    <div class="figure-tree">
+
+      <!-- Figure 1 -->
+      <details class="fig-node" open>
+        <summary>
+          <span class="fig-num">Fig 1</span>
+          <span class="fig-claim">
+            <span class="lang-kr">노화된 HSC 는 리소좀이 *과활성화* 되어 있다 — 산성이 더 강하고, 수는 줄고, 손상돼있다.</span>
+            <span class="lang-en">Aged HSCs have hyperactivated lysosomes — more acidic, fewer in number, and damaged.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">젊은 vs 노화 mouse HSC 의 리소좀을 형광 probe (LysoTracker, LysoSensor) + 전자현미경 + flow cytometry 로 비교. 노화 HSC 의 리소좀이 hyperacidic, 수 감소, 손상 형태 (정상 vs 비정상 morphology 비율 변화) 라는 baseline 진단.</span>
+            <span class="lang-en">Compare young vs aged mouse HSC lysosomes using fluorescent probes (LysoTracker, LysoSensor) + EM + flow cytometry. Aged HSCs show hyperacidic lysosomes, reduced numbers, and damaged morphology — the baseline diagnostic for the paper.</span>
+          </div>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">LysoSensor flow cytometry</span>
+                <span class="lang-en">LysoSensor flow cytometry</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ 노화 HSC 리소좀 pH 가 더 산성</span>
+                <span class="lang-en">→ aged HSC lysosomes are more acidic</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">LysoSensor (pH-sensitive 형광 dye) 로 염색한 sorted LT-HSC (Lin⁻ Sca1⁺ Kit⁺ CD150⁺ CD48⁻) 의 flow cytometry — pH 가 낮을수록 (산성일수록) 형광 강해짐.</span>
+                <span class="lang-en">Flow cytometry of LysoSensor-stained sorted LT-HSCs (Lin⁻ Sca1⁺ Kit⁺ CD150⁺ CD48⁻); fluorescence increases as pH decreases.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></strong>
+                <span class="lang-kr">세포 안의 "쓰레기 처리장 (리소좀)" 이 평소엔 약한 산성인데 — 마치 따끈한 김치찌개 같은 — 노화하면 김치찌개가 *너무 시어진* 상태가 된다. 노화 HSC 안의 처리장은 시큼한 식초처럼 너무 강한 산이 돼서 분해가 *지나치게* 빨라진다.</span>
+                <span class="lang-en">Inside a cell, the "garbage processing plant" (lysosome) is normally a bit sour — like a warm bowl of kimchi stew. In aged cells, the stew has gone *way* too sour, like sharp vinegar — chemistry runs out of control.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">노화 HSC 의 LysoSensor 형광 신호 ↑ (저자 보고 by ~2배 수준의 hyperacidic shift), young HSC 와 명확히 분리.</span>
+                <span class="lang-en">Aged HSCs show elevated LysoSensor signal (authors report a ~2-fold hyperacidic shift), clearly separating from young HSCs.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">이 패널이 paper 의 *시작점*: "리소좀이 변했다" 라는 baseline 관찰. 이후 모든 figure 는 이 hyperacidity 가 *원인인지 결과인지*, 그리고 *되돌릴 수 있는지* 를 묻는 후속이다.</span>
+                <span class="lang-en">This panel is the paper's *starting observation*: lysosomes have changed. Everything downstream asks whether this hyperacidity is *cause or consequence* and whether it is *reversible*.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">b</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">전자현미경 (TEM) — 리소좀 morphology</span>
+                <span class="lang-en">Transmission EM — lysosome morphology</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ 노화 HSC 리소좀 손상 + 수 감소</span>
+                <span class="lang-en">→ aged HSC lysosomes damaged + depleted</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">Sorted LT-HSC 의 ultrastructural EM. 세포 한 개당 visible lysosome 의 수, 크기, 멤브레인 정상도 정량.</span>
+                <span class="lang-en">Ultrastructural EM of sorted LT-HSCs. Quantification of lysosome number, size, and membrane integrity per cell.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></strong>
+                <span class="lang-kr">공장 안의 분쇄기 (리소좀) 가 젊은 세포엔 5-6대 가지런히 있다면, 노화 세포는 3-4대만 남았고 그 중 몇 개는 깨져있다. EM = "공장 안 내부를 사진으로 한 컷 찍은 것".</span>
+                <span class="lang-en">If a young cell has 5-6 working shredders (lysosomes) lined up, the aged cell has only 3-4, and some are cracked. EM is like taking a snapshot of the inside of the factory floor.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">노화 HSC 의 리소좀 수 감소 + electron-dense 비정상 (autophagic vacuole 잘 안 sealed, debris 축적) 비율 증가.</span>
+                <span class="lang-en">Aged HSCs show fewer lysosomes and a higher fraction with abnormal morphology (unsealed autophagic vacuoles, debris accumulation).</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">Panel a 의 pH 변화가 *기능 손상* 과 동반된다는 morphology 증거. Hyperacidity 가 단순 "더 강한 분해" 가 아니라 "통제 안되는 분해" 임을 시사 — 곧 mtDNA leakage 와 연결됨.</span>
+                <span class="lang-en">Morphological corroboration that panel a's pH shift is paired with *functional damage*. Hyperacidity isn't "more digestion" but "uncontrolled digestion" — the conceptual bridge to the mtDNA-leak story later.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- Figure 2 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 2</span>
+          <span class="fig-claim">
+            <span class="lang-kr">scRNA-seq: 노화 HSC 의 리소좀 / 대사 / 인터페론 program 이 한꺼번에 dysregulated.</span>
+            <span class="lang-en">scRNA-seq: lysosomal / metabolic / interferon programs are co-dysregulated in aged HSCs.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">Young vs aged HSC 의 single-cell transcriptomics (likely 10x Genomics) + pathway enrichment. 리소좀 유전자 module ↓, 인터페론/cGAS-STING 신호 module ↑, 대사 program 흔들림 — 세 layer 가 *동시에* 움직인다는 분자 패턴.</span>
+            <span class="lang-en">Single-cell transcriptomics of young vs aged HSCs (likely 10x Genomics) + pathway enrichment. Lysosomal module ↓, interferon/cGAS-STING module ↑, metabolic programs shaken — three layers move *together*.</span>
+          </div>
+
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">UMAP + cluster 별 aging-up/down DEG</span>
+                <span class="lang-en">UMAP + per-cluster aging-up/down DEGs</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ 인터페론 program 이 가장 강한 aging-up signature</span>
+                <span class="lang-en">→ interferon program is the strongest aging-up signature</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">FACS 로 sorted young + old LT-HSC 의 droplet-based single-cell RNA-seq + Seurat UMAP + Wilcoxon DEG.</span>
+                <span class="lang-en">Droplet-based scRNA-seq of FACS-sorted young + old LT-HSCs, Seurat UMAP, Wilcoxon DEGs.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></strong>
+                <span class="lang-kr">한 명 한 명 줄기세포에게 "지금 어떤 유전자 켜놨어?" 물어본 다음, 답이 비슷한 세포끼리 동네 (cluster) 를 만든다. 노화 동네에선 "도와줘 침입자!" 라는 단어 (인터페론 유전자) 가 자주 등장한다.</span>
+                <span class="lang-en">You ask each stem cell, "which genes are you turning on right now?", then group cells with similar answers into neighborhoods (clusters). The aged neighborhood is full of "intruder alert!" words — interferon genes.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">Aged HSC cluster 의 top up-DEG 가 ISG (interferon-stimulated gene) signature 압도적. 리소좀 유전자 module (CTSB/D/L, LAMP1/2, ATP6V*) 은 동시에 ↓.</span>
+                <span class="lang-en">Aged HSC clusters' top up-DEGs are dominated by ISG (interferon-stimulated gene) signatures, while lysosomal modules (CTSB/D/L, LAMP1/2, ATP6V*) are simultaneously ↓.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"리소좀이 망가졌으니 → 분자 어디서든 mtDNA 같은 self-debris leak 됨 → 면역계가 그걸 외적으로 오인하고 인터페론 켬" 의 *분자 chain* 의 transcriptional 흔적. Fig 3-4 의 v-ATPase 실험 정당화.</span>
+                <span class="lang-en">Transcriptional footprint of the molecular chain "broken lysosomes → self-debris (mtDNA) leaks → immune sensors mistake it for an invader → interferon turns on". Sets up the rationale for the v-ATPase intervention in Fig 3-4.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- Figure 3 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 3</span>
+          <span class="fig-claim">
+            <span class="lang-kr">v-ATPase 억제제로 리소좀 hyperacidity 를 *낮추면* 노화 HSC 의 대사 + 후성유전 항상성이 회복된다.</span>
+            <span class="lang-en">Suppressing lysosomal hyperacidity with a v-ATPase inhibitor restores metabolic and epigenetic homeostasis in aged HSCs.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">노화 HSC 를 *ex vivo* 에서 v-ATPase 억제제 (paper 는 특정 분자명 명시함 — bafilomycin A1 또는 concanamycin 계열로 추정, accessible portion 에 정확한 화합물 명 미보고). 처리 후 (i) LysoSensor 정상화, (ii) 대사 (mito membrane potential, ROS), (iii) 후성유전 marker (H3K4me3/H3K27me3 등 histone modification) 가 young 패턴으로 회귀.</span>
+            <span class="lang-en">Aged HSCs treated *ex vivo* with a v-ATPase inhibitor (specific compound — likely bafilomycin A1 or concanamycin family — not in accessible portion). Post-treatment: (i) LysoSensor normalizes, (ii) metabolism (mito membrane potential, ROS) shifts toward young, (iii) epigenetic markers (H3K4me3/H3K27me3) revert.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">a-c</span>
+              <span class="panel-exp-type">
+                <span class="lang-kr">v-ATPase inhibitor dose-response + LysoSensor + EM</span>
+                <span class="lang-en">v-ATPase inhibitor dose-response + LysoSensor + EM</span>
+              </span>
+              <span class="panel-tldr">
+                <span class="lang-kr">→ 리소좀 산성도 + morphology young-like 복귀</span>
+                <span class="lang-en">→ lysosome acidity + morphology return to young-like</span>
+              </span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype">
+                <strong>🔬 <span class="lang-kr">실험 종류</span><span class="lang-en">Experiment type</span></strong>
+                <span class="lang-kr">Sorted aged LT-HSC 를 ex vivo 배양 (likely SCF/TPO/Flt3L 함유 stem-cell-supportive medium) + v-ATPase inhibitor + dose-response 측정. LysoSensor flow 와 EM 으로 read-out.</span>
+                <span class="lang-en">Sorted aged LT-HSCs cultured ex vivo (likely SCF/TPO/Flt3L-supportive medium) + v-ATPase inhibitor at multiple doses. Readout via LysoSensor flow and EM.</span>
+              </div>
+              <div class="panel-block analogy">
+                <strong>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></strong>
+                <span class="lang-kr">v-ATPase 는 리소좀 안에 *수소 (H⁺)* 를 펌프질해 넣는 양수기다. 노화 세포에선 이 양수기가 폭주해서 산성이 너무 강함. 양수기를 *살짝* 끄면 — 끄는 게 아니라 속도 조절 — 김치찌개가 다시 적당히 익은 상태로 돌아온다.</span>
+                <span class="lang-en">v-ATPase is the proton pump that fills lysosomes with H⁺. In old cells the pump runs wild — too acidic. Throttling (not killing) the pump returns the "kimchi stew" to a properly fermented level, not the over-soured aged state.</span>
+              </div>
+              <div class="panel-block result">
+                <strong>📊 <span class="lang-kr">간단한 결과</span><span class="lang-en">Simple result</span></strong>
+                <span class="lang-kr">Inhibitor 처리 후 노화 HSC 의 LysoSensor 신호 → young level 로 회귀. EM 상 normal-morphology 리소좀 비율 ↑.</span>
+                <span class="lang-en">Post-inhibitor, aged HSCs' LysoSensor signal returns toward young levels, and EM shows an increased fraction of normal-morphology lysosomes.</span>
+              </div>
+              <div class="panel-block meaning">
+                <strong>💡 <span class="lang-kr">스토리상 의미</span><span class="lang-en">Story role</span></strong>
+                <span class="lang-kr">"노화 HSC 의 리소좀 결함이 *원인* 인가, 다른 손상의 *증상* 인가?" 라는 cause-vs-symptom 질문에 *원인 쪽* 으로 무게 — 리소좀 만 손대도 downstream (대사/후성유전) 이 같이 회복하기 때문. Fig 4 의 cGAS-STING 강화 검증으로 연결.</span>
+                <span class="lang-en">Tips the cause-vs-symptom question toward *cause*: touching only the lysosomes rescues downstream (metabolism/epigenetics). Sets up the cGAS-STING mechanism in Fig 4.</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- Figure 4 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 4</span>
+          <span class="fig-claim">
+            <span class="lang-kr">리소좀 회복 → mtDNA leakage 줄어듦 → cGAS-STING 신호 진정 → 인터페론 program 가라앉음.</span>
+            <span class="lang-en">Lysosome rescue → reduced cytosolic mtDNA → quieted cGAS-STING → interferon program subsides.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">Cytosolic mtDNA quantification (qPCR / digital droplet), cGAS-STING pathway components (STING phospho, IRF3), ISG downstream gene panel 측정. v-ATPase inhibitor 가 *직접* cGAS-STING 을 끄는 게 아니라 *리소좀 의 mtDNA processing 회복* 통해 indirect 하게 꺼지는 chain.</span>
+            <span class="lang-en">Cytosolic mtDNA quantification (qPCR / digital droplet), cGAS-STING pathway readouts (STING phosphorylation, IRF3), downstream ISG panel. v-ATPase inhibitor doesn't shut cGAS-STING off directly — it does so *through* restored lysosomal mtDNA processing.</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- Figure 5 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 5</span>
+          <span class="fig-claim">
+            <span class="lang-kr">★ Headline: ex vivo 리소좀 inhibitor 처리 후 노화 HSC 의 *in vivo* 재식 능력이 **8배 이상 회복** — 골수 재생 기능 부활.</span>
+            <span class="lang-en">★ Headline: ex vivo lysosomal inhibitor treatment of aged HSCs restores *in vivo* repopulation capacity by more than 8-fold — full marrow-regeneration function recovered.</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">Competitive BMT: aged donor HSC (vehicle or v-ATPase-inhibitor-treated) 을 lethally irradiated young recipient 에 transplant + carrier cells. PB chimerism 16+ weeks 추적. **8× donor chimerism 증가** = primary functional rescue 증명.</span>
+            <span class="lang-en">Competitive BMT: aged donor HSCs (vehicle vs v-ATPase-inhibitor-treated) transplanted into lethally irradiated young recipients with carrier cells; peripheral blood chimerism tracked ≥16 weeks. **>8× donor chimerism** = primary functional rescue.</span>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>🤔
+      <span class="lang-kr">왜 이 paper 가 중요한가 — 분야적 맥락</span>
+      <span class="lang-en">Why this paper matters — field context</span>
+    </h2>
+    <div class="bubble pink">
+      <span class="lang-kr"><strong>분야의 기존 질문:</strong> 노화 HSC 의 자기재생 능력이 떨어지는 이유로 DNA 손상, 후성유전 drift, mitochondrial 손상, 만성 염증이 후보였지만 — *어느 것이 첫 도미노* 인지 명확치 않았음. 이 paper 는 *리소좀* 을 새 후보로 제안 + 단 한 가지 약물 standpoint (v-ATPase inhibitor) 로 다른 모든 layer 가 함께 회복됨을 보여줘 "lysosomes = upstream master switch" 가설을 정량적으로 입증.</span>
+      <span class="lang-en"><strong>The standing question:</strong> Why does aged HSC self-renewal collapse? Candidates included DNA damage, epigenetic drift, mitochondrial dysfunction, and chronic inflammation — but *which is the first domino*? This paper nominates *lysosomes* as a new candidate and shows that a single intervention (v-ATPase inhibitor) restores all downstream layers, providing quantitative support for "lysosomes = upstream master switch".</span>
+    </div>
+    <div class="bubble blue">
+      <span class="lang-kr"><strong>본 G11BM senolytic paper 와의 직접 연결:</strong> 우리는 D+Q 가 myeloid relay 통해 HSPC 의 *bivalent priming* 을 reset 한다고 주장. Arif 2025 는 *cell-autonomous* lysosomal axis 로 HSC rejuvenation 을 보여줌 — 두 mechanism 이 *상보적* (D+Q = 외부 niche reset; v-ATPase inhibitor = 세포 내부 organelle reset). Discussion §3.10 의 "cell-autonomous vs niche-routed" framing 의 외부 anchor 로 인용 가능.</span>
+      <span class="lang-en"><strong>Direct link to our G11BM senolytic paper:</strong> We argue D+Q resets HSPC *bivalent priming* through myeloid relay. Arif 2025 demonstrates *cell-autonomous* lysosomal rejuvenation — the two mechanisms are *complementary* (D+Q = external niche reset; v-ATPase inhibitor = intracellular organelle reset). Citable in Discussion §3.10 as the external anchor for the "cell-autonomous vs niche-routed" framing.</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>❓
+      <span class="lang-kr">미해결 질문 (paper 가 답하기 전)</span>
+      <span class="lang-en">Open questions (before the paper)</span>
+    </h2>
+    <div class="qa-flow">
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q1.</strong>
+          <span class="lang-kr"> 노화 HSC 의 핵심 organelle 결함이 mitochondria 인가 리소좀 인가?</span>
+          <span class="lang-en"> Is the central organelle defect of aged HSCs mitochondrial or lysosomal?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr"> Paper 답: 둘 다 — but 리소좀이 *upstream*. 리소좀 회복하면 mito 도 따라옴.</span>
+          <span class="lang-en"> Both — but lysosomes are *upstream*. Rescuing them rescues mito too.</span>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q2.</strong>
+          <span class="lang-kr"> 만성 인터페론 신호 (inflammaging) 의 분자 trigger 는?</span>
+          <span class="lang-en"> What is the molecular trigger of chronic interferon signaling (inflammaging)?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr"> Paper 답: 리소좀 결함 → cytosolic mtDNA leak → cGAS-STING 자극.</span>
+          <span class="lang-en"> Broken lysosomes → cytosolic mtDNA leak → cGAS-STING engagement.</span>
+        </div>
+      </div>
+      <div class="qa-row">
+        <div class="qa-q">
+          <strong>Q3.</strong>
+          <span class="lang-kr"> 노화 HSC 의 회춘이 *분자 회복* 만으로 *기능 회복* 까지 propagate 하는가?</span>
+          <span class="lang-en"> Does molecular rescue actually propagate to functional rescue?</span>
+        </div>
+        <div class="qa-a">
+          <strong>A.</strong>
+          <span class="lang-kr"> 예 — competitive BMT 에서 **8× donor chimerism** 회복. 기능적 증명.</span>
+          <span class="lang-en"> Yes — competitive BMT shows **&gt;8× donor chimerism** rescue. Functional proof.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== TAB 2 — METHODS ====================== -->
+<div class="tab-content" id="t2">
+
+  <div class="panel">
+    <h2>🔬
+      <span class="lang-kr">방법 자세히 — 비유로 이해하기</span>
+      <span class="lang-en">Methods in Depth — by analogy</span>
+    </h2>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">
+      <span class="lang-kr">▶ 클릭하면 각 기법에 대한 자세한 설명 + 초딩 비유가 펼쳐집니다.</span>
+      <span class="lang-en">▶ Click any card to expand the technique with a kid-friendly analogy.</span>
+    </p>
+
+    <details class="method-deep" open>
+      <summary>
+        <span class="method-icon">🌊</span>
+        <span class="method-name">
+          <span class="lang-kr">LT-HSC FACS sorting + LysoSensor / LysoTracker flow</span>
+          <span class="lang-en">LT-HSC FACS sorting + LysoSensor / LysoTracker flow cytometry</span>
+        </span>
+        <span class="method-shorttag">SLAM markers</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">기술 정의</span><span class="lang-en">Technical definition</span></h4>
+          <p>
+            <span class="lang-kr">Long-term HSC (LT-HSC) 를 SLAM marker (Lin⁻ Sca1⁺ Kit⁺ CD150⁺ CD48⁻) 로 sort. 이후 pH-sensitive 형광 dye (LysoSensor Green DND-189, LysoTracker Red) 로 염색해 flow cytometer 로 single-cell pH 신호 측정. 신호 강도 ∝ lysosomal acidity.</span>
+            <span class="lang-en">Long-term HSCs are FACS-sorted using SLAM markers (Lin⁻ Sca1⁺ Kit⁺ CD150⁺ CD48⁻), then stained with pH-sensitive dyes (LysoSensor Green DND-189, LysoTracker Red). Flow cytometry reads out single-cell signal; intensity scales with lysosomal acidity.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩도 이해할 비유</span><span class="lang-en">Kid-friendly analogy</span></h4>
+          <p>
+            <span class="lang-kr">학교의 5,000 명 학생 중 정확히 "1학년 1반 출석부의 5번" 같은 *특정한 자격* 을 갖춘 학생만 골라낸 다음 (FACS), 그 학생 가방 안에 *식초만 닿으면 빨개지는 종이* 를 넣어두고 (LysoSensor), 한 명씩 종이의 빨강 진하기를 측정. 빨갛게 진할수록 가방 안이 더 시큼 (산성) = 리소좀 더 산성.</span>
+            <span class="lang-en">From 5,000 students, you pick only those matching very specific criteria — like "1st-grade, class 1, roster number 5" (FACS). Then you place a vinegar-sensitive litmus strip in each chosen student's bag (LysoSensor) and measure how red each strip turned. Redder = more acidic bag = more acidic lysosome.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 이 방법 (vs bulk pH 측정)</span><span class="lang-en">Why this (vs bulk pH)</span></h4>
+          <p>
+            <span class="lang-kr">전체 골수 갈아서 평균 pH 보면 HSC 의 신호가 100,000 배 많은 myeloid cell 의 신호에 묻힘. Single-cell flow 는 HSC 만 0.01% subset 으로 분리해서 그 안의 변화만 본다.</span>
+            <span class="lang-en">If you grind up bulk marrow and read average pH, the HSC signal is drowned out by myeloid cells which outnumber them 100,000×. Single-cell flow isolates the 0.01% HSC subset and reads only their internal state.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">이걸로 볼 수 있는 것</span><span class="lang-en">What you can see</span></h4>
+          <p>
+            <span class="lang-kr">노화 vs 젊은 HSC 의 리소좀 pH 분포 차이 (histogram, MFI), inhibitor 처리 전후 회귀, *세포 한 개 단위* 의 변동.</span>
+            <span class="lang-en">Lysosomal pH distribution differences between young vs aged HSCs (histogram, MFI), reversion after inhibitor treatment, *single-cell* variation.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">FACS 자체가 cell sorting 스트레스 (~30 min)를 줘서 dynamic state 일부 변할 수 있음. LysoSensor 가 *모든 acidic compartment* (endosome 포함) 에 반응 — purely lysosomal isn't guaranteed.</span>
+            <span class="lang-en">FACS itself imposes ~30 min sorting stress that may shift dynamic state. LysoSensor binds *all acidic compartments* including late endosomes — purely lysosomal signal is not guaranteed.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🧬</span>
+        <span class="method-name">
+          <span class="lang-kr">single-cell RNA-seq (10x Genomics 추정)</span>
+          <span class="lang-en">single-cell RNA-seq (10x Genomics, inferred)</span>
+        </span>
+        <span class="method-shorttag">droplet-based</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">기술 정의</span><span class="lang-en">Definition</span></h4>
+          <p>
+            <span class="lang-kr">수천 개 HSC 각각에서 mRNA 를 따로 잡아 어떤 유전자가 켜져 있는지 *동시에* 측정. Microfluidic droplet 안에 세포 1개 + barcoded bead 1개를 넣어 같은 droplet 안의 모든 cDNA 에 같은 barcode 를 붙임.</span>
+            <span class="lang-en">RNA is captured from each of thousands of HSCs in parallel. A microfluidic droplet holds 1 cell + 1 barcoded bead, so all cDNA from that cell carries a unique barcode.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">학생마다 따로 일기장 줘서 "오늘 무슨 과목 들었어?" 적게 한 다음 모아 분석 → "노화 동네는 인터페론 과목을 너무 많이 든다" 라는 동네별 패턴 발견.</span>
+            <span class="lang-en">Hand every student a private diary asking "what classes did you take today?" — then mine all the diaries to discover patterns like "the aged neighborhood took way too many interferon classes."</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 (vs bulk RNA-seq)</span><span class="lang-en">Why (vs bulk RNA-seq)</span></h4>
+          <p>
+            <span class="lang-kr">노화 HSC 안에서도 일부만 hyperacidic 일 수 있음 — bulk 는 평균만 봐서 minority signal 놓침. scRNA-seq 는 sub-population heterogeneity 를 직접 본다.</span>
+            <span class="lang-en">Only a subset of aged HSCs may be hyperacidic — bulk averages out the minority signal. scRNA-seq reads sub-population heterogeneity directly.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">볼 수 있는 것</span><span class="lang-en">What you can see</span></h4>
+          <p>
+            <span class="lang-kr">Cluster 별 aging-up/down DEG, 인터페론/리소좀 module score per cell, inhibitor 처리 후 cluster shift.</span>
+            <span class="lang-en">Per-cluster aging-up/down DEGs, interferon and lysosomal module scores per cell, cluster shifts after inhibitor treatment.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">Drop-out: 발현 낮은 유전자 0 측정. RNA 만 — protein/post-translational 변화 못 봄. 공간 정보 잃음 (어디 niche 였는지 모름).</span>
+            <span class="lang-en">Drop-out (low-expression genes zero), RNA only (no protein / post-translational), spatial info lost (which niche the cell came from is unknown).</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">💊</span>
+        <span class="method-name">
+          <span class="lang-kr">ex vivo v-ATPase inhibitor 처리</span>
+          <span class="lang-en">Ex vivo v-ATPase inhibitor treatment</span>
+        </span>
+        <span class="method-shorttag">key intervention</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">기술 정의</span><span class="lang-en">Definition</span></h4>
+          <p>
+            <span class="lang-kr">Sorted aged HSC 를 stem-cell-supportive medium (SCF/TPO/Flt3L 등) 에서 short-term 배양 + v-ATPase 억제 화합물 처리. v-ATPase 는 리소좀 막에서 H⁺ 를 안으로 펌프질하는 다중 subunit 효소. 억제하면 hyperacidity 즉시 완화.</span>
+            <span class="lang-en">Sorted aged HSCs are cultured short-term in stem-supportive medium (SCF/TPO/Flt3L) + a v-ATPase inhibitor. v-ATPase is a multi-subunit pump that drives H⁺ into the lysosome; blocking it immediately relieves hyperacidity.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">노화 세포의 분쇄기가 폭주해서 너무 시큼해진 상태 — 분쇄기 동력 (양수기) 의 *속도 조절 버튼* 을 살짝 줄이는 약. 분쇄기를 *멈추는 게 아니라* 정상 속도로 되돌리는 게 핵심.</span>
+            <span class="lang-en">The aged cell's grinder runs wild and sours. The drug is a *speed knob* that nudges the motor back to its normal RPM — not turning it off, just restoring proper speed.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 v-ATPase (vs 다른 표적)</span><span class="lang-en">Why v-ATPase (vs other targets)</span></h4>
+          <p>
+            <span class="lang-kr">리소좀 hyperactivity 의 *분자 정의* 가 hyperacidity 이므로 acidity 를 만드는 단일 효소 (v-ATPase) 가 가장 직접적 표적. 다른 표적 (cathepsin 등) 은 산성도 의 *결과* 일 뿐.</span>
+            <span class="lang-en">Hyperactivity is defined by hyperacidity, so v-ATPase — the single enzyme that *produces* acidity — is the most direct target. Cathepsins and other downstream proteases are merely consequences of low pH.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">볼 수 있는 것</span><span class="lang-en">What you can see</span></h4>
+          <p>
+            <span class="lang-kr">Dose-response (LysoSensor 신호 회귀), 후속 metabolism/epigenetics/repopulation 회복까지 chain.</span>
+            <span class="lang-en">Dose-response (LysoSensor returns toward young), then downstream rescue of metabolism, epigenetics, and repopulation.</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">v-ATPase 는 모든 cell type 의 모든 acidic compartment 에 발현 — *systemic* 투여 어려움. Ex vivo 처리 후 BMT 만 demonstrated; in vivo systemic dosing 의 안전성/효능은 미해결.</span>
+            <span class="lang-en">v-ATPase is expressed in every cell type's every acidic compartment, making *systemic* dosing tricky. The paper demonstrates ex-vivo treatment then BMT; in-vivo systemic dosing safety/efficacy is not yet established.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+    <details class="method-deep">
+      <summary>
+        <span class="method-icon">🐭</span>
+        <span class="method-name">
+          <span class="lang-kr">Competitive bone marrow transplantation (BMT)</span>
+          <span class="lang-en">Competitive bone marrow transplantation (BMT)</span>
+        </span>
+        <span class="method-shorttag">gold-standard HSC assay</span>
+      </summary>
+      <div class="method-body">
+        <div>
+          <h4>📊 <span class="lang-kr">기술 정의</span><span class="lang-en">Definition</span></h4>
+          <p>
+            <span class="lang-kr">Donor HSC + carrier HSC 를 lethally irradiated recipient 에 함께 transplant. CD45.1/CD45.2 (mouse strain allele) 차이로 donor 와 carrier 의 contribution 을 PB에서 16-22주 추적. Donor chimerism % 가 *HSC self-renewal capacity 의 gold-standard readout*.</span>
+            <span class="lang-en">Donor HSCs + carrier HSCs are co-transplanted into lethally irradiated recipients. CD45.1/CD45.2 allele differences let you track donor vs carrier contributions in peripheral blood for 16–22 weeks. Donor chimerism % is the gold-standard readout of HSC self-renewal.</span>
+          </p>
+        </div>
+        <div class="analogy-box">
+          <h4>🧒 <span class="lang-kr">초딩 비유</span><span class="lang-en">Kid analogy</span></h4>
+          <p>
+            <span class="lang-kr">텅 빈 공장 (irradiated recipient) 에 두 회사 (donor + carrier) 직원 100명씩 보내서 16주 후 공장에 어느 회사 직원이 더 많은지 셈. 노화 회사 (vehicle) 는 10명만 남고, *약 받은* 노화 회사 (inhibitor-treated) 는 80명 남으면 → 8× rescue.</span>
+            <span class="lang-en">Send 100 workers from each of two companies (donor + carrier) into an empty factory (irradiated recipient). 16 weeks later, count who's still there. If the aged company (vehicle) leaves only 10 workers but the aged company *with the drug* (inhibitor-treated) leaves 80, that's an 8× rescue.</span>
+          </p>
+        </div>
+        <div class="why-box">
+          <h4>🎯 <span class="lang-kr">왜 (vs 단순 culture proliferation)</span><span class="lang-en">Why (vs culture proliferation)</span></h4>
+          <p>
+            <span class="lang-kr">In vitro 증식은 HSC self-renewal 의 *필요조건* 일 뿐 — 진짜 HSC 만 *in vivo 평생 마우스 평생 동안* 모든 혈구 계열을 만들 수 있음. Competitive BMT = HSC 정의의 분야 표준 gold standard.</span>
+            <span class="lang-en">In-vitro proliferation is a *necessary* but not sufficient sign of HSC identity — only true HSCs sustain multilineage output across an entire mouse lifespan. Competitive BMT is the field-defining gold standard.</span>
+          </p>
+        </div>
+        <div class="can-see-box">
+          <h4>👁️ <span class="lang-kr">볼 수 있는 것</span><span class="lang-en">What you can see</span></h4>
+          <p>
+            <span class="lang-kr">Total donor chimerism % (long-term self-renewal), myeloid:lymphoid ratio (lineage bias), secondary BMT 통과 여부 (true LT-HSC verification).</span>
+            <span class="lang-en">Total donor chimerism % (long-term self-renewal), myeloid:lymphoid ratio (lineage bias), and secondary BMT success (true LT-HSC verification).</span>
+          </p>
+        </div>
+        <div class="limit-box">
+          <h4>⚠️ <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+          <p>
+            <span class="lang-kr">매우 long (~5 month) + 비용 큼. Lethal irradiation 자체가 stressed niche 를 만들어서 normal aging niche 와 다름.</span>
+            <span class="lang-en">Very long (~5 months) and expensive. Lethal irradiation itself creates a stressed niche unlike normal aging.</span>
+          </p>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="panel">
+    <h2>🐭
+      <span class="lang-kr">실험 동물 + 시간표</span>
+      <span class="lang-en">Animals + timeline</span>
+    </h2>
+    <div class="bubble">
+      <span class="lang-kr"><strong>Young donor:</strong> 8-12주 C57BL/6 추정 · <strong>Aged donor:</strong> ~22-24개월 (분야 standard "old" 정의) · <strong>Recipient:</strong> congenic CD45.1/CD45.2 마우스, lethally irradiated · <strong>Drug:</strong> 특정 v-ATPase inhibitor (accessible portion 에 정확한 화합물명 미확인) · <strong>Treatment:</strong> ex vivo short-term culture + inhibitor → wash → transplant.</span>
+      <span class="lang-en"><strong>Young donor:</strong> ~8-12-week C57BL/6 (inferred) · <strong>Aged donor:</strong> ~22-24 mo (field-standard "old") · <strong>Recipient:</strong> congenic CD45.1/CD45.2 mice, lethally irradiated · <strong>Drug:</strong> a specific v-ATPase inhibitor (exact compound not in accessible portion) · <strong>Treatment:</strong> ex vivo short-term culture + inhibitor → wash → transplant.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== TAB 3 — RESULTS ====================== -->
+<div class="tab-content" id="t3">
+
+  <div class="panel">
+    <h2>💡
+      <span class="lang-kr">3 가지 핵심 발견</span>
+      <span class="lang-en">Three key findings</span>
+    </h2>
+
+    <div class="outcomes">
+      <div class="outcome-card pink">
+        <div class="icon">🌀</div>
+        <h3><span class="lang-kr">리소좀 hyperacidity</span><span class="lang-en">Lysosomal hyperacidity</span></h3>
+        <ul>
+          <li><span class="lang-kr">노화 HSC = 더 산성</span><span class="lang-en">aged HSC = more acidic</span></li>
+          <li><span class="lang-kr">수 ↓, 손상 morphology</span><span class="lang-en">fewer, damaged morphology</span></li>
+          <li><span class="lang-kr">~2× LysoSensor MFI</span><span class="lang-en">~2× LysoSensor MFI</span></li>
+        </ul>
+      </div>
+      <div class="outcome-card blue">
+        <div class="icon">🛡️</div>
+        <h3><span class="lang-kr">cGAS-STING 활성화</span><span class="lang-en">cGAS-STING activation</span></h3>
+        <ul>
+          <li><span class="lang-kr">cytosolic mtDNA ↑</span><span class="lang-en">cytosolic mtDNA ↑</span></li>
+          <li><span class="lang-kr">인터페론 program ↑</span><span class="lang-en">interferon program ↑</span></li>
+          <li><span class="lang-kr">scRNA-seq ISG signature ↑</span><span class="lang-en">scRNA-seq ISG signature ↑</span></li>
+        </ul>
+      </div>
+      <div class="outcome-card green">
+        <div class="icon">🚀</div>
+        <h3><span class="lang-kr">★ 8× 기능 회복</span><span class="lang-en">★ 8× functional rescue</span></h3>
+        <ul>
+          <li><span class="lang-kr">in vivo repopulation ↑↑</span><span class="lang-en">in vivo repopulation ↑↑</span></li>
+          <li><span class="lang-kr">ex vivo inhibitor 처리</span><span class="lang-en">ex vivo inhibitor treatment</span></li>
+          <li><span class="lang-kr">PB chimerism 16+ wk</span><span class="lang-en">PB chimerism ≥16 wk</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <svg class="scene" viewBox="0 0 800 280" width="100%" height="280">
+      <!-- mechanism arrow chain -->
+      <!-- aged HSC -->
+      <g transform="translate(80,100)">
+        <ellipse cx="0" cy="0" rx="55" ry="50" fill="#fff0e0" stroke="#ed7d31" stroke-width="3"/>
+        <!-- bad lysosome -->
+        <circle cx="-15" cy="-5" r="14" fill="#d63384" stroke="#a3296c" stroke-width="2"/>
+        <text x="-15" y="-2" text-anchor="middle" font-size="8" fill="white">pH↓↓</text>
+        <circle cx="12" cy="8" r="10" fill="#d63384" stroke="#a3296c" stroke-width="2"/>
+        <!-- X eyes -->
+        <text x="-7" y="-22" font-size="13" fill="#3a4252">✕</text>
+        <text x="7" y="-22" font-size="13" fill="#3a4252">✕</text>
+        <text class="lang-kr" x="0" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25">노화 HSC</text>
+        <text class="lang-en" x="0" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#b85f25">Aged HSC</text>
+      </g>
+      <!-- arrow 1 -->
+      <path d="M 145 100 L 215 100" stroke="#5a4fcf" stroke-width="3" fill="none" marker-end="url(#a1)"/>
+      <text class="lang-kr" x="180" y="92" text-anchor="middle" font-size="11" fill="#5a4fcf" font-weight="bold">v-ATPase 억제</text>
+      <text class="lang-en" x="180" y="92" text-anchor="middle" font-size="11" fill="#5a4fcf" font-weight="bold">v-ATPase block</text>
+      <!-- pill -->
+      <g transform="translate(180,130)">
+        <ellipse cx="0" cy="0" rx="22" ry="9" fill="white" stroke="#5a4fcf" stroke-width="2"/>
+        <line x1="-22" y1="0" x2="22" y2="0" stroke="#5a4fcf" stroke-width="2"/>
+        <ellipse cx="-11" cy="0" rx="11" ry="9" fill="#5a4fcf"/>
+      </g>
+      <!-- rejuvenated HSC -->
+      <g transform="translate(280,100)">
+        <ellipse cx="0" cy="0" rx="55" ry="50" fill="#e8f5e9" stroke="#2e8b57" stroke-width="3"/>
+        <circle cx="-15" cy="-5" r="11" fill="#a5d6a7" stroke="#2e8b57" stroke-width="2"/>
+        <text x="-15" y="-2" text-anchor="middle" font-size="8" fill="#1b5e20">pH</text>
+        <circle cx="12" cy="8" r="11" fill="#a5d6a7" stroke="#2e8b57" stroke-width="2"/>
+        <circle cx="0" cy="20" r="9" fill="#a5d6a7" stroke="#2e8b57" stroke-width="2"/>
+        <!-- happy eyes -->
+        <circle cx="-7" cy="-22" r="2" fill="#3a4252"/>
+        <circle cx="7" cy="-22" r="2" fill="#3a4252"/>
+        <path d="M -8,-12 Q 0,-8 8,-12" stroke="#3a4252" stroke-width="1.8" fill="none"/>
+        <text class="lang-kr" x="0" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">회춘 HSC</text>
+        <text class="lang-en" x="0" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Rejuvenated HSC</text>
+      </g>
+      <!-- arrow 2 -->
+      <path d="M 345 100 L 425 100" stroke="#5a4fcf" stroke-width="3" fill="none" marker-end="url(#a1)"/>
+      <text class="lang-kr" x="385" y="92" text-anchor="middle" font-size="11" fill="#5a4fcf" font-weight="bold">mtDNA leak ↓</text>
+      <text class="lang-en" x="385" y="92" text-anchor="middle" font-size="11" fill="#5a4fcf" font-weight="bold">mtDNA leak ↓</text>
+      <text class="lang-kr" x="385" y="116" text-anchor="middle" font-size="11" fill="#5a4fcf">cGAS-STING ↓</text>
+      <text class="lang-en" x="385" y="116" text-anchor="middle" font-size="11" fill="#5a4fcf">cGAS-STING ↓</text>
+      <!-- arrow 3 -->
+      <g transform="translate(500,100)">
+        <ellipse cx="0" cy="0" rx="55" ry="50" fill="#e6f0ff" stroke="#5b9bd5" stroke-width="3"/>
+        <text x="0" y="0" text-anchor="middle" font-size="32">🩸</text>
+        <text class="lang-kr" x="0" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#0066cc">기능 검증</text>
+        <text class="lang-en" x="0" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#0066cc">Functional test</text>
+      </g>
+      <path d="M 565 100 L 635 100" stroke="#5a4fcf" stroke-width="3" fill="none" marker-end="url(#a1)"/>
+      <text class="lang-kr" x="600" y="92" text-anchor="middle" font-size="11" fill="#5a4fcf" font-weight="bold">competitive BMT</text>
+      <text class="lang-en" x="600" y="92" text-anchor="middle" font-size="11" fill="#5a4fcf" font-weight="bold">competitive BMT</text>
+      <!-- 8x banner -->
+      <g transform="translate(720,100)">
+        <ellipse cx="0" cy="0" rx="60" ry="50" fill="url(#g1)" stroke="#d63384" stroke-width="3"/>
+        <text x="0" y="-5" text-anchor="middle" font-size="22" font-weight="bold" fill="white">8×</text>
+        <text class="lang-kr" x="0" y="15" text-anchor="middle" font-size="10" fill="white">기능 회복</text>
+        <text class="lang-en" x="0" y="15" text-anchor="middle" font-size="10" fill="white">function rescue</text>
+        <text x="0" y="78" text-anchor="middle" font-size="22">✨</text>
+      </g>
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#5a4fcf"/>
+        </marker>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#d63384"/><stop offset="100%" stop-color="#ed7d31"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <h2>📔
+      <span class="lang-kr">결과 자세히 — 펼쳐서 읽기</span>
+      <span class="lang-en">Results in Depth — expand to read</span>
+    </h2>
+
+    <details class="deep-dive" open>
+      <summary>
+        <span class="lang-kr">발견 1 — 노화 HSC 의 리소좀 hyperacidity / 손상 / 감소 — 자세히</span>
+        <span class="lang-en">Finding 1 — Aged HSC lysosomes are hyperacidic, damaged, depleted — in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">The numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>~2×</strong>
+            <span class="unit"><span class="lang-kr">LysoSensor MFI 상승</span><span class="lang-en">LysoSensor MFI rise</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>↓</strong>
+            <span class="unit"><span class="lang-kr">EM 정상 형태 비율</span><span class="lang-en">EM normal-morphology %</span></span>
+          </div>
+          <div class="number-chip purple">
+            <strong>scRNA</strong>
+            <span class="unit"><span class="lang-kr">CTSB/D/L, ATP6V* ↓</span><span class="lang-en">CTSB/D/L, ATP6V* ↓</span></span>
+          </div>
+        </div>
+        <h4>🔬 <span class="lang-kr">무엇을 측정했나</span><span class="lang-en">What was measured</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">Young (~2-3 mo) 와 aged (~22-24 mo) C57BL/6 마우스의 LT-HSC 를 SLAM marker 로 FACS 정제한 뒤 (i) LysoSensor flow cytometry, (ii) 전자현미경 ultrastructural imaging, (iii) scRNA-seq 으로 리소좀 생합성 module 측정. 세 modality 가 *동일한 결론* (hyperacidic + 손상 + 유전자 발현 ↓) 으로 수렴 — 단일 method artifact 가 아니라는 강한 multi-modality 증거.</span>
+          <span class="lang-en">Young (~2-3 mo) vs aged (~22-24 mo) C57BL/6 LT-HSCs were FACS-isolated via SLAM markers, then assayed by (i) LysoSensor flow cytometry, (ii) EM ultrastructural imaging, and (iii) scRNA-seq lysosomal-biogenesis modules. All three modalities converge on hyperacidic + damaged + ↓ gene expression — strong multi-modality evidence that this isn't a single-method artifact.</span>
+        </p>
+        <div class="paper-quote">
+          <span class="lang-kr">"노화된 HSC 의 리소좀은 *과산성화 + 수 감소 + 손상 + 이상 활성화* 되어 있다" — 본 paper abstract</span>
+          <span class="lang-en">"The lysosomes in aged HSCs are hyperacidic, depleted, damaged, and aberrantly activated." — Paper abstract</span>
+          <span class="src">— <span class="lang-kr">Cell Stem Cell 2025, Abstract</span><span class="lang-en">Cell Stem Cell 2025, Abstract</span></span>
+        </div>
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">분야는 그동안 노화 HSC 의 mitochondria 결함, DNA 손상, 후성유전 drift 에 집중. 리소좀 (세포의 *재활용 공장*) 은 autophagy 의 단순 도구로만 봤음. 이 paper 는 리소좀이 *지나치게 켜져있는* 능동적 결함이라는 새 관점을 제공.</span>
+          <span class="lang-en">The field had focused on mitochondrial defects, DNA damage, and epigenetic drift in aged HSCs. Lysosomes — the cell's recycling center — were typically seen as passive autophagy machinery. This paper reframes the lysosome as an *actively dysregulated* defect (over-activated, not failing), opening a new mechanistic axis.</span>
+        </p>
+      </div>
+    </details>
+
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">발견 2 — mtDNA leak → cGAS-STING → 인터페론 program — 자세히</span>
+        <span class="lang-en">Finding 2 — mtDNA leak → cGAS-STING → interferon program — in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">Numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>cytosolic mtDNA ↑</strong>
+            <span class="unit"><span class="lang-kr">노화 HSC</span><span class="lang-en">aged HSC</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>cGAS-STING ↑</strong>
+            <span class="unit"><span class="lang-kr">pathway 활성</span><span class="lang-en">pathway activation</span></span>
+          </div>
+          <div class="number-chip green">
+            <strong>ISG ↓</strong>
+            <span class="unit"><span class="lang-kr">inhibitor 후 정상화</span><span class="lang-en">post-inhibitor normalization</span></span>
+          </div>
+        </div>
+        <h4>🔬 <span class="lang-kr">무엇을 측정했나</span><span class="lang-en">What was measured</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">Cytosolic vs mitochondrial 분획 분리 후 qPCR 로 mtDNA copy 정량. cGAS-STING pathway 는 STING phosphorylation + IRF3 nuclear translocation + downstream ISG (Ifit1, Isg15, Mx1 등) 발현으로 read out. v-ATPase inhibitor 처리 후 세 layer (mtDNA leak, STING activation, ISG up) 가 *모두* 감소.</span>
+          <span class="lang-en">Cytosolic vs mitochondrial fractions were separated; mtDNA copy number quantified by qPCR. cGAS-STING pathway readouts: STING phosphorylation, IRF3 nuclear translocation, downstream ISG expression (Ifit1, Isg15, Mx1). After v-ATPase inhibitor, all three layers (mtDNA leak, STING activation, ISG up) decline together.</span>
+        </p>
+        <div class="paper-quote">
+          <span class="lang-kr">"이 처치는 리소좀의 mtDNA 처리 능력을 회복함으로써 cGAS-STING 신호를 약화시키고, 그에 따라 염증/인터페론 프로그램을 줄였다." — Abstract paraphrase</span>
+          <span class="lang-en">"This intervention reduces inflammatory and interferon-driven programs by improving lysosomal processing of mitochondrial DNA and attenuating cGAS-STING signaling." — Abstract paraphrase</span>
+          <span class="src">— <span class="lang-kr">Cell Stem Cell 2025, Abstract</span><span class="lang-en">Cell Stem Cell 2025, Abstract</span></span>
+        </div>
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">분야의 inflammaging 가설 (만성 염증이 노화의 핵심) 의 *분자 trigger* 가 *세포 자체 안의 이벤트* (mtDNA leak) 임을 입증. 그동안 inflammaging 은 niche / 면역세포 의 *external* 신호로 framing 됐는데 — 이 paper 는 HSC 자체의 내부 리소좀 결함이 인터페론 program 의 *autonomous trigger* 임을 보임.</span>
+          <span class="lang-en">Inflammaging — the chronic-inflammation theory of aging — gets a *molecular trigger* that originates *inside the cell* (mtDNA leak). Inflammaging had been framed as externally driven by niche/immune cells; here, an HSC's own internal lysosomal defect is shown to be an *autonomous trigger* of its interferon program.</span>
+        </p>
+      </div>
+    </details>
+
+    <details class="deep-dive">
+      <summary>
+        <span class="lang-kr">★ 발견 3 — 8× 기능 회복: in vivo repopulation rescue — 자세히</span>
+        <span class="lang-en">★ Finding 3 — &gt;8× functional rescue in vivo — in detail</span>
+      </summary>
+      <div class="body">
+        <h4>📊 <span class="lang-kr">실제 수치</span><span class="lang-en">Numbers</span></h4>
+        <div class="numbers-strip">
+          <div class="number-chip">
+            <strong>&gt;8×</strong>
+            <span class="unit"><span class="lang-kr">donor chimerism 증가</span><span class="lang-en">donor chimerism rise</span></span>
+          </div>
+          <div class="number-chip blue">
+            <strong>≥16 wk</strong>
+            <span class="unit"><span class="lang-kr">long-term tracking</span><span class="lang-en">long-term tracking</span></span>
+          </div>
+          <div class="number-chip green">
+            <strong>ex vivo only</strong>
+            <span class="unit"><span class="lang-kr">처리 후 transplant</span><span class="lang-en">treatment then transplant</span></span>
+          </div>
+        </div>
+        <h4>🔬 <span class="lang-kr">무엇을 측정했나</span><span class="lang-en">What was measured</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">Aged donor LT-HSC 를 v-ATPase inhibitor 로 ex vivo 처리 (vehicle 비교군 별도) 후 wash → lethally irradiated young recipient 에 carrier cell 과 함께 co-transplant. PB chimerism 을 16주 이상 추적해 *long-term self-renewal* 측정. Inhibitor 처리 HSC 가 vehicle 대비 8배 더 많은 donor-derived 혈액 cell 을 만들어냄.</span>
+          <span class="lang-en">Aged donor LT-HSCs were treated ex vivo with the v-ATPase inhibitor (vehicle in parallel), washed, and co-transplanted into lethally irradiated young recipients with carrier cells. Peripheral-blood chimerism was tracked for &gt;16 weeks (long-term self-renewal). Inhibitor-treated HSCs produced ~8× more donor-derived blood than vehicle.</span>
+        </p>
+        <div class="paper-quote">
+          <span class="lang-kr">"Ex vivo 의 리소좀 억제는 노화 HSC 의 in vivo 재식 능력을 8배 이상 향상시켰고, 자기재생 능력도 개선했다." — Abstract paraphrase</span>
+          <span class="lang-en">"Ex vivo lysosomal inhibition boosts old HSCs' in vivo repopulation capacity by over eightfold and improves their self-renewal." — Paper abstract</span>
+          <span class="src">— <span class="lang-kr">Cell Stem Cell 2025, Abstract</span><span class="lang-en">Cell Stem Cell 2025, Abstract</span></span>
+        </div>
+        <h4>💡 <span class="lang-kr">왜 중요한가</span><span class="lang-en">Why it matters</span></h4>
+        <p class="narrative">
+          <span class="lang-kr">분자 회복 (panel 1, 2) 이 *기능* 회복으로 propagate 한다는 *gold standard* 증명. competitive BMT 8× rescue 는 노화 HSC functional 연구에서 매우 큰 effect size — 분야 reviewer 가 "molecular 변화가 사실은 기능적으로 의미 있는가?" 의문에 정면으로 답함. 또한 *cell-autonomous* mechanism 만으로 이 정도 회복이 가능 — 이는 본 G11BM senolytic paper 의 *niche-routed* mechanism 과 *상보적* 두 axis 가 됨.</span>
+          <span class="lang-en">Gold-standard proof that the molecular rescue (Findings 1, 2) translates to functional rescue. An 8× rescue in competitive BMT is a very large effect for aged-HSC functional studies — directly answering the standard reviewer question, "are these molecular changes actually functionally meaningful?". And because it is *cell-autonomous*, it serves as a complementary axis to our G11BM senolytic paper's *niche-routed* mechanism.</span>
+        </p>
+      </div>
+    </details>
+  </div>
+
+  <div class="summary-banner">
+    <span class="lang-kr">🌀 노화 HSC 의 폭주한 리소좀을 v-ATPase 억제로 진정 → mtDNA leak ↓ → cGAS-STING ↓ → 인터페론 ↓ → in vivo 기능 8× 회복.</span>
+    <span class="lang-en">🌀 Calming runaway lysosomes via v-ATPase inhibition → mtDNA leak ↓ → cGAS-STING ↓ → interferon ↓ → &gt;8× in vivo functional rescue.</span>
+  </div>
+</div>
+
+<!-- ====================== TAB 4 — DISCUSSION ====================== -->
+<div class="tab-content" id="t4">
+  <div class="panel">
+    <h2>💭
+      <span class="lang-kr">패러다임 전환 — 옛 vs 새 framing</span>
+      <span class="lang-en">Paradigm shift — old vs new framing</span>
+    </h2>
+
+    <ul class="discussion-list">
+      <li class="discussion-item">
+        <h4>💡 <span class="lang-kr">옛 framing</span><span class="lang-en">Old framing</span></h4>
+        <p>
+          <span class="lang-kr">노화 HSC 결함의 핵심은 *DNA 손상, mitochondrial 결함, 후성유전 drift, niche-driven 만성 염증*. 리소좀은 autophagy 의 단순 청소부이며 *수동적*.</span>
+          <span class="lang-en">Aged HSC dysfunction was framed by *DNA damage, mitochondrial collapse, epigenetic drift, niche-driven inflammation*. Lysosomes were viewed as passive autophagy machinery.</span>
+        </p>
+      </li>
+      <li class="discussion-item">
+        <h4>🌀 <span class="lang-kr">새 framing</span><span class="lang-en">New framing</span></h4>
+        <p>
+          <span class="lang-kr">리소좀이 *능동적 (hyperactive, hyperacidic) 결함* 이라는 새 perspective. v-ATPase 억제로 단일 조절점 만으로도 *모든 downstream layer* (대사/후성유전/인터페론/기능) 가 회복된다 → "lysosome = upstream master switch" 가설의 정량 입증.</span>
+          <span class="lang-en">Lysosomes are reframed as *actively dysregulated* (hyperactive, hyperacidic). A single intervention at v-ATPase reverses *all downstream layers* (metabolism, epigenetics, interferon, function) — quantitative support for "lysosome = upstream master switch".</span>
+        </p>
+      </li>
+      <li class="discussion-item">
+        <h4>🔗 <span class="lang-kr">분야 통합</span><span class="lang-en">Field integration</span></h4>
+        <p>
+          <span class="lang-kr">Inflammaging (만성 염증 노화 가설) 의 *분자 trigger* 가 외부 niche 가 아닌 *세포 내부 organelle* 임을 입증 → 분야 종래 "inflammaging = niche-driven external" 정설의 *cell-autonomous 보완*.</span>
+          <span class="lang-en">The molecular *trigger* of inflammaging is not external (niche-driven) but a *cell-autonomous organelle event*. This complements the dominant "inflammaging = niche-driven" view with a within-cell origin.</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>⚠️
+      <span class="lang-kr">한계점</span>
+      <span class="lang-en">Limitations</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item limitation">
+        <h4>🐭 <span class="lang-kr">Ex vivo only — in vivo systemic 안 입증</span><span class="lang-en">Ex vivo only — no systemic in-vivo demonstration</span></h4>
+        <p>
+          <span class="lang-kr">v-ATPase inhibitor 가 ex vivo 처리 후 BMT 형태로 효능 입증됐지만, *systemic* 투여 (drug-by-mouth, IV) 의 안전성과 효능은 미해결. v-ATPase 는 모든 cell type 에 발현이라 systemic toxicity 우려.</span>
+          <span class="lang-en">Efficacy is shown only via ex vivo treatment followed by BMT. *Systemic* (oral / IV) dosing safety and efficacy remain untested. Because v-ATPase is ubiquitous, systemic dosing carries off-target toxicity risk.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4>💊 <span class="lang-kr">구체적 화합물명 — 본 요약에 부분만</span><span class="lang-en">Specific compound — only partial in this summary</span></h4>
+        <p>
+          <span class="lang-kr">Accessible portion (abstract + press release) 에서 정확한 v-ATPase inhibitor 분자명 미보고. Bafilomycin A1 / concanamycin 계열로 추정 — 본문 fetch 가능 시 확인 권고.</span>
+          <span class="lang-en">The accessible portion (abstract + press release) does not name the specific v-ATPase inhibitor. Likely a bafilomycin A1 / concanamycin family — full-text fetch needed for exact compound.</span>
+        </p>
+      </li>
+      <li class="discussion-item limitation">
+        <h4>🧪 <span class="lang-kr">Mouse only — human 적용 미해결</span><span class="lang-en">Mouse only — human translation pending</span></h4>
+        <p>
+          <span class="lang-kr">실험 전체가 C57BL/6 마우스. Human aged HSC 에서의 lysosomal hyperacidity 측정 + v-ATPase inhibitor rescue 는 후속 검증 필요.</span>
+          <span class="lang-en">All experiments are in C57BL/6 mice. Human aged HSC lysosomal hyperacidity and v-ATPase inhibitor rescue require follow-up validation.</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>🌱
+      <span class="lang-kr">미래 방향</span>
+      <span class="lang-en">Future directions</span>
+    </h2>
+    <ul class="discussion-list">
+      <li class="discussion-item future">
+        <h4>💊 <span class="lang-kr">HSC-targeted v-ATPase inhibitor 개발</span><span class="lang-en">HSC-targeted v-ATPase inhibitor delivery</span></h4>
+        <p>
+          <span class="lang-kr">Systemic toxicity 회피 위한 lineage-specific delivery (예: nanoparticle + CD34/CD150 targeting antibody) 또는 organelle-selective inhibition.</span>
+          <span class="lang-en">Lineage-specific delivery (e.g., CD34/CD150-targeted nanoparticles) or organelle-selective inhibition to avoid systemic toxicity.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>🌐 <span class="lang-kr">다른 노화 줄기세포로 확장</span><span class="lang-en">Extend to other aged stem cells</span></h4>
+        <p>
+          <span class="lang-kr">MSC / NSC / muscle satellite cell 의 lysosomal hyperacidity 검정 → 줄기세포 노화의 *일반 mechanism* 인지 검증.</span>
+          <span class="lang-en">Test for lysosomal hyperacidity in MSCs / NSCs / muscle satellite cells to ask whether this is a *general* aged-stem-cell mechanism.</span>
+        </p>
+      </li>
+      <li class="discussion-item future">
+        <h4>🔗 <span class="lang-kr">D+Q senolytic 와 조합 가능성</span><span class="lang-en">Possible combination with D+Q senolytic</span></h4>
+        <p>
+          <span class="lang-kr">본 G11BM paper 의 niche-routed D+Q axis 와 Arif 의 cell-autonomous lysosomal axis 가 *상보적*. 조합 senolytic + organelle-rejuv 전략의 synergy 검증 가치.</span>
+          <span class="lang-en">Our G11BM paper's niche-routed D+Q axis and Arif's cell-autonomous lysosomal axis appear *complementary*. Combination senolytic + organelle-rejuvenation strategies are worth testing for synergy.</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="summary-banner">
+    <span class="lang-kr">🎯 줄기세포 노화 = niche 신호 만의 문제가 아니라 — 세포 안 *재활용 공장 의 폭주* 이기도 하다. 그 폭주를 진정시키는 것 만으로 8× 회춘 가능. D+Q 의 niche reset 와 *상보적* 인 새 axis.</span>
+    <span class="lang-en">🎯 Stem-cell aging isn't only a niche-signaling problem — it's also a *runaway recycling factory* inside the cell. Calming that runaway is enough for 8× rejuvenation. A new axis, complementary to D+Q's niche reset.</span>
+  </div>
+</div>
+
+<footer>
+  <span class="lang-kr">Cute schematic of <strong>Arif et al. 2025, <em>Cell Stem Cell</em></strong></span>
+  <span class="lang-en">Cute schematic of <strong>Arif et al. 2025, <em>Cell Stem Cell</em></strong></span>
+  <br>
+  <a href="https://doi.org/10.1016/j.stem.2025.10.012" target="_blank">📄 <span class="lang-kr">원 논문</span><span class="lang-en">Original article</span></a> ·
+  <a href="https://pubmed.ncbi.nlm.nih.gov/41289991/" target="_blank">🔬 PubMed</a>
+</footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  function toggleLang() {
+    const body = document.body;
+    if (body.classList.contains('lang-kr')) {
+      body.classList.remove('lang-kr'); body.classList.add('lang-en');
+      localStorage.setItem('paper_easy_lang', 'en');
+    } else {
+      body.classList.remove('lang-en'); body.classList.add('lang-kr');
+      localStorage.setItem('paper_easy_lang', 'kr');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('paper_easy_lang');
+    if (saved === 'en') {
+      document.body.classList.remove('lang-kr');
+      document.body.classList.add('lang-en');
+    }
+  })();
+</script>
+
+</body>
+</html>
