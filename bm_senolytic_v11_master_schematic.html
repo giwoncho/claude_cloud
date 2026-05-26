@@ -5,177 +5,172 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BM Senolytic D+Q — Master Schematic (v11)</title>
 <style>
-  :root{--navy:#1a2b4a;--teal:#16a085;--blue:#2166ac;--red:#c0392b;--orange:#e67e22;--green:#1e8449;--purple:#8e44ad;--grey:#7f8c8d;--bg:#f4f6f9;--card:#fff;--ink:#1b2a3a;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:"Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);padding:12px;}
-  .poster{max-width:1500px;margin:0 auto;background:var(--card);border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.12);overflow:hidden;}
-  header{background:linear-gradient(110deg,var(--navy),#26406b);color:#fff;padding:14px 24px;}
-  header h1{font-size:21px;font-weight:800;}
-  header .sub{font-size:12px;color:#c9d6e5;margin-top:3px;font-style:italic;}
-  .thesis{background:#eafaf1;border-left:5px solid var(--teal);padding:9px 24px;font-size:13px;color:#0e5e4e;font-weight:600;}
-  .stats{display:flex;gap:9px;padding:10px 20px 2px;flex-wrap:wrap;}
-  .chip{flex:1;min-width:115px;background:var(--navy);color:#fff;border-radius:9px;padding:8px 10px;text-align:center;}
-  .chip b{font-size:17px;display:block;color:#7fe0c6;}.chip span{font-size:10px;color:#c9d6e5;}
-  .grid{display:grid;grid-template-columns:1.45fr 1fr;gap:12px;padding:12px 20px 4px;}
-  .panel{background:#fbfcfe;border:1px solid #e3e9f0;border-radius:12px;padding:7px;}
-  .panel h2{font-size:12px;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin:3px 5px 4px;border-bottom:2px solid #e3e9f0;padding-bottom:3px;}
-  .col{display:flex;flex-direction:column;gap:8px;}
-  .mini{background:#fff;border:1px solid #e3e9f0;border-left:4px solid var(--grey);border-radius:8px;padding:7px 9px;}
-  .mini.b{border-left-color:var(--blue);}.mini.t{border-left-color:var(--teal);}.mini.r{border-left-color:var(--red);}.mini.o{border-left-color:var(--orange);}
-  .mini h3{font-size:11px;color:var(--navy);}.mini p{font-size:10px;line-height:1.36;color:#33404f;}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding:4px 20px 12px;}
-  .card{background:#fff;border:1px solid #e3e9f0;border-left:4px solid var(--grey);border-radius:8px;padding:7px 9px;}
-  .card.t{border-left-color:var(--teal);}.card.b{border-left-color:var(--blue);}.card.r{border-left-color:var(--red);}.card.o{border-left-color:var(--orange);}.card.g{border-left-color:var(--green);}.card.p{border-left-color:var(--purple);}
-  .card h3{font-size:10.5px;color:var(--navy);margin-bottom:2px;}.card p{font-size:9.5px;line-height:1.34;color:#33404f;}
-  .gene{font-style:italic;font-weight:600;}.up{color:var(--teal);font-weight:700;}.dn{color:var(--blue);font-weight:700;}.infl{color:var(--red);font-weight:700;}
-  .new{background:#fff3cd;color:#8a6d00;font-size:8px;font-weight:700;padding:1px 4px;border-radius:5px;}
-  .legend{display:flex;gap:12px;flex-wrap:wrap;padding:4px 8px 2px;font-size:9px;color:#555;}
-  .legend span{display:flex;align-items:center;gap:3px;}.sw{width:15px;height:3px;border-radius:2px;display:inline-block;}
-  footer{background:var(--navy);color:#c9d6e5;font-size:9.5px;padding:7px 20px;text-align:center;}
+  body{margin:0;background:#eef1f5;font-family:"Segoe UI",system-ui,Arial,sans-serif;}
+  .wrap{max-width:1500px;margin:10px auto;background:#fff;border-radius:12px;box-shadow:0 4px 22px rgba(0,0,0,.13);overflow:hidden;}
+  svg{display:block;width:100%;height:auto;}
+  text{font-family:"Segoe UI",Arial,sans-serif;}
 </style>
 </head>
 <body>
-<div class="poster">
-<header>
-  <h1>Bone-Marrow Senolytic (D+Q): a multi-cell niche federation reset, with HSPC chromatin-committed</h1>
-  <div class="sub">v11 master schematic · Cho / Varghese Lab · 2026-05-26 · scRNA 175k + scATAC 75k · CellChat · NicheNet · ArchR (P2G/ChromVAR/footprint)</div>
-</header>
-<div class="thesis">Restoration is conversation, not creation — D+Q reverses conserved AP-1/NF-κB inflammaging marrow-wide and rewires a myeloid↔MSC↔HSPC federation; each cell type runs its own intrinsic program, but HSPC uniquely commits stress-OFF to chromatin and re-enters regeneration.</div>
-<div class="stats">
-  <div class="chip"><b>51,273</b><span>functional P2G (69% distal)</span></div>
-  <div class="chip"><b>r=0.21</b><span>GeneScore↔RNA concordance</span></div>
-  <div class="chip"><b>HSPC-only</b><span>coupled TNF-NFκB stress-OFF</span></div>
-  <div class="chip"><b>8/11</b><span>cell types AP-1 RNA reversal</span></div>
-  <div class="chip"><b>4-node</b><span>bidirectional federation</span></div>
-</div>
+<div class="wrap">
+<svg viewBox="0 0 1400 832" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1a2b4a"/><stop offset="1" stop-color="#2b4673"/></linearGradient>
+  <radialGradient id="hspcG" cx="50%" cy="42%"><stop offset="0" stop-color="#e3eefb"/><stop offset="1" stop-color="#c5d9ef"/></radialGradient>
+  <marker id="aR" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c0392b"/></marker>
+  <marker id="aG" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1e8449"/></marker>
+  <marker id="aK" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7f8c8d"/></marker>
+  <marker id="aN" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#34495e"/></marker>
+</defs>
 
-<div class="grid">
-  <!-- LEFT: federation network with intrinsic programs -->
-  <div class="panel">
-    <h2>Federation network — cell-cell interactions + each cell's intrinsic D+Q program</h2>
-    <svg viewBox="0 0 720 430" width="100%" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <marker id="aR" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#c0392b"/></marker>
-        <marker id="aG" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#1e8449"/></marker>
-        <marker id="aK" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#888"/></marker>
-      </defs>
-      <!-- EDGES (draw first) -->
-      <!-- Neu -> MSC : OSM/TNF/PGRN withdrawn -->
-      <line x1="120" y1="92" x2="150" y2="300" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#aR)"/>
-      <text x="62" y="200" font-size="8.5" fill="#c0392b" font-weight="700" transform="rotate(-78 70 200)">OSM·TNF·PGRN ✂</text>
-      <!-- MSC -> Neu : Adiponectin up / Complement down -->
-      <line x1="168" y1="305" x2="138" y2="100" stroke="#1e8449" stroke-width="1.8" marker-end="url(#aG)"/>
-      <text x="178" y="200" font-size="8.2" fill="#1e8449" font-weight="700" transform="rotate(-78 185 200)">Adipoq↑ Cxcl12↑ C3↓</text>
-      <!-- Neu -> HSPC : TNF withdrawn -->
-      <line x1="158" y1="78" x2="300" y2="170" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="6,4" marker-end="url(#aR)"/>
-      <text x="180" y="108" font-size="8.5" fill="#c0392b" font-weight="700">TNF ✂</text>
-      <!-- Mono -> HSPC : Lgals9/Nampt up -->
-      <line x1="150" y1="218" x2="300" y2="208" stroke="#1e8449" stroke-width="1.9" marker-end="url(#aG)"/>
-      <text x="165" y="205" font-size="8.2" fill="#1e8449" font-weight="700">Lgals9·Nampt↑</text>
-      <!-- MSC -> HSPC : Cxcl12/Kitl up, Spp1/Nampt down -->
-      <line x1="160" y1="345" x2="300" y2="250" stroke="#1e8449" stroke-width="1.9" marker-end="url(#aG)"/>
-      <text x="150" y="335" font-size="8.2" fill="#1e8449" font-weight="700">Cxcl12·Kitl↑</text>
-      <text x="158" y="348" font-size="7.8" fill="#c0392b">Spp1·Nampt↓</text>
-      <!-- HSPC -> output (B/T/Ery responders) -->
-      <line x1="445" y1="150" x2="560" y2="100" stroke="#888" stroke-width="1.5" marker-end="url(#aK)"/>
-      <line x1="455" y1="210" x2="575" y2="212" stroke="#888" stroke-width="1.5" marker-end="url(#aK)"/>
-      <line x1="445" y1="265" x2="560" y2="330" stroke="#888" stroke-width="1.5" marker-end="url(#aK)"/>
+<!-- ===== HEADER ===== -->
+<rect x="0" y="0" width="1400" height="74" fill="url(#hdr)"/>
+<text x="28" y="32" font-size="23" font-weight="800" fill="#fff">Bone-marrow senolytic (D+Q): a myeloid↔MSC↔HSPC niche-federation reset, chromatin-committed in HSPC</text>
+<text x="28" y="56" font-size="13" fill="#cfe0f0" font-style="italic">Restoration is conversation, not creation — D+Q reverses conserved AP-1/NF-κB inflammaging marrow-wide; each cell runs its own program, but only HSPC writes stress-OFF into chromatin and re-enters regeneration.   ·   scRNA 175k + scATAC 75k · CellChat · NicheNet · ArchR</text>
 
-      <!-- NODES -->
-      <!-- Neutrophil -->
-      <circle cx="100" cy="75" r="34" fill="#fdebd9" stroke="#e67e22" stroke-width="2"/>
-      <text x="100" y="72" text-anchor="middle" font-size="10" font-weight="700" fill="#a85b13">Neutrophil</text>
-      <text x="100" y="120" text-anchor="middle" font-size="8" fill="#a85b13">intrinsic: anabolic↑</text>
-      <text x="100" y="131" text-anchor="middle" font-size="7.5" fill="#c0392b">inflam-ligand↓ (sender)</text>
-      <!-- Monocyte/Mac -->
-      <circle cx="100" cy="215" r="32" fill="#efe1f3" stroke="#8e44ad" stroke-width="2"/>
-      <text x="100" y="212" text-anchor="middle" font-size="9.5" font-weight="700" fill="#6d3091">Mono/Mac</text>
-      <text x="100" y="258" text-anchor="middle" font-size="7.6" fill="#6d3091">complement/AP-1↓, IFN↑</text>
-      <text x="100" y="268" text-anchor="middle" font-size="7.4" fill="#6d3091">(Src/LYN-mod)</text>
-      <!-- MSC -->
-      <circle cx="118" cy="355" r="36" fill="#e2efe5" stroke="#1e8449" stroke-width="2"/>
-      <text x="118" y="352" text-anchor="middle" font-size="10" font-weight="700" fill="#15623a">MSC/CAR</text>
-      <text x="118" y="400" text-anchor="middle" font-size="7.6" fill="#15623a">senescent removal (G2M↓)</text>
-      <text x="118" y="410" text-anchor="middle" font-size="7.4" fill="#15623a">+ niche-supportive secretome</text>
+<!-- ===== STAT STRIP ===== -->
+<g font-family="Segoe UI">
+  <rect x="28" y="86" width="250" height="40" rx="7" fill="#1a2b4a"/><text x="153" y="106" text-anchor="middle" font-size="17" font-weight="800" fill="#7fe0c6">51,273</text><text x="153" y="120" text-anchor="middle" font-size="10" fill="#cfe0f0">functional P2G (69% distal)</text>
+  <rect x="288" y="86" width="250" height="40" rx="7" fill="#1a2b4a"/><text x="413" y="106" text-anchor="middle" font-size="17" font-weight="800" fill="#7fe0c6">r = 0.21</text><text x="413" y="120" text-anchor="middle" font-size="10" fill="#cfe0f0">GeneScore↔RNA concordance</text>
+  <rect x="548" y="86" width="250" height="40" rx="7" fill="#1a2b4a"/><text x="673" y="106" text-anchor="middle" font-size="17" font-weight="800" fill="#7fe0c6">HSPC-only</text><text x="673" y="120" text-anchor="middle" font-size="10" fill="#cfe0f0">coupled TNF-NFκB stress-OFF</text>
+  <rect x="808" y="86" width="250" height="40" rx="7" fill="#1a2b4a"/><text x="933" y="106" text-anchor="middle" font-size="17" font-weight="800" fill="#7fe0c6">8 / 11</text><text x="933" y="120" text-anchor="middle" font-size="10" fill="#cfe0f0">cell types: AP-1 RNA reversal</text>
+  <rect x="1068" y="86" width="304" height="40" rx="7" fill="#1a2b4a"/><text x="1220" y="106" text-anchor="middle" font-size="17" font-weight="800" fill="#7fe0c6">4-node federation</text><text x="1220" y="120" text-anchor="middle" font-size="10" fill="#cfe0f0">bidirectional, composition-controlled</text>
+</g>
 
-      <!-- HSPC central -->
-      <ellipse cx="375" cy="215" rx="78" ry="80" fill="#dcebf8" stroke="#2166ac" stroke-width="2.5"/>
-      <text x="375" y="160" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1a4d80">HSPC</text>
-      <text x="375" y="200" text-anchor="middle" font-size="8" fill="#c0392b" font-weight="700">receptor↓</text>
-      <text x="375" y="211" text-anchor="middle" font-size="7" fill="#c0392b">Il1r1·Il6st</text>
-      <text x="375" y="228" text-anchor="middle" font-size="8.4" fill="#2166ac" font-weight="700">stress-OFF</text>
-      <text x="375" y="240" text-anchor="middle" font-size="8.4" fill="#16a085" font-weight="700">+ proliferation↑</text>
-      <text x="375" y="258" text-anchor="middle" font-size="7" fill="#7a5b00">★chromatin-committed</text>
+<!-- ===== SECTION TITLES ===== -->
+<text x="28" y="150" font-size="13" font-weight="800" fill="#1a2b4a">① NICHE FEDERATION — cell↔cell interactions + each cell's intrinsic D+Q program</text>
+<text x="720" y="150" font-size="13" font-weight="800" fill="#1a2b4a">② HSPC molecular axis — flux → chromatin → output</text>
 
-      <!-- responder nodes -->
-      <circle cx="600" cy="90" r="30" fill="#eaf3fb" stroke="#2980b9" stroke-width="1.8"/>
-      <text x="600" y="88" text-anchor="middle" font-size="9" font-weight="700" fill="#1f5f8a">B-cell</text>
-      <text x="600" y="130" text-anchor="middle" font-size="7.4" fill="#1f5f8a">lineage-TF chromatin↑</text>
-      <text x="600" y="140" text-anchor="middle" font-size="7.2" fill="#1f5f8a">(Pax5/Irf priming)</text>
-      <circle cx="615" cy="212" r="30" fill="#fdeeee" stroke="#c0392b" stroke-width="1.8"/>
-      <text x="615" y="210" text-anchor="middle" font-size="9" font-weight="700" fill="#a02a1c">T-cell</text>
-      <text x="615" y="252" text-anchor="middle" font-size="7.4" fill="#a02a1c">AP-1 chromatin↓ (poised)</text>
-      <text x="615" y="262" text-anchor="middle" font-size="7.2" fill="#a02a1c">RNA lagging</text>
-      <circle cx="600" cy="338" r="30" fill="#fcefe6" stroke="#c0681d" stroke-width="1.8"/>
-      <text x="600" y="336" text-anchor="middle" font-size="9" font-weight="700" fill="#9a4f12">Erythroid</text>
-      <text x="600" y="378" text-anchor="middle" font-size="7.4" fill="#9a4f12">maturation-brake↓</text>
-      <text x="600" y="388" text-anchor="middle" font-size="7.2" fill="#9a4f12">+ anabolic↑</text>
-    </svg>
-    <div class="legend">
-      <span><i class="sw" style="background:#c0392b"></i>inflammatory withdrawal</span>
-      <span><i class="sw" style="background:#1e8449"></i>supportive restoration</span>
-      <span><i class="sw" style="background:#888"></i>responder (chromatin priming)</span>
-      <span>node sub-label = that cell's intrinsic D+Q program</span>
-    </div>
-  </div>
+<!-- ===== ① FEDERATION NETWORK ===== -->
+<!-- edges -->
+<line x1="150" y1="210" x2="200" y2="430" stroke="#c0392b" stroke-width="2.4" stroke-dasharray="7,4" marker-end="url(#aR)"/>
+<text x="120" y="320" font-size="11" fill="#c0392b" font-weight="700" transform="rotate(-77 120 320)">OSM · TNF · PGRN ✂</text>
+<line x1="225" y1="438" x2="178" y2="222" stroke="#1e8449" stroke-width="2" marker-end="url(#aG)"/>
+<text x="235" y="320" font-size="10.5" fill="#1e8449" font-weight="700" transform="rotate(-77 235 320)">Adipoq↑ Cxcl12↑ C3↓</text>
+<line x1="210" y1="195" x2="470" y2="320" stroke="#c0392b" stroke-width="2.4" stroke-dasharray="7,4" marker-end="url(#aR)"/>
+<text x="270" y="240" font-size="12" fill="#c0392b" font-weight="700">TNF ✂ (sender-side)</text>
+<line x1="205" y1="430" x2="470" y2="360" stroke="#1e8449" stroke-width="2.1" marker-end="url(#aG)"/>
+<text x="225" y="420" font-size="11" fill="#1e8449" font-weight="700">Cxcl12·Kitl↑ , Spp1·Nampt↓</text>
+<line x1="215" y1="300" x2="465" y2="338" stroke="#1e8449" stroke-width="2.1" marker-end="url(#aG)"/>
+<text x="235" y="300" font-size="11" fill="#1e8449" font-weight="700">Lgals9·Nampt↑</text>
 
-  <!-- RIGHT: HSPC molecular zoom + headline cards -->
-  <div class="col">
-    <div class="panel" style="padding:5px 7px;">
-      <h2>HSPC molecular zoom — flux → chromatin → output</h2>
-      <svg viewBox="0 0 360 210" width="100%" preserveAspectRatio="xMidYMid meet">
-        <rect x="10" y="8" width="340" height="22" rx="5" fill="#fdeeee" stroke="#c0392b"/>
-        <text x="180" y="23" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a02a1c">membrane: Il1r1·Il6st·Itga4·Igf1r·Tek ↓ (TNFR flat)</text>
-        <rect x="40" y="36" width="280" height="20" rx="5" fill="#eafaf1" stroke="#16a085"/>
-        <text x="180" y="50" text-anchor="middle" font-size="9" font-weight="700" fill="#0e5e4e">NF-κB signaling FLUX ↓ (flux, not TF switch)</text>
-        <!-- nucleus -->
-        <ellipse cx="180" cy="135" rx="150" ry="68" fill="#fef6f0" stroke="#b5651d" stroke-width="1.4"/>
-        <circle cx="120" cy="100" r="7" fill="#2166ac"/><circle cx="140" cy="95" r="7" fill="#2166ac"/><circle cx="160" cy="100" r="7" fill="#2166ac"/><circle cx="180" cy="95" r="7" fill="#2166ac"/>
-        <path d="M113,100 Q132,84 151,100 Q170,84 189,100" fill="none" stroke="#2166ac" stroke-width="1.8"/>
-        <text x="240" y="98" font-size="8" fill="#2166ac" font-weight="700">global closing</text>
-        <rect x="42" y="115" width="130" height="34" rx="4" fill="#e8f0f8" stroke="#2166ac"/>
-        <text x="107" y="128" text-anchor="middle" font-size="8" font-weight="700" fill="#2166ac">TNF-NFκB targets↓</text>
-        <text x="107" y="139" text-anchor="middle" font-size="7" fill="#2166ac" font-style="italic">Fos·Egr1·Nr4a2</text>
-        <text x="107" y="147" text-anchor="middle" font-size="6.4" fill="#555">cis (chromatin+RNA)</text>
-        <rect x="188" y="115" width="130" height="34" rx="4" fill="#eafaf1" stroke="#16a085"/>
-        <text x="253" y="128" text-anchor="middle" font-size="8" font-weight="700" fill="#0e5e4e">proliferation↑</text>
-        <text x="253" y="139" text-anchor="middle" font-size="7" fill="#0e5e4e" font-style="italic">E2F·Myc·OXPHOS</text>
-        <text x="253" y="147" text-anchor="middle" font-size="6.4" fill="#555">GeneScore-validated</text>
-        <text x="180" y="178" text-anchor="middle" font-size="8" fill="#7a5b00" font-weight="700">→ quiescence exit (Angpt1↓) → multipotent/lymphoid recovery</text>
-      </svg>
-    </div>
-    <div class="mini t"><h3>★ HSPC-specific coupling</h3><p>Only HSPC couples TNF-NFκB stress-OFF in BOTH chromatin &amp; RNA. Others: general cis-coupling on different programs, or decoupled. = stem-specific.</p></div>
-    <div class="mini o"><h3>AP-1 inflammaging reversal <span class="new">Karakaslar 2023</span></h3><p>Conserved AP-1 aging axis reverses at RNA in 8/11 cell types; commitment varies (HSPC committed, T-cell poised, B-cell RNA-first).</p></div>
-    <div class="mini b"><h3>GeneScore↔RNA concordance</h3><p>GS-up∩DEG-up 21 (p=1.3e-4), GS-down∩DEG-down 12 (p=6e-9). GeneScore (aggregate) is the valid cis unit; per-peak is closing-selection-biased.</p></div>
-  </div>
-</div>
+<!-- sender nodes -->
+<circle cx="120" cy="195" r="46" fill="#fdebd9" stroke="#e67e22" stroke-width="2.4"/>
+<text x="120" y="190" text-anchor="middle" font-size="13" font-weight="800" fill="#a85b13">Neutrophil</text>
+<text x="120" y="252" text-anchor="middle" font-size="10.5" fill="#a85b13">intrinsic: anabolic↑ (ribosome/OXPHOS)</text>
+<text x="120" y="266" text-anchor="middle" font-size="10" fill="#c0392b">inflammatory ligands ↓ (quieter sender)</text>
 
-<div class="cards">
-  <div class="card p"><h3>Myeloid→MSC→HSPC federation</h3><p>Aged myeloid pour <span class="gene">OSM/TNF/PGRN</span> onto MSC → MSC emit suppressive <span class="gene">Spp1/Nampt</span>. D+Q removes input → MSC flips supportive. <b>Bidirectional, multi-node.</b></p></div>
-  <div class="card g"><h3>MSC-Osteo niche restoration</h3><p>Osteogenic secretome turns supportive: <span class="gene">Bmp2 +2.61</span>, Jag1, Cxcl12, Angpt1, Vcam1 (8/9 ↑, p=0.035). CAR/LepR⁺ = principal niche.</p></div>
-  <div class="card t"><h3>Nampt — NAD-salvage</h3><p>Mac-derived <span class="gene">Nampt</span> = only stem-convergent ligand (LT/ST/MPP top-5); ties NAD→HSC-metabolism + OXPHOS re-entry.</p></div>
-  <div class="card o"><h3>Lgals9 robust attractor</h3><p>Galectin-9 from ≥4 sources (Neu+B+Mono+Mac); multi-source needed for ≥80% induction = Kauffman attractor.</p></div>
-  <div class="card t"><h3>Lymphoid recovery</h3><p>HSPC = <b>multipotent activated, not myeloid-biased</b>. ST/MPP lymphoid↑ (<span class="gene">Ebf1/Pax5/Tcf7</span>+Rag1/2); quiescence↓.</p></div>
-  <div class="card b"><h3>Bivalent / armed-but-quiet</h3><p>Self-renewal TFs (<span class="gene">Hlf/Mecom/Meis1</span>) RNA↓ but ATAC+footprint preserved = identity in chromatin during reset.</p></div>
-  <div class="card r"><h3>Aging-reversal GSEA</h3><p>Reverses published aging: HSC GSE48893 <b>NES −2.88</b>; adipocyte GSE25905 <b>NES −2.71</b>. Substitutes missing young control.</p></div>
-  <div class="card p"><h3>Sorting-bias illusion</h3><p>Simulated FACS gates show <i>apparent</i> senescent clearance (Mono p16⁺p21⁺ −55%) with parent pops unchanged = marker-specific artifact.</p></div>
-  <div class="card g"><h3>BMT rescue <span class="new">Sup, n=3</span></h3><p>D+Q rescues whichever side aged: y→o 6/6 vs 2/6; o→y aged chimerism 4–5× (p=0.036). Kinetic, underpowered.</p></div>
-  <div class="card b"><h3>Theory</h3><p><b>Synaptic scaling</b> (set-point reset) + <b>bivalent chromatin</b> (poised identity) → self-maintaining rejuvenation after short exposure.</p></div>
-  <div class="card o"><h3>Cell-type intrinsic programs</h3><p>Each cell runs its OWN D+Q program (Neu anabolic, Mono immuno-mod, Ery maturation-brake, MSC senescent-removal, B priming, T poised) — not all HSPC-routed.</p></div>
-  <div class="card"><h3>Honest limits</h3><p>causality not shown (cross-cohort, no perturbation); flux not single-TF; output correlative; quercetin=direct NF-κB inhibitor; composition (GMP) confounds. <b>Test: sorted-LT-HSC CUT&amp;Tag + ligand perturbation.</b></p></div>
-</div>
+<circle cx="120" cy="320" r="40" fill="#efe1f3" stroke="#8e44ad" stroke-width="2.4"/>
+<text x="120" y="316" text-anchor="middle" font-size="12" font-weight="800" fill="#6d3091">Mono / Mac</text>
+<text x="120" y="372" text-anchor="middle" font-size="10" fill="#6d3091">complement·AP-1↓ , IFN/IRF8↑ (Src/LYN-mod)</text>
 
-<footer>methods: pydeseq2 · CellChat (substate relay) · NicheNet · ArchR GeneIntegrationMatrix-P2G/ChromVAR/footprint · all claims composition- &amp; cross-cohort-controlled · supersedes single-star schematic with multi-node federation + per-cell intrinsic programs</footer>
+<circle cx="150" cy="455" r="46" fill="#e2efe5" stroke="#1e8449" stroke-width="2.4"/>
+<text x="150" y="450" text-anchor="middle" font-size="13" font-weight="800" fill="#15623a">MSC / CAR</text>
+<text x="150" y="513" text-anchor="middle" font-size="10.5" fill="#15623a">senescent-stromal removal (G2M/PAI-1↓)</text>
+<text x="150" y="527" text-anchor="middle" font-size="10" fill="#15623a">+ niche-supportive secretome restored</text>
+
+<!-- HSPC central -->
+<ellipse cx="555" cy="340" rx="92" ry="96" fill="url(#hspcG)" stroke="#2166ac" stroke-width="3"/>
+<text x="555" y="268" text-anchor="middle" font-size="15" font-weight="800" fill="#1a4d80">HSPC</text>
+<text x="555" y="316" text-anchor="middle" font-size="10.5" fill="#c0392b" font-weight="700">receptor↓ Il1r1·Il6st</text>
+<text x="555" y="338" text-anchor="middle" font-size="12.5" fill="#2166ac" font-weight="800">stress-OFF</text>
+<text x="555" y="356" text-anchor="middle" font-size="12.5" fill="#16a085" font-weight="800">+ proliferation↑</text>
+<text x="555" y="378" text-anchor="middle" font-size="10" fill="#7a5b00" font-weight="700">★ chromatin-committed</text>
+<text x="555" y="394" text-anchor="middle" font-size="9.5" fill="#7a5b00">→ quiescence exit → multipotent recovery</text>
+
+<!-- responder nodes -->
+<line x1="640" y1="285" x2="700" y2="250" stroke="#7f8c8d" stroke-width="1.6" marker-end="url(#aK)"/>
+<line x1="648" y1="345" x2="706" y2="350" stroke="#7f8c8d" stroke-width="1.6" marker-end="url(#aK)"/>
+<line x1="640" y1="400" x2="700" y2="445" stroke="#7f8c8d" stroke-width="1.6" marker-end="url(#aK)"/>
+<circle cx="740" cy="240" r="34" fill="#eaf3fb" stroke="#2980b9" stroke-width="2"/>
+<text x="740" y="237" text-anchor="middle" font-size="11" font-weight="800" fill="#1f5f8a">B-cell</text>
+<text x="740" y="285" text-anchor="middle" font-size="9.5" fill="#1f5f8a">lineage-TF chromatin↑ (Pax5/Irf)</text>
+<circle cx="752" cy="350" r="34" fill="#fdeeee" stroke="#c0392b" stroke-width="2"/>
+<text x="752" y="347" text-anchor="middle" font-size="11" font-weight="800" fill="#a02a1c">T-cell</text>
+<text x="752" y="396" text-anchor="middle" font-size="9.5" fill="#a02a1c">AP-1 chromatin↓ poised (RNA lags)</text>
+<circle cx="740" cy="460" r="34" fill="#fcefe6" stroke="#c0681d" stroke-width="2"/>
+<text x="740" y="457" text-anchor="middle" font-size="11" font-weight="800" fill="#9a4f12">Erythroid</text>
+<text x="740" y="506" text-anchor="middle" font-size="9.5" fill="#9a4f12">maturation-brake↓ + anabolic↑</text>
+
+<!-- network legend -->
+<g font-size="10" fill="#555">
+  <rect x="30" y="548" width="22" height="4" fill="#c0392b"/><text x="58" y="553">inflammatory withdrawal</text>
+  <rect x="210" y="548" width="22" height="4" fill="#1e8449"/><text x="238" y="553">supportive restoration</text>
+  <rect x="390" y="548" width="22" height="4" fill="#7f8c8d"/><text x="418" y="553">responder (chromatin priming)</text>
+  <text x="600" y="553" font-style="italic">sub-label = that cell's intrinsic D+Q program</text>
+</g>
+
+<!-- divider -->
+<line x1="700" y1="160" x2="700" y2="560" stroke="#e0e6ee" stroke-width="2"/>
+
+<!-- ===== ② HSPC MOLECULAR ZOOM ===== -->
+<g transform="translate(720,168)">
+  <rect x="0" y="0" width="360" height="26" rx="6" fill="#fdeeee" stroke="#c0392b"/>
+  <text x="180" y="17" text-anchor="middle" font-size="11" font-weight="700" fill="#a02a1c">membrane: Il1r1·Il6st·Itga4·Igf1r·Tek ↓   (TNFR flat)</text>
+  <line x1="180" y1="26" x2="180" y2="40" stroke="#34495e" stroke-width="2" marker-end="url(#aN)"/>
+  <rect x="40" y="42" width="280" height="24" rx="6" fill="#eafaf1" stroke="#16a085"/>
+  <text x="180" y="58" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0e5e4e">NF-κB signaling FLUX ↓  (flux, not a TF switch)</text>
+  <line x1="180" y1="66" x2="180" y2="80" stroke="#34495e" stroke-width="2" marker-end="url(#aN)"/>
+  <!-- nucleus -->
+  <ellipse cx="180" cy="170" rx="178" ry="84" fill="#fef6f0" stroke="#b5651d" stroke-width="1.6"/>
+  <text x="180" y="100" text-anchor="middle" font-size="10.5" font-weight="700" fill="#8a4d12">NUCLEUS · chromatin</text>
+  <circle cx="250" cy="120" r="8" fill="#2166ac"/><circle cx="272" cy="114" r="8" fill="#2166ac"/><circle cx="294" cy="120" r="8" fill="#2166ac"/><circle cx="316" cy="114" r="8" fill="#2166ac"/>
+  <path d="M243,120 Q263,103 283,120 Q303,103 323,120" fill="none" stroke="#2166ac" stroke-width="2"/>
+  <text x="285" y="142" text-anchor="middle" font-size="9" fill="#2166ac" font-weight="700">global closing</text>
+  <rect x="30" y="130" width="150" height="44" rx="5" fill="#e8f0f8" stroke="#2166ac"/>
+  <text x="105" y="146" text-anchor="middle" font-size="9.5" font-weight="700" fill="#2166ac">TNF-NFκB targets ↓</text>
+  <text x="105" y="159" text-anchor="middle" font-size="8.6" font-style="italic" fill="#2166ac">Fos·Egr1·Nr4a2·Sik1 + Hypoxia</text>
+  <text x="105" y="170" text-anchor="middle" font-size="7.6" fill="#555">cis (chromatin+RNA concordant)</text>
+  <rect x="30" y="182" width="300" height="40" rx="5" fill="#eafaf1" stroke="#16a085"/>
+  <text x="180" y="198" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0e5e4e">proliferation / anabolic re-entry ↑</text>
+  <text x="180" y="211" text-anchor="middle" font-size="8.6" font-style="italic" fill="#0e5e4e">E2F · Myc · OXPHOS · mTORC1   (GeneScore-validated 77–85%)</text>
+  <text x="180" y="245" text-anchor="middle" font-size="9" fill="#7a5b00" font-weight="700">3-layer stress-OFF:  NicheNet ligand → chromatin → RNA  (all TNF-NFκB ↓)</text>
+</g>
+
+<!-- ===== ③ HEADLINE FINDINGS (right) ===== -->
+<g transform="translate(1100,168)">
+  <text x="0" y="-4" font-size="13" font-weight="800" fill="#1a2b4a">③ HEADLINE</text>
+  <rect x="0" y="6" width="272" height="58" rx="7" fill="#fff" stroke="#16a085" stroke-width="2"/>
+  <text x="10" y="24" font-size="10.5" font-weight="800" fill="#117a65">★ HSPC-specific coupling</text>
+  <text x="10" y="40" font-size="9.2" fill="#33404f">Only HSPC couples TNF-NFκB stress-OFF in</text>
+  <text x="10" y="52" font-size="9.2" fill="#33404f">BOTH chromatin &amp; RNA — stem-specific.</text>
+  <rect x="0" y="74" width="272" height="58" rx="7" fill="#fff" stroke="#e67e22" stroke-width="2"/>
+  <text x="10" y="92" font-size="10.5" font-weight="800" fill="#a85b13">AP-1 inflammaging reversal</text>
+  <text x="10" y="108" font-size="9.2" fill="#33404f">Conserved AP-1 aging axis (Karakaslar '23)</text>
+  <text x="10" y="120" font-size="9.2" fill="#33404f">reverses at RNA in 8/11 types; HSPC commits.</text>
+  <rect x="0" y="142" width="272" height="58" rx="7" fill="#fff" stroke="#2166ac" stroke-width="2"/>
+  <text x="10" y="160" font-size="10.5" font-weight="800" fill="#1a4d80">GeneScore↔RNA concordance</text>
+  <text x="10" y="176" font-size="9.2" fill="#33404f">GS-up∩DEG-up 21 (p=1e-4); down 12 (p=6e-9).</text>
+  <text x="10" y="188" font-size="9.2" fill="#33404f">GeneScore = valid cis unit (not per-peak).</text>
+  <rect x="0" y="210" width="272" height="58" rx="7" fill="#fff" stroke="#8e44ad" stroke-width="2"/>
+  <text x="10" y="228" font-size="10.5" font-weight="800" fill="#6d3091">commitment gradient</text>
+  <text x="10" y="244" font-size="9.2" fill="#33404f">chromatin-first: HSPC committed → T-cell</text>
+  <text x="10" y="256" font-size="9.2" fill="#33404f">poised → B-cell RNA-first.</text>
+</g>
+
+<!-- ===== ④ PRIOR FINDINGS STRIP ===== -->
+<line x1="28" y1="578" x2="1372" y2="578" stroke="#e0e6ee" stroke-width="2"/>
+<text x="28" y="600" font-size="13" font-weight="800" fill="#1a2b4a">④ SUPPORTING DISCOVERIES (full project)</text>
+<g font-family="Segoe UI">
+  <!-- box helper pattern: rect + title + 2 lines -->
+  <rect x="28" y="610" width="218" height="78" rx="7" fill="#faf7fc" stroke="#8e44ad"/><text x="38" y="628" font-size="10.5" font-weight="800" fill="#6d3091">Myeloid→MSC→HSPC relay</text><text x="38" y="645" font-size="9" fill="#3a3a3a">Aged myeloid OSM/TNF/PGRN → MSC →</text><text x="38" y="658" font-size="9" fill="#3a3a3a">Spp1/Nampt suppression. D+Q flips it</text><text x="38" y="671" font-size="9" fill="#3a3a3a">supportive. Bidirectional, multi-node.</text>
+  <rect x="256" y="610" width="218" height="78" rx="7" fill="#f1f9f4" stroke="#1e8449"/><text x="266" y="628" font-size="10.5" font-weight="800" fill="#15623a">MSC-Osteo restoration</text><text x="266" y="645" font-size="9" fill="#3a3a3a">Bmp2 +2.61, Jag1, Cxcl12, Angpt1,</text><text x="266" y="658" font-size="9" fill="#3a3a3a">Vcam1 — 8/9 ligands ↑ (p=0.035).</text><text x="266" y="671" font-size="9" fill="#3a3a3a">CAR/LepR⁺ = principal niche.</text>
+  <rect x="484" y="610" width="218" height="78" rx="7" fill="#eef9f6" stroke="#16a085"/><text x="494" y="628" font-size="10.5" font-weight="800" fill="#117a65">Nampt — NAD-salvage</text><text x="494" y="645" font-size="9" fill="#3a3a3a">Mac-derived Nampt = only stem-</text><text x="494" y="658" font-size="9" fill="#3a3a3a">convergent ligand (LT/ST/MPP top-5);</text><text x="494" y="671" font-size="9" fill="#3a3a3a">ties NAD→OXPHOS re-entry.</text>
+  <rect x="712" y="610" width="218" height="78" rx="7" fill="#fdf3ea" stroke="#e67e22"/><text x="722" y="628" font-size="10.5" font-weight="800" fill="#a85b13">Lgals9 robust attractor</text><text x="722" y="645" font-size="9" fill="#3a3a3a">Galectin-9 from ≥4 sources (Neu+B+</text><text x="722" y="658" font-size="9" fill="#3a3a3a">Mono+Mac); multi-source needed for</text><text x="722" y="671" font-size="9" fill="#3a3a3a">≥80% induction = Kauffman attractor.</text>
+  <rect x="940" y="610" width="218" height="78" rx="7" fill="#eef9f6" stroke="#16a085"/><text x="950" y="628" font-size="10.5" font-weight="800" fill="#117a65">Lymphoid recovery</text><text x="950" y="645" font-size="9" fill="#3a3a3a">HSPC = multipotent activated, NOT</text><text x="950" y="658" font-size="9" fill="#3a3a3a">myeloid-biased. ST/MPP lymphoid↑</text><text x="950" y="671" font-size="9" fill="#3a3a3a">(Ebf1/Pax5/Tcf7+Rag1/2).</text>
+  <rect x="1168" y="610" width="204" height="78" rx="7" fill="#eaf1f8" stroke="#2166ac"/><text x="1178" y="628" font-size="10.5" font-weight="800" fill="#1a4d80">Bivalent / armed-quiet</text><text x="1178" y="645" font-size="9" fill="#3a3a3a">Self-renewal TFs (Hlf/Mecom/Meis1)</text><text x="1178" y="658" font-size="9" fill="#3a3a3a">RNA↓ but ATAC+footprint preserved</text><text x="1178" y="671" font-size="9" fill="#3a3a3a">= identity in chromatin.</text>
+
+  <rect x="28" y="694" width="218" height="78" rx="7" fill="#fdeeee" stroke="#c0392b"/><text x="38" y="712" font-size="10.5" font-weight="800" fill="#a02a1c">Aging-reversal GSEA</text><text x="38" y="729" font-size="9" fill="#3a3a3a">Reverses published aging: HSC</text><text x="38" y="742" font-size="9" fill="#3a3a3a">GSE48893 NES −2.88; adipocyte</text><text x="38" y="755" font-size="9" fill="#3a3a3a">GSE25905 NES −2.71.</text>
+  <rect x="256" y="694" width="218" height="78" rx="7" fill="#faf7fc" stroke="#8e44ad"/><text x="266" y="712" font-size="10.5" font-weight="800" fill="#6d3091">Sorting-bias illusion</text><text x="266" y="729" font-size="9" fill="#3a3a3a">Simulated FACS gates show apparent</text><text x="266" y="742" font-size="9" fill="#3a3a3a">clearance (Mono p16⁺p21⁺ −55%)</text><text x="266" y="755" font-size="9" fill="#3a3a3a">while parent pops unchanged = artifact.</text>
+  <rect x="484" y="694" width="218" height="78" rx="7" fill="#f1f9f4" stroke="#1e8449"/><text x="494" y="712" font-size="10.5" font-weight="800" fill="#15623a">BMT rescue (Sup, n=3)</text><text x="494" y="729" font-size="9" fill="#3a3a3a">D+Q rescues whichever side aged:</text><text x="494" y="742" font-size="9" fill="#3a3a3a">y→o 6/6 vs 2/6; o→y chimerism 4-5×</text><text x="494" y="755" font-size="9" fill="#3a3a3a">(p=0.036). Kinetic, underpowered.</text>
+  <rect x="712" y="694" width="218" height="78" rx="7" fill="#eaf1f8" stroke="#2166ac"/><text x="722" y="712" font-size="10.5" font-weight="800" fill="#1a4d80">Theory frameworks</text><text x="722" y="729" font-size="9" fill="#3a3a3a">Synaptic scaling (set-point reset) +</text><text x="722" y="742" font-size="9" fill="#3a3a3a">bivalent chromatin (poised identity)</text><text x="722" y="755" font-size="9" fill="#3a3a3a">→ self-maintaining rejuvenation.</text>
+  <rect x="940" y="694" width="432" height="78" rx="7" fill="#f7f3ec" stroke="#7a5b00"/><text x="950" y="712" font-size="10.5" font-weight="800" fill="#7a5b00">HONEST LIMITS &amp; decisive future test</text><text x="950" y="729" font-size="9" fill="#3a3a3a">ligand→chromatin causality NOT shown (cross-cohort, no perturbation/time-course) · single-TF</text><text x="950" y="742" font-size="9" fill="#3a3a3a">unresolved (flux, not switch) · output correlative · quercetin = direct NF-κB inhibitor · GMP composition confounds.</text><text x="950" y="757" font-size="9" font-weight="700" fill="#7a5b00">► Decisive: sorted-LT-HSC CUT&amp;Tag (H3K4me3+H3K27me3) + ligand perturbation.</text>
+</g>
+
+<!-- footer -->
+<rect x="0" y="792" width="1400" height="34" fill="#1a2b4a"/>
+<text x="700" y="813" text-anchor="middle" font-size="10.5" fill="#cfe0f0">methods: pydeseq2 · CellChat (substate relay) · NicheNet · ArchR GeneIntegrationMatrix-P2G / ChromVAR / footprint   ·   all claims composition- &amp; cross-cohort-controlled   ·   Cho / Varghese Lab v11 · 2026-05-26</text>
+</svg>
 </div>
 </body>
 </html>
