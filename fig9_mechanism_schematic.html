@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<title>Fig 9 — Mechanism schematic</title>
+<style>body{margin:0;background:#f0f3f7;font-family:"Segoe UI",Arial,sans-serif}
+.wrap{max-width:1320px;margin:14px auto;background:#fff;border-radius:14px;box-shadow:0 6px 30px rgba(0,0,0,.15);overflow:hidden}
+svg{display:block;width:100%;height:auto}</style></head>
+<body><div class="wrap">
+<svg viewBox="0 0 1320 760" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+<defs>
+  <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#1a2b4a"/><stop offset="1" stop-color="#3b5b8c"/>
+  </linearGradient>
+  <linearGradient id="hspc" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fcebd9"/>
+  </linearGradient>
+  <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+    <path d="M0,0 L9,4 L0,8 Z" fill="#a02a1c"/>
+  </marker>
+  <marker id="ar2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+    <path d="M0,0 L9,4 L0,8 Z" fill="#2166ac"/>
+  </marker>
+</defs>
+
+<!-- Header -->
+<rect x="0" y="0" width="1320" height="64" fill="url(#hd)"/>
+<text x="28" y="30" font-size="20" font-weight="800" fill="#fff">Figure 9 model — D+Q reprograms HSPC chromatin via ligand-driven TF program closure</text>
+<text x="28" y="52" font-size="12.5" font-style="italic" fill="#cfe0f0">Sender niche cells (Neu / Mono / Mac / MSC) withdraw inflammatory ligands → HSPC closes HSC-lineage + stress TF chromatin → RNA target genes drop → TNF-NF-κB pathway convergent down</text>
+
+<!-- LEFT: senders -->
+<rect x="20" y="100" width="280" height="540" rx="14" fill="#fef3f0" stroke="#a02a1c" stroke-width="2"/>
+<text x="160" y="130" text-anchor="middle" font-size="14" font-weight="800" fill="#7d1b0e">SENDER NICHE  (sub-state shifts)</text>
+
+<!-- Sender cell icons + ligands -->
+<g transform="translate(40,158)">
+  <circle cx="22" cy="22" r="22" fill="#e74c3c" stroke="#a02a1c" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">N</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">Neutrophil</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c" font-weight="600">↓Tnf  ↓Il1b  ↓Nampt  (all −100%)</text>
+</g>
+<g transform="translate(40,220)">
+  <circle cx="22" cy="22" r="22" fill="#e67e22" stroke="#a02a1c" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">Mo</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">Monocytes</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c" font-weight="600">↓Tgfb1  ↓Nampt</text>
+</g>
+<g transform="translate(40,282)">
+  <circle cx="22" cy="22" r="22" fill="#d35400" stroke="#a02a1c" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">Mφ</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">Macrophage</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c" font-weight="600">↓Tgfb1  ↓Nrg1  ↓Nampt</text>
+</g>
+<g transform="translate(40,344)">
+  <circle cx="22" cy="22" r="22" fill="#8e44ad" stroke="#a02a1c" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">MSC</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">Stromal MSC  (senolysis)</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c" font-weight="600">↓Spp1  ↓Igfbp3  ↓Pdgfd  ↓Igf1</text>
+</g>
+<g transform="translate(40,406)">
+  <text x="0" y="0" font-size="11" font-weight="700" fill="#117a65">COUNTERBALANCE:</text>
+  <text x="0" y="18" font-size="11" fill="#117a65">  ↑ Cxcl12 (MSC, +125%)</text>
+  <text x="0" y="34" font-size="11" fill="#117a65">  ↑ Lgals9 (Neu/Mono/Mac, +70-130%)</text>
+  <text x="0" y="50" font-size="11" fill="#117a65">  niche-supportive restored</text>
+</g>
+
+<!-- Pathways -->
+<text x="160" y="490" text-anchor="middle" font-size="11" font-weight="700" fill="#a02a1c">CellChat HSPC-incoming pathways ↓</text>
+<g transform="translate(45,500)">
+  <rect x="0" y="0" width="80" height="22" rx="4" fill="#a02a1c" stroke="#7d1b0e"/>
+  <text x="40" y="15" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">TNF</text>
+</g>
+<g transform="translate(135,500)">
+  <rect x="0" y="0" width="80" height="22" rx="4" fill="#a02a1c" stroke="#7d1b0e"/>
+  <text x="40" y="15" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">IL-1</text>
+</g>
+<g transform="translate(45,530)">
+  <rect x="0" y="0" width="80" height="22" rx="4" fill="#a02a1c" stroke="#7d1b0e"/>
+  <text x="40" y="15" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">VISFATIN</text>
+</g>
+<g transform="translate(135,530)">
+  <rect x="0" y="0" width="80" height="22" rx="4" fill="#a02a1c" stroke="#7d1b0e"/>
+  <text x="40" y="15" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">TGFb</text>
+</g>
+<text x="160" y="580" text-anchor="middle" font-size="10" font-style="italic" fill="#666">all -100% or significantly reduced</text>
+
+<!-- Center: HSPC nucleus + TF program -->
+<rect x="350" y="100" width="600" height="540" rx="18" fill="url(#hspc)" stroke="#7a5b00" stroke-width="2"/>
+<text x="650" y="130" text-anchor="middle" font-size="14" font-weight="800" fill="#7a5b00">HSPC  —  nucleus / chromatin</text>
+
+<!-- TF "closed gate" representation -->
+<text x="650" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#1a4d80">Closing TF program (chromatin + footprint + RNA targets)</text>
+
+<g transform="translate(370,180)">
+  <rect x="0" y="0" width="270" height="200" rx="10" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <text x="135" y="22" text-anchor="middle" font-size="12" font-weight="800" fill="#a02a1c">HSC LINEAGE TFs</text>
+  <text x="20" y="48" font-size="11" fill="#333">GATA1/2/3  ΔCV −0.95 ★  NES −1.49</text>
+  <text x="20" y="68" font-size="11" fill="#333">TAL1  closing  NES −1.97 ★★</text>
+  <text x="20" y="88" font-size="11" fill="#333">LYL1  closing  NES −1.34</text>
+  <text x="20" y="108" font-size="11" fill="#333">RUNX1/2/3  closing  NES −1.81</text>
+  <text x="20" y="128" font-size="11" fill="#333">NFIX  ΔCV −0.85  (HSC dev)</text>
+  <text x="20" y="148" font-size="11" fill="#333">HLF / MECOM  (quiescent HSC)</text>
+  <text x="135" y="180" text-anchor="middle" font-size="10" font-style="italic" fill="#a02a1c">→ exit from quiescent HSC chromatin state</text>
+</g>
+
+<g transform="translate(660,180)">
+  <rect x="0" y="0" width="270" height="200" rx="10" fill="#fff" stroke="#7d3c98" stroke-width="2"/>
+  <text x="135" y="22" text-anchor="middle" font-size="12" font-weight="800" fill="#6d3091">STRESS / AP-1 / BACH</text>
+  <text x="20" y="48" font-size="11" fill="#333">FOS  ΔCV −0.89  (AP-1)</text>
+  <text x="20" y="68" font-size="11" fill="#333">JUN / JUNB  closing  NES −1.28 ★</text>
+  <text x="20" y="88" font-size="11" fill="#333">BACH1  ΔCV −0.87  NES −1.67 ★</text>
+  <text x="20" y="108" font-size="11" fill="#333">BACH2  ΔCV −0.78  (stress)</text>
+  <text x="20" y="128" font-size="11" fill="#333">NFE2L2 (NRF2)  ΔCV −1.03  NES −1.61 ★</text>
+  <text x="20" y="148" font-size="11" fill="#333">SMARCC1  ΔCV −1.03  (remodeler)</text>
+  <text x="135" y="180" text-anchor="middle" font-size="10" font-style="italic" fill="#6d3091">→ STRESS-OFF (3 layers concordant)</text>
+</g>
+
+<!-- Lower nucleus: opening counter -->
+<g transform="translate(370,400)">
+  <rect x="0" y="0" width="560" height="80" rx="10" fill="#fff" stroke="#16a085" stroke-width="2"/>
+  <text x="280" y="22" text-anchor="middle" font-size="12" font-weight="800" fill="#117a65">OPENING (small) — myeloid / stress-response</text>
+  <text x="20" y="46" font-size="11" fill="#333">CEBPG +0.67  ·  CEBPB +0.54  ·  CEBPE +0.43  (myeloid)</text>
+  <text x="20" y="64" font-size="11" fill="#333">ATF5 +0.61  ·  ZEB1 +0.66  (stress-response, EMT-like)</text>
+</g>
+
+<!-- Output: RNA / pathway -->
+<g transform="translate(370,500)">
+  <rect x="0" y="0" width="560" height="120" rx="10" fill="#fafafa" stroke="#1a4d80" stroke-width="1.8"/>
+  <text x="280" y="22" text-anchor="middle" font-size="12" font-weight="800" fill="#1a4d80">RNA OUTPUT (HSPC pseudobulk, 4v4)</text>
+  <text x="20" y="48" font-size="11" fill="#333">141 DEG-DOWN (FDR&lt;0.05)  •  277 DEG-UP</text>
+  <text x="20" y="68" font-size="11" fill="#333">Top pathway in DOWN:  TNF-α / NF-κB Hallmark  (8/200, FDR=2.8×10⁻³) ★</text>
+  <text x="20" y="88" font-size="11" fill="#333">Other:  IFN-γ ↓  Hypoxia ↓  IL-2/STAT5 ↓  p53 pathway ↓</text>
+  <text x="280" y="110" text-anchor="middle" font-size="10" font-style="italic" fill="#1a4d80">stress program coherently down across pathways</text>
+</g>
+
+<!-- RIGHT: sub-state -->
+<rect x="1000" y="100" width="298" height="540" rx="14" fill="#f5f0ff" stroke="#6d3091" stroke-width="2"/>
+<text x="1149" y="130" text-anchor="middle" font-size="14" font-weight="800" fill="#6d3091">HSPC SUB-STATE  detail</text>
+<text x="1149" y="155" text-anchor="middle" font-size="11" font-style="italic" fill="#5e3978">where TF closing is strongest</text>
+
+<!-- Sub-state circles -->
+<g transform="translate(1015,180)">
+  <circle cx="22" cy="22" r="22" fill="#3498db" stroke="#1a4d80" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">LT</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">LT-HSC</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c" font-weight="600">TAL1 NES −1.77 ★ ; GATA2 −1.67 ★</text>
+</g>
+<g transform="translate(1015,242)">
+  <circle cx="22" cy="22" r="22" fill="#5dade2" stroke="#1a4d80" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">ST</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">ST-HSC</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c" font-weight="600">CEBPB −1.91 ★ ; RUNX2 −1.72</text>
+</g>
+<g transform="translate(1015,304)">
+  <circle cx="22" cy="22" r="22" fill="#85c1e9" stroke="#1a4d80" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">MPP</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">MPP</text>
+  <text x="56" y="36" font-size="10.5" fill="#888">all TFs less affected; JUN +1.0 exception</text>
+</g>
+<g transform="translate(1015,366)">
+  <circle cx="22" cy="22" r="22" fill="#aed6f1" stroke="#1a4d80" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">CMP</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">CMP</text>
+  <text x="56" y="36" font-size="10.5" fill="#888">moderate; SPI1 turning negative</text>
+</g>
+<g transform="translate(1015,428)">
+  <circle cx="22" cy="22" r="22" fill="#c0392b" stroke="#7d1b0e" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">GMP</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">GMP</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c">BACH1 strongest (−1.75)</text>
+</g>
+<g transform="translate(1015,490)">
+  <circle cx="22" cy="22" r="22" fill="#e67e22" stroke="#7d1b0e" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">MEP</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">MEP  (megakaryocyte/erythroid)</text>
+  <text x="56" y="36" font-size="10.5" fill="#a02a1c" font-weight="600">★ TAL1 NES −1.90 (strongest)</text>
+</g>
+<g transform="translate(1015,552)">
+  <circle cx="22" cy="22" r="22" fill="#27ae60" stroke="#0e5e4e" stroke-width="1.8"/>
+  <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">CLP</text>
+  <text x="56" y="20" font-size="12" font-weight="700" fill="#3a3a3a">CLP  (lymphoid)</text>
+  <text x="56" y="36" font-size="10.5" fill="#0e5e4e">NFE2L2 +1.12 (counter)</text>
+</g>
+
+<!-- Arrows -->
+<line x1="300" y1="180" x2="350" y2="220" stroke="#a02a1c" stroke-width="3" marker-end="url(#ar)"/>
+<line x1="300" y1="300" x2="350" y2="280" stroke="#a02a1c" stroke-width="3" marker-end="url(#ar)"/>
+<line x1="300" y1="380" x2="350" y2="320" stroke="#a02a1c" stroke-width="3" marker-end="url(#ar)"/>
+<text x="320" y="200" font-size="9" fill="#a02a1c" font-style="italic">ligand</text>
+
+<line x1="640" y1="270" x2="660" y2="270" stroke="#2166ac" stroke-width="2" marker-end="url(#ar2)"/>
+<text x="655" y="262" font-size="9" fill="#2166ac" text-anchor="middle">co-bind</text>
+
+<line x1="950" y1="380" x2="1000" y2="380" stroke="#2166ac" stroke-width="3" marker-end="url(#ar2)"/>
+<text x="975" y="370" font-size="9" fill="#2166ac" text-anchor="middle" font-style="italic">sub-state</text>
+
+<!-- Footer -->
+<rect x="0" y="700" width="1320" height="60" fill="#1a2b4a"/>
+<text x="660" y="725" text-anchor="middle" font-size="11" fill="#cfe0f0">Net mechanism: D+Q withdraws inflammatory ligand signaling to HSPC → closes both HSC-lineage and stress TFs at chromatin (footprint + ChromVAR + DAR enrichment all concordant) → drops TF target genes including TNF-NFκB Hallmark — quiescent-HSC + MEP show strongest reprogramming</text>
+<text x="660" y="747" text-anchor="middle" font-size="10" font-style="italic" fill="#9bb5d4">Cho · Varghese Lab · v11 · Independent chromatin cohort (G4/5/7) + 4v4 RNA cohort (G11BM)</text>
+</svg>
+</div></body></html>
