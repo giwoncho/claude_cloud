@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Saul 2025 — p16 vs p21 Senotypes (cute · research)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Quicksand', 'Comic Sans MS', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ffeef5 0%, #e8f4ff 50%, #fff5e6 100%);
+    color: #3a4252; min-height: 100vh; padding: 30px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  header { background: white; padding: 28px; border-radius: 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 8px 24px rgba(255,150,200,0.15);
+    border: 3px dashed #ffb3d4; position: relative; }
+  header h1 { font-size: 22px; color: #d63384; margin-bottom: 10px; }
+  header .subtitle { color: #6c757d; font-size: 14px; }
+  header .citation { color: #999; font-size: 12px; margin-top: 4px; font-style: italic; }
+  header .emoji { font-size: 32px; margin-bottom: 8px; }
+  header .type-badge { display: inline-block; margin-top: 10px; padding: 4px 14px;
+    background: linear-gradient(135deg,#ffd6e7,#fff5e6); border: 2px solid #ffb3d4;
+    border-radius: 14px; font-size: 12px; font-weight: bold; color: #d63384; }
+
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    margin-bottom: 24px; background: white; padding: 10px; border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(100,130,200,0.1); }
+  .tab-btn { border: 2px solid transparent; background: #fef6f9; padding: 14px 16px;
+    border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 14px;
+    font-weight: 600; color: #888; transition: all 0.25s; display: flex;
+    flex-direction: column; align-items: center; gap: 4px; }
+  .tab-btn .tab-emoji { font-size: 22px; }
+  .tab-btn:hover { background: #fff0f5; color: #5a4fcf; transform: translateY(-2px); }
+  .tab-btn.active { background: linear-gradient(135deg,#ffd6e7 0%,#fff5e6 100%);
+    color: #d63384; border-color: #ffb3d4;
+    box-shadow: 0 4px 12px rgba(255,150,200,0.3); }
+
+  .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+
+  .panel { background: white; border-radius: 20px; padding: 28px; margin-bottom: 24px;
+    box-shadow: 0 6px 18px rgba(100,130,200,0.1); border: 2px solid #fff; }
+  .panel h2 { font-size: 19px; color: #5a4fcf; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; }
+  .panel h3 { font-size: 15px; color: #5a4fcf; margin: 16px 0 8px; }
+
+  .scene { display: block; margin: 12px auto; max-width: 100%; }
+  .bubble { background: #fff5e6; padding: 14px 18px; border-radius: 16px;
+    border: 2px solid #ffd591; font-size: 14px; margin: 12px 0; }
+  .bubble.pink { background: #ffe6f0; border-color: #ffb3d4; }
+  .bubble.blue { background: #e6f0ff; border-color: #91b8e0; }
+  .bubble.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .bubble.purple { background: #f0e6ff; border-color: #b89ce0; }
+
+  .outcomes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 20px; }
+  .outcome-card { border-radius: 18px; padding: 20px; text-align: center;
+    border: 3px solid; background: white; transition: transform 0.2s; }
+  .outcome-card:hover { transform: translateY(-4px); }
+  .outcome-card.pink { border-color: #d63384; background: linear-gradient(180deg,#fff,#ffe6f0); }
+  .outcome-card.blue { border-color: #5b9bd5; background: linear-gradient(180deg,#fff,#e9f1fa); }
+  .outcome-card.purple { border-color: #5a4fcf; background: linear-gradient(180deg,#fff,#f0e6ff); }
+  .outcome-card .icon { font-size: 42px; margin-bottom: 8px; }
+  .outcome-card h3 { font-size: 15px; margin-bottom: 6px; color: #3a4252; }
+  .outcome-card .source-tag { display: inline-block; font-size: 11px; padding: 3px 10px;
+    border-radius: 10px; margin-bottom: 10px; font-weight: bold; color: white; }
+  .outcome-card.pink .source-tag { background: #d63384; }
+  .outcome-card.blue .source-tag { background: #5b9bd5; }
+  .outcome-card.purple .source-tag { background: #5a4fcf; }
+  .outcome-card ul { list-style: none; text-align: left; font-size: 13px; }
+  .outcome-card li { padding: 3px 0; }
+
+  .summary-banner { background: linear-gradient(135deg,#ffd591 0%,#ffb3d4 50%,#91b8e0 100%);
+    padding: 24px; border-radius: 20px; text-align: center; color: white;
+    font-size: 16px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.15); margin-top: 20px; }
+
+  .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .method-card { border-radius: 16px; padding: 18px; background: #fafbff; border: 2px solid #e0e6f5; }
+  .method-card h4 { color: #5a4fcf; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .method-card p, .method-card ul { font-size: 13px; color: #555; }
+  .method-card ul { padding-left: 18px; margin-top: 6px; }
+
+  .discussion-list { list-style: none; padding: 0; }
+  .discussion-item { background: #fafbff; border-left: 5px solid #5a4fcf;
+    padding: 16px 20px; border-radius: 8px; margin-bottom: 12px; }
+  .discussion-item.limitation { border-left-color: #ed7d31; background: #fdf0e6; }
+  .discussion-item.future { border-left-color: #6aaa64; background: #e7f3e4; }
+  .discussion-item.controversy { border-left-color: #d63384; background: #ffe6f0; }
+  .discussion-item h4 { font-size: 14px; margin-bottom: 6px; color: #5a4fcf; }
+  .discussion-item.limitation h4 { color: #b85f25; }
+  .discussion-item.future h4 { color: #4a7c47; }
+  .discussion-item.controversy h4 { color: #a3296c; }
+  .discussion-item p { font-size: 13px; color: #555; line-height: 1.6; }
+
+  /* Deep Dive */
+  details.deep-dive { margin: 14px 0; background: #fafbff; border: 2px solid #e0e6f5;
+    border-radius: 14px; padding: 14px 18px; transition: background 0.2s; }
+  details.deep-dive[open] { background: linear-gradient(180deg,#fff,#fafbff);
+    border-color: #b89ce0; box-shadow: 0 4px 12px rgba(100,130,200,0.08); }
+  details.deep-dive summary { cursor: pointer; font-size: 14px; font-weight: 600;
+    color: #5a4fcf; padding: 4px 0; user-select: none; list-style: none;
+    display: flex; align-items: center; gap: 8px; }
+  details.deep-dive summary::-webkit-details-marker { display: none; }
+  details.deep-dive summary::before { content: '▶'; display: inline-block;
+    transition: transform 0.2s; color: #d63384; font-size: 11px; }
+  details.deep-dive[open] summary::before { transform: rotate(90deg); }
+  details.deep-dive .body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5; }
+  details.deep-dive .body h4 { color: #5a4fcf; font-size: 13px; margin: 14px 0 8px;
+    display: flex; align-items: center; gap: 6px; font-weight: 700; }
+
+  .narrative { font-size: 13.5px; line-height: 1.75; color: #444; margin: 6px 0 12px; }
+  .narrative strong { color: #5a4fcf; }
+
+  .numbers-strip { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 14px; }
+  .number-chip { background: linear-gradient(135deg,#ffe6f0,#fff5e6);
+    border: 2px solid #ffb3d4; border-radius: 12px; padding: 8px 14px;
+    font-size: 12px; min-width: 80px; text-align: center; }
+  .number-chip strong { display: block; color: #d63384; font-size: 17px;
+    font-weight: bold; line-height: 1.2; }
+  .number-chip .unit { color: #888; font-size: 11px; display: block; margin-top: 2px; }
+  .number-chip.blue { background: linear-gradient(135deg,#e6f0ff,#fff); border-color: #91b8e0; }
+  .number-chip.blue strong { color: #5b9bd5; }
+  .number-chip.green { background: linear-gradient(135deg,#e8f5e9,#fff); border-color: #a5d6a7; }
+  .number-chip.green strong { color: #2e8b57; }
+  .number-chip.purple { background: linear-gradient(135deg,#f0e6ff,#fff); border-color: #b89ce0; }
+  .number-chip.purple strong { color: #5a4fcf; }
+
+  .paper-quote { background: #fff5e6; border-left: 4px solid #d63384;
+    padding: 12px 16px 12px 20px; margin: 10px 0 14px; font-style: italic;
+    font-size: 13px; color: #6c3a52; border-radius: 0 12px 12px 0; line-height: 1.65; }
+  .paper-quote .src { display: block; margin-top: 8px; font-size: 11px;
+    font-style: normal; color: #999; text-align: right; }
+
+  /* Figure Tree */
+  .figure-tree { margin: 16px 0; display: flex; flex-direction: column; gap: 14px; }
+  details.fig-node { background: linear-gradient(135deg,#fff,#fff5e6);
+    border: 3px solid #ffb3d4; border-radius: 18px; padding: 14px 18px;
+    box-shadow: 0 4px 14px rgba(255,150,200,0.14); transition: background 0.2s; }
+  details.fig-node[open] { background: linear-gradient(135deg,#fff,#ffeef5);
+    box-shadow: 0 6px 18px rgba(255,150,200,0.20); }
+  details.fig-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px; padding: 4px 0;
+    font-weight: 700; user-select: none; }
+  details.fig-node > summary::-webkit-details-marker { display: none; }
+  details.fig-node > summary::before { content: '▶'; font-size: 12px; color: #d63384;
+    transition: transform 0.2s; flex-shrink: 0; }
+  details.fig-node[open] > summary::before { transform: rotate(90deg); }
+  details.fig-node .fig-num { background: #d63384; color: white;
+    padding: 5px 14px; border-radius: 12px; font-size: 13px;
+    font-weight: bold; flex-shrink: 0; letter-spacing: 0.5px; }
+  details.fig-node .fig-claim { font-size: 14.5px; flex: 1; color: #5a4fcf; line-height: 1.5; }
+  details.fig-node .fig-body { margin-top: 14px; padding: 4px 0 4px 18px;
+    border-left: 3px dashed #ffb3d4; display: flex; flex-direction: column; gap: 8px; }
+  details.fig-node .fig-overview { font-size: 13px; color: #555;
+    background: #fff5e6; padding: 10px 14px; border-radius: 12px;
+    line-height: 1.65; border: 1px solid #ffd591; margin-bottom: 4px; }
+
+  details.panel-node { background: white; border: 2px solid #91b8e0;
+    border-radius: 12px; padding: 10px 14px; transition: background 0.2s; }
+  details.panel-node[open] { background: linear-gradient(135deg,#fff,#e6f0ff);
+    box-shadow: 0 3px 8px rgba(91,155,213,0.15); }
+  details.panel-node > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 10px; padding: 2px 0;
+    font-size: 13px; user-select: none; flex-wrap: wrap; }
+  details.panel-node > summary::-webkit-details-marker { display: none; }
+  details.panel-node > summary::before { content: '▸'; font-size: 11px;
+    color: #5b9bd5; transition: transform 0.2s; flex-shrink: 0; }
+  details.panel-node[open] > summary::before { transform: rotate(90deg); }
+  details.panel-node .panel-letter { background: #5b9bd5; color: white;
+    width: 26px; height: 26px; border-radius: 7px; display: inline-flex;
+    align-items: center; justify-content: center; font-weight: bold;
+    font-size: 12px; flex-shrink: 0; }
+  details.panel-node .panel-exp-type { color: #5a4fcf; font-weight: 600; }
+  details.panel-node .panel-tldr { color: #666; font-size: 12px; margin-left: auto; font-style: italic; }
+  details.panel-node .panel-body { margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed #e0e6f5; display: flex; flex-direction: column; gap: 10px; }
+  .panel-block { padding: 11px 14px; border-radius: 10px; font-size: 13px; line-height: 1.65; }
+  .panel-block.exptype { background: #f0e6ff; border-left: 4px solid #5a4fcf; }
+  .panel-block.analogy { background: #fff5e6; border-left: 4px solid #ffb380; }
+  .panel-block.result  { background: #e6f0ff; border-left: 4px solid #5b9bd5; }
+  .panel-block.meaning { background: #e8f5e9; border-left: 4px solid #6aaa64; }
+  .panel-block strong { display: block; margin-bottom: 5px; font-size: 12px; letter-spacing: 0.3px; }
+  .panel-block.exptype strong { color: #5a4fcf; }
+  .panel-block.analogy strong { color: #b85f25; }
+  .panel-block.result  strong { color: #2a6ea3; }
+  .panel-block.meaning strong { color: #4a7c47; }
+
+  /* Method Deep Cards */
+  details.method-deep { margin: 12px 0; background: white;
+    border: 2px solid #b89ce0; border-radius: 16px; padding: 14px 18px;
+    box-shadow: 0 4px 12px rgba(100,80,200,0.08); transition: background 0.2s; }
+  details.method-deep[open] { background: linear-gradient(135deg,#fff,#f0e6ff);
+    border-color: #5a4fcf; box-shadow: 0 6px 18px rgba(100,80,200,0.15); }
+  details.method-deep > summary { cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; color: #5a4fcf; font-size: 14.5px;
+    padding: 4px 0; user-select: none; }
+  details.method-deep > summary::-webkit-details-marker { display: none; }
+  details.method-deep > summary::before { content: '▶'; font-size: 12px;
+    color: #5a4fcf; transition: transform 0.2s; flex-shrink: 0; }
+  details.method-deep[open] > summary::before { transform: rotate(90deg); }
+  details.method-deep .method-icon { font-size: 22px; flex-shrink: 0; }
+  details.method-deep .method-name { flex: 1; }
+  details.method-deep .method-shorttag { font-size: 11px; color: #888;
+    background: #f5f0ff; padding: 3px 9px; border-radius: 8px;
+    font-weight: normal; flex-shrink: 0; }
+  details.method-deep .method-body { margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed #e0e6f5; display: flex; flex-direction: column; gap: 12px; }
+  details.method-deep .method-body h4 { font-size: 13px; color: #5a4fcf;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 6px; font-weight: 700; }
+  details.method-deep .method-body p { font-size: 13px; color: #444; line-height: 1.7; }
+  .analogy-box { background: linear-gradient(135deg,#fff5e6,#ffe6f0);
+    border: 2px dashed #ffb380; border-radius: 12px; padding: 14px 18px; }
+  .analogy-box h4 { color: #b85f25 !important; }
+  .analogy-box p { color: #6c4a32 !important; font-style: italic; line-height: 1.75 !important; }
+  .why-box { background: linear-gradient(135deg,#e6f0ff,#fff);
+    border-left: 4px solid #5b9bd5; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .can-see-box { background: linear-gradient(135deg,#e8f5e9,#fff);
+    border-left: 4px solid #6aaa64; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+  .limit-box { background: linear-gradient(135deg,#fdf0e6,#fff);
+    border-left: 4px solid #ed7d31; padding: 12px 16px; border-radius: 0 12px 12px 0; }
+
+  footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+  footer a { color: #d63384; text-decoration: none; }
+
+  /* Language toggle */
+  .lang-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 100;
+    background: white; border: 2px solid #ffb3d4; border-radius: 24px;
+    padding: 8px 16px; cursor: pointer; font-family: inherit; font-size: 13px;
+    font-weight: 600; color: #d63384; box-shadow: 0 4px 12px rgba(255,150,200,0.25);
+    transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+  }
+  .lang-toggle:hover { transform: scale(1.05); background: #fff0f5; }
+  .lang-toggle .flag { font-size: 16px; }
+
+  body.lang-kr .lang-en, body.lang-en .lang-kr { display: none !important; }
+  body.lang-kr svg .lang-en, body.lang-en svg .lang-kr { display: none !important; }
+
+  @media (max-width: 800px) {
+    .outcomes { grid-template-columns: 1fr; }
+    .tabs { grid-template-columns: 1fr 1fr; }
+    .lang-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body class="lang-kr">
+
+<button class="lang-toggle" onclick="toggleLang()">
+  <span class="flag lang-kr">🇰🇷</span><span class="lang-kr">한국어</span>
+  <span class="flag lang-en">🇺🇸</span><span class="lang-en">English</span>
+  <span style="opacity:0.5;">⇄</span>
+  <span class="flag lang-kr">🇺🇸</span><span class="lang-kr" style="opacity:0.5;">EN</span>
+  <span class="flag lang-en">🇰🇷</span><span class="lang-en" style="opacity:0.5;">KR</span>
+</button>
+
+<div class="container">
+
+<header>
+  <div class="emoji">🧬🦴🔬🎯</div>
+  <h1>
+    <span class="lang-kr">p16과 p21 세포노화는 서로 다른 길을 간다 — 조직별·세포형별 독립적 노화 경로</span>
+    <span class="lang-en">p16 and p21 Senescence Take Different Roads — Tissue- and Cell-Type-Specific Independent Trajectories</span>
+  </h1>
+  <div class="subtitle">
+    <span class="lang-kr">Saul, Jurk, Doolittle et al. — Khosla/Kirkland Lab (Mayo Clinic, Kogod Aging Center)</span>
+    <span class="lang-en">Saul, Jurk, Doolittle et al. — Khosla/Kirkland Lab (Mayo Clinic, Kogod Aging Center)</span>
+  </div>
+  <div class="citation">The EMBO Journal, 2025 · DOI: 10.1038/s44318-025-00601-2 · PMC12669595</div>
+  <div class="type-badge">
+    <span class="lang-kr">🧪 원저 연구논문</span>
+    <span class="lang-en">🧪 Original Research Article</span>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="t1">
+    <span class="tab-emoji">📖</span>
+    <span class="lang-kr">서론</span><span class="lang-en">Intro</span>
+  </button>
+  <button class="tab-btn" data-tab="t2">
+    <span class="tab-emoji">🔬</span>
+    <span class="lang-kr">방법</span><span class="lang-en">Methods</span>
+  </button>
+  <button class="tab-btn" data-tab="t3">
+    <span class="tab-emoji">💡</span>
+    <span class="lang-kr">결과</span><span class="lang-en">Results</span>
+  </button>
+  <button class="tab-btn" data-tab="t4">
+    <span class="tab-emoji">💭</span>
+    <span class="lang-kr">고찰</span><span class="lang-en">Discussion</span>
+  </button>
+</div>
+
+<!-- TAB 1: 서론 / Introduction -->
+<div class="tab-content active" id="t1">
+
+  <div class="panel">
+    <h2>🎯 <span class="lang-kr">핵심 질문</span><span class="lang-en">Central Question</span></h2>
+    <div class="bubble pink">
+      <span class="lang-kr">세포노화 마커인 p16<sup>INK4a</sup>와 p21<sup>CIP1</sup>은 같은 세포에서 함께 발현될까, 아니면 서로 다른 세포집단을 표시할까? 노화 조직에서 이 두 마커가 정말로 같은 "세노사이트(senescent cell)"를 가리키는지 실증적으로 검증한 연구가 없었다.</span>
+      <span class="lang-en">Do senescence markers p16<sup>INK4a</sup> and p21<sup>CIP1</sup> co-express in the same cell, or do they mark distinct cell populations? No study had empirically tested whether these two markers truly identify the same "senescent cells" in aging tissues.</span>
+    </div>
+    <div class="bubble blue">
+      <span class="lang-kr"><strong>왜 중요한가?</strong> Dasatinib+Quercetin(D+Q), navitoclax 등 세노리틱 약물의 표적을 선정할 때 p16+ 세포를 기준으로 할지 p21+ 세포를 기준으로 할지가 결과를 완전히 바꿀 수 있다. 두 집단이 다르다면 지금까지의 세노리틱 연구 설계 전제가 흔들린다.</span>
+      <span class="lang-en"><strong>Why it matters:</strong> When selecting senolytics (D+Q, navitoclax) targets, whether we target p16+ or p21+ cells could completely change outcomes. If these populations are distinct, the foundational premise of many senolytic study designs is challenged.</span>
+    </div>
+  </div>
+
+  <!-- OLD vs NEW Paradigm SVG -->
+  <div class="panel">
+    <h2>🔄 <span class="lang-kr">패러다임 전환</span><span class="lang-en">Paradigm Shift</span></h2>
+    <svg viewBox="0 0 900 280" class="scene" style="max-width:860px;" xmlns="http://www.w3.org/2000/svg">
+      <!-- OLD -->
+      <rect x="10" y="10" width="400" height="260" rx="20" fill="#fff0f5" stroke="#ffb3d4" stroke-width="2"/>
+      <text x="210" y="40" text-anchor="middle" font-size="14" font-weight="bold" fill="#d63384" font-family="system-ui">
+        <tspan class="lang-kr">기존 관점 (OLD)</tspan>
+        <tspan class="lang-en">Old View</tspan>
+      </text>
+      <!-- Overlapping circles -->
+      <circle cx="165" cy="160" r="70" fill="#ffb3d4" opacity="0.5"/>
+      <circle cx="235" cy="160" r="70" fill="#91b8e0" opacity="0.5"/>
+      <text x="155" y="155" text-anchor="middle" font-size="12" fill="#8b1a4a" font-family="system-ui" font-weight="bold">p16+</text>
+      <text x="245" y="155" text-anchor="middle" font-size="12" fill="#1a4a8b" font-family="system-ui" font-weight="bold">p21+</text>
+      <text x="200" y="185" text-anchor="middle" font-size="11" fill="#555" font-family="system-ui">
+        <tspan class="lang-kr">공통 세노사이트</tspan>
+        <tspan class="lang-en">same senescent</tspan>
+      </text>
+      <text x="200" y="235" text-anchor="middle" font-size="11" fill="#888" font-family="system-ui">
+        <tspan class="lang-kr">p16 ≈ p21 → 같은 세포집단으로 간주</tspan>
+        <tspan class="lang-en">p16 ≈ p21 → assumed same population</tspan>
+      </text>
+
+      <!-- NEW -->
+      <rect x="490" y="10" width="400" height="260" rx="20" fill="#f0e6ff" stroke="#b89ce0" stroke-width="2"/>
+      <text x="690" y="40" text-anchor="middle" font-size="14" font-weight="bold" fill="#5a4fcf" font-family="system-ui">
+        <tspan class="lang-kr">이 논문 (NEW)</tspan>
+        <tspan class="lang-en">This Paper (NEW)</tspan>
+      </text>
+      <!-- Separated circles -->
+      <circle cx="600" cy="155" r="55" fill="#ffb3d4" opacity="0.7"/>
+      <circle cx="775" cy="155" r="55" fill="#91b8e0" opacity="0.7"/>
+      <text x="600" y="150" text-anchor="middle" font-size="12" fill="#6b0025" font-family="system-ui" font-weight="bold">p16+</text>
+      <text x="600" y="168" text-anchor="middle" font-size="10" fill="#6b0025" font-family="system-ui">
+        <tspan class="lang-kr">골세포·뇌</tspan>
+        <tspan class="lang-en">osteocytes·brain</tspan>
+      </text>
+      <text x="775" y="150" text-anchor="middle" font-size="12" fill="#00256b" font-family="system-ui" font-weight="bold">p21+</text>
+      <text x="775" y="168" text-anchor="middle" font-size="10" fill="#00256b" font-family="system-ui">
+        <tspan class="lang-kr">연골·중성구</tspan>
+        <tspan class="lang-en">chondroprog·neutro</tspan>
+      </text>
+      <text x="690" y="235" text-anchor="middle" font-size="11" fill="#888" font-family="system-ui">
+        <tspan class="lang-kr">p16 ≠ p21 → 독립적인 "세노타입(senotype)"</tspan>
+        <tspan class="lang-en">p16 ≠ p21 → independent "senotypes"</tspan>
+      </text>
+
+      <!-- Arrow -->
+      <text x="455" y="155" text-anchor="middle" font-size="28" fill="#d63384">→</text>
+    </svg>
+  </div>
+
+  <!-- Figure Tree -->
+  <div class="panel">
+    <h2>🌳 <span class="lang-kr">논문 구조 (Figure Tree)</span><span class="lang-en">Paper Structure (Figure Tree)</span></h2>
+    <div class="figure-tree">
+
+      <!-- Fig 1 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 1</span>
+          <span class="fig-claim">
+            <span class="lang-kr">마우스·인간 노화 조직 전체에서 p16+ 세포와 p21+ 세포는 서로 다른 세포집단을 구성한다</span>
+            <span class="lang-en">p16+ and p21+ cells form distinct, largely non-overlapping populations across mouse and human aging tissues</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">마우스 4개 조직(뇌·골격근·뼈·간)과 인간 2개 조직(피부·폐)에서 세포별 p16 및 p21 전사체 발현을 scRNA-seq로 측정. UMAP 임베딩과 공동발현 분석으로 두 마커의 겹침이 극히 적음을 시각화.</span>
+            <span class="lang-en">scRNA-seq measurement of cell-level p16 and p21 transcription in 4 mouse tissues (brain, skeletal muscle, bone, liver) and 2 human tissues (skin, lung). UMAP embedding and co-expression analysis visualizes minimal overlap of the two markers.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">A</span>
+              <span class="panel-exp-type"><span class="lang-kr">scRNA-seq UMAP</span><span class="lang-en">scRNA-seq UMAP</span></span>
+              <span class="panel-tldr"><span class="lang-kr">p16+ ≠ p21+ 세포 분포</span><span class="lang-en">p16+ ≠ p21+ cell distribution</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">scRNA-seq 공개 데이터셋 통합 분석 + 조직별 UMAP</span><span class="lang-en">Integrated scRNA-seq public dataset analysis + tissue-specific UMAP</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">6개 조직 모두에서 p16-high 세포와 p21-high 세포가 UMAP 상 분리된 클러스터 형성. 공동발현 세포는 전체의 5% 미만.</span><span class="lang-en">In all 6 tissues, p16-high and p21-high cells form separated clusters on UMAP. Co-expressing cells are <5% of total.</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">단일 세포 해상도에서 두 마커가 다른 정체성을 가짐을 직접 증명. 기존의 "p16/p21 모두 세노사이트 마커" 가정에 근거를 제거한다.</span><span class="lang-en">Directly proves that the two markers carry different identities at single-cell resolution. Removes the basis for the assumption that "both are senescent cell markers."</span></div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">B</span>
+              <span class="panel-exp-type"><span class="lang-kr">공동발현 정량 분석</span><span class="lang-en">Co-expression quantification</span></span>
+              <span class="panel-tldr"><span class="lang-kr">마커 중복도 측정</span><span class="lang-en">Marker overlap measurement</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">세포별 p16/p21 발현 이진화 후 중복 비율 계산 (Jaccard index 포함)</span><span class="lang-en">Binarization of p16/p21 expression per cell and calculation of overlap ratio (including Jaccard index)</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">조직 전반에 걸쳐 공동발현 빈도가 낮음. 조직·연령별로 p16+ 또는 p21+ 단독 발현 세포가 우세.</span><span class="lang-en">Co-expression frequency is low across all tissues. Single-positive p16+ or p21+ cells dominate by tissue and age.</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">p16과 p21은 서로 대체 불가능한 독립 마커임. 하나만 측정하면 전체 세노사이트 풀의 절반을 놓친다.</span><span class="lang-en">p16 and p21 are non-interchangeable independent markers. Measuring only one misses half the senescent cell pool.</span></div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- Fig 2 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 2</span>
+          <span class="fig-claim">
+            <span class="lang-kr">p16+ 와 p21+ 세포는 조직 내에서 서로 다른 세포형을 선호한다 — 뼈에서 가장 극적인 분리</span>
+            <span class="lang-en">p16+ and p21+ cells preferentially occupy distinct cell types within each tissue — most dramatic separation in bone</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">각 조직의 세포형 주석(annotation)을 기반으로 p16+ / p21+ 세포의 세포형별 풍부도 비교. 뼈: p16+ = 골세포(osteocyte), p21+ = 골연골전구세포(osteochondroprogenitor) + 중성구(neutrophil).</span>
+            <span class="lang-en">Cell-type-specific abundance comparison of p16+ / p21+ cells based on cell type annotations in each tissue. In bone: p16+ = osteocytes, p21+ = osteochondroprogenitors + neutrophils.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">A</span>
+              <span class="panel-exp-type"><span class="lang-kr">세포형별 구성비 막대 그래프</span><span class="lang-en">Cell-type composition bar plots</span></span>
+              <span class="panel-tldr"><span class="lang-kr">조직별 세노타입 분포</span><span class="lang-en">Senotype distribution by tissue</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">각 조직에서 p16+ / p21+ 세포의 세포형 구성 비교 (stacked bar, dot plot)</span><span class="lang-en">Comparison of cell type composition among p16+ / p21+ cells per tissue (stacked bar, dot plot)</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">뇌: p16+ → 미세아교세포(microglia), p21+ → 내피세포. 간: p16+ → 간성상세포(stellate), p21+ → 쿠퍼세포(Kupffer). 뼈: 가장 뚜렷한 분리.</span><span class="lang-en">Brain: p16+ → microglia, p21+ → endothelial. Liver: p16+ → stellate cells, p21+ → Kupffer cells. Bone: most distinct separation.</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">세노타입 정체성은 세포형(cell identity)에 깊이 연관됨. "세노사이트"는 하나의 동질적 집단이 아닌 세포형별로 다른 에 의해 결정되는 이질적 집단이다.</span><span class="lang-en">Senotype identity is deeply linked to cell type identity. "Senescent cells" are not one homogeneous group, but heterogeneous populations determined by cell type-specific programs.</span></div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">B</span>
+              <span class="panel-exp-type"><span class="lang-kr">뼈 특이적 세노타입 해부</span><span class="lang-en">Bone-specific senotype dissection</span></span>
+              <span class="panel-tldr"><span class="lang-kr">골세포 p16+ vs 골연골전구세포 p21+</span><span class="lang-en">Osteocyte p16+ vs osteochondroprog p21+</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">뼈 scRNA-seq에서 오스테오사이트, 골연골전구세포, 중성구 하위집단 세분화 분석</span><span class="lang-en">Subclustering analysis of osteocytes, osteochondroprogenitors, and neutrophils in bone scRNA-seq</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">p16+ 세포: 성숙 골세포 클러스터에 집중 → 골소실과 연관. p21+ 세포: 골연골전구세포 + 중성구에 집중 → 골절 치유 지연과 연관.</span><span class="lang-en">p16+ cells concentrated in mature osteocyte cluster → associated with bone loss. p21+ cells in osteochondroprogenitors + neutrophils → associated with delayed fracture healing.</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">골세포 p16+ 세노타입을 표적으로 하는 세노리틱은 골소실 개선에, p21+ 세노타입 제거는 골절 치유 가속에 각각 다른 전략이 필요함을 시사.</span><span class="lang-en">Senolytics targeting osteocyte p16+ senotype may address bone loss, while clearing p21+ senotype may accelerate fracture healing — different therapeutic strategies are needed.</span></div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- Fig 3 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 3</span>
+          <span class="fig-claim">
+            <span class="lang-kr">p16+ 세포와 p21+ 세포는 조직별로 다른 SASP 프로파일을 분비한다 — 공유 유전자는 소수</span>
+            <span class="lang-en">p16+ and p21+ cells secrete distinct tissue-specific SASP profiles — few shared genes</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">각 조직에서 p16+ 및 p21+ 세포의 전사체를 배경 세포 대비 차등발현 분석(DEA). SASP 유전자 목록(SenMayo, NF-κB target)으로 필터링. 세포형 조합(tissue × marker)마다 고유 SASP 프로파일 확인.</span>
+            <span class="lang-en">Differential expression analysis (DEA) of p16+ and p21+ cell transcriptomes vs. background cells in each tissue. Filtered by SASP gene lists (SenMayo, NF-κB targets). Unique SASP profiles confirmed for each tissue × marker combination.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">A</span>
+              <span class="panel-exp-type"><span class="lang-kr">조직별 SASP 화산도(Volcano plot)</span><span class="lang-en">Tissue-specific SASP volcano plots</span></span>
+              <span class="panel-tldr"><span class="lang-kr">p16+ vs p21+ SASP 상위 유전자</span><span class="lang-en">Top SASP genes p16+ vs p21+</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">DESeq2 / Wilcoxon 기반 DEA → SenMayo SASP 유전자 하이라이트</span><span class="lang-en">DESeq2/Wilcoxon-based DEA → SenMayo SASP gene highlights</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">뼈 p16+: Il6, Cxcl12, Mmp13 과발현. 뼈 p21+: Tgfb1, Cxcl10, Ccl2 과발현. 겹치는 SASP 유전자 비율이 낮음(조직마다 다름).</span><span class="lang-en">Bone p16+: Il6, Cxcl12, Mmp13 upregulated. Bone p21+: Tgfb1, Cxcl10, Ccl2 upregulated. Low fraction of shared SASP genes (varies by tissue).</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">BM 세노리틱 효과를 해석할 때 어느 세노타입이 어떤 사이토카인을 낮추는지 세분화해야 한다. Giwon 논문에서 D+Q가 낮추는 SASP 구성 요소가 p16+ vs p21+ 중 어디서 오는지 질문 가능.</span><span class="lang-en">When interpreting BM senolytic effects, we must stratify which senotype reduces which cytokines. Giwon's paper can ask whether D+Q-reduced SASP components come from p16+ vs p21+ cells.</span></div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">B</span>
+              <span class="panel-exp-type"><span class="lang-kr">SASP 히트맵 (tissue × marker matrix)</span><span class="lang-en">SASP heatmap (tissue × marker matrix)</span></span>
+              <span class="panel-tldr"><span class="lang-kr">조합마다 고유 패턴</span><span class="lang-en">Unique pattern per combination</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">전체 SASP 유전자를 행, 조직-마커 조합을 열로 한 클러스터 히트맵</span><span class="lang-en">Clustered heatmap with SASP genes as rows and tissue-marker combinations as columns</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">12개 조합(6조직 × 2마커) 중 SASP 프로파일이 유사한 쌍이 없음. 계층 군집에서 tissue보다 marker가 더 강한 군집 구분 요인.</span><span class="lang-en">Among 12 combinations (6 tissues × 2 markers), no pairs share similar SASP profiles. In hierarchical clustering, marker is a stronger clustering factor than tissue.</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">세노타입(p16 vs p21)이 SASP 구성의 1차 결정 인자. 조직 컨텍스트는 2차 변조자. 세노리틱 연구에서 마커 선택이 SASP 측정 결과를 좌우한다.</span><span class="lang-en">Senotype (p16 vs p21) is the primary determinant of SASP composition. Tissue context is a secondary modulator. Marker selection drives SASP measurement outcomes in senolytic studies.</span></div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <!-- Fig 4 -->
+      <details class="fig-node">
+        <summary>
+          <span class="fig-num">Fig 4</span>
+          <span class="fig-claim">
+            <span class="lang-kr">의사시간(pseudotime) 분석: p16+ ↔ p21+ 사이에 전환 경로가 없다 — 독립적인 궤적</span>
+            <span class="lang-en">Pseudotime analysis: no transition path between p16+ ↔ p21+ — fully independent trajectories</span>
+          </span>
+        </summary>
+        <div class="fig-body">
+          <div class="fig-overview">
+            <span class="lang-kr">Monocle3 및 RNA velocity를 이용해 p16+ 세포와 p21+ 세포의 전사 궤적 재구성. 두 집단이 독립적 전구 상태에서 기원하며 서로 수렴하거나 전환하지 않음을 확인.</span>
+            <span class="lang-en">Trajectory reconstruction of p16+ and p21+ cells using Monocle3 and RNA velocity. Confirms both populations originate from independent progenitor states and do not converge or convert into each other.</span>
+          </div>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">A</span>
+              <span class="panel-exp-type"><span class="lang-kr">RNA velocity 벡터장</span><span class="lang-en">RNA velocity vector field</span></span>
+              <span class="panel-tldr"><span class="lang-kr">서로를 향하지 않는 화살표</span><span class="lang-en">Arrows don't point at each other</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">scVelo spliced/unspliced RNA 비율 기반 속도 벡터 계산. UMAP에 화살표로 표시.</span><span class="lang-en">scVelo spliced/unspliced RNA ratio-based velocity vector calculation. Displayed as arrows on UMAP.</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">p16+ 세포 궤적과 p21+ 세포 궤적이 완전히 별도 방향. p16+ → p21+ 또는 p21+ → p16+ 전환 벡터 없음.</span><span class="lang-en">p16+ and p21+ cell trajectories point in completely separate directions. No conversion vectors from p16+ → p21+ or p21+ → p16+.</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">세포가 p16+ 상태와 p21+ 상태 사이를 이동하지 않는다. 각 세노타입은 고정된 운명(committed fate). 따라서 하나를 제거해도 다른 하나가 보충되지 않는다.</span><span class="lang-en">Cells do not move between p16+ and p21+ states. Each senotype is a committed fate. Therefore, clearing one does not lead to replenishment by the other.</span></div>
+            </div>
+          </details>
+          <details class="panel-node">
+            <summary>
+              <span class="panel-letter">B</span>
+              <span class="panel-exp-type"><span class="lang-kr">Monocle3 의사시간 분기</span><span class="lang-en">Monocle3 pseudotime branching</span></span>
+              <span class="panel-tldr"><span class="lang-kr">공통 전구세포 없음</span><span class="lang-en">No shared progenitor root</span></span>
+            </summary>
+            <div class="panel-body">
+              <div class="panel-block exptype"><strong><span class="lang-kr">실험 유형</span><span class="lang-en">Experiment Type</span></strong><span class="lang-kr">Monocle3 UMAP + 의사시간 overlay. 루트 세포 설정 후 분기점 분석.</span><span class="lang-en">Monocle3 UMAP + pseudotime overlay. Root cell assignment followed by branching point analysis.</span></div>
+              <div class="panel-block result"><strong><span class="lang-kr">결과</span><span class="lang-en">Result</span></strong><span class="lang-kr">p16+ 세포와 p21+ 세포는 별도의 분기를 형성. 공유 분기점(branch point)이나 공통 루트 클러스터 없음.</span><span class="lang-en">p16+ and p21+ cells form separate branches. No shared branch point or common root cluster.</span></div>
+              <div class="panel-block meaning"><strong><span class="lang-kr">의미</span><span class="lang-en">Meaning</span></strong><span class="lang-kr">두 세노타입은 세포 정체성 수준에서 이미 분리된 경로를 따르며, 하나가 다른 하나로의 전환은 생리적으로 일어나지 않는다.</span><span class="lang-en">The two senotypes follow already-separated paths at the cell identity level, and conversion from one to the other does not occur physiologically.</span></div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+    </div><!-- /figure-tree -->
+  </div><!-- /panel -->
+
+</div><!-- /t1 -->
+
+<!-- TAB 2: 방법 / Methods -->
+<div class="tab-content" id="t2">
+
+  <div class="panel">
+    <h2>🔬 <span class="lang-kr">핵심 방법론</span><span class="lang-en">Core Methodology</span></h2>
+    <div class="bubble purple">
+      <span class="lang-kr">공개 scRNA-seq 데이터셋을 재분석하는 메타 분석 접근법. 마우스 4종 + 인간 2종 조직에서 세포 단위 p16/p21 발현 스코어링 후 세포형별 세노타입 분류.</span>
+      <span class="lang-en">Meta-analysis approach re-analyzing public scRNA-seq datasets. Cell-level p16/p21 expression scoring across 4 mouse + 2 human tissues, followed by cell-type-specific senotype classification.</span>
+    </div>
+  </div>
+
+  <!-- Method Deep Card 1 -->
+  <details class="method-deep">
+    <summary>
+      <span class="method-icon">📊</span>
+      <span class="method-name">
+        <span class="lang-kr">다조직 scRNA-seq 공개 데이터 통합 (메타 분석)</span>
+        <span class="lang-en">Multi-tissue scRNA-seq public dataset integration (meta-analysis)</span>
+      </span>
+      <span class="method-shorttag">Seurat / Scanpy · harmony</span>
+    </summary>
+    <div class="method-body">
+      <h4>🧩 <span class="lang-kr">방법 개요</span><span class="lang-en">Method Overview</span></h4>
+      <p>
+        <span class="lang-kr">GEO/SRA에서 마우스(뇌, 골격근, 뼈, 간)와 인간(피부, 폐) 노화 조직 scRNA-seq 공개 데이터셋을 수집. Seurat(마우스) / Scanpy(인간)로 표준 QC 파이프라인 적용 후, Harmony 또는 scVI로 배치 효과 보정. 세포형 주석은 marker 유전자 및 참조 atlas 기반.</span>
+        <span class="lang-en">Collected public scRNA-seq datasets from GEO/SRA for mouse (brain, skeletal muscle, bone, liver) and human (skin, lung) aging tissues. Applied standard QC pipelines with Seurat (mouse) / Scanpy (human), then batch-corrected with Harmony or scVI. Cell type annotation based on marker genes and reference atlases.</span>
+      </p>
+      <div class="analogy-box">
+        <h4>🍱 <span class="lang-kr">직관적 비유</span><span class="lang-en">Intuitive Analogy</span></h4>
+        <p>
+          <span class="lang-kr">여러 나라 식당의 메뉴판을 모아서, 각 요리에 "매운 재료(p16)" 또는 "쓴 재료(p21)"가 들어있는지 표시하는 것. 각 식당(조직)마다 어떤 요리(세포형)에 어떤 재료가 들어가는지 비교하는 분석이다.</span>
+          <span class="lang-en">Like collecting menus from restaurants across different countries, then flagging which dishes contain "spicy ingredient (p16)" or "bitter ingredient (p21)." The analysis compares which dishes (cell types) in each restaurant (tissue) contain which ingredient.</span>
+        </p>
+      </div>
+      <div class="why-box">
+        <h4>🔵 <span class="lang-kr">왜 이 방법인가?</span><span class="lang-en">Why this method?</span></h4>
+        <p>
+          <span class="lang-kr">6개 조직에 걸쳐 새로운 실험을 모두 수행하는 것은 불가능. 공개 데이터 재분석으로 광범위한 조직 커버리지를 확보하면서 검증력을 높임. 방법적 일관성은 동일 파이프라인 적용으로 확보.</span>
+          <span class="lang-en">Running new experiments across all 6 tissues is infeasible. Re-analyzing public data achieves broad tissue coverage while increasing validation power. Methodological consistency ensured by applying identical pipelines.</span>
+        </p>
+      </div>
+      <div class="can-see-box">
+        <h4>🟢 <span class="lang-kr">이 방법으로 볼 수 있는 것</span><span class="lang-en">What this method can reveal</span></h4>
+        <p>
+          <span class="lang-kr">세포형-세노타입 연관성의 다조직 일반성 확인 가능. 대규모 세포 수(수십만)로 희귀 세포형에서도 신뢰할 수 있는 통계 가능.</span>
+          <span class="lang-en">Can confirm cross-tissue generality of cell type-senotype associations. Large cell numbers (hundreds of thousands) enable reliable statistics even in rare cell types.</span>
+        </p>
+      </div>
+      <div class="limit-box">
+        <h4>🟠 <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+        <p>
+          <span class="lang-kr">각 데이터셋의 포획 효율·시퀀싱 깊이가 다름. p16/p21 전사체는 단백질 발현의 대리 지표이며 면역조직화학(IHC) 검증이 별도 필요. 공개 데이터는 노화 마우스 연령·성별이 불균일할 수 있음.</span>
+          <span class="lang-en">Different capture efficiency and sequencing depths across datasets. p16/p21 transcripts are proxies for protein expression; separate IHC validation is needed. Public data may have unequal aging mouse ages/sexes.</span>
+        </p>
+      </div>
+    </div>
+  </details>
+
+  <!-- Method Deep Card 2 -->
+  <details class="method-deep">
+    <summary>
+      <span class="method-icon">🎯</span>
+      <span class="method-name">
+        <span class="lang-kr">세포 단위 세노마커 스코어링 (p16/p21 전사체 게이팅)</span>
+        <span class="lang-en">Cell-level senescence marker scoring (p16/p21 transcriptomic gating)</span>
+      </span>
+      <span class="method-shorttag">AddModuleScore · binary gate</span>
+    </summary>
+    <div class="method-body">
+      <h4>🧩 <span class="lang-kr">방법 개요</span><span class="lang-en">Method Overview</span></h4>
+      <p>
+        <span class="lang-kr">Cdkn2a(p16) 및 Cdkn1a(p21) 유전자 발현을 세포별로 추출. 상위 발현 세포를 고정 컷오프(상위 5~10%) 또는 bimodal 분포 기반으로 p16-high/p21-high로 이진 분류. SenMayo 시그니처 모듈 스코어도 보조 지표로 활용.</span>
+        <span class="lang-en">Extracted Cdkn2a (p16) and Cdkn1a (p21) gene expression per cell. Classified cells with high expression as p16-high/p21-high using fixed cutoff (top 5–10%) or bimodal distribution. SenMayo signature module score used as secondary indicator.</span>
+      </p>
+      <div class="analogy-box">
+        <h4>🍱 <span class="lang-kr">직관적 비유</span><span class="lang-en">Intuitive Analogy</span></h4>
+        <p>
+          <span class="lang-kr">단세포 RNA-seq의 각 세포를 "영수증"으로 보면, 그 영수증에 p16 항목이 많이 찍혀 있으면 p16 세노사이트, p21 항목이 많으면 p21 세노사이트로 분류하는 것이다. 두 항목이 둘 다 많은 영수증이 드물다는 것이 이 논문의 핵심 발견.</span>
+          <span class="lang-en">Think of each scRNA-seq cell as a "receipt." If the receipt shows many p16 items, it's a p16 senescent cell; many p21 items means p21 senescent. The key finding is that receipts with both items in large quantity are rare.</span>
+        </p>
+      </div>
+      <div class="why-box">
+        <h4>🔵 <span class="lang-kr">왜 이 방법인가?</span><span class="lang-en">Why this method?</span></h4>
+        <p>
+          <span class="lang-kr">유세포 분석(flow cytometry)에서 단백질 기반 게이팅을 하듯 전사체 기반 "게이팅"을 적용. 세포별 분해능을 유지하면서 두 마커의 독립성을 통계적으로 검증 가능.</span>
+          <span class="lang-en">Applies transcriptome-based "gating" analogous to protein-based gating in flow cytometry. Maintains single-cell resolution while statistically testing the independence of both markers.</span>
+        </p>
+      </div>
+      <div class="limit-box">
+        <h4>🟠 <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+        <p>
+          <span class="lang-kr">p16/p21은 세포주기 정지(cell cycle arrest) 유전자이기도 하여 모든 p16-high 세포가 노화 세포인 것은 아님. 전사체 노이즈로 인한 드롭아웃(dropout)이 공동발현 빈도를 인위적으로 낮출 수 있음.</span>
+          <span class="lang-en">p16/p21 are also cell cycle arrest genes, so not all p16-high cells are senescent. Transcriptomic dropout noise may artificially reduce co-expression frequency.</span>
+        </p>
+      </div>
+    </div>
+  </details>
+
+  <!-- Method Deep Card 3 -->
+  <details class="method-deep">
+    <summary>
+      <span class="method-icon">🗺️</span>
+      <span class="method-name">
+        <span class="lang-kr">의사시간 궤적 추론 (Monocle3 + scVelo RNA velocity)</span>
+        <span class="lang-en">Pseudotime trajectory inference (Monocle3 + scVelo RNA velocity)</span>
+      </span>
+      <span class="method-shorttag">Monocle3 · scVelo · PAGA</span>
+    </summary>
+    <div class="method-body">
+      <h4>🧩 <span class="lang-kr">방법 개요</span><span class="lang-en">Method Overview</span></h4>
+      <p>
+        <span class="lang-kr">Monocle3로 세포 전사체 궤적을 재구성, UMAP에서 최소 신장 트리(MST)로 분기 구조 파악. scVelo로 전사 방향성(spliced vs unspliced mRNA 비율) 계산하여 세포 이행 방향 확인. PAGA 그래프로 클러스터 간 연결성 정량화.</span>
+        <span class="lang-en">Reconstructed cell transcriptomic trajectories with Monocle3, identifying branching structure via minimum spanning tree (MST) in UMAP. Computed transcription directionality (spliced vs unspliced mRNA ratio) with scVelo to confirm cell transition direction. Quantified inter-cluster connectivity via PAGA graph.</span>
+      </p>
+      <div class="analogy-box">
+        <h4>🍱 <span class="lang-kr">직관적 비유</span><span class="lang-en">Intuitive Analogy</span></h4>
+        <p>
+          <span class="lang-kr">RNA velocity는 세포가 어느 방향으로 달리고 있는지 보여주는 GPS 속도 화살표와 같다. p16+ 세포와 p21+ 세포의 화살표가 서로를 향하지 않는다면, 두 세포는 서로 전환되지 않는다는 뜻이다.</span>
+          <span class="lang-en">RNA velocity is like GPS speed arrows showing which direction a cell is running. If p16+ and p21+ cell arrows don't point toward each other, the two cell types don't convert into each other.</span>
+        </p>
+      </div>
+      <div class="why-box">
+        <h4>🔵 <span class="lang-kr">왜 이 방법인가?</span><span class="lang-en">Why this method?</span></h4>
+        <p>
+          <span class="lang-kr">단면(cross-sectional) 스냅샷 데이터에서 시간적 세포 이행을 추론하는 유일한 계산적 방법. 두 세노타입 사이에 가능한 전환 경로가 있는지 없는지를 가설 중립적으로 검증 가능.</span>
+          <span class="lang-en">The only computational method to infer temporal cell transitions from cross-sectional snapshot data. Enables hypothesis-neutral testing of whether possible transition paths exist between the two senotypes.</span>
+        </p>
+      </div>
+      <div class="can-see-box">
+        <h4>🟢 <span class="lang-kr">Giwon 논문에의 적용 가능성</span><span class="lang-en">Applicability to Giwon's paper</span></h4>
+        <p>
+          <span class="lang-kr">D+Q 처리 전후 BM scRNA-seq 데이터에 이 방법을 적용하면, D+Q 후 잔존 세노사이트가 새로운 세노타입으로 전환되는지 여부를 검증할 수 있다. "D+Q가 p16+ 세포를 제거한 후 p21+ 세포가 보충되는가?"를 궤적 분석으로 답변 가능.</span>
+          <span class="lang-en">Applying this method to pre/post-D+Q BM scRNA-seq data can test whether residual senescent cells after D+Q convert to a new senotype. Trajectory analysis can answer: "After D+Q removes p16+ cells, do p21+ cells replenish them?"</span>
+        </p>
+      </div>
+    </div>
+  </details>
+
+</div><!-- /t2 -->
+
+<!-- TAB 3: 결과 / Results -->
+<div class="tab-content" id="t3">
+
+  <!-- Key Numbers -->
+  <div class="panel">
+    <h2>📊 <span class="lang-kr">핵심 수치</span><span class="lang-en">Key Numbers</span></h2>
+    <div class="numbers-strip">
+      <div class="number-chip">
+        <strong>6</strong>
+        <span class="unit"><span class="lang-kr">분석 조직</span><span class="lang-en">tissues analyzed</span></span>
+      </div>
+      <div class="number-chip blue">
+        <strong>&lt;5%</strong>
+        <span class="unit"><span class="lang-kr">공동발현 세포 비율</span><span class="lang-en">co-expressing cells</span></span>
+      </div>
+      <div class="number-chip green">
+        <strong>2</strong>
+        <span class="unit"><span class="lang-kr">독립 세노타입</span><span class="lang-en">independent senotypes</span></span>
+      </div>
+      <div class="number-chip purple">
+        <strong>0</strong>
+        <span class="unit"><span class="lang-kr">전환 궤적</span><span class="lang-en">conversion trajectories</span></span>
+      </div>
+      <div class="number-chip">
+        <strong>↑Il6</strong>
+        <span class="unit"><span class="lang-kr">골 p16+ SASP</span><span class="lang-en">bone p16+ SASP</span></span>
+      </div>
+      <div class="number-chip blue">
+        <strong>↑Tgfb1</strong>
+        <span class="unit"><span class="lang-kr">골 p21+ SASP</span><span class="lang-en">bone p21+ SASP</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deep Dive 1 -->
+  <details class="deep-dive">
+    <summary>🔑 <span class="lang-kr">발견 1: p16+ ≠ p21+ — 거의 겹치지 않는 두 세노사이트 집단</span><span class="lang-en">Finding 1: p16+ ≠ p21+ — two largely non-overlapping senescent cell populations</span></summary>
+    <div class="body">
+      <h4>💬 <span class="lang-kr">한 줄 요약</span><span class="lang-en">One-line summary</span></h4>
+      <p class="narrative">
+        <span class="lang-kr">마우스와 인간의 6개 노화 조직에서 p16+ 세포와 p21+ 세포는 <strong>단세포 UMAP 상에서 서로 다른 영역에 위치</strong>하며, 공동발현 세포는 전체의 5% 미만이다.</span>
+        <span class="lang-en">In 6 aging tissues from mice and humans, p16+ and p21+ cells <strong>occupy distinct regions on single-cell UMAP</strong>, with co-expressing cells comprising less than 5% of the total.</span>
+      </p>
+      <h4>🔢 <span class="lang-kr">세부 수치</span><span class="lang-en">Specific numbers</span></h4>
+      <div class="numbers-strip">
+        <div class="number-chip">
+          <strong>&lt;5%</strong>
+          <span class="unit"><span class="lang-kr">공동발현</span><span class="lang-en">co-expression rate</span></span>
+        </div>
+        <div class="number-chip blue">
+          <strong>6/6</strong>
+          <span class="unit"><span class="lang-kr">조직에서 재현</span><span class="lang-en">tissues consistent</span></span>
+        </div>
+      </div>
+      <div class="paper-quote">
+        <span class="lang-kr">"p16+ 세포와 p21+ 세포는 마우스와 인간 노화 조직 전반에서 독립적이고 거의 겹치지 않는 세포 집단을 이루며, 각각 고유한 세포형 풍부도, SASP, 전사 궤적을 가진다."</span>
+        <span class="lang-en">"p16+ and p21+ cells constitute independent and largely non-overlapping cell populations across mouse and human aging tissues, each with distinct cell-type abundances, SASPs, and transcriptional trajectories."</span>
+        <span class="src">— Saul et al., EMBO J 2025</span>
+      </div>
+      <h4>🔗 <span class="lang-kr">Giwon 논문과의 연결</span><span class="lang-en">Connection to Giwon's paper</span></h4>
+      <p class="narrative">
+        <span class="lang-kr">D+Q 처리 후 BM에서 p16+ 세포가 감소한다는 기존 보고가 곧 "세노사이트 전체"의 감소를 뜻하지 않는다. <strong>p21+ 세포는 D+Q에 저항할 수 있으며</strong>, 이 논문의 결과는 v11 Discussion에서 "D+Q 표적의 세노타입 특이성"을 논할 새로운 레퍼런스로 기능한다. Doolittle 2026(JCI) 논문(이미 인용됨)의 공동 저자가 이 논문의 주저자이기도 해서 내러티브 연결이 자연스럽다.</span>
+        <span class="lang-en">Prior reports that p16+ cells decrease in BM after D+Q treatment do not mean "all senescent cells" decreased. <strong>p21+ cells may resist D+Q</strong>, and this paper's findings serve as a new reference to discuss "senotype specificity of D+Q targets" in v11 Discussion. The connection is especially natural since Doolittle (co-author of your already-cited JCI 2026 paper) is a co-author here.</span>
+      </p>
+    </div>
+  </details>
+
+  <!-- Deep Dive 2 -->
+  <details class="deep-dive">
+    <summary>🦴 <span class="lang-kr">발견 2: 뼈에서 가장 선명한 세노타입 분리 — 골세포(p16+) vs 골연골전구세포(p21+)</span><span class="lang-en">Finding 2: Sharpest senotype separation in bone — osteocytes (p16+) vs osteochondroprogenitors (p21+)</span></summary>
+    <div class="body">
+      <h4>💬 <span class="lang-kr">한 줄 요약</span><span class="lang-en">One-line summary</span></h4>
+      <p class="narrative">
+        <span class="lang-kr">분석된 조직 중 뼈에서 p16+ / p21+ 세포의 세포형 분리가 가장 뚜렷하다. <strong>p16+: 성숙 골세포(osteocyte) → 골소실 연관</strong>. <strong>p21+: 골연골전구세포(osteochondroprogenitor) + 중성구 → 골절 치유 지연 연관</strong>. 이 분리는 기능적 결과도 다름을 시사한다.</span>
+        <span class="lang-en">Bone shows the sharpest cell-type separation of p16+ / p21+ cells among analyzed tissues. <strong>p16+: mature osteocytes → associated with bone loss</strong>. <strong>p21+: osteochondroprogenitors + neutrophils → associated with delayed fracture healing</strong>. This separation suggests different functional consequences.</span>
+      </p>
+      <h4>🔢 <span class="lang-kr">세포형별 enrichment</span><span class="lang-en">Cell-type enrichment</span></h4>
+      <div class="numbers-strip">
+        <div class="number-chip">
+          <strong>Osteocyte</strong>
+          <span class="unit"><span class="lang-kr">p16+ 주요 세포형</span><span class="lang-en">p16+ dominant</span></span>
+        </div>
+        <div class="number-chip blue">
+          <strong>OCP+Neutro</strong>
+          <span class="unit"><span class="lang-kr">p21+ 주요 세포형</span><span class="lang-en">p21+ dominant</span></span>
+        </div>
+      </div>
+      <h4>🔗 <span class="lang-kr">Giwon 논문과의 연결</span><span class="lang-en">Connection to Giwon's paper</span></h4>
+      <p class="narrative">
+        <span class="lang-kr">Giwon의 BM 세노리틱 데이터에서 D+Q 후 MSC/CAR-세포와 골계열(osteogenic lineage) 세포의 변화를 분석할 때, 이 발견이 "어느 세노타입이 실제 D+Q 표적인가"를 뒷받침하는 증거가 된다. 특히 Doolittle 2026(JCI)에서 MSC p16+ 세포가 D+Q 후 감소했다는 보고와 직접 연결된다. <strong>골세포(osteocyte) p16+ 세노타입이 BM 내에서 D+Q의 핵심 표적일 수 있다는 새 가설</strong>을 Discussion에 추가할 수 있다.</span>
+        <span class="lang-en">When analyzing changes in MSC/CAR-cells and osteogenic lineage cells after D+Q in Giwon's BM senolytic data, this finding supports the question "which senotype is the actual D+Q target?" It directly connects to Doolittle 2026 (JCI) showing that MSC p16+ cells decrease after D+Q. <strong>A new hypothesis can be added to Discussion</strong>: osteocyte p16+ senotype may be a key D+Q target within BM.</span>
+      </p>
+    </div>
+  </details>
+
+  <!-- Deep Dive 3 -->
+  <details class="deep-dive">
+    <summary>💊 <span class="lang-kr">발견 3: 세노타입별 고유 SASP — D+Q 표적 선정 전략에 직접 도전</span><span class="lang-en">Finding 3: Unique SASP per senotype — directly challenges D+Q target selection strategy</span></summary>
+    <div class="body">
+      <h4>💬 <span class="lang-kr">한 줄 요약</span><span class="lang-en">One-line summary</span></h4>
+      <p class="narrative">
+        <span class="lang-kr">p16+ 세포와 p21+ 세포는 조직마다 서로 다른 SASP를 분비한다. <strong>뼈 p16+: Il6·Cxcl12·Mmp13 중심. 뼈 p21+: Tgfb1·Cxcl10·Ccl2 중심</strong>. 계층 군집분석에서 SASP 프로파일의 1차 결정자는 세노타입(p16 vs p21)이고, 조직 컨텍스트는 2차 변조자이다.</span>
+        <span class="lang-en">p16+ and p21+ cells secrete distinct SASPs per tissue. <strong>Bone p16+: centered on Il6·Cxcl12·Mmp13. Bone p21+: centered on Tgfb1·Cxcl10·Ccl2</strong>. In hierarchical clustering, the primary SASP determinant is senotype (p16 vs p21), with tissue context as a secondary modulator.</span>
+      </p>
+      <div class="paper-quote">
+        <span class="lang-kr">SASP는 조직마다, 세포형마다, 그리고 세노마커(p16 vs p21) 정체성마다 다르게 구성된다. 세노리틱 연구에서 "SASP 감소"를 보고할 때는 어느 세노타입의 SASP인지 특정해야 한다.</span>
+        <span class="lang-en">SASP is composed differently per tissue, per cell type, and per senescence marker (p16 vs p21) identity. When reporting "SASP reduction" in senolytic studies, the specific senotype whose SASP is reduced must be identified.</span>
+        <span class="src">— Saul et al., EMBO J 2025 (interpretation)</span>
+      </div>
+      <h4>🔗 <span class="lang-kr">Giwon 논문과의 연결</span><span class="lang-en">Connection to Giwon's paper</span></h4>
+      <p class="narrative">
+        <span class="lang-kr">v11 논문에서 D+Q가 낮추는 BM SASP 성분(Lgals9, Cxcl12, Tgfb1, Il6 등)이 <strong>p16+ 세포 유래인지 p21+ 세포 유래인지</strong>를 이 논문의 프레임으로 재해석할 수 있다. Cxcl12가 p16+ osteocyte SASP로 확인된다면, D+Q의 Cxcl12 감소 효과는 p16+ 세노타입 제거를 통한 것으로 설명 가능. Discussion §3.x에서 "미래 연구 방향: BM에서 p16+ vs p21+ 세노타입별 SASP 기여 분리"를 추가 권고.</span>
+        <span class="lang-en">In the v11 paper, BM SASP components reduced by D+Q (Lgals9, Cxcl12, Tgfb1, Il6, etc.) can be reinterpreted through this paper's framework to ask <strong>whether they originate from p16+ or p21+ cells</strong>. If Cxcl12 is confirmed as p16+ osteocyte SASP, D+Q's Cxcl12-reduction effect can be explained via elimination of p16+ senotype. Recommend adding to Discussion §3.x: "Future direction: dissecting p16+ vs p21+ senotype-specific SASP contributions in BM."</span>
+      </p>
+    </div>
+  </details>
+
+  <!-- Outcome Cards -->
+  <div class="panel">
+    <h2>🏆 <span class="lang-kr">종합 결론</span><span class="lang-en">Overall Conclusions</span></h2>
+    <div class="outcomes">
+      <div class="outcome-card pink">
+        <div class="icon">🔴</div>
+        <div class="source-tag">p16+</div>
+        <h3><span class="lang-kr">별도의 노화 경로</span><span class="lang-en">Separate Aging Path</span></h3>
+        <ul>
+          <li>🦴 <span class="lang-kr">뼈: 골세포 중심</span><span class="lang-en">Bone: osteocyte-dominant</span></li>
+          <li>🧠 <span class="lang-kr">뇌: 미세아교세포</span><span class="lang-en">Brain: microglia</span></li>
+          <li>💊 <span class="lang-kr">SASP: Il6, Cxcl12, Mmp13</span><span class="lang-en">SASP: Il6, Cxcl12, Mmp13</span></li>
+          <li>📉 <span class="lang-kr">골소실 연관</span><span class="lang-en">Bone loss association</span></li>
+        </ul>
+      </div>
+      <div class="outcome-card blue">
+        <div class="icon">🔵</div>
+        <div class="source-tag">p21+</div>
+        <h3><span class="lang-kr">독립적 노화 경로</span><span class="lang-en">Independent Aging Path</span></h3>
+        <ul>
+          <li>🦴 <span class="lang-kr">뼈: 골연골전구세포 + 중성구</span><span class="lang-en">Bone: OCP + neutrophil</span></li>
+          <li>🫁 <span class="lang-kr">폐: 내피세포</span><span class="lang-en">Lung: endothelial</span></li>
+          <li>💊 <span class="lang-kr">SASP: Tgfb1, Cxcl10, Ccl2</span><span class="lang-en">SASP: Tgfb1, Cxcl10, Ccl2</span></li>
+          <li>🩹 <span class="lang-kr">골절 치유 지연 연관</span><span class="lang-en">Fracture healing delay</span></li>
+        </ul>
+      </div>
+      <div class="outcome-card purple">
+        <div class="icon">⚡</div>
+        <div class="source-tag">임상 시사점</div>
+        <h3><span class="lang-kr">세노리틱 표적화 전략 재설계 필요</span><span class="lang-en">Senolytic Targeting Strategy Redesign Required</span></h3>
+        <ul>
+          <li>🎯 <span class="lang-kr">p16+ 세노타입 선택적 제거</span><span class="lang-en">Selective p16+ senotype clearing</span></li>
+          <li>🎯 <span class="lang-kr">p21+ 세노타입 선택적 제거</span><span class="lang-en">Selective p21+ senotype clearing</span></li>
+          <li>🚫 <span class="lang-kr">광범위 세노리틱은 부작용 위험</span><span class="lang-en">Broad senolytics risk side effects</span></li>
+          <li>🔬 <span class="lang-kr">조직별 표적 전략 차별화 요구</span><span class="lang-en">Tissue-specific targeting needed</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /t3 -->
+
+<!-- TAB 4: 고찰 / Discussion -->
+<div class="tab-content" id="t4">
+
+  <!-- Mechanism SVG -->
+  <div class="panel">
+    <h2>⚙️ <span class="lang-kr">세노타입 분기 메커니즘</span><span class="lang-en">Senotype Divergence Mechanism</span></h2>
+    <svg viewBox="0 0 860 340" class="scene" style="max-width:860px;" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background -->
+      <rect x="0" y="0" width="860" height="340" rx="20" fill="#fafbff"/>
+
+      <!-- Central node: Aging stimulus -->
+      <ellipse cx="430" cy="60" rx="110" ry="34" fill="#ffe6f0" stroke="#d63384" stroke-width="2"/>
+      <text x="430" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#d63384" font-family="system-ui">
+        <tspan class="lang-kr">노화 스트레스</tspan>
+        <tspan class="lang-en">Aging Stress</tspan>
+      </text>
+      <text x="430" y="72" text-anchor="middle" font-size="11" fill="#888" font-family="system-ui">
+        <tspan class="lang-kr">(산화, DNA 손상, 텔로미어 소모)</tspan>
+        <tspan class="lang-en">(oxidative, DNA damage, telomere)</tspan>
+      </text>
+
+      <!-- Branch arrow left -->
+      <line x1="360" y1="94" x2="230" y2="145" stroke="#d63384" stroke-width="2" marker-end="url(#arrow-pink)"/>
+      <!-- Branch arrow right -->
+      <line x1="500" y1="94" x2="630" y2="145" stroke="#5b9bd5" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+      <!-- p16+ box -->
+      <rect x="90" y="148" width="280" height="80" rx="14" fill="#ffe6f0" stroke="#d63384" stroke-width="2"/>
+      <text x="230" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#d63384" font-family="system-ui">p16⁺ Senotype</text>
+      <text x="230" y="190" text-anchor="middle" font-size="11" fill="#666" font-family="system-ui">
+        <tspan class="lang-kr">CDK4/6 억제 → G1 정지</tspan>
+        <tspan class="lang-en">CDK4/6 inhibition → G1 arrest</tspan>
+      </text>
+      <text x="230" y="208" text-anchor="middle" font-size="11" fill="#666" font-family="system-ui">
+        <tspan class="lang-kr">골세포, 미세아교세포 선호</tspan>
+        <tspan class="lang-en">Osteocytes, microglia preferred</tspan>
+      </text>
+
+      <!-- p21+ box -->
+      <rect x="490" y="148" width="280" height="80" rx="14" fill="#e6f0ff" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="630" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b9bd5" font-family="system-ui">p21⁺ Senotype</text>
+      <text x="630" y="190" text-anchor="middle" font-size="11" fill="#666" font-family="system-ui">
+        <tspan class="lang-kr">PCNA 억제 → S기 정지</tspan>
+        <tspan class="lang-en">PCNA inhibition → S-phase arrest</tspan>
+      </text>
+      <text x="630" y="208" text-anchor="middle" font-size="11" fill="#666" font-family="system-ui">
+        <tspan class="lang-kr">골연골전구세포, 중성구 선호</tspan>
+        <tspan class="lang-en">Osteochondroprog, neutrophils preferred</tspan>
+      </text>
+
+      <!-- No conversion arrow -->
+      <line x1="370" y1="188" x2="490" y2="188" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="430" y="183" text-anchor="middle" font-size="10" fill="#aaa" font-family="system-ui">✗</text>
+      <text x="430" y="197" text-anchor="middle" font-size="9" fill="#aaa" font-family="system-ui">
+        <tspan class="lang-kr">전환 없음</tspan>
+        <tspan class="lang-en">no conversion</tspan>
+      </text>
+
+      <!-- Downstream consequences -->
+      <rect x="90" y="268" width="280" height="52" rx="12" fill="white" stroke="#d63384" stroke-width="1.5"/>
+      <text x="230" y="289" text-anchor="middle" font-size="11" font-weight="bold" fill="#d63384" font-family="system-ui">
+        <tspan class="lang-kr">SASP: Il6, Cxcl12, Mmp13</tspan>
+        <tspan class="lang-en">SASP: Il6, Cxcl12, Mmp13</tspan>
+      </text>
+      <text x="230" y="308" text-anchor="middle" font-size="10" fill="#888" font-family="system-ui">
+        <tspan class="lang-kr">→ 골소실, 염증</tspan>
+        <tspan class="lang-en">→ bone loss, inflammation</tspan>
+      </text>
+      <line x1="230" y1="228" x2="230" y2="268" stroke="#d63384" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+      <rect x="490" y="268" width="280" height="52" rx="12" fill="white" stroke="#5b9bd5" stroke-width="1.5"/>
+      <text x="630" y="289" text-anchor="middle" font-size="11" font-weight="bold" fill="#5b9bd5" font-family="system-ui">
+        <tspan class="lang-kr">SASP: Tgfb1, Cxcl10, Ccl2</tspan>
+        <tspan class="lang-en">SASP: Tgfb1, Cxcl10, Ccl2</tspan>
+      </text>
+      <text x="630" y="308" text-anchor="middle" font-size="10" fill="#888" font-family="system-ui">
+        <tspan class="lang-kr">→ 골절 치유 지연</tspan>
+        <tspan class="lang-en">→ delayed fracture healing</span>
+      </text>
+      <line x1="630" y1="228" x2="630" y2="268" stroke="#5b9bd5" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+      <!-- Arrowhead markers -->
+      <defs>
+        <marker id="arrow-pink" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#d63384"/>
+        </marker>
+        <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#5b9bd5"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Discussion Items -->
+  <div class="panel">
+    <h2>💬 <span class="lang-kr">핵심 고찰 포인트</span><span class="lang-en">Key Discussion Points</span></h2>
+    <ul class="discussion-list">
+
+      <li class="discussion-item">
+        <h4>🎯 <span class="lang-kr">세노리틱 연구의 근본 가정 재검토</span><span class="lang-en">Fundamental assumption of senolytic research revisited</span></h4>
+        <p>
+          <span class="lang-kr">D+Q, navitoclax, fisetin 등 세노리틱 약물들은 "세노사이트"를 하나의 균질한 집단으로 가정하고 개발되었다. 이 논문은 p16+ 세노사이트와 p21+ 세노사이트가 근본적으로 다른 집단임을 보여주며, 세노리틱 효능 평가 시 어느 세노타입이 제거되는지를 마커 수준에서 구분해야 한다는 새로운 기준을 제시한다.</span>
+          <span class="lang-en">Senolytic drugs like D+Q, navitoclax, and fisetin were developed assuming "senescent cells" are one homogeneous population. This paper shows p16+ and p21+ senescent cells are fundamentally different populations, setting a new standard: senolytic efficacy must distinguish which senotype is being cleared at the marker level.</span>
+        </p>
+      </li>
+
+      <li class="discussion-item controversy">
+        <h4>⚠️ <span class="lang-kr">논문 내 논란 / 열린 질문</span><span class="lang-en">Controversy / Open questions</span></h4>
+        <p>
+          <span class="lang-kr">p21+이 "노화"의 고전적 정의(비가역적 세포주기 정지)를 충족하는지에 대한 논쟁이 남아있다. p21은 DNA 손상 반응, 분화, 일시적 정지에서도 발현되어 "노화 전용 마커"가 아닐 수 있다. 이 논문이 p21+ 세포를 "세노타입"으로 정의하는 근거가 충분한지 의문이 제기될 수 있다.</span>
+          <span class="lang-en">Debate remains about whether p21+ cells meet the classical definition of senescence (irreversible cell cycle arrest). p21 is also expressed in DNA damage response, differentiation, and transient arrest — it may not be a "senescence-exclusive marker." Questions can be raised about whether this paper's basis for defining p21+ cells as a "senotype" is sufficient.</span>
+        </p>
+      </li>
+
+      <li class="discussion-item limitation">
+        <h4>🔶 <span class="lang-kr">한계</span><span class="lang-en">Limitations</span></h4>
+        <p>
+          <span class="lang-kr">1) 공개 데이터 메타분석이므로 세포 포획 깊이, 노화 마우스 연령, 성별이 데이터셋마다 다름. 2) 전사체 수준의 p16/p21 발현이 단백질 수준과 반드시 일치하지 않음. 3) IHC + scRNA-seq 동시 측정 데이터 없이 공간적 공동발현 부재를 확인하기 어려움. 4) 인간 데이터가 피부·폐에 한정되어 BM 직접 분석 없음.</span>
+          <span class="lang-en">1) Meta-analysis of public data means cell capture depth, aging mouse age, and sex differ across datasets. 2) Transcriptome-level p16/p21 expression does not necessarily correlate with protein levels. 3) Spatial co-expression absence is hard to confirm without simultaneous IHC + scRNA-seq data. 4) Human data limited to skin/lung — no direct BM analysis.</span>
+        </p>
+      </li>
+
+      <li class="discussion-item future">
+        <h4>🟢 <span class="lang-kr">향후 연구 방향 — Giwon 논문과 연계 가능성</span><span class="lang-en">Future directions — connection to Giwon's paper</span></h4>
+        <p>
+          <span class="lang-kr">BM 특이적 scRNA-seq에서 p16+ vs p21+ 세노타입별 D+Q 반응성 비교 연구가 필요하다. Giwon의 D+Q 처리 전후 BM scRNA-seq 데이터(v11 논문)에 이 논문의 세노타입 분류 파이프라인을 적용하면, BM에서 D+Q가 p16+ 세노타입을 선택적으로 제거하는지 p21+ 세노타입도 함께 제거하는지 직접 검증할 수 있다. 이는 향후 후속 연구(R01/F31 등)의 핵심 질문으로 발전시킬 수 있다.</span>
+          <span class="lang-en">BM-specific scRNA-seq studies comparing D+Q responsiveness between p16+ vs p21+ senotypes are needed. Applying this paper's senotype classification pipeline to Giwon's pre/post-D+Q BM scRNA-seq data (v11 paper) can directly test whether D+Q selectively clears p16+ senotype, p21+ senotype, or both in BM — a natural future direction question for subsequent grants (R01/F31).</span>
+        </p>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="summary-banner">
+    <span class="lang-kr">🎯 한 줄 요약: p16+ 세포 ≠ p21+ 세포. 세노리틱 연구에서 어느 세노타입을 보는지가 결론을 바꾼다.</span>
+    <span class="lang-en">🎯 One-liner: p16+ cells ≠ p21+ cells. Which senotype you're measuring changes your conclusions in senolytic research.</span>
+  </div>
+
+</div><!-- /t4 -->
+
+<footer>
+  <span class="lang-kr">Cute schematic of <strong>Saul, Jurk, Doolittle et al. 2025, <em>The EMBO Journal</em></strong></span>
+  <span class="lang-en">Cute schematic of <strong>Saul, Jurk, Doolittle et al. 2025, <em>The EMBO Journal</em></strong></span>
+  <br>
+  <a href="https://doi.org/10.1038/s44318-025-00601-2" target="_blank">📄 <span class="lang-kr">원 논문</span><span class="lang-en">Original article</span></a> ·
+  <a href="https://pubmed.ncbi.nlm.nih.gov/?term=PMC12669595" target="_blank">🔬 PubMed/PMC</a>
+</footer>
+
+</div><!-- /container -->
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+  function toggleLang() {
+    const body = document.body;
+    if (body.classList.contains('lang-kr')) {
+      body.classList.remove('lang-kr'); body.classList.add('lang-en');
+      localStorage.setItem('paper_easy_lang', 'en');
+    } else {
+      body.classList.remove('lang-en'); body.classList.add('lang-kr');
+      localStorage.setItem('paper_easy_lang', 'kr');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('paper_easy_lang');
+    if (saved === 'en') {
+      document.body.classList.remove('lang-kr');
+      document.body.classList.add('lang-en');
+    }
+  })();
+</script>
+
+</body>
+</html>
